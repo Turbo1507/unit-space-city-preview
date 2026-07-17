@@ -107,7 +107,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-bg {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(.86) saturate(.82) contrast(1.02);
+  filter: saturate(1.08) contrast(1.05);
 }
 .hero-shade {
   position: absolute; inset: 0;
