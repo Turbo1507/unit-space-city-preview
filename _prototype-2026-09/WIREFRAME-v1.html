@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unit Space — каркас v1</title>
+<title>Unit Space — каркас v2</title>
 <style>
   *{box-sizing:border-box}
   body{margin:0;background:#f4f4f5;color:#1c1c1e;
@@ -11,18 +11,19 @@
   .page{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
   .pagehead{padding:14px 0 22px;border-bottom:2px solid #1c1c1e;margin-bottom:26px}
   .pagehead h1{margin:0 0 4px;font-size:19px;letter-spacing:.3px}
-  .pagehead p{margin:0;color:#6b6b70;font-size:12.5px}
-  .row{display:grid;grid-template-columns:1fr 260px;gap:22px;align-items:start;margin:0 0 30px}
+  .pagehead p{margin:0 0 4px;color:#6b6b70;font-size:12.5px}
+  .pagehead .real{background:#e7efe7;border-left:3px solid #5b9c6b;padding:8px 10px;border-radius:4px;font-size:12px;color:#2f4f38;margin-top:8px}
+  .row{display:grid;grid-template-columns:1fr 270px;gap:22px;align-items:start;margin:0 0 30px}
   .wf{border:1.5px solid #1c1c1e;background:#fff;border-radius:6px;overflow:hidden}
   .wf-h{background:#1c1c1e;color:#fff;padding:7px 12px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;display:flex;justify-content:space-between}
   .wf-h .n{opacity:.55}
   .wf-b{padding:16px}
   .note{font-size:12px;color:#48484c;background:#ececed;border-left:3px solid #9a9aa0;padding:10px 12px;border-radius:4px}
   .note b{color:#1c1c1e}
-  .note ul{margin:6px 0 0;padding-left:16px}
-  .note li{margin:2px 0}
   .box{border:1.4px dashed #9a9aa0;border-radius:5px;padding:12px;margin:8px 0;color:#48484c;background:#fafafa}
   .box .lab{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:#8a8a90;display:block;margin-bottom:5px}
+  .box.data{border-style:solid;border-color:#5b9c6b;background:#f3f8f3;color:#2f4f38}
+  .box.data .lab{color:#5b9c6b}
   .img{position:relative;min-height:64px;display:flex;align-items:center;justify-content:center;
     background:repeating-linear-gradient(45deg,#f0f0f1,#f0f0f1 9px,#e7e7e9 9px,#e7e7e9 18px);
     border:1.4px dashed #9a9aa0;border-radius:5px;color:#7a7a80;font-size:11px;letter-spacing:1px;margin:8px 0}
@@ -32,20 +33,25 @@
   .btn{border:1.5px solid #1c1c1e;border-radius:5px;padding:8px 14px;font-size:12px;font-weight:700;display:inline-block;background:#fff;margin:3px 6px 3px 0}
   .btn.solid{background:#1c1c1e;color:#fff}
   .bar{border:1.4px solid #9a9aa0;border-radius:5px;padding:9px 12px;background:#fff;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11.5px;color:#48484c;margin:8px 0}
-  .sticky-tag{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#fff;background:#9a9aa0;border-radius:3px;padding:2px 6px;margin-left:8px;vertical-align:middle}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
   h4{margin:14px 0 4px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:#1c1c1e}
   .small{font-size:11px;color:#7a7a80}
+  table.mix{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0}
+  table.mix th,table.mix td{border:1px solid #cfcfd3;padding:4px 7px;text-align:center}
+  table.mix th{background:#efeff1}
+  table.mix td:first-child{text-align:left}
   @media(max-width:900px){.row{grid-template-columns:1fr}.note{order:-1}}
 </style>
 </head>
 <body>
 <div class="page">
 <div class="pagehead">
-  <h1>UNIT SPACE — каркас сайта v1 (lo-fi)</h1>
-  <p>Продажа U1 · U2 · U3, Nuanu City. Структура и порядок блоков. Без стиля, фото и текста — только скелет + логика. 08.09.2026</p>
+  <h1>UNIT SPACE CITY — каркас сайта v2 (lo-fi)</h1>
+  <p>Sales-сайт: U1 Space Village · U2 Nuanu Village · U3 Nyanyi Village. Структура и порядок блоков + аннотации + открытые вопросы.</p>
+  <p class="small">v1 — 08.09.2026 · v2 — вписаны реальные данные с партнёрской страницы UNIT (unitdeveloper.com/for-partners/unit-space-city)</p>
+  <div class="real">Зелёные блоки = подтверждённые данные с партнёрки. Пунктирные серые = плейсхолдер / нужно уточнить.</div>
 </div>
 
 <!-- 0 -->
@@ -54,16 +60,14 @@
     <div class="wf-h"><span>0 · Верхняя панель</span><span class="n">sticky</span></div>
     <div class="wf-b">
       <div class="bar">
-        <span>◻ ЛОГО «UNIT SPACE»</span>
+        <span>◻ ЛОГО «UNIT SPACE CITY»</span>
         <span>Проекты · Юниты · Доходность · Локация · Застройщик · FAQ</span>
         <span>RU / EN &nbsp;|&nbsp; $ / IDR</span>
         <span class="btn solid">Оставить заявку</span><span class="btn">WhatsApp</span>
       </div>
     </div>
   </div>
-  <div class="note">
-    <b>Логика.</b> Липкая. Переключатель валюты $/IDR — обязателен (RU-инвесторы считают в $, IDR пугает). Якорь-навигация по секциям. CTA всегда в поле зрения.
-  </div>
+  <div class="note"><b>Логика.</b> Липкая. RU + EN сразу (подтвердил Босс). Валюта $/IDR — обязательна. CTA всегда в поле зрения.</div>
 </div>
 
 <!-- 1 -->
@@ -71,18 +75,16 @@
   <div class="wf">
     <div class="wf-h"><span>1 · Hero</span><span class="n">1 экран</span></div>
     <div class="wf-b">
-      <div class="img" style="min-height:150px">ВИДЕО / АЭРО: Nuanu + комплексы U1–U3</div>
-      <div class="box"><span class="lab">H1</span>Купить резиденцию в Nuanu City, Бали</div>
-      <div class="box"><span class="lab">подзаголовок</span>3 проекта · leasehold XX+XX лет · U1 сдан, U2/U3 строятся</div>
-      <div class="box"><span class="lab">ценовой якорь</span>от $XXX,XXX</div>
+      <div class="img" style="min-height:150px">ВИДЕО / АЭРО: Nuanu + Nyanyi, комплексы U1–U3</div>
+      <div class="box data"><span class="lab">H1</span>Хай-тек дома в Nuanu Creative City — по цене апартаментов</div>
+      <div class="box data"><span class="lab">подзаголовок</span>Три комплекса. U1 и U2 сданы и работают как rental-бизнес, U3 — сдача осенью 2026. Сделка напрямую с девелопером Unit Space.</div>
+      <div class="box"><span class="lab">ценовой якорь</span>от $XXX,XXX &nbsp;<span class="small">(нужна цифра из «шахматки»)</span></div>
       <span class="btn solid">Подобрать юнит ↓</span>
-      <span class="btn">Забронировать просмотр</span>
-      <div class="bar"><span>◻ trust-строка: «N юнитов продано · U1 сдан 2024 · застройщик X лет на рынке»</span></div>
+      <span class="btn">Забронировать просмотр U1/U2</span>
+      <div class="bar"><span>◻ trust-строка: «U1 работает с 2024 — есть кейсы перепродажи · управляет УК с 10+ лет опыта на Бали»</span></div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> The Bali Homes (ценовой якорь «от $X»), Nuanu (локация-первой, видео). <b>Одно</b> главное действие — в каталог. Второе — просмотр (для U1 «сдан = ноль риска»).
-  </div>
+  <div class="note"><b>Приёмы:</b> The Bali Homes (ценовой якорь), Nuanu (локация-первой). Наш козырь vs Ecoverse — «уже работает + 2 очереди сданы», а не только «сдан».</div>
 </div>
 
 <!-- 2 -->
@@ -91,34 +93,32 @@
     <div class="wf-h"><span>2 · Полоса цифр</span></div>
     <div class="wf-b">
       <div class="grid4">
-        <div class="box">ROI до X% годовых</div>
-        <div class="box">Выплаты раз в квартал</div>
-        <div class="box">Leasehold XX + XX лет</div>
-        <div class="box">Юнитов в продаже: N</div>
+        <div class="box data">12–15% прогнозная годовая доходность</div>
+        <div class="box data">3 комплекса</div>
+        <div class="box data">U1 — 2024 · U2 — 2025 · U3 — осень 2026</div>
+        <div class="box">Юнитов в продаже: N <span class="small">(из «шахматки»)</span></div>
       </div>
-      <div class="box">Сдача: U1 — готов · U2 — Q_ 20__ · U3 — Q_ 20__</div>
-      <div class="small">↳ ссылка «как считаем доходность» → к сноскам/допущениям</div>
+      <div class="small">↳ ссылка «как считаем доходность» → к допущениям. 12–15% — прогноз (у Ecoverse «до 19%», но у нас аргумент «реально работает»).</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> Balitecture (полоса из 4 цифр), Ecoverse («выплаты раз в квартал» — конкретика вместо «пассивный доход»). Каждая цифра со сноской-допущением (The Bali Homes).
-  </div>
+  <div class="note"><b>Приёмы:</b> Balitecture (полоса из цифр). Каждая цифра со сноской-допущением (The Bali Homes). Не завышать — честность = отличие.</div>
 </div>
 
 <!-- 3 -->
 <div class="row">
   <div class="wf">
-    <div class="wf-h"><span>3 · Две дорожки (цель визита)</span></div>
+    <div class="wf-h"><span>3 · Три сценария владения + «почему мы»</span></div>
     <div class="wf-b">
-      <div class="grid2">
-        <div class="box" style="min-height:90px"><span class="lab">карта A</span>Инвестирую →<br>доходность · калькулятор · программа управления · план платежей</div>
-        <div class="box" style="min-height:90px"><span class="lab">карта B</span>Для жизни / релокация →<br>планировки · инфраструктура Nuanu · комьюнити · как переехать</div>
+      <div class="grid3">
+        <div class="box data" style="min-height:110px"><span class="lab">для инвестиций</span>Вход по себестоимости стройки на старте очереди · стоимость растёт с районом · юнит можно перепродать до сдачи</div>
+        <div class="box data" style="min-height:110px"><span class="lab">для аренды</span>Прогноз 12–15% годовых · всю операционку ведёт УК с 10+ лет на Бали</div>
+        <div class="box data" style="min-height:110px"><span class="lab">для жизни</span>Меблированный дом внутри Nuanu: школа, детсад, спорт, рестораны, океан — пешком</div>
       </div>
+      <h4>«Почему U1/U2/U3, а не сосед по Nuanu» — сформулировать явно</h4>
+      <div class="box data">Хай-тек по цене апартаментов · уже сданы 2 очереди + история перепродаж · своя УК · <b>внутри</b> Nuanu, а не рядом (36 ресторанов, клубы, круглый год без спада) · экосистема UNIT (свои заводы: сталь, бетон, мебель; 5 комплексов; 300+ сотрудников)</div>
     </div>
   </div>
-  <div class="note">
-    <b>Логика.</b> Не блокирует — просто скроллит к нужному акценту и слегка меняет приоритет блоков. Из ответа Босса: продукт = <b>микс</b> инвест + для жизни. Ecoverse держит это двумя разными сайтами — мы одной страницей, но двумя входами.
-  </div>
+  <div class="note"><b>Это ответ на вопрос Q2.</b> Соседи заняли темы: Ecoverse = «эко», Nuanu The Sense = «велнес-комьюнити». Наш угол — «технологичный + уже работает + внутри экосистемы UNIT». Босс — подтвердить/сместить акцент.</div>
 </div>
 
 <!-- 4 -->
@@ -127,16 +127,14 @@
     <div class="wf-h"><span>4 · Переключатель проектов U1 / U2 / U3</span><span class="n">sticky sub-nav</span></div>
     <div class="wf-b">
       <div class="bar">
-        <span>◻ U1 · Space Village · Сдан 2024 · от $X</span>
-        <span>◻ U2 · Nuanu Village · Q_ 20__ · от $X</span>
-        <span>◻ U3 · ______ · Q_ 20__ · от $X</span>
+        <span>◻ U1 · Space Village · Nuanu · Сдан 2024 · работает</span>
+        <span>◻ U2 · Nuanu Village · Nuanu · Сдан 2025 · работает</span>
+        <span>◻ U3 · Nyanyi Village · Nyanyi · Сдача осень 2026</span>
       </div>
-      <div class="small">Выбор проекта управляет блоками 5–7 (описание, планировки, каталог юнитов). По умолчанию — U1.</div>
+      <div class="box data"><span class="lab">важно уточнить</span>На партнёрке: «сейчас в продаже — только resale (вторичка от собственников)». Для sales-сайта вопрос: продаём resale U1/U2 + новострой U3, или что-то одно?</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> Nuanu (сегмент-переключатель), ERA Residence (горизонтальные ленты типов). Табы липнут при скролле внутри блока проекта. На каждом табе: код · имя · статус · «от $».
-  </div>
+  <div class="note"><b>Приёмы:</b> Nuanu (сегмент-переключатель), ERA Residence (ленты типов). Выбор проекта управляет блоками 5–7.</div>
 </div>
 
 <!-- 5 -->
@@ -145,16 +143,25 @@
     <div class="wf-h"><span>5 · Блок проекта</span><span class="n">по выбранному U#</span></div>
     <div class="wf-b">
       <div class="grid2">
-        <div class="box" style="min-height:130px"><span class="lab">редакционное описание</span>2–3 абзаца: идея, история, атмосфера. Назван архитектор / дизайнер. НЕ булиты.</div>
-        <div class="box" style="min-height:130px"><span class="lab">факты</span>участок · этажность · всего юнитов · юнит-микс (студии N / 1BR N / 2BR N / TH N) · диапазон м² · срок сдачи · tenure</div>
+        <div class="box" style="min-height:120px"><span class="lab">редакционное описание</span>2–3 абзаца: идея хай-тек дома, интеграция в Nuanu/Nyanyi. НЕ булиты. (текст — с Босса/из презентации)</div>
+        <div class="box data" style="min-height:120px"><span class="lab">факты — юнит-микс (с партнёрки)</span>
+          <table class="mix">
+            <tr><th>Тип</th><th>U1</th><th>U2</th><th>U3</th></tr>
+            <tr><td>Студия, 32 м²</td><td>20</td><td>4</td><td>—</td></tr>
+            <tr><td>1+1 BD, 60 м²</td><td>—</td><td>17</td><td>25</td></tr>
+            <tr><td>1+1 BD + бассейн, 100 м²</td><td>—</td><td>—</td><td>5</td></tr>
+            <tr><td>2+1 BD, 89 м²</td><td>1</td><td>24</td><td>1</td></tr>
+            <tr><td>2+1 BD + бассейн, 109 м²</td><td>—</td><td>—</td><td>1</td></tr>
+            <tr><td>3+1 BD вилла + бассейн, 200 м²</td><td>—</td><td>9</td><td>1</td></tr>
+          </table>
+          <span class="small">все типы кроме студии — отдельные кухня и гостиная</span>
+        </div>
       </div>
-      <div class="img">ГАЛЕРЕЯ: [IMG][IMG][IMG][IMG] → «смотреть все N» · «скачать фото-пак (ZIP/Drive)»</div>
-      <div class="bar"><span>◻ chips (sticky): Планировки · Юниты · Отделка · Прогресс стройки · Документы</span></div>
+      <div class="img">ГАЛЕРЕЯ: [IMG]×N → «смотреть все» · «скачать фото-пак». Источник: Drive-рендеры + фото-паки U1/U2/U3</div>
+      <div class="bar"><span>◻ chips (sticky): Планировки · Юниты · Отделка · Прогресс стройки (U3) · Документы</span></div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> The Modern House (редакционный текст вместо списка, назван архитектор), Nuanu (юнит-микс числом), Aston Martin (главы-якоря). Фото-пак = наш Drive-архив U1/U2/U3 (незакрытая задача — сюда же ляжет).
-  </div>
+  <div class="note"><b>Приёмы:</b> The Modern House (редакц. текст, назван архитектор), Nuanu (юнит-микс числом). Инфраструктура на месте: кафе, лаундж-бар, коворкинг, сауна, cold plunge, зал.</div>
 </div>
 
 <!-- 6 -->
@@ -162,18 +169,16 @@
   <div class="wf">
     <div class="wf-h"><span>6 · Планировки (коллекции)</span></div>
     <div class="wf-b">
-      <span class="pill">Студия</span><span class="pill">1BR</span><span class="pill">2BR</span><span class="pill">Townhouse</span>
+      <span class="pill">Студия 32</span><span class="pill">1+1 BD 60</span><span class="pill">1+1 +бассейн 100</span><span class="pill">2+1 BD 89</span><span class="pill">2+1 +бассейн 109</span><span class="pill">3+1 вилла 200</span>
       <div class="grid3">
-        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · N комн · от $X · ◻ PDF</div>
-        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · N комн · от $X · ◻ PDF</div>
-        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · N комн · от $X · ◻ PDF</div>
+        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · от $X · ◻ PDF</div>
+        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · от $X · ◻ PDF</div>
+        <div class="box"><div class="img" style="min-height:80px">ПЛАН</div>XX м² · от $X · ◻ PDF</div>
       </div>
-      <div class="small">Скачивание PDF-планировки — за email (мягкий гейт).</div>
+      <div class="box data"><span class="lab">есть материалы</span>Мастер-планы U1 (JPG) / U2 (PDF) / U3 (PDF) · 3D-модель и общий мастер-план (Sketchfab) · рендеры (Drive)</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> Aston Martin (планировки = коллекции по линейке/этажу, мягкий гейт). Смотреть свободно, скачать PDF — за контакт.
-  </div>
+  <div class="note"><b>Приёмы:</b> Aston Martin (планировки = коллекции по типу/этажу, мягкий гейт: смотреть свободно, PDF — за email).</div>
 </div>
 
 <!-- 7 -->
@@ -183,21 +188,18 @@
     <div class="wf-b">
       <div class="bar">
         <span>Проект: U1/U2/U3/все</span><span>Статус: Доступен/Бронь/Продан</span>
-        <span>Спальни: ◻◻◻◻</span><span>Площадь ▭▭ слайдер</span>
-        <span>Этаж ▭▭</span><span>Цена ▭▭</span><span>Фаза/сдача</span>
-        <span>Теги: терраса · бассейн · угловой · вид на океан</span><span>☑ только доступные</span>
+        <span>Тип: студия / 1+1 / 2+1 / вилла</span><span>Бассейн: да/нет</span>
+        <span>Площадь ▭▭</span><span>Цена ▭▭</span><span>Этаж ▭▭</span><span>☑ только доступные</span>
       </div>
-      <div class="box"><b>Найдено N юнитов</b> &nbsp;·&nbsp; сортировка: цена / цена за м² / площадь</div>
+      <div class="box"><b>Найдено N юнитов</b> · сортировка: цена / цена за м² / площадь</div>
       <div class="grid2">
-        <div class="box"><div class="flex"><div class="img" style="min-height:70px;flex:0 0 90px">ПЛАН</div><div>U1-A-203 · 2BR · 74 м²<br>2 этаж · от $XXX,XXX<br><span class="pill">Доступен</span> ♥</div></div></div>
-        <div class="box"><div class="flex"><div class="img" style="min-height:70px;flex:0 0 90px">ПЛАН</div><div>U1-B-105 · 1BR · 46 м²<br>1 этаж · от $XXX,XXX<br><span class="pill">Бронь</span> ♥</div></div></div>
+        <div class="box"><div class="flex"><div class="img" style="min-height:70px;flex:0 0 90px">ПЛАН</div><div>U2 · 2+1 BD · 89 м²<br>этаж 2 · от $XXX,XXX<br><span class="pill">Доступен</span> ♥</div></div></div>
+        <div class="box"><div class="flex"><div class="img" style="min-height:70px;flex:0 0 90px">ПЛАН</div><div>U1 · Студия · 32 м²<br>этаж 1 · от $XXX,XXX<br><span class="pill">Бронь</span> ♥</div></div></div>
       </div>
-      <div class="img" style="min-height:90px">КАРТОЧКА ЮНИТА (модалка): большой план · разбивка м² по комнатам · мини-карта этажа (где юнит) · цена · «Запросить» · «В подборку»</div>
+      <div class="box data"><span class="lab">источник данных</span>«Шахматка — наличие и цены юнитов» (Google Sheet) уже существует — Босс пингует за доступом. Она = бэкенд этого блока (номер, тип, м², этаж, цена, статус).</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> era.estate/flats — живой счётчик «N найдено», слайдеры цена/площадь, чипы комнат, фильтр по фазе+кварталу сдачи, фичи-теги, «только доступные», карточка с планировкой-миниатюрой + статус-бейдж. Bali Home Immo — shortlist/избранное (♥).
-  </div>
+  <div class="note"><b>Приёмы:</b> era.estate/flats — живой счётчик, слайдеры цена/площадь, чипы типа, «только доступные», карточка с планом + статус-бейдж. Shortlist (♥) — Bali Home Immo.</div>
 </div>
 
 <!-- 8 -->
@@ -205,38 +207,35 @@
   <div class="wf">
     <div class="wf-h"><span>8 · Доходность / инвестиция</span></div>
     <div class="wf-b">
-      <h4>Таблица по сценарию</h4>
-      <div class="box">Краткосрок (Airbnb) · Долгосрок · Прирост капитала · Комбо — доходность % · допущения · дисклеймер</div>
+      <h4>Три сценария (с партнёрки)</h4>
+      <div class="box data">Вход по себестоимости стройки на старте → перепродажа до сдачи · Аренда: прогноз 12–15%, операционка на УК · Жизнь: меблировано, всё пешком</div>
       <h4>ROI-калькулятор</h4>
       <div class="box">ввод: юнит/цена · загрузка % · ставка/ночь · стратегия → вывод: годовой доход · ROI % · окупаемость. «Пришлём расчёт на почту»</div>
-      <h4>Программа управления</h4>
-      <div class="box">«Сдаём за вас: housekeeping · OTA · выплаты раз в квартал на ваш счёт». Комиссия X%.</div>
-      <h4>Рынок Бали</h4>
-      <div class="grid3"><div class="img" style="min-height:70px">ГРАФИК турпоток</div><div class="img" style="min-height:70px">ГРАФИК загрузка</div><div class="img" style="min-height:70px">ГРАФИК ставка</div></div>
-      <h4>Оплата и план платежей</h4>
-      <div class="box">«Платёж в любой валюте, расчёт в USD». Таблица: бронь X% → контракт X% → этапы → ключи. Пресейл −10% к публичной, +X% к сдаче.</div>
+      <h4>Данные для калькулятора / графиков</h4>
+      <div class="box">Фактические цифры загрузки/доходности U1 (работает с 2024) — <b>на сайте UNIT НЕ опубликованы</b>. Есть «Финансовая модель» (Google Sheet) — Босс пингует. Плюс рыночные графики Бали (турпоток/загрузка/ставка).</div>
+      <h4>Резервирование (с партнёрки)</h4>
+      <div class="box data">Депозит <b>$1,500 невозвратный</b> → фиксация юнита и цены на 14 дней → Reservation Agreement + основной Purchase Agreement, оба через DocuSign. Сделка напрямую с Unit Space.</div>
+      <h4>Оплата</h4>
+      <div class="box">План платежей [таблица]. Приём в разных валютах → расчёт в USD (как Ecoverse) — уточнить у Босса.</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> The Bali Homes (стат-плитки со сносками, графики рынка, ROI-калькулятор), Balitecture (таблица «доходность по сценарию»), Ecoverse (квартальная выплата, оплата в любой валюте→USD, пресейл vs публичная цена).
-  </div>
+  <div class="note"><b>Приёмы:</b> The Bali Homes (калькулятор, графики рынка, сноски), Balitecture (таблица по сценарию), Ecoverse (депозит/DocuSign аналог, оплата→USD).</div>
 </div>
 
 <!-- 9 -->
 <div class="row">
   <div class="wf">
-    <div class="wf-h"><span>9 · Локация — Nuanu City</span></div>
+    <div class="wf-h"><span>9 · Локация — Nuanu &amp; Nyanyi</span></div>
     <div class="wf-b">
-      <div class="img" style="min-height:130px">ИНТЕРАКТИВНАЯ КАРТА: пины U1/U2/U3 + объекты Nuanu (пляж, школа, Luna Beach Club, THK Tower…) + расстояния</div>
+      <div class="img" style="min-height:130px">ИНТЕРАКТИВНАЯ КАРТА: пины U1/U2 (Nuanu) + U3 (Nyanyi) + объекты Nuanu (Luna Beach Club, Ash, Lumeira, Oshom, Alpacafe, THK Tower, школа, пляж) + расстояния</div>
       <div class="grid2">
-        <div class="box"><span class="lab">что такое Nuanu</span>44 га · 70% зелени · экосистема культура/природа/технологии · ссылка/видео</div>
-        <div class="box"><span class="lab">дорога</span>аэропорт __ мин · Чангу __ · Убуд __ · пляж __ мин пешком</div>
+        <div class="box data"><span class="lab">что такое Nuanu</span>44 га · 70% зелени · 36 ресторанов и кафе · события круглый год</div>
+        <div class="box"><span class="lab">дорога</span>аэропорт __ · Чангу __ · Убуд __ · пляж __ мин пешком &nbsp;<span class="small">(цифры уточнить)</span></div>
       </div>
+      <div class="small">Адрес: Jl Pantai Nyanyi #88, Beraban, Tabanan, Bali.</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> era.estate (интерактивная 3D-карта окружения), Nuanu (нарратив экосистемы). У нас уже есть iplan-подход по BSO — переиспользовать движок.
-  </div>
+  <div class="note"><b>Приёмы:</b> era.estate (интеракт. 3D-карта окружения), Nuanu (нарратив экосистемы). Переиспользовать движок iplan от BSO. Есть 3D-модель на Sketchfab.</div>
 </div>
 
 <!-- 10 -->
@@ -244,18 +243,15 @@
   <div class="wf">
     <div class="wf-h"><span>10 · Доверие</span></div>
     <div class="wf-b">
+      <div class="box data"><span class="lab">застройщик</span>Unit Space / UNIT. Основатель Steven Fedos: за 4 года из стартапа — группа из 5+1 компаний, 300+ сотрудников, 5 жилых комплексов, свои заводы (сталь, бетон, мебель), УК, аналитика, электро-мотовенчур</div>
       <div class="grid2">
-        <div class="box"><span class="lab">застройщик</span>кто · портфель сданных проектов · лет на рынке · офисы</div>
-        <div class="box"><span class="lab">прогресс стройки</span>фото по датам (U2/U3) · «U1 сдан — приходите смотреть» + «Записаться на просмотр»</div>
+        <div class="box"><span class="lab">прогресс стройки U3</span>фото по датам + «U1/U2 сданы — приходите смотреть» + «Записаться на просмотр»</div>
+        <div class="box data"><span class="lab">кто уже купил</span>инвесторы из Сингапура, США, Канады, Франции, Швейцарии, Казахстана, Украины, Турции, России, Китая, Латвии — предприниматели, архитекторы, брокеры, блогеры, инженеры ракет</div>
       </div>
-      <div class="box"><span class="lab">документы</span>образец leasehold-договора · разрешения (PBG / SLF) · тех-условия — список с «PDF»</div>
-      <div class="box"><span class="lab">соц-доказательство</span>отзывы покупателей · цитаты прессы/партнёров (Nuanu, рейтинги OTA)</div>
-      <div class="box"><span class="lab">честный разбор (опц.)</span>кому подходит / кому нет / риски — с бейджами</div>
+      <div class="box data"><span class="lab">документы (есть)</span>структура сделки (PDF) · работа с возражениями (PDF) · презентация (PDF) · мастер-планы · договор напрямую с Unit Space, подпись через DocuSign</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> era.estate («прогресс стройки» + «документы»), Sinergi (портфель + офисы), The Modern House (пул-цитаты прессы), Rumavi (независимый разбор Pros/Cons/Risk). Ecoverse: open house сданного проекта как инструмент продаж.
-  </div>
+  <div class="note"><b>Приёмы:</b> era.estate (прогресс стройки + документы), Sinergi (портфель + масштаб), The Modern House (соц-доказательство), Rumavi (честный разбор — опц.).</div>
 </div>
 
 <!-- 11 -->
@@ -263,14 +259,12 @@
   <div class="wf">
     <div class="wf-h"><span>11 · «Снимаем страхи» / как купить</span></div>
     <div class="wf-b">
-      <div class="box"><span class="lab">покупка иностранцем</span>leasehold vs freehold · нужен ли PT PMA · налоги при покупке/владении</div>
-      <div class="box"><span class="lab">процесс по шагам</span>1 выбор → 2 бронь (депозит, возвратный?) → 3 due diligence / нотариус → 4 договор → 5 платежи → 6 передача + управление</div>
-      <div class="box"><span class="lab">риски</span>сейсмика · паводок · эскроу · страховка</div>
+      <div class="box"><span class="lab">покупка иностранцем</span>leasehold vs freehold + срок · нужен ли PT PMA · налоги — <b>уточнить у Босса</b> (на партнёрке структура в отдельном PDF)</div>
+      <div class="box data"><span class="lab">процесс по шагам (с партнёрки)</span>1 выбор юнита → 2 депозит $1,500 (невозвратный, лок цены 14 дн) → 3 Reservation Agreement (DocuSign) → 4 разбор Purchase Agreement → 5 основной договор (DocuSign) → 6 передача + УК</div>
+      <div class="box"><span class="lab">риски</span>сейсмика · паводок · гарантии для нового инвестора при перепродаже</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> Nuanu (блок Advantages: Seismic / Flood Design), The Bali Homes / Balitecture (FAQ про PT PMA, налоги, процесс). Снимаем главные возражения иностранного покупателя <b>до</b> формы.
-  </div>
+  <div class="note"><b>Приёмы:</b> Nuanu (Seismic/Flood Design), The Bali Homes / Balitecture (FAQ про PT PMA, налоги, процесс). Снимаем возражения до формы. Есть готовый PDF «работа с возражениями» — источник контента.</div>
 </div>
 
 <!-- 12 -->
@@ -278,12 +272,10 @@
   <div class="wf">
     <div class="wf-h"><span>12 · FAQ</span></div>
     <div class="wf-b">
-      <div class="box">Аккордеон, 12–15 вопросов: цена входа · gross vs net ROI · налоги · leasehold-срок и продление · перепродажа · управление · сроки сдачи · что если застройщик сорвёт сроки · можно ли ипотеку · …</div>
+      <div class="box">Аккордеон 12–15 вопросов: вход по цене · gross vs net 12–15% · налоги · leasehold-срок · перепродажа до сдачи · что делает УК · сроки U3 · чем resale отличается от новостроя · оплата/валюта · …</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> The Bali Homes / Balitecture — большой FAQ-аккордеон = SEO + отработка возражений. Каждый ответ атомарный (годится и для llms.txt / GEO).
-  </div>
+  <div class="note"><b>Приёмы:</b> The Bali Homes / Balitecture — большой FAQ = SEO + возражения. Ответы атомарные (годятся в llms.txt / GEO).</div>
 </div>
 
 <!-- 13 -->
@@ -292,15 +284,13 @@
     <div class="wf-h"><span>13 · Финальный CTA</span></div>
     <div class="wf-b">
       <div class="box"><span class="lab">оффер</span>«Оставьте заявку — пришлём подборку юнитов и расчёт доходности под ваш бюджет»</div>
-      <div class="box"><span class="lab">форма</span>имя · контакт · бюджет · проект интереса · цель (инвест / жизнь)</div>
-      <div class="bar"><span>◻ WhatsApp</span><span>◻ Telegram</span><span>◻ email</span><span>◻ Забронировать звонок (Calendly)</span></div>
-      <div class="box"><span class="lab">лид-магнит</span>«Скачать презентацию (PDF)» — за контакт</div>
-      <div class="box"><span class="lab">плавающая кнопка</span>Ваша подборка (N) — shortlist со счётчиком</div>
+      <div class="box"><span class="lab">форма</span>имя · контакт · бюджет · проект (U1/U2/U3) · цель (инвест / аренда / жизнь) → в TG-бот (как BSO)</div>
+      <div class="bar"><span>◻ WhatsApp</span><span>◻ Telegram</span><span>◻ email</span><span>◻ Забронировать звонок</span></div>
+      <div class="box"><span class="lab">лид-магнит</span>«Скачать презентацию (PDF)» — уже есть EN-презентация</div>
+      <div class="box"><span class="lab">плавающая кнопка</span>Ваша подборка (N) — shortlist</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приёмы:</b> Nuanu (концьерж-блок WhatsApp/IG/email/Book a call), The Bali Homes (discovery call + гайд), Aston Martin («Schedule a Meeting» как главное действие). Форма → тот же механизм, что BSO (TG-бот).
-  </div>
+  <div class="note"><b>Приёмы:</b> Nuanu (концьерж-блок), The Bali Homes (звонок + гайд), Aston Martin («Schedule a Meeting»). Партнёрский портал UNIT.PARTNERS + TG-бот — это B2B-агентский флоу, на публичный сайт не тащим, только лид-форму.</div>
 </div>
 
 <!-- 14 -->
@@ -308,26 +298,25 @@
   <div class="wf">
     <div class="wf-h"><span>14 · Footer</span></div>
     <div class="wf-b">
-      <div class="bar">
-        <span>Проекты U1/U2/U3</span><span>Компания</span><span>Документы</span><span>Контакты · соц</span><span>RU/EN · $/IDR</span>
-      </div>
+      <div class="bar"><span>Проекты U1/U2/U3</span><span>Компания</span><span>Документы</span><span>Контакты · соц</span><span>RU/EN · $/IDR</span></div>
       <div class="small">Дисклеймер: «материалы носят информационный характер и не являются публичной офертой; визуализации могут отличаться от готового объекта».</div>
     </div>
   </div>
-  <div class="note">
-    <b>Приём:</b> era.estate — обязательный дисклеймер про «не оферта / рендеры могут отличаться».
-  </div>
+  <div class="note"><b>Приём:</b> era.estate — обязательный дисклеймер «не оферта / рендеры могут отличаться».</div>
 </div>
 
 <div class="wf">
-  <div class="wf-h"><span>Открытые вопросы к Боссу — до текста и hi-fi</span></div>
+  <div class="wf-h"><span>Открытые вопросы к Боссу — обновлено после партнёрки</span></div>
   <div class="wf-b">
-    <div class="box">1. <b>U3</b> — что это за проект (имя, тип, статус, сдача)? В памяти только U1 (Space Village, сдан 2024) и U2 (Nuanu Village).</div>
-    <div class="box">2. <b>Ownable-угол</b> vs Ecoverse (эко), Nuanu The Sense (велнес-комьюнити). Наш чем берёт — цена / расположение внутри Nuanu / дизайн / комьюнити?</div>
-    <div class="box">3. Есть ли <b>программа управления</b> и реальные цифры доходности/загрузки по U1 (сдан 2 года — есть факт, не прогноз)?</div>
-    <div class="box">4. <b>Каталог юнитов</b> — есть ли поюнитная таблица (номер, м², этаж, цена, статус) или пока только «от $X» по типам?</div>
-    <div class="box">5. Домен/поддомен под этот сайт. Отдельный (unitspace.—) или раздел на unitdeveloper.com?</div>
-    <div class="box">6. Язык интерфейса: RU+EN сразу или RU-first?</div>
+    <div class="box data">✅ <b>U3</b> = Nyanyi Village, в Nyanyi (не Nuanu), строится, сдача осень 2026. Юнит-микс есть (в блоке 5).</div>
+    <div class="box data">✅ <b>Язык</b> — RU + EN сразу.</div>
+    <div class="box data">✅ <b>Q2 «почему мы»</b> — черновик в блоке 3, нужно подтвердить акцент.</div>
+    <div class="box">1. <b>resale vs новострой.</b> Партнёрка: «сейчас в продаже только resale». Публичный сайт продаёт вторичку U1/U2 от собственников, новострой U3, или всё вместе? От этого зависит тон каталога и блока цен.</div>
+    <div class="box">2. <b>Реальные цифры по U1</b> (загрузка, факт-доходность, кейсы перепродажи) — дай доступ к «Финансовой модели» (Google Sheet) или скинь цифры. Публично UNIT их не даёт.</div>
+    <div class="box">3. <b>«Шахматка»</b> (Google Sheet, наличие + цены) — доступ. Это бэкенд каталога юнитов (блок 7).</div>
+    <div class="box">4. <b>Юридич. блок:</b> leasehold или freehold, срок, нужен ли PT PMA, налоги — или взять из PDF «структура сделки»?</div>
+    <div class="box">5. <b>Оплата</b> — приём в разных валютах с расчётом в USD (как у Ecoverse) — так или иначе?</div>
+    <div class="box">6. Домен — отдельный (позже), про него пока не думаем. <span class="small">(ответ получен)</span></div>
   </div>
 </div>
 
