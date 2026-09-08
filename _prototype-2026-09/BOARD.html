@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Space — референсы конкурентов</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --line:#2a2f3a; --ink:#e8e9ec; --mut:#9aa0ab;
+    --acc:#c9a35b; --good:#5b9c6b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  header{padding:40px 32px 24px;border-bottom:1px solid var(--line)}
+  header h1{margin:0 0 6px;font-size:26px;font-weight:600;letter-spacing:.2px}
+  header p{margin:0;color:var(--mut);max-width:70ch}
+  .group{padding:28px 32px 8px}
+  .group h2{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--acc);margin:0 0 4px}
+  .group > p{margin:0 0 16px;color:var(--mut);font-size:13px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:22px;padding:0 32px 8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .shot{background:#000;border-bottom:1px solid var(--line);max-height:420px;overflow:hidden;display:flex;justify-content:center}
+  .shot img{width:100%;height:auto;display:block;object-fit:cover;object-position:top}
+  .body{padding:16px 18px 18px}
+  .body h3{margin:0 0 2px;font-size:16px}
+  .body .url{font-size:12px;color:var(--mut);word-break:break-all;margin:0 0 12px;display:block;text-decoration:none}
+  .body .url:hover{color:var(--acc)}
+  .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);margin:12px 0 5px}
+  ul{margin:0;padding-left:18px}
+  li{margin:3px 0}
+  .take{margin-top:12px;padding:10px 12px;background:rgba(91,156,107,.1);border-left:3px solid var(--good);border-radius:4px;font-size:13.5px}
+  .take b{color:var(--good)}
+  footer{padding:32px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);margin-top:24px}
+  .synth{padding:8px 32px 0}
+  .synth ol{padding-left:20px}
+  .synth li{margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Unit Space (U1 · U2 · U3) — разбор конкурентов</h1>
+  <p>Сайты на продажу недвижимости: прямые конкуренты рынка Бали / Nuanu + мировые эталоны UX/UI.
+  Скриншоты сняты 08.09.2026. Под каждым — приёмы и что берём в прототип.</p>
+</header>
+
+<section class="group">
+  <h2>A. Прямые конкуренты — Бали / Nuanu</h2>
+  <p>Тот же рынок, покупатель и контекст локации.</p>
+</section>
+<div class="grid">
+
+  <div class="card">
+    <div class="shot"><img src="01-nuanu-home.jpeg" alt="Nuanu home"></div>
+    <div class="body">
+      <h3>Nuanu Creative City — главная</h3>
+      <a class="url" href="https://nuanu.com/">nuanu.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Полноэкранное видео, горизонтальный скролл-парад проектов</li>
+        <li>Нарратив экосистемы: миссия, обязательства (70% зелени, 15 000 деревьев) в табах</li>
+        <li>Эмоция «место, где каждый угол рассказывает историю»</li>
+      </ul>
+      <div class="take"><b>Берём:</b> локация-первой (аэро/видео Nuanu), storytelling вместо «о проекте», табы обязательств.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="02-nuanu-invest.jpeg" alt="Nuanu invest"></div>
+    <div class="body">
+      <h3>Nuanu — страница Invest</h3>
+      <a class="url" href="https://nuanu.com/invest">nuanu.com/invest</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Сегмент-переключатель: Real Estate / Commercial / Business / Living</li>
+        <li>Полоса цифр: 13% ROI · 13 проектов · +50% за 5 лет</li>
+        <li>Фильтруемые карточки проектов — атом: ROI-диапазон + min-цена IDR + срок leasehold + «Learn more»</li>
+        <li>Блок «Advantages»: Seismic Design, Flood Management — снимают страхи</li>
+        <li>Лид-форма с дропдауном «Segment of interest»; блок Personal Concierge (WhatsApp / IG / email / Book a call)</li>
+      </ul>
+      <div class="take"><b>Берём:</b> сегмент-переключатель под U1/U2/U3; карточка проекта = ROI+цена+срок; блок «снимаем страхи»; единый концьерж-блок.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="03-nuanu-project-detail.jpeg" alt="Nuanu project detail"></div>
+    <div class="body">
+      <h3>Nuanu — внутренняя страница проекта</h3>
+      <a class="url" href="https://nuanu.com/invest/the-sense">nuanu.com/invest/the-sense</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Hero: название + одна строка + «Start from IDR» + ROI + срок leasehold</li>
+        <li>Разбивка юнит-микса: 7 пентхаусов / 9 сьютов / 32 апарта / диапазон м²</li>
+        <li>3 коротких абзаца ценности + 4 подробные плитки «Advantages»</li>
+        <li>Повтор концьерж-блока внизу</li>
+      </ul>
+      <div class="take"><b>Берём:</b> лаконичный шаблон страницы проекта; явный юнит-микс числом; повтор CTA/контакта.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="04-sinergi-home.jpeg" alt="Sinergi Group"></div>
+    <div class="body">
+      <h3>Sinergi Group</h3>
+      <a class="url" href="https://sinergi-group.com/">sinergi-group.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Проекты в меню с числом юнитов и бейджем <b>SOLD OUT</b> — дефицит</li>
+        <li>Липкий CTA «Schedule a meeting», hero-видео, карусель проектов с тэглайнами</li>
+        <li>«Why invest» стат-блоки + внешние авторитеты (Condé Nast, Travel+Leisure)</li>
+        <li>Два офиса (Бали + Джакарта), FAQ, блог Insights</li>
+      </ul>
+      <div class="take"><b>Берём:</b> статус-бейджи юнитов (Доступно / Мало / Продано); «почему Бали/Nuanu» с внешними авторитетами; присутствие = доверие.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="05-thebalihomes-invest.jpeg" alt="The Bali Homes"></div>
+    <div class="body">
+      <h3>The Bali Homes — Invest</h3>
+      <a class="url" href="https://www.thebalihomes.com/invest-in-bali-properties">thebalihomes.com/invest-in-bali-properties</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Фасетное мега-меню: по статусу (off-plan / ready), локации, контракту (leasehold / freehold)</li>
+        <li>Hero: ценовой якорь «FROM $65,000» + оффер концьержа (покупка, юр-оформление, управление) + отзыв с цифрами</li>
+        <li>Стат-плитки с <b>сносками-допущениями</b> (13% net ROI при $230k в 2BR под управлением)</li>
+        <li>Графики рынка: турпоток, загрузка Чангу, выручка 2BR — с подписью периодов</li>
+        <li>Инфраструктура будущего (метро, яхт-порт, дорога); ROI-калькулятор; PDF-гайд; discovery-call; FAQ 10+</li>
+      </ul>
+      <div class="take"><b>Берём:</b> фильтр по статусу стройки; ценовой якорь «от $X»; честные сноски к цифрам; графики рынка; ROI-калькулятор; PDF-гайд за контакт; FAQ-аккордеон.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="10-balitecture-invest.jpeg" alt="Balitecture"></div>
+    <div class="body">
+      <h3>Balitecture — Investor's Guide</h3>
+      <a class="url" href="https://www.balitecture.com/invest-in-bali">balitecture.com/invest-in-bali</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Hero: полоса из 4 цифр (12–18% · 7M+ туристов · 5–7 лет окуп. · от $199K)</li>
+        <li>Переключатель <b>валюты и языка</b> (USD/EN) + «все цены в USD, если не указано»</li>
+        <li>Цитаты авторитетов: U.S. News, Morgan Stanley, TripAdvisor — заёмное доверие</li>
+        <li>Таблица доходности по стратегии (краткосрок / долгосрок / прирост / комбо) + дисклеймер</li>
+        <li>Таблица «Бали vs Австралия / Таиланд / Португалия / Дубай»</li>
+      </ul>
+      <div class="take"><b>Берём:</b> цифровая полоса в hero; переключатель валюты $/IDR; таблица «доходность по сценарию»; сравнительная таблица; цитаты авторитетов.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="13-balihomeimmo-portal.jpeg" alt="Bali Home Immo"></div>
+    <div class="body">
+      <h3>Bali Home Immo <span style="color:var(--mut);font-weight:400">(контраст: «портал»)</span></h3>
+      <a class="url" href="https://bali-home-immo.com/">bali-home-immo.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Гипер-детальная таксономия локаций, advanced search, избранное</li>
+        <li>Переключатель валюты, WhatsApp на каждом экране</li>
+        <li>Утилитарно, не дизайн-форвард</li>
+      </ul>
+      <div class="take"><b>Берём осторожно:</b> shortlist/избранное для юнитов; WhatsApp везде. <b>НЕ берём:</b> портальную перегрузку фильтрами — у нас 3 проекта.</div>
+    </div>
+  </div>
+
+</div>
+
+<section class="group">
+  <h2>B. Мировые эталоны — UX/UI</h2>
+  <p>Не рынок Бали — берём приёмы подачи, структуру, интерактив.</p>
+</section>
+<div class="grid">
+
+  <div class="card">
+    <div class="shot"><img src="06-astonmartin-home.jpeg" alt="Aston Martin Residences"></div>
+    <div class="body">
+      <h3>Aston Martin Residences (Майами)</h3>
+      <a class="url" href="https://www.astonmartinresidences.com/">astonmartinresidences.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Иммерсивный одностраничник; навигация = главы (Heritage / Residence / Amenities / Location / Floorplans / Gallery / Contact)</li>
+        <li>Полноэкранное видео; крупные редакционные заголовки-стейтменты («PASSION FOR PERFECTION») + «EXPLORE»</li>
+        <li>Виртуальная арт-галерея / тур</li>
+        <li>Планировки — за формой-воротами; цен нет; единственное действие «Schedule a Meeting»</li>
+      </ul>
+      <div class="take"><b>Берём:</b> структура-главы; заголовки-стейтменты вместо «О проекте»; brand-story (архитектор, почему); планировки как gated-актив (частично).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="07-astonmartin-floorplans.jpeg" alt="Aston Martin floorplans gate"></div>
+    <div class="body">
+      <h3>Aston Martin — экран «Floorplans»</h3>
+      <a class="url" href="https://www.astonmartinresidences.com/floorplans">astonmartinresidences.com/floorplans</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Планировки сгруппированы в коллекции (River / Panoramic / Sky / Penthouses)</li>
+        <li>Доступ через «EXPLORE» → регистрация / запрос</li>
+      </ul>
+      <div class="take"><b>Берём:</b> планировки как коллекции по «линейке»/этажу; мягкий гейт (можно смотреть, скачать PDF — за контакт).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="08-modernhouse-home.jpeg" alt="The Modern House"></div>
+    <div class="body">
+      <h3>The Modern House (Лондон) — главная</h3>
+      <a class="url" href="https://www.themodernhouse.com/">themodernhouse.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Редакционное, «журнальное»: гигантский serif, воздух, крупная фотография</li>
+        <li>Объекты сгруппированы редакционно: Today / Prime / New / Featured / Past Sales</li>
+        <li>Карточка минимальна: имя, цена, локация, <b>тип владения</b> (Freehold / Leasehold / Share of Freehold), бейдж статуса</li>
+        <li>Пул-цитаты прессы как соц-доказательство</li>
+      </ul>
+      <div class="take"><b>Берём:</b> «журнальность» вместо «риелторщины»; тип владения + срок как явный атрибут карточки; пул-цитаты; подписка на алерты.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="09-modernhouse-listing.jpeg" alt="The Modern House listing"></div>
+    <div class="body">
+      <h3>The Modern House — страница объекта</h3>
+      <a class="url" href="https://www.themodernhouse.com/sales-list/the-bridge-house">themodernhouse.com/sales-list/…</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li><b>Липкие чипы-якоря</b> сверху: FLOORPLAN / EPC / MAP / BROCHURE / MORE PHOTOS</li>
+        <li>Пул-цитата как лид; длинный редакционный текст (назван архитектор, история дома), «READ MORE»</li>
+        <li>«Interested? Let's talk» в середине; похожие объекты; алерты</li>
+        <li>CTA: Request viewing + Register for similar homes + телефон</li>
+      </ul>
+      <div class="take"><b>Берём:</b> липкие чипы-якоря на странице проекта; редакционный текст про каждый юнит (не булиты); повтор контакта в середине; «похожие».</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="11-era-estate-home.jpeg" alt="era.estate WebGL"></div>
+    <div class="body">
+      <h3>era.estate — вход и 3D</h3>
+      <a class="url" href="https://era.estate/">era.estate</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>WebGL, 5 слоёв 3D, прелоадер «за первые секунды»</li>
+        <li>Выбор квартиры в 3 режимах: по критериям / визуально / по фасаду + виртуальный тур</li>
+        <li>Секции: 3D-карта окружения, <b>прогресс стройки</b>, <b>документы</b>, интервью с архитектором</li>
+      </ul>
+      <div class="take"><b>Берём:</b> секции «прогресс стройки» (фото по датам) и «документы» — критично для off-plan доверия; интерактивная карта Nuanu; прелоадер с айдентикой.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="12-era-flats-filter.jpeg" alt="era.estate unit catalog"></div>
+    <div class="body">
+      <h3>era.estate — каталог юнитов</h3>
+      <a class="url" href="https://era.estate/flats">era.estate/flats</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li><b>Живой счётчик</b> «151 apartments found»</li>
+        <li>Двух-ручьевые слайдеры Цена и Площадь; чипы комнат (студия/1/2/3/4/5)</li>
+        <li>Доп-фильтры: корпус, <b>фаза + квартал сдачи</b> («1 Phase — 3Q 2026»), этаж, фичи (терраса / последний этаж / высокие потолки / white box), «только доступные», «со скидкой»</li>
+        <li>Карточки с миниатюрой планировки + избранное; сортировка по цене за м²</li>
+      </ul>
+      <div class="take"><b>Берём:</b> каталог юнитов с живым счётчиком и слайдерами; фильтр по фазе/сдаче; фичи-теги; карточка с планировкой-миниатюрой и статус-бейджем.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="shot"><img src="14-era-residence-home.jpeg" alt="ERA Residence Estepona"></div>
+    <div class="body">
+      <h3>ERA Residence (Эстепона) — Awwwards SOTD авг-2026</h3>
+      <a class="url" href="https://www.era-residence.com/">era-residence.com</a>
+      <div class="lbl">Приёмы</div>
+      <ul>
+        <li>Чистая дизайн-полировка: day/night тумблер, GSAP-анимации, горизонтальный скролл, прелоадер</li>
+        <li>Палитра из 2 цветов + акцент</li>
+        <li>Позиционирование: «бутиковое комьюнити всего из 25 резиденций» — дефицит + камерность</li>
+        <li>Карточки типов: «3 спальни / 178–202 м² / приватный цоколь» + «EXPLORE», ленты «drag to see more»</li>
+      </ul>
+      <div class="take"><b>Берём:</b> камерность как ценность («всего N юнитов»); дисциплина 2-цветной палитры + акцент; горизонтальные ленты типов юнитов.</div>
+    </div>
+  </div>
+
+</div>
+
+<section class="group synth">
+  <h2>Синтез — черновик структуры прототипа U1 · U2 · U3</h2>
+  <ol>
+    <li><b>Hero</b> — видео/аэро Nuanu, ценовой якорь «от $X», 1 CTA (Book a call / WhatsApp)</li>
+    <li><b>Полоса цифр</b> — ROI, срок leasehold, кол-во юнитов, срок сдачи</li>
+    <li><b>Переключатель U1 / U2 / U3</b> — дальше контент под выбранный проект</li>
+    <li><b>Блок проекта</b> — редакционное описание + юнит-микс + галерея (наши фото-паки) + планировки-коллекции</li>
+    <li><b>Каталог юнитов</b> — фильтры (статус, спальни, площадь, этаж, цена, фаза/сдача) + живой счётчик + карточка с планировкой-миниатюрой + бейдж (Доступно / Мало / Продано)</li>
+    <li><b>Доходность</b> — таблица по сценарию + ROI-калькулятор + графики рынка Бали</li>
+    <li><b>Локация</b> — интерактивная карта Nuanu + инфраструктура + время до точек</li>
+    <li><b>Доверие</b> — прогресс стройки (фото по датам), документы (leasehold, разрешения), застройщик, отзывы + цитаты прессы</li>
+    <li><b>«Снимаем страхи»</b> — сейсмика, паводок, покупка иностранцем, PT PMA, процесс по шагам</li>
+    <li><b>FAQ-аккордеон</b> — SEO + возражения</li>
+    <li><b>Финальный CTA + концьерж-блок</b> (WhatsApp / IG / email / Book a call) + PDF-гайд за контакт</li>
+  </ol>
+  <p style="color:var(--mut)"><b>Тон:</b> редакционный (The Modern House / Aston Martin), не риелторский. 2-цветная палитра + акцент, воздух, крупная типографика, реальная фотография.
+  <b>Язык:</b> RU + EN, переключатель валюты $/IDR.</p>
+</section>
+
+<footer>
+  Снято 08.09.2026 · дизайнер · <code>_хранилище/дизайн/unit-space/refs-2026-09-08/</code><br>
+  Не открылись: ecoverseresidences.com (битый SSL-сертификат), parqdevelopment.com (домен припаркован).
+</footer>
+</body>
+</html>
