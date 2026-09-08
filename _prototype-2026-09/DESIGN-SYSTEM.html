@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Space City — Design System v0.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ---- COLOUR ---- */
+    --bg:#F5F5F6;            /* app ground */
+    --surface:#FFFFFF;       /* cards, inputs */
+    --surface-2:#ECECEE;     /* subtle fill, table head */
+    --ink:#1A1A1D;           /* headings */
+    --ink-2:#3A3A3D;         /* body (родственно UNIT #3a3a3a) */
+    --ink-3:#8A8A90;         /* muted, captions */
+    --line:#E2E2E5;          /* hairlines */
+    --line-strong:#C9C9CE;   /* hover borders, dividers */
+    --accent:#1B3BEE;        /* Space City accent — сиблинг UNIT #0433FF */
+    --accent-ink:#FFFFFF;
+    --accent-tint:#1B3BEE14; /* 8% — selected chip / focus bg */
+    --ok:#1E9E63;            /* unit: available */
+    --warn:#C98A12;          /* unit: reserved */
+    --gone:#8A8A90;          /* unit: sold */
+
+    /* ---- SPACING (8pt base) ---- */
+    --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+    --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+
+    /* ---- RADIUS (4–12) ---- */
+    --r-xs:4px;   /* inputs, chips, tags, small btn */
+    --r-sm:8px;   /* buttons, media inside cards */
+    --r-md:12px;  /* cards, modals, map */
+    --r-pill:999px; /* ТОЛЬКО status-pip, аватар, точка */
+
+    /* ---- TYPE ---- */
+    --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    /* ---- ELEVATION (light hi-tech = минимум теней) ---- */
+    --sh-1:0 1px 2px rgba(0,0,0,.04);
+    --sh-2:0 8px 28px rgba(18,18,28,.10);
+
+    /* ---- LAYOUT ---- */
+    --container:1200px;   /* full frame */
+    --content:1120px;     /* text/cards */
+    --gutter:24px;
+    --col-gap:24px;
+
+    /* ---- MOTION ---- */
+    --t-fast:160ms ease;
+    --t-rev:240ms cubic-bezier(.2,.6,.2,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink-2);font-family:var(--font);
+    font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--container);margin:0 auto;padding:var(--s-7) var(--gutter) var(--s-10)}
+  header.top{border-bottom:1.5px solid var(--ink);padding-bottom:var(--s-4);margin-bottom:var(--s-8)}
+  header.top h1{font-size:34px;font-weight:500;letter-spacing:-.02em;color:var(--ink);margin:0 0 var(--s-2)}
+  header.top p{margin:0;color:var(--ink-3);font-size:14px}
+  section.blk{margin:0 0 var(--s-9)}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 var(--s-3)}
+  h2.blk{font-size:24px;font-weight:500;letter-spacing:-.015em;color:var(--ink);margin:0 0 var(--s-5);padding-bottom:var(--s-3);border-bottom:1px solid var(--line)}
+  h3.sub{font-size:15px;font-weight:600;color:var(--ink);margin:var(--s-6) 0 var(--s-3)}
+  .muted{color:var(--ink-3);font-size:13px}
+  .grid{display:grid;gap:var(--s-4)}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)} .g6{grid-template-columns:repeat(6,1fr)}
+  @media(max-width:820px){.g3,.g4,.g6{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+
+  /* swatches */
+  .sw{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;background:var(--surface)}
+  .sw .chip{height:64px} .sw .meta{padding:var(--s-3);font-size:12px}
+  .sw .meta b{display:block;color:var(--ink);font-family:var(--mono);font-size:12px}
+  .sw .meta span{color:var(--ink-3)}
+
+  /* type specimen */
+  .spec{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);padding:var(--s-4);margin:var(--s-2) 0}
+  .spec .lab{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-bottom:var(--s-2)}
+  .t-display{font-size:56px;line-height:1.05;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+  .t-h1{font-size:40px;line-height:1.1;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+  .t-h2{font-size:30px;line-height:1.2;font-weight:500;letter-spacing:-.015em;color:var(--ink)}
+  .t-h3{font-size:22px;line-height:1.3;font-weight:500;color:var(--ink)}
+  .t-over{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+  .t-bodyL{font-size:18px;line-height:1.55}
+  .t-body{font-size:16px;line-height:1.5}
+  .t-bodyS{font-size:14px;line-height:1.45}
+  .t-cap{font-size:12px;line-height:1.4;color:var(--ink-3)}
+  .t-num{font-family:var(--mono);font-size:22px;color:var(--ink);font-weight:500}
+
+  /* spacing ruler */
+  .ruler{display:flex;flex-wrap:wrap;gap:var(--s-4);align-items:flex-end}
+  .ruler .u{text-align:center}
+  .ruler .bar{background:var(--accent-tint);border:1px solid var(--accent);border-radius:var(--r-xs)}
+  .ruler .u span{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:4px}
+
+  /* radius samples */
+  .rs{display:flex;gap:var(--s-4);flex-wrap:wrap}
+  .rs .b{width:96px;height:72px;background:var(--surface);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+  /* components */
+  .btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 20px;
+    border-radius:var(--r-sm);font-family:var(--font);font-size:15px;font-weight:500;border:1.5px solid transparent;
+    cursor:pointer;transition:background var(--t-fast),border-color var(--t-fast),color var(--t-fast);text-decoration:none}
+  .btn.primary{background:var(--accent);color:var(--accent-ink)}
+  .btn.primary:hover{background:#1531c9}
+  .btn.secondary{background:transparent;border-color:var(--ink);color:var(--ink)}
+  .btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.ghost{background:transparent;color:var(--ink-2);padding:0 8px}
+  .btn.ghost:hover{color:var(--accent)}
+  .btn.sm{height:36px;font-size:13px;padding:0 14px}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .field{display:flex;flex-direction:column;gap:6px;max-width:320px}
+  .field label{font-size:13px;color:var(--ink-2);font-weight:500}
+  .field input{height:44px;border:1.5px solid var(--line-strong);border-radius:var(--r-sm);padding:0 12px;
+    font-family:var(--font);font-size:15px;color:var(--ink);background:var(--surface);transition:border-color var(--t-fast),box-shadow var(--t-fast)}
+  .field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint)}
+
+  .chip{display:inline-flex;align-items:center;height:34px;padding:0 12px;border:1px solid var(--line-strong);
+    border-radius:var(--r-xs);font-size:13px;color:var(--ink-2);background:var(--surface);cursor:pointer;transition:all var(--t-fast)}
+  .chip.on{border-color:var(--accent);color:var(--accent);background:var(--accent-tint)}
+
+  .card{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-md);padding:var(--s-5);transition:border-color var(--t-fast)}
+  .card:hover{border-color:var(--line-strong)}
+
+  .ucard{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-md);overflow:hidden;max-width:320px}
+  .ucard .media{position:relative;aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#eee,#eee 10px,#e6e6e8 10px,#e6e6e8 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-family:var(--mono);font-size:11px}
+  .ucard .pip{position:absolute;top:10px;left:10px;height:22px;padding:0 10px;border-radius:var(--r-pill);
+    font-size:11px;font-weight:600;display:flex;align-items:center;color:#fff;background:var(--ok)}
+  .ucard .body{padding:var(--s-4)}
+  .ucard .body .id{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+  .ucard .body .ttl{font-size:15px;color:var(--ink);font-weight:500;margin:2px 0}
+  .ucard .body .price{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:500;margin-top:6px}
+
+  table.t{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+  table.t th,table.t td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+  table.t thead th{background:var(--surface-2);font-weight:600;color:var(--ink);font-size:12px;letter-spacing:.02em}
+  table.t td.num,table.t th.num{font-family:var(--mono);text-align:right}
+  table.t tr:last-child td{border-bottom:0}
+
+  pre.tok{background:var(--ink);color:#e9e9ec;border-radius:var(--r-md);padding:var(--s-5);overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+  .rule{border:1px dashed var(--line-strong);border-radius:var(--r-sm);padding:var(--s-4);font-size:13px;color:var(--ink-2);background:var(--surface)}
+  .rule b{color:var(--ink)}
+  ul.tight{margin:6px 0 0;padding-left:18px} ul.tight li{margin:3px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Unit Space City — Design System v0.1</h1>
+  <p>Саббренд UNIT · тон: хай-тек светлый · плотность: сбалансированная · радиусы 4–12px · сетка 8pt. Черновик под hi-fi прототип. 08.09.2026</p>
+</header>
+
+<!-- COLOUR -->
+<section class="blk">
+  <p class="kicker">Foundations</p>
+  <h2 class="blk">Палитра</h2>
+  <p class="muted">Моно-база + один акцент (сиблинг фирменного UNIT&nbsp;#0433FF, чуть мягче). Статусы юнитов — функциональные, не бренд.</p>
+  <div class="grid g6" style="margin-top:var(--s-4)">
+    <div class="sw"><div class="chip" style="background:#F5F5F6"></div><div class="meta"><b>#F5F5F6</b><span>--bg · ground</span></div></div>
+    <div class="sw"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div><div class="meta"><b>#FFFFFF</b><span>--surface</span></div></div>
+    <div class="sw"><div class="chip" style="background:#ECECEE"></div><div class="meta"><b>#ECECEE</b><span>--surface-2</span></div></div>
+    <div class="sw"><div class="chip" style="background:#1A1A1D"></div><div class="meta"><b>#1A1A1D</b><span>--ink · headings</span></div></div>
+    <div class="sw"><div class="chip" style="background:#3A3A3D"></div><div class="meta"><b>#3A3A3D</b><span>--ink-2 · body</span></div></div>
+    <div class="sw"><div class="chip" style="background:#8A8A90"></div><div class="meta"><b>#8A8A90</b><span>--ink-3 · muted</span></div></div>
+    <div class="sw"><div class="chip" style="background:#E2E2E5"></div><div class="meta"><b>#E2E2E5</b><span>--line</span></div></div>
+    <div class="sw"><div class="chip" style="background:#C9C9CE"></div><div class="meta"><b>#C9C9CE</b><span>--line-strong</span></div></div>
+    <div class="sw"><div class="chip" style="background:#1B3BEE"></div><div class="meta"><b>#1B3BEE</b><span>--accent</span></div></div>
+    <div class="sw"><div class="chip" style="background:#1E9E63"></div><div class="meta"><b>#1E9E63</b><span>--ok · available</span></div></div>
+    <div class="sw"><div class="chip" style="background:#C98A12"></div><div class="meta"><b>#C98A12</b><span>--warn · reserved</span></div></div>
+    <div class="sw"><div class="chip" style="background:#8A8A90"></div><div class="meta"><b>#8A8A90</b><span>--gone · sold</span></div></div>
+  </div>
+  <div class="rule" style="margin-top:var(--s-4)"><b>Правило.</b> Акцент — только для действий и активных состояний (CTA, ссылки, выбранный чип/таб, фокус). Не красим им заголовки и большие плоскости. Тёмных секций почти нет — контраст держим типографикой и линиями.</div>
+</section>
+
+<!-- TYPE -->
+<section class="blk">
+  <p class="kicker">Foundations</p>
+  <h2 class="blk">Типографика</h2>
+  <p class="muted">Гротеск, родственный Helvetica Neue мастер-бренда. Прод-рекомендация — <b>Inter</b> (или Geist при ок с лицензией), fallback Helvetica Neue/system. Заголовки — вес <b>500 (medium)</b>, тайтовый трекинг. Цифры (цены, м², %, ID юнитов) — <b>моно</b> (IBM Plex Mono / Geist Mono): хай-тек-сигнал + скан в каталоге.</p>
+  <div class="spec"><div class="lab">Display · 56/1.05 · 500 · -2% · hero H1 (моб. 36)</div><div class="t-display">Хай-тек дома в Nuanu</div></div>
+  <div class="spec"><div class="lab">H1 · 40/1.1 · 500 (моб. 30)</div><div class="t-h1">Space Village — сдан 2024</div></div>
+  <div class="spec"><div class="lab">H2 · 30/1.2 · 500 (моб. 24)</div><div class="t-h2">Доходность и сценарии владения</div></div>
+  <div class="spec"><div class="lab">H3 · 22/1.3 · 500</div><div class="t-h3">Планировки · коллекция 2+1 BD</div></div>
+  <div class="spec"><div class="lab">Overline · 13 · 600 · +8% · UPPER</div><div class="t-over">Партнёрские материалы</div></div>
+  <div class="spec"><div class="lab">Body-L · 18/1.55 · 400 — интро-абзацы</div><div class="t-bodyL">Три комплекса внутри Nuanu Creative City, построенные и для жизни, и под арендный доход.</div></div>
+  <div class="spec"><div class="lab">Body · 16/1.5 · 400 — база</div><div class="t-body">Всю операционку по аренде ведёт управляющая компания с более чем 10 годами работы на Бали.</div></div>
+  <div class="spec"><div class="lab">Body-S · 14/1.45 — вторичный текст, подписи форм</div><div class="t-bodyS">Депозит $1&nbsp;500 фиксирует юнит и цену на 14 дней.</div></div>
+  <div class="spec"><div class="lab">Caption · 12 · --ink-3 — сноски, дисклеймеры</div><div class="t-cap">Прогноз, не гарантия. Визуализации могут отличаться от готового объекта.</div></div>
+  <div class="spec"><div class="lab">Numeric · IBM Plex Mono · цены / площади / проценты / ID</div><div class="t-num">$182,400 · 89&nbsp;м² · 12–15% · U2-А-203</div></div>
+</section>
+
+<!-- SPACING -->
+<section class="blk">
+  <p class="kicker">Foundations</p>
+  <h2 class="blk">Отступы — шкала 8pt</h2>
+  <p class="muted">Всё кратно 4/8. Внутри компонента — мелкие шаги (4–16), между блоками — крупные (24–128). Вертикальный ритм секций: desktop clamp(56 → 128), mobile 56–72.</p>
+  <div class="ruler" style="margin-top:var(--s-4)">
+    <div class="u"><div class="bar" style="width:4px;height:24px"></div><span>4 · s-1</span></div>
+    <div class="u"><div class="bar" style="width:8px;height:32px"></div><span>8 · s-2</span></div>
+    <div class="u"><div class="bar" style="width:12px;height:40px"></div><span>12 · s-3</span></div>
+    <div class="u"><div class="bar" style="width:16px;height:48px"></div><span>16 · s-4</span></div>
+    <div class="u"><div class="bar" style="width:24px;height:60px"></div><span>24 · s-5</span></div>
+    <div class="u"><div class="bar" style="width:32px;height:72px"></div><span>32 · s-6</span></div>
+    <div class="u"><div class="bar" style="width:48px;height:88px"></div><span>48 · s-7</span></div>
+    <div class="u"><div class="bar" style="width:64px;height:104px"></div><span>64 · s-8</span></div>
+    <div class="u"><div class="bar" style="width:96px;height:120px"></div><span>96 · s-9</span></div>
+    <div class="u"><div class="bar" style="width:128px;height:136px"></div><span>128 · s-10</span></div>
+  </div>
+  <div class="rule" style="margin-top:var(--s-4)"><b>Правило иерархии.</b> Внешний отступ группы всегда больше внутреннего. Не растаскивать связанный текст space-between. Группировка — по близости.</div>
+</section>
+
+<!-- RADIUS -->
+<section class="blk">
+  <p class="kicker">Foundations</p>
+  <h2 class="blk">Скругления — 4–12px</h2>
+  <div class="rs" style="margin-top:var(--s-4)">
+    <div class="b" style="border-radius:4px">4 · r-xs</div>
+    <div class="b" style="border-radius:8px">8 · r-sm</div>
+    <div class="b" style="border-radius:12px">12 · r-md</div>
+    <div class="b" style="border-radius:999px">999 · r-pill</div>
+  </div>
+  <div class="rule" style="margin-top:var(--s-4)">
+    <b>Что где:</b>
+    <ul class="tight">
+      <li><b>4</b> — поля ввода, чипы-фильтры, теги, мелкие кнопки, ячейки таблиц</li>
+      <li><b>8</b> — кнопки, медиа <i>внутри</i> карточки, тосты</li>
+      <li><b>12</b> — карточки, модалки, карта, крупные медиа-блоки</li>
+      <li><b>999</b> — <i>только</i> status-pip юнита, аватар, точка-маркер. Кнопки НЕ пилюли (отличие от мастер-бренда).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- GRID + ELEVATION + MOTION -->
+<section class="blk">
+  <p class="kicker">Foundations</p>
+  <h2 class="blk">Сетка · тени · движение</h2>
+  <div class="grid g3">
+    <div class="card">
+      <h3 class="sub" style="margin-top:0">Сетка</h3>
+      <ul class="tight">
+        <li>12 колонок</li>
+        <li>Контейнер: 1200 (рамка) / 1120 (контент)</li>
+        <li>Гаттер 24 / gap 24 · моб. 16</li>
+        <li>Брейкпоинты: 480 · 768 · 1024 · 1280</li>
+        <li>Full-bleed: hero, карта, медиа-полосы</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="sub" style="margin-top:0">Тени</h3>
+      <ul class="tight">
+        <li>Карточки по умолчанию — <b>без тени</b>, только 1.5px линия</li>
+        <li>sh-1 — тонкая, для приподнятых списков</li>
+        <li>sh-2 — только модалки / выпадашки / sticky-меню</li>
+        <li>Hover карточки — усиление линии, без «взлёта»</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="sub" style="margin-top:0">Движение</h3>
+      <ul class="tight">
+        <li>Ховер/состояния — 160ms ease</li>
+        <li>Появление секций — 240ms ease-out, сдвиг 8–12px</li>
+        <li>Без тяжёлого параллакса (это тёмный era.estate; мы светлые)</li>
+        <li>prefers-reduced-motion — выключаем reveal</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="blk">
+  <p class="kicker">Components</p>
+  <h2 class="blk">Кнопки</h2>
+  <div style="display:flex;gap:var(--s-4);flex-wrap:wrap;align-items:center">
+    <a class="btn primary">Оставить заявку</a>
+    <a class="btn secondary">Забронировать просмотр</a>
+    <a class="btn ghost">Смотреть все планировки →</a>
+    <a class="btn primary sm">Подобрать юнит</a>
+  </div>
+  <div class="rule" style="margin-top:var(--s-4)">
+    <b>Правила.</b> Высота 44 (desktop) / 48 (touch). Радиус 8. Вес 500, без КАПСА. На экране — один primary. Secondary — рамка 1.5px ink → на ховере accent. Ghost — только текст, для третичных действий. Фокус — кольцо 2px accent, offset 2.
+  </div>
+</section>
+
+<section class="blk">
+  <p class="kicker">Components</p>
+  <h2 class="blk">Поля и фильтры</h2>
+  <div class="grid g2">
+    <div>
+      <div class="field"><label>Email для расчёта доходности</label><input placeholder="you@example.com"></div>
+      <p class="muted" style="margin-top:var(--s-3)">Высота 44 · радиус 8 · линия 1.5px · фокус = accent + кольцо 3px accent-tint.</p>
+    </div>
+    <div>
+      <h3 class="sub" style="margin-top:0">Чипы-фильтры</h3>
+      <div style="display:flex;gap:var(--s-2);flex-wrap:wrap">
+        <span class="chip on">Все</span><span class="chip">Студия</span><span class="chip">1+1 BD</span>
+        <span class="chip">2+1 BD</span><span class="chip">Вилла</span><span class="chip">С бассейном</span>
+      </div>
+      <p class="muted" style="margin-top:var(--s-3)">Высота 34 · радиус 4 · выбран = accent-рамка + accent-tint фон.</p>
+    </div>
+  </div>
+</section>
+
+<section class="blk">
+  <p class="kicker">Components</p>
+  <h2 class="blk">Карточки</h2>
+  <div class="grid g3">
+    <div class="card">
+      <p class="t-over" style="margin:0 0 8px">Для аренды</p>
+      <p class="t-body" style="margin:0">Прогноз 12–15% годовых. Операционку ведёт УК с 10+ лет на Бали.</p>
+    </div>
+    <div class="ucard">
+      <div class="media">IMG 4:3<div class="pip">Доступен</div></div>
+      <div class="body">
+        <div class="id">U2 · 2+1 BD</div>
+        <div class="ttl">89 м² · этаж 2</div>
+        <div class="price">от&nbsp;$182,400</div>
+      </div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:var(--s-2)">
+      <span class="t-num">12–15%</span>
+      <span class="t-bodyS">прогнозная годовая доходность</span>
+      <span class="t-cap">2BD под управлением, прайм-зона. Как считаем →</span>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:var(--s-4)">
+    <b>Правила.</b> Карточка — радиус 12, линия 1.5px, паддинг 20–24, без тени. Медиа внутри — радиус 8. Статус-pip — единственная «пилюля». Ховер — усиление линии. Стат-карточка: крупная моно-цифра + подпись + сноска-допущение.
+  </div>
+</section>
+
+<section class="blk">
+  <p class="kicker">Components</p>
+  <h2 class="blk">Таблицы (юнит-микс, доходность)</h2>
+  <table class="t">
+    <thead><tr><th>Тип</th><th class="num">U1</th><th class="num">U2</th><th class="num">U3</th><th class="num">м²</th></tr></thead>
+    <tbody>
+      <tr><td>Студия</td><td class="num">20</td><td class="num">4</td><td class="num">—</td><td class="num">32</td></tr>
+      <tr><td>1+1 BD</td><td class="num">—</td><td class="num">17</td><td class="num">25</td><td class="num">60</td></tr>
+      <tr><td>2+1 BD</td><td class="num">1</td><td class="num">24</td><td class="num">1</td><td class="num">89</td></tr>
+      <tr><td>3+1 BD вилла + бассейн</td><td class="num">—</td><td class="num">9</td><td class="num">1</td><td class="num">200</td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="margin-top:var(--s-3)">Линии 1px · шапка --surface-2 · числовые колонки — моно, вправо.</p>
+</section>
+
+<section class="blk">
+  <p class="kicker">Components</p>
+  <h2 class="blk">Паттерн секции</h2>
+  <div class="rule">
+    <ul class="tight" style="padding-left:16px">
+      <li><b>padding-block:</b> clamp(56px, 8vw, 128px)</li>
+      <li><b>Заголовок:</b> overline (accent) → H2 (ink, 500) → опц. интро Body-L (макс. 60ch)</li>
+      <li><b>Промо-блоки</b> (hero, локация, «почему мы») — просторно: крупная типографика, воздух</li>
+      <li><b>Функциональные</b> (каталог, доходность, юнит-микс) — плотно: сетка, таблицы, данные на виду</li>
+      <li><b>Sticky sub-nav</b> (переключатель U1/U2/U3, чипы каталога): высота 56, --surface, нижняя линия 1px, опц. backdrop-blur</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TOKENS -->
+<section class="blk">
+  <p class="kicker">Handoff</p>
+  <h2 class="blk">Токены — <code>:root</code> для hi-fi</h2>
+  <p class="muted">Источник правды. Прототип и будущий макет тянут отсюда — правка одного значения меняет весь визуал.</p>
+<pre class="tok">:root{
+  /* COLOUR */
+  --bg:#F5F5F6; --surface:#FFFFFF; --surface-2:#ECECEE;
+  --ink:#1A1A1D; --ink-2:#3A3A3D; --ink-3:#8A8A90;
+  --line:#E2E2E5; --line-strong:#C9C9CE;
+  --accent:#1B3BEE; --accent-ink:#FFFFFF; --accent-tint:#1B3BEE14;
+  --ok:#1E9E63; --warn:#C98A12; --gone:#8A8A90;
+
+  /* SPACING · 8pt */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+
+  /* RADIUS · 4–12 */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-pill:999px;
+
+  /* TYPE */
+  --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --fw-reg:400; --fw-med:500; --fw-semi:600;
+
+  /* ELEVATION */
+  --sh-1:0 1px 2px rgba(0,0,0,.04);
+  --sh-2:0 8px 28px rgba(18,18,28,.10);
+
+  /* LAYOUT */
+  --container:1200px; --content:1120px; --gutter:24px; --col-gap:24px;
+
+  /* MOTION */
+  --t-fast:160ms ease; --t-rev:240ms cubic-bezier(.2,.6,.2,1);
+}</pre>
+</section>
+
+<p class="muted">v0.1 · открыто: финальный выбор шрифта (Inter / Geist), тон акцента (#1B3BEE — сиблинг UNIT, можно сместить), нужен ли тёмный вариант hero. Правим по мере hi-fi.</p>
+</div>
+</body>
+</html>
