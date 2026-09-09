@@ -53,15 +53,14 @@
   .h3{font-size:22px;line-height:1.25;font-weight:500;letter-spacing:-.01em}
   .lead{font-size:19px;line-height:1.5;color:var(--ink-2)}
   .small{font-size:14px;line-height:1.5}
-  .eyebrow{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
   .num{font-size:56px;line-height:1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
   @media (max-width:720px){
     .display{font-size:38px} .h2{font-size:28px} .num{font-size:40px} .lead{font-size:17px}
   }
 
   .sec-head{margin-bottom:var(--s7)}
-  .sec-head .eyebrow{display:block;margin-bottom:var(--s3)}
   .sec-head .lead{margin-top:var(--s4)}
+  .subhead{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:var(--s3)}
 
   /* buttons */
   .btn{display:inline-flex;align-items:center;gap:var(--s2);height:52px;padding:0 24px;
@@ -211,7 +210,6 @@
   .faq-grid{display:grid;grid-template-columns:4fr 8fr;gap:var(--s8);align-items:start}
   @media (max-width:860px){ .faq-grid{grid-template-columns:1fr;gap:var(--s6)} }
   .faq-head{position:sticky;top:calc(var(--topbar) + var(--s5))}
-  .faq-head .eyebrow{display:block;margin-bottom:var(--s3)}
   .faq-head .lead{margin-top:var(--s4)}
   .faq-head .btn{margin-top:var(--s5)}
   @media (max-width:860px){ .faq-head{position:static} }
@@ -328,7 +326,6 @@
   <section class="section">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Кому подходит</span>
         <h2 class="h2">Три сценария владения</h2>
       </div>
       <div class="row-3">
@@ -346,7 +343,7 @@
         </div>
       </div>
       <div class="measure" style="margin-top:var(--s7)">
-        <span class="eyebrow" style="display:block;margin-bottom:var(--s3)">Почему эти комплексы</span>
+        <h3 class="subhead">Почему эти комплексы</h3>
         <ul class="list-clean">
           <li>Внутри Nuanu — инфраструктура работает круглый год.</li>
           <li>Два комплекса уже сданы, есть закрытые сделки перепродажи.</li>
@@ -361,7 +358,6 @@
   <div class="project-scope">
   <div class="wrap" id="complexes" style="padding-top:var(--s8)">
     <div class="sec-head measure">
-      <span class="eyebrow">Комплексы</span>
       <h2 class="h2">Выберите комплекс</h2>
       <p class="lead">Выбор переключает описание, юнит-микс и каталог ниже.</p>
     </div>
@@ -497,8 +493,7 @@
   <section class="section" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Планировки</span>
-        <h2 class="h2">Форматы</h2>
+        <h2 class="h2">Планировки</h2>
         <p class="lead">Собраны по типу. Полный пакет планировок в PDF — по запросу на email.</p>
       </div>
       <table class="data">
@@ -519,7 +514,6 @@
   <section class="section" id="catalog" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Каталог</span>
         <h2 class="h2">Свободные юниты</h2>
         <p class="lead">Наличие и цены — из шахматки девелопера. Пока подключаем таблицу, показываем состав по юнит-миксу; цену уточняем по запросу.</p>
       </div>
@@ -544,7 +538,6 @@
   <section class="section" id="yield" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Доходность</span>
         <h2 class="h2">Как считается доход</h2>
         <p class="lead">Три сценария и как в каждом складывается доход. Цифры загрузки и ставки U1 — из финмодели девелопера.</p>
       </div>
@@ -600,7 +593,6 @@
   <section class="section" id="location" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Локация</span>
         <h2 class="h2">Внутри Nuanu, у океана</h2>
       </div>
       <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
@@ -629,7 +621,7 @@
             <dt>Nuanu</dt><dd>44 га, 70% зелени, 36 кафе и ресторанов</dd>
             <dt>Аэропорт</dt><dd>время уточняется</dd>
           </dl>
-          <span class="eyebrow" style="display:block;margin:var(--s6) 0 var(--s3)">Что рядом</span>
+          <h3 class="subhead" style="margin-top:var(--s6)">Что рядом</h3>
           <ul class="list-clean">
             <li>Luna Beach Club, Ash, Lumeira, Oshom, Alpacafe</li>
             <li>Коворкинг, спортзал, сауна, cold plunge</li>
@@ -644,7 +636,6 @@
   <section class="section" id="trust" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Застройщик</span>
         <h2 class="h2">Кто строит</h2>
       </div>
       <div class="row-2">
@@ -672,8 +663,7 @@
   <section class="section" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head measure">
-        <span class="eyebrow">Как купить</span>
-        <h2 class="h2">Процесс по шагам</h2>
+        <h2 class="h2">Как купить</h2>
       </div>
       <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
         <ol class="steps">
@@ -685,7 +675,7 @@
           <li>Передача юнита и подключение управляющей компании.</li>
         </ol>
         <div>
-          <span class="eyebrow" style="display:block;margin-bottom:var(--s3)">Покупка иностранцем</span>
+          <h3 class="subhead">Покупка иностранцем</h3>
           <p style="color:var(--ink-2)">Leasehold или freehold, срок, PT PMA и налоги — из юр-пакета девелопера.
             Формулировки согласуем перед публикацией.</p>
         </div>
@@ -698,7 +688,6 @@
     <div class="wrap">
       <div class="faq-grid">
         <div class="faq-head">
-          <span class="eyebrow">FAQ</span>
           <h2 class="h2">Частые вопросы</h2>
           <p class="lead">Коротко о том, что спрашивают чаще всего перед сделкой.</p>
           <a class="btn btn--primary" href="#lead-form">Задать свой вопрос</a>
@@ -730,7 +719,6 @@
     <div class="wrap">
       <div class="split" style="display:grid;grid-template-columns:5fr 7fr;gap:var(--s8);align-items:start">
         <div class="measure">
-          <span class="eyebrow" style="display:block;margin-bottom:var(--s3)">Заявка</span>
           <h2 class="h2">Подберём юнит под бюджет и цель</h2>
           <p class="lead" style="margin-top:var(--s4)">Оставьте контакты — вернёмся с подборкой юнитов и расчётом доходности.</p>
           <div class="contacts">
