@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unit Space City — прототип лендинга</title>
+<title>Unit Space City — три комплекса резиденций в Nuanu, Бали</title>
 <style>
   /* ============ ДИЗАЙН-СИСТЕМА ============
      Фирстиль UNIT: Helvetica Neue, фон #F4F4F4, акцент #0433FF, заголовки вес 500.
@@ -239,7 +239,6 @@
   /* form */
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
   @media (max-width:640px){ .form-grid{grid-template-columns:1fr} }
-  .form-note{font-size:13px;color:var(--ink-2);margin-top:var(--s3)}
 
   .contacts{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
 
@@ -253,10 +252,6 @@
   footer .disc{grid-column:1/-1;padding-top:var(--s5);border-top:1px solid var(--line);
     font-size:12px;color:var(--ink-2);max-width:var(--measure)}
 
-  .protonote{position:fixed;right:12px;bottom:12px;z-index:70;background:var(--ink);color:#dfe1e6;
-    font-size:11px;line-height:1.4;padding:8px 12px;border-radius:var(--r);max-width:230px}
-  .protonote b{color:#fff}
-  @media (max-width:560px){ .protonote{display:none} }
 </style>
 </head>
 <body>
@@ -296,7 +291,7 @@
         <a href="#lead-form" class="btn btn--ghost">Забронировать просмотр</a>
       </div>
     </div>
-    <div class="ph hero-visual" data-label="аэро Nuanu / lifestyle — видео или рендер"></div>
+    <div class="ph hero-visual" data-label="аэро Nuanu"></div>
   </section>
 
   <!-- 02 · ПОЛОСА ЦИФР -->
@@ -386,7 +381,6 @@
               <button class="chip" aria-pressed="false">Отделка</button>
               <button class="chip" aria-pressed="false">Документы</button>
             </div>
-            <p class="small" style="margin-top:var(--s4)"><a class="link" href="#lead-form">Смотреть галерею и фото-пак →</a></p>
           </div>
           <div>
             <table class="data">
@@ -427,7 +421,6 @@
               <button class="chip" aria-pressed="false">Отделка</button>
               <button class="chip" aria-pressed="false">Документы</button>
             </div>
-            <p class="small" style="margin-top:var(--s4)"><a class="link" href="#lead-form">Смотреть галерею и фото-пак →</a></p>
           </div>
           <div>
             <table class="data">
@@ -470,7 +463,6 @@
               <button class="chip" aria-pressed="false">Прогресс стройки</button>
               <button class="chip" aria-pressed="false">Документы</button>
             </div>
-            <p class="small" style="margin-top:var(--s4)"><a class="link" href="#lead-form">Смотреть галерею и фото-пак →</a></p>
           </div>
           <div>
             <table class="data">
@@ -528,7 +520,7 @@
     <div class="wrap">
       <div class="sec-head measure">
         <h2 class="h2">Свободные юниты</h2>
-        <p class="lead">Наличие и цены — из шахматки девелопера. Пока подключаем таблицу, показываем состав по юнит-миксу; цену уточняем по запросу.</p>
+        <p class="lead">Актуальную подборку с ценами и этажами пришлём по запросу.</p>
       </div>
       <div class="filters" id="filters">
         <button class="chip" data-f="q" data-v="all" aria-pressed="true">Все комплексы</button>
@@ -552,7 +544,7 @@
     <div class="wrap">
       <div class="sec-head measure">
         <h2 class="h2">Как считается доход</h2>
-        <p class="lead">Три сценария и как в каждом складывается доход. Цифры загрузки и ставки U1 — из финмодели девелопера.</p>
+        <p class="lead">Три сценария и как в каждом складывается доход.</p>
       </div>
       <table class="data" style="margin-bottom:var(--s7)">
         <thead><tr><th>Сценарий</th><th>Что это</th><th>Ориентир</th></tr></thead>
@@ -624,7 +616,7 @@
             <circle cx="150" cy="305" r="4" fill="#6B6B70"/><text x="164" y="309" font-family="Helvetica,Arial" font-size="11" fill="#6B6B70">Пляж Pantai Nyanyi — 3 мин</text>
           </svg>
           <figcaption style="padding:10px 14px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line)">
-            Схема. Точную интерактивную карту делаем на движке от BSO.
+            Схема расположения комплексов.
           </figcaption>
         </figure>
         <div>
@@ -709,7 +701,7 @@
           <details class="faq-card"><summary>Это первичка или вторичка?</summary>
             <p>Первичка. Свободные юниты продаются напрямую от девелопера во всех трёх комплексах, включая сданные U1 и U2.</p></details>
           <details class="faq-card"><summary>12–15% — это gross или net?</summary>
-            <p>Прогноз до налогов и до вычета простоя на обслуживание. Точная модель — из финмодели девелопера, пришлём по запросу.</p></details>
+            <p>Прогноз до налогов и до вычета простоя на обслуживание. Точную модель под ваш юнит пришлём по запросу.</p></details>
           <details class="faq-card"><summary>Можно перепродать до сдачи?</summary>
             <p>Да, для строящегося комплекса U3. Условия — в договоре.</p></details>
           <details class="faq-card"><summary>Что делает управляющая компания?</summary>
@@ -754,7 +746,6 @@
             </div>
             <div class="field" style="align-self:end"><button class="btn btn--primary" type="submit" style="width:100%">Отправить</button></div>
           </div>
-          <p class="form-note">Прототип — форма не отправляется. На проде уходит в Telegram-бот.</p>
         </form>
       </div>
     </div>
@@ -773,12 +764,10 @@
     <div><h4>Комплексы</h4><ul><li>U1 — Space Village</li><li>U2 — Nuanu Village</li><li>U3 — Nyanyi Village</li></ul></div>
     <div><h4>Разделы</h4><ul><li><a href="#catalog">Юниты</a></li><li><a href="#yield">Доходность</a></li><li><a href="#location">Локация</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div><h4>Контакты</h4><ul><li>Telegram</li><li>Email</li><li>Забронировать звонок</li></ul></div>
-    <p class="disc">Прототип. Материалы носят информационный характер и не являются публичной офертой.
-      Визуализации и цифры уточняются и могут отличаться от готового объекта.</p>
+    <p class="disc">Материалы носят информационный характер и не являются публичной офертой.
+      Визуализации и цифры могут отличаться от готового объекта.</p>
   </div>
 </footer>
-
-<div class="protonote"><b>Прототип.</b> Полный каркас лендинга на дизайн-системе UNIT. Данные каталога и цифры — заглушки до подключения таблиц девелопера.</div>
 
 <script>
 (function(){
