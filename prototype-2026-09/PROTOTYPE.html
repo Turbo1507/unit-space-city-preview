@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Space City — hi-fi прототип (hero + переключатель очередей)</title>
+<style>
+  :root{
+    /* UNIT brand recon (unitdeveloper.com) */
+    --bg:#F4F4F4;
+    --surface:#FFFFFF;
+    --surface-2:#ECECEC;
+    --ink:#3A3A3A;
+    --ink-2:#5A5A5A;
+    --ink-3:#8C8C8C;
+    --line:#E4E4E4;
+    --line-strong:#CFCFCF;
+    --blue:#0433FF;
+    --blue-hover:#0329CC;
+    --blue-tint:#0433FF14;
+    --ok:#1E9E63;
+    --warn:#C98A12;
+    --overlay:#14161A;
+
+    --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+    --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+
+    --r-btn:10px; --r-card:16px; --r-chip:8px; --r-pill:999px;
+
+    --font:"Helvetica Neue",Helvetica,Arial,sans-serif;
+
+    --container:1240px;
+    --gutter:32px;
+    --topbar-h:68px;
+
+    --t-fast:160ms ease;
+    --t-rev:420ms cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,p{margin:0}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+
+  /* headings — UNIT: weight 500, tight tracking */
+  .h-xxl{font-size:clamp(33px,7vw,88px);font-weight:500;line-height:1.03;letter-spacing:-.03em}
+  .h-xl{font-size:clamp(30px,4vw,46px);font-weight:500;line-height:1.06;letter-spacing:-.025em}
+  .h-lg{font-size:clamp(24px,3vw,34px);font-weight:500;line-height:1.1;letter-spacing:-.02em}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+  .num{font-weight:500;letter-spacing:-.03em;color:var(--blue);font-variant-numeric:tabular-nums}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 14px 0 24px;
+    border-radius:var(--r-btn);font-size:16px;font-weight:500;border:1.5px solid transparent;
+    transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast)}
+  .btn .ico{width:30px;height:30px;border:1.5px solid currentColor;border-radius:var(--r-pill);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .btn .ico svg{width:14px;height:14px}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.primary:hover{background:var(--blue-hover)}
+  .btn.onphoto{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.5);backdrop-filter:blur(4px)}
+  .btn.onphoto:hover{background:rgba(255,255,255,.2)}
+  .btn.sm{height:44px;padding:0 18px;font-size:14px}
+  .btn.sm .ico{display:none}
+  .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+  /* ---------- topbar ---------- */
+  .topbar{position:fixed;inset:0 0 auto 0;z-index:60;height:var(--topbar-h);
+    display:flex;align-items:center;transition:background var(--t-fast),border-color var(--t-fast);
+    border-bottom:1px solid transparent;color:#fff}
+  .topbar .wrap{display:flex;align-items:center;gap:var(--s-7);width:100%}
+  .topbar:not(.scrolled) .wrap{text-shadow:0 1px 16px rgba(0,0,0,.5)}
+  .topbar.scrolled{background:rgba(255,255,255,.92);backdrop-filter:saturate(1.5) blur(12px);
+    border-bottom-color:var(--line);color:var(--ink)}
+  .topbar.scrolled .wrap{text-shadow:none}
+  .brand{font-size:20px;font-weight:500;letter-spacing:-.03em;white-space:nowrap}
+  .brand .u{color:var(--blue)}
+  .brand .sc{opacity:.72;font-weight:500}
+  .topbar.scrolled .brand .sc{opacity:.55}
+  .nav{display:flex;gap:var(--s-6);font-size:14.5px}
+  .nav a{opacity:.82;transition:opacity var(--t-fast),color var(--t-fast)}
+  .nav a:hover{opacity:1}
+  .topbar.scrolled .nav a:hover{color:var(--blue);opacity:1}
+  .topbar .right{margin-left:auto;display:flex;align-items:center;gap:var(--s-4)}
+  .lang{display:inline-flex;border:1px solid currentColor;border-radius:var(--r-pill);overflow:hidden;opacity:.9}
+  .lang button{padding:5px 11px;font-size:12px;font-weight:600;letter-spacing:.02em;opacity:.6;transition:all var(--t-fast)}
+  .lang button[aria-pressed="true"]{opacity:1}
+  .topbar:not(.scrolled) .lang button[aria-pressed="true"]{background:#fff;color:var(--overlay)}
+  .topbar.scrolled .lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:#fff}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% center}
+  .hero::before{content:"";position:absolute;inset:0;background:
+    linear-gradient(180deg,rgba(20,22,26,.42) 0%,rgba(20,22,26,.12) 34%,rgba(20,22,26,.82) 100%),
+    linear-gradient(90deg,rgba(20,22,26,.66) 0%,rgba(20,22,26,.15) 52%,rgba(20,22,26,0) 74%)}
+  .hero .wrap{position:relative;z-index:2;padding-top:calc(var(--topbar-h) + var(--s-8));padding-bottom:var(--s-9)}
+  .hero .kicker{color:rgba(255,255,255,.8)}
+  .hero .kicker .u{color:#7f94ff}
+  .hero h1{margin-top:var(--s-4);max-width:16ch;text-shadow:0 2px 30px rgba(0,0,0,.25)}
+  .hero .lede{margin-top:var(--s-5);max-width:46ch;font-size:clamp(16px,1.5vw,19px);color:rgba(255,255,255,.86);line-height:1.5}
+  .hero .cta-row{margin-top:var(--s-7);display:flex;flex-wrap:wrap;gap:var(--s-3)}
+
+  /* ---------- facts strip ---------- */
+  .facts-strip{background:var(--bg);margin-top:-40px;position:relative;z-index:3}
+  .facts-strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4)}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);
+    padding:var(--s-5) var(--s-5) var(--s-4)}
+  .stat .n{font-size:clamp(34px,4.6vw,52px)}
+  .stat .l{margin-top:var(--s-2);font-size:14px;color:var(--ink-2);line-height:1.4}
+
+  /* ---------- section shell ---------- */
+  .sec{padding-top:var(--s-9);padding-bottom:var(--s-9)}
+  .sec-head{max-width:44ch;margin-bottom:var(--s-7)}
+  .sec-head .kicker{color:var(--blue);display:block;margin-bottom:var(--s-3)}
+  .sec-head p{margin-top:var(--s-3);color:var(--ink-2);font-size:16px}
+
+  /* ---------- project selector ---------- */
+  .selector{position:sticky;top:var(--topbar-h);z-index:40;background:var(--bg);
+    padding-top:var(--s-5);padding-bottom:var(--s-5);border-bottom:1px solid var(--line);
+    transition:padding var(--t-fast)}
+  .selector .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4)}
+  .pcard{position:relative;text-align:left;background:var(--surface);border:1.5px solid var(--line);
+    border-radius:var(--r-card);padding:var(--s-5) var(--s-5) var(--s-4);display:flex;flex-direction:column;gap:6px;
+    transition:border-color var(--t-fast),box-shadow var(--t-fast),background var(--t-fast),padding var(--t-fast)}
+  .pcard:hover{border-color:var(--line-strong)}
+  .pcard[aria-selected="true"]{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue);background:#fff}
+  .pcard .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s-1)}
+  .pcard .code{font-size:clamp(26px,3.4vw,40px);font-weight:500;letter-spacing:-.03em;color:var(--ink);line-height:1.06}
+  .pcard[aria-selected="true"] .code{color:var(--blue)}
+  .pcard .name{font-size:17px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+  .pcard .meta{font-size:13px;color:var(--ink-3)}
+  .pip{display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:var(--r-pill);
+    font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap}
+  .pip.ok{background:var(--ok)} .pip.warn{background:var(--warn)}
+  /* compact mode when stuck (desktop only — selector is sticky there) */
+  @media(min-width:921px){
+    .selector.stuck{padding-top:10px;padding-bottom:10px}
+    .selector.stuck .pcard{flex-direction:row;align-items:center;gap:var(--s-3);padding:10px var(--s-4)}
+    .selector.stuck .pcard .top{flex-direction:row-reverse;gap:var(--s-3);justify-content:flex-end;flex:0 0 auto}
+    .selector.stuck .pcard .code{font-size:20px}
+    .selector.stuck .pcard .name{font-size:14px}
+    .selector.stuck .pcard .meta{display:none}
+  }
+
+  /* ---------- project panel ---------- */
+  .project{padding-top:var(--s-8);padding-bottom:var(--s-10)}
+  .panel[hidden]{display:none}
+  .panel .layout{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s-8);align-items:start}
+  .panel h2{margin-bottom:var(--s-4)}
+  .panel .editorial p{color:var(--ink-2);font-size:16.5px;line-height:1.6}
+  .panel .editorial p + p{margin-top:var(--s-3)}
+  .infocard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:var(--s-6)}
+  .infocard h3{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--s-4)}
+  table.mix{width:100%;border-collapse:collapse;font-size:14.5px}
+  table.mix th,table.mix td{border-bottom:1px solid var(--line);padding:10px 4px;text-align:left}
+  table.mix thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  table.mix td.n,table.mix th.n{text-align:right;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+  table.mix tr:last-child td{border-bottom:0}
+  .infocard .kv{margin-top:var(--s-5);display:grid;grid-template-columns:auto 1fr;gap:8px var(--s-4);font-size:14px}
+  .infocard .kv dt{color:var(--ink-3)} .infocard .kv dd{margin:0;color:var(--ink-2)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-7)}
+  .chip{height:38px;padding:0 16px;display:inline-flex;align-items:center;border:1px solid var(--line-strong);
+    border-radius:var(--r-chip);font-size:14px;color:var(--ink-2);background:var(--surface);transition:all var(--t-fast)}
+  .chip:hover{border-color:var(--blue);color:var(--blue)}
+  .chip[data-active]{background:var(--blue);border-color:var(--blue);color:#fff}
+
+  .gallery{margin-top:var(--s-6);display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:var(--s-3)}
+  .tile{border:1px solid var(--line);border-radius:var(--r-card);background:var(--surface-2);
+    aspect-ratio:3/2;max-height:260px;position:relative}
+  .tile:first-child{aspect-ratio:2/1}
+  .tile::after{content:attr(data-label);position:absolute;left:14px;bottom:12px;font-size:12px;
+    color:var(--ink-3);background:rgba(255,255,255,.8);padding:3px 9px;border-radius:var(--r-chip)}
+  .tile .g{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--line-strong)}
+  .tile .g svg{width:32px;height:32px}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--surface);border-top:1px solid var(--line);padding:var(--s-7) 0}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:var(--s-5) var(--s-8);align-items:center;justify-content:space-between}
+  footer .cols{display:flex;gap:var(--s-6);font-size:13.5px;color:var(--ink-3);flex-wrap:wrap}
+  footer .disc{font-size:11.5px;color:var(--ink-3);max-width:54ch;line-height:1.5}
+
+  /* ---------- reveal ---------- */
+  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity var(--t-rev),transform var(--t-rev)}
+  .js .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .js .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* ---------- prototype note ---------- */
+  .protonote{position:fixed;right:12px;bottom:12px;z-index:70;background:var(--overlay);color:#dfe1e6;
+    font-size:11px;line-height:1.4;padding:8px 12px;border-radius:var(--r-chip);max-width:260px;
+    box-shadow:0 6px 24px rgba(0,0,0,.2)}
+  .protonote b{color:#fff}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:1080px){ .nav{display:none} }
+  @media(max-width:920px){
+    :root{--gutter:20px}
+    .facts-strip{margin-top:0}
+    .facts-strip .wrap{grid-template-columns:1fr}
+    .selector{position:static}
+    .selector .wrap{grid-template-columns:1fr}
+    .panel .layout{grid-template-columns:1fr;gap:var(--s-6)}
+    .gallery{grid-template-columns:1fr 1fr}
+    .gallery .tile:first-child{grid-column:1/-1}
+  }
+  @media(max-width:560px){
+    .topbar .right .btn{display:none}
+    .hero .cta-row .btn{flex:1 1 100%;justify-content:space-between}
+    .gallery .tile{max-height:170px;aspect-ratio:4/3}
+    .gallery .tile:first-child{aspect-ratio:2/1}
+    .protonote{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="u">UNIT.</span>&nbsp;<span class="sc">SPACE&nbsp;CITY</span></a>
+    <nav class="nav">
+      <a href="#queues">Очереди</a>
+      <a href="#queues">Юниты</a>
+      <a href="#queues">Доходность</a>
+      <a href="#queues">Локация</a>
+      <a href="#queues">Застройщик</a>
+      <a href="#queues">FAQ</a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Язык">
+        <button type="button" aria-pressed="true">RU</button>
+        <button type="button" aria-pressed="false">EN</button>
+      </div>
+      <a href="#lead" class="btn primary sm">Оставить заявку</a>
+    </div>
+  </div>
+</header>
+
+<!-- 1 · HERO -->
+<section class="hero" id="top">
+  <img class="hero-img" src="assets/hero-bg.jpg" alt="">
+  <div class="wrap">
+    <p class="kicker"><span class="u">UNIT.</span> · Nuanu Creative City, Бали</p>
+    <h1 class="h-xxl reveal">Дом в Nuanu по цене апартаментов</h1>
+    <p class="lede reveal">Три очереди — U1, U2, U3. Две сданы и работают, третья строится, сдача осенью 2026.
+      Продажа свободных юнитов напрямую от девелопера.</p>
+    <div class="cta-row reveal">
+      <a href="#queues" class="btn primary">Выбрать очередь<span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+      <a href="#lead" class="btn onphoto">Забронировать просмотр</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · FACTS STRIP -->
+<section class="facts-strip">
+  <div class="wrap">
+    <div class="stat reveal"><div class="n num">2024</div><div class="l">первая очередь сдана и заселена</div></div>
+    <div class="stat reveal"><div class="n num">12&ndash;15%</div><div class="l">прогноз доходности в год<br><span style="color:var(--ink-3)">(без гарантии, цифры уточняются)</span></div></div>
+    <div class="stat reveal"><div class="n num">10+ лет</div><div class="l">своя управляющая компания на Бали</div></div>
+  </div>
+</section>
+
+<!-- 4 · QUEUE SELECTOR -->
+<div class="wrap" id="queues" style="padding-top:var(--s-8)">
+  <div class="sec-head reveal">
+    <span class="kicker">Очереди</span>
+    <h2 class="h-xl">Три очереди — выберите свою</h2>
+    <p>U1 и U2 сданы и работают внутри Nuanu. U3 — новый посёлок Nyanyi у океана, строится.
+      Выбор очереди переключает описание, юнит-микс и каталог ниже.</p>
+  </div>
+</div>
+
+<div class="selector" id="selector">
+  <div class="wrap" role="tablist" aria-label="Очередь">
+    <button class="pcard" role="tab" aria-selected="true" data-p="u1" id="tab-u1" aria-controls="panel-u1">
+      <span class="top"><span class="code">U1</span><span class="pip ok">Сдан</span></span>
+      <span class="name">Space Village</span>
+      <span class="meta">Nuanu · сдан 2024 · работает</span>
+    </button>
+    <button class="pcard" role="tab" aria-selected="false" data-p="u2" id="tab-u2" aria-controls="panel-u2">
+      <span class="top"><span class="code">U2</span><span class="pip ok">Сдан</span></span>
+      <span class="name">Nuanu Village</span>
+      <span class="meta">Nuanu · сдан 2025 · работает</span>
+    </button>
+    <button class="pcard" role="tab" aria-selected="false" data-p="u3" id="tab-u3" aria-controls="panel-u3">
+      <span class="top"><span class="code">U3</span><span class="pip warn">Строится</span></span>
+      <span class="name">Nyanyi Village</span>
+      <span class="meta">посёлок Nyanyi · сдача осень 2026</span>
+    </button>
+  </div>
+</div>
+
+<!-- 5 · PROJECT PANEL -->
+<section class="project">
+  <div class="wrap">
+
+    <!-- U1 -->
+    <div class="panel" id="panel-u1" role="tabpanel" aria-labelledby="tab-u1">
+      <div class="layout">
+        <div class="reveal">
+          <h2 class="h-lg">Space Village — готовый дом, без стройки рядом</h2>
+          <div class="editorial">
+            <p>Первая очередь. Сдана в 2024, заселена, работает как арендный бизнес.
+              Есть закрытые сделки перепродажи юнитов.</p>
+            <p>Заезжаешь в готовое: инфраструктура запущена, соседи живут, площадка тихая.
+              Кафе, лаундж-бар, коворкинг, сауна, cold plunge, зал — внутри квартала.</p>
+          </div>
+          <div class="chips">
+            <span class="chip" data-active>Планировки</span>
+            <span class="chip">Юниты в продаже</span>
+            <span class="chip">Отделка</span>
+            <span class="chip">Документы</span>
+          </div>
+        </div>
+        <div class="infocard reveal">
+          <h3>Юнит-микс · U1</h3>
+          <table class="mix">
+            <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
+            <tbody>
+              <tr><td>Студия</td><td class="n">32</td><td class="n">20</td></tr>
+              <tr><td>2+1 BD</td><td class="n">89</td><td class="n">1</td></tr>
+            </tbody>
+          </table>
+          <dl class="kv">
+            <dt>Локация</dt><dd>Nuanu Creative City</dd>
+            <dt>Статус</dt><dd>сдан 2024, работает</dd>
+            <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="gallery reveal">
+        <div class="tile" data-label="рендер U1 · экстерьер"><span class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v14H3z"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9.5" r="1.5"/></svg></span></div>
+        <div class="tile" data-label="интерьер студии"></div>
+        <div class="tile" data-label="общая зона"></div>
+      </div>
+    </div>
+
+    <!-- U2 -->
+    <div class="panel" id="panel-u2" role="tabpanel" aria-labelledby="tab-u2" hidden>
+      <div class="layout">
+        <div class="reveal">
+          <h2 class="h-lg">Nuanu Village — самый широкий выбор форматов</h2>
+          <div class="editorial">
+            <p>Вторая очередь, та же локация внутри Nuanu. Сдана в 2025, полностью работает.</p>
+            <p>От студии 32 м² до виллы 200 м² с приватным бассейном. Во всех форматах,
+              кроме студии, — отдельные кухня и гостиная. Управляющая компания и инфраструктура
+              общие с U1.</p>
+          </div>
+          <div class="chips">
+            <span class="chip" data-active>Планировки</span>
+            <span class="chip">Юниты в продаже</span>
+            <span class="chip">Отделка</span>
+            <span class="chip">Документы</span>
+          </div>
+        </div>
+        <div class="infocard reveal">
+          <h3>Юнит-микс · U2</h3>
+          <table class="mix">
+            <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
+            <tbody>
+              <tr><td>Студия</td><td class="n">32</td><td class="n">4</td></tr>
+              <tr><td>1+1 BD</td><td class="n">60</td><td class="n">17</td></tr>
+              <tr><td>2+1 BD</td><td class="n">89</td><td class="n">24</td></tr>
+              <tr><td>3+1 BD вилла + бассейн</td><td class="n">200</td><td class="n">9</td></tr>
+            </tbody>
+          </table>
+          <dl class="kv">
+            <dt>Локация</dt><dd>Nuanu Creative City</dd>
+            <dt>Статус</dt><dd>сдан 2025, работает</dd>
+            <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="gallery reveal">
+        <div class="tile" data-label="рендер U2 · экстерьер"><span class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v14H3z"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9.5" r="1.5"/></svg></span></div>
+        <div class="tile" data-label="вилла 3+1 с бассейном"></div>
+        <div class="tile" data-label="интерьер 2+1"></div>
+      </div>
+    </div>
+
+    <!-- U3 -->
+    <div class="panel" id="panel-u3" role="tabpanel" aria-labelledby="tab-u3" hidden>
+      <div class="layout">
+        <div class="reveal">
+          <h2 class="h-lg">Nyanyi Village — вход на старте очереди</h2>
+          <div class="editorial">
+            <p>Третья очередь — посёлок Nyanyi, рядом с Nuanu и ближе к океану.
+              Строится, сдача осенью 2026.</p>
+            <p>Вход по стартовой цене очереди, юнит можно перепродать до сдачи.
+              Здесь появляются форматы с приватным бассейном — 1+1 и 2+1.
+              Прогресс стройки публикуем по датам.</p>
+          </div>
+          <div class="chips">
+            <span class="chip" data-active>Планировки</span>
+            <span class="chip">Юниты в продаже</span>
+            <span class="chip">Отделка</span>
+            <span class="chip">Прогресс стройки</span>
+            <span class="chip">Документы</span>
+          </div>
+        </div>
+        <div class="infocard reveal">
+          <h3>Юнит-микс · U3</h3>
+          <table class="mix">
+            <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
+            <tbody>
+              <tr><td>1+1 BD</td><td class="n">60</td><td class="n">25</td></tr>
+              <tr><td>1+1 BD + бассейн</td><td class="n">100</td><td class="n">5</td></tr>
+              <tr><td>2+1 BD</td><td class="n">89</td><td class="n">1</td></tr>
+              <tr><td>2+1 BD + бассейн</td><td class="n">109</td><td class="n">1</td></tr>
+              <tr><td>3+1 BD вилла + бассейн</td><td class="n">200</td><td class="n">1</td></tr>
+            </tbody>
+          </table>
+          <dl class="kv">
+            <dt>Локация</dt><dd>посёлок Nyanyi</dd>
+            <dt>Статус</dt><dd>строится · сдача осень 2026</dd>
+            <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="gallery reveal">
+        <div class="tile" data-label="рендер U3 · экстерьер"><span class="g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18v14H3z"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9.5" r="1.5"/></svg></span></div>
+        <div class="tile" data-label="прогресс стройки"></div>
+        <div class="tile" data-label="план 1+1 с бассейном"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="lead">
+  <div class="wrap">
+    <div class="cols">
+      <span>U1 · U2 · U3</span><span>Компания</span><span>Документы</span><span>Контакты</span>
+    </div>
+    <p class="disc">Прототип. Материалы носят информационный характер и не являются публичной
+      офертой; визуализации могут отличаться от готового объекта.</p>
+  </div>
+</footer>
+
+<div class="protonote"><b>Прототип · заход 1.</b> Верх страницы: hero + переключатель очередей.
+  Фон hero — временный рендер из презентации. Токены — фирстиль UNIT.</div>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+
+  // topbar solid on scroll
+  var tb=document.getElementById('topbar');
+  var onScroll=function(){ tb.classList.toggle('scrolled', window.scrollY>40); };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // language pill (visual)
+  document.querySelectorAll('.lang').forEach(function(g){
+    g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});
+  });
+
+  // queue selector
+  var tabs=document.querySelectorAll('.pcard');
+  var panels={u1:document.getElementById('panel-u1'),u2:document.getElementById('panel-u2'),u3:document.getElementById('panel-u3')};
+  function select(p){
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.p===p?'true':'false');});
+    Object.keys(panels).forEach(function(k){panels[k].hidden=k!==p;});
+    panels[p].querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){select(t.dataset.p);});});
+
+  // chips (visual, per panel)
+  document.querySelectorAll('.chips').forEach(function(row){
+    row.addEventListener('click',function(e){var c=e.target.closest('.chip');if(!c)return;
+      row.querySelectorAll('.chip').forEach(function(x){x.removeAttribute('data-active');});
+      c.setAttribute('data-active','');});
+  });
+
+  // selector compact when stuck
+  var sel=document.getElementById('selector');
+  if('IntersectionObserver' in window){
+    var sentinel=document.createElement('div');
+    sel.parentNode.insertBefore(sentinel,sel);
+    new IntersectionObserver(function(e){ sel.classList.toggle('stuck',!e[0].isIntersecting); },
+      {rootMargin:'-'+(68+1)+'px 0px 0px 0px',threshold:0}).observe(sentinel);
+  }
+
+  // reveal
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+  },{rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  // failsafe: never leave content hidden
+  setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){el.classList.add('in');});},1400);
+})();
+</script>
+</body>
+</html>
