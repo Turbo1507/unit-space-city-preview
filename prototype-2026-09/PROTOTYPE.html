@@ -17,6 +17,7 @@
     --line:#E4E4E6;
     --blue:#0433FF;
     --blue-ink:#FFFFFF;
+    --fill:#ECECEC;   /* только заливка плейсхолдеров под фото/рендеры */
 
     --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
     --s6:32px; --s7:48px; --s8:64px; --s9:96px; --s10:128px;
@@ -94,17 +95,27 @@
 
   main{padding-top:var(--topbar)}
 
-  /* hero — во весь экран, план-схема снизу */
+  /* плейсхолдеры под фото/рендеры */
+  .ph{background:var(--fill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' fill='none' stroke='%23BEBEC2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='7' width='36' height='30' rx='2'/%3E%3Cpath d='M8 31l9-9 7 7 5-5 7 7'/%3E%3Ccircle cx='15' cy='16' r='2.5'/%3E%3C/svg%3E") center / 44px no-repeat;
+    border:1px solid var(--line);border-radius:var(--r-lg);position:relative;overflow:hidden}
+  .ph::after{content:attr(data-label);position:absolute;left:12px;bottom:10px;font-size:12px;color:var(--ink-2);
+    background:var(--surface);padding:3px 9px;border-radius:6px}
+
+  /* hero — во весь экран, визуал-плейсхолдер снизу */
   .hero{min-height:100svh;display:flex;flex-direction:column}
   .hero .hero-head{padding-top:var(--s8);padding-bottom:var(--s6)}
   .hero .lead{margin-top:var(--s5);max-width:52ch}
-  .hero .hero-sub{margin-top:var(--s3);max-width:52ch;color:var(--ink-2)}
-  .hero-plan{flex:1 1 auto;min-height:54vh;background:var(--surface);border-top:1px solid var(--line);
-    position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .hero-plan svg{width:100%;height:100%;max-width:1180px}
-  .hero-plan figcaption{position:absolute;left:var(--s5);bottom:var(--s4);font-size:12px;color:var(--ink-2);
-    background:rgba(244,244,244,.9);padding:4px 10px;border-radius:6px}
-  @media (max-width:720px){ .hero-plan{min-height:46vh} }
+  .hero-visual{flex:1 1 auto;min-height:52vh;border-left:0;border-right:0;border-bottom:0;border-radius:0}
+  @media (max-width:720px){ .hero-visual{min-height:44vh} }
+
+  /* галерея-плейсхолдеры в блоке комплекса */
+  .gallery{margin-top:var(--s7);display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:var(--s3)}
+  .gallery .ph{aspect-ratio:4/3}
+  .gallery .ph:first-child{grid-row:span 2;aspect-ratio:auto}
+  @media (max-width:720px){
+    .gallery{grid-template-columns:1fr 1fr}
+    .gallery .ph:first-child{grid-column:1/-1;grid-row:auto;aspect-ratio:16/9}
+  }
 
   /* number band */
   .band{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
@@ -117,9 +128,11 @@
   .row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
   .row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap)}
   @media (max-width:860px){ .row-3,.row-2{grid-template-columns:1fr} }
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5);overflow:hidden}
   .card .h3{margin-bottom:var(--s2)}
   .card p{color:var(--ink-2)}
+  .card .media{margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) var(--s4);aspect-ratio:5/3;
+    border:0;border-bottom:1px solid var(--line);border-radius:0}
 
   .list-clean{list-style:none;padding:0;display:grid;gap:var(--s3)}
   .list-clean li{padding-left:var(--s5);position:relative;color:var(--ink-2)}
@@ -278,36 +291,12 @@
       <h1 class="display">Три комплекса в одной локации рядом с Nuanu</h1>
       <p class="lead">В 3 минутах от океана, с доступом к инфраструктуре для жизни,
         работы, отдыха и развития.</p>
-      <p class="hero-sub">U1 и U2 сданы и работают, U3 строится — сдача осенью 2026.
-        Продажа свободных юнитов напрямую от девелопера.</p>
       <div class="cta-row">
         <a href="#catalog" class="btn btn--primary">Смотреть юниты</a>
         <a href="#lead-form" class="btn btn--ghost">Забронировать просмотр</a>
       </div>
     </div>
-    <figure class="hero-plan">
-      <svg viewBox="0 0 1180 520" role="img" aria-label="План-схема: U1 и U2 в Nuanu, U3 в посёлке Nyanyi, пляж Pantai Nyanyi, океан">
-        <rect width="1180" height="520" fill="#F4F4F4"/>
-        <rect x="240" y="72" width="360" height="298" rx="14" fill="none" stroke="#C9C9CE" stroke-width="1.5"/>
-        <text x="252" y="58" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70" letter-spacing="1.5">NUANU CREATIVE CITY</text>
-        <path d="M0 430 C 220 400, 380 460, 620 432 S 980 380, 1180 405 L1180 520 L0 520 Z" fill="#E4E4E6"/>
-        <text x="40" y="492" font-family="Helvetica,Arial" font-size="14" fill="#6B6B70" letter-spacing="2">ОКЕАН</text>
-        <line x1="330" y1="150" x2="330" y2="400" stroke="#C9C9CE" stroke-width="1.5"/>
-        <line x1="330" y1="250" x2="760" y2="210" stroke="#C9C9CE" stroke-width="1.5"/>
-        <circle cx="330" cy="150" r="8" fill="#0433FF"/>
-        <text x="352" y="146" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U1 — Space Village</text>
-        <text x="352" y="167" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nuanu — сдан 2024</text>
-        <circle cx="330" cy="250" r="8" fill="#0433FF"/>
-        <text x="352" y="246" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U2 — Nuanu Village</text>
-        <text x="352" y="267" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nuanu — сдан 2025</text>
-        <circle cx="760" cy="210" r="8" fill="none" stroke="#0433FF" stroke-width="2"/>
-        <text x="782" y="206" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U3 — Nyanyi Village</text>
-        <text x="782" y="227" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nyanyi — строится, сдача 2026</text>
-        <circle cx="330" cy="400" r="5" fill="#6B6B70"/>
-        <text x="352" y="404" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Пляж Pantai Nyanyi — 3 мин</text>
-      </svg>
-      <figcaption>План-схема. На проде — интерактивная карта во весь экран.</figcaption>
-    </figure>
+    <div class="ph hero-visual" data-label="аэро Nuanu / lifestyle — видео или рендер"></div>
   </section>
 
   <!-- 02 · ПОЛОСА ЦИФР -->
@@ -330,14 +319,17 @@
       </div>
       <div class="row-3">
         <div class="card">
+          <div class="ph media" data-label="перепродажа / рост"></div>
           <h3 class="h3">Инвестиция</h3>
           <p>Вход по стартовой цене. Юнит можно перепродать до сдачи.</p>
         </div>
         <div class="card">
+          <div class="ph media" data-label="интерьер под аренду"></div>
           <h3 class="h3">Аренда</h3>
           <p>Прогнозная доходность 12–15% годовых. Всю операционку ведёт управляющая компания.</p>
         </div>
         <div class="card">
+          <div class="ph media" data-label="жизнь у океана"></div>
           <h3 class="h3">Жизнь</h3>
           <p>Меблированный дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p>
         </div>
@@ -411,6 +403,13 @@
             </dl>
           </div>
         </div>
+        <div class="gallery">
+          <div class="ph" data-label="экстерьер"></div>
+          <div class="ph" data-label="интерьер"></div>
+          <div class="ph" data-label="общая зона"></div>
+          <div class="ph" data-label="территория"></div>
+          <div class="ph" data-label="бассейн"></div>
+        </div>
       </div>
 
       <div class="panel" id="panel-u2" role="tabpanel" aria-labelledby="tab-u2" hidden>
@@ -446,6 +445,13 @@
               <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
             </dl>
           </div>
+        </div>
+        <div class="gallery">
+          <div class="ph" data-label="экстерьер"></div>
+          <div class="ph" data-label="интерьер"></div>
+          <div class="ph" data-label="общая зона"></div>
+          <div class="ph" data-label="территория"></div>
+          <div class="ph" data-label="бассейн"></div>
         </div>
       </div>
 
@@ -483,6 +489,13 @@
               <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
             </dl>
           </div>
+        </div>
+        <div class="gallery">
+          <div class="ph" data-label="рендер экстерьера"></div>
+          <div class="ph" data-label="интерьер"></div>
+          <div class="ph" data-label="прогресс стройки"></div>
+          <div class="ph" data-label="территория"></div>
+          <div class="ph" data-label="бассейн"></div>
         </div>
       </div>
     </div>
