@@ -36,7 +36,7 @@
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);
     font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,p,figure{margin:0}
+  h1,h2,h3,h4,p,figure{margin:0}
   a{color:inherit;text-decoration:none}
   button,input,select{font:inherit;color:inherit}
   ul{margin:0}
@@ -48,15 +48,15 @@
   .tnum{font-variant-numeric:tabular-nums}
 
   /* type scale */
-  .display{font-size:64px;line-height:1.04;font-weight:500;letter-spacing:-.03em}
-  .h2{font-size:36px;line-height:1.1;font-weight:500;letter-spacing:-.02em}
+  .display{font-size:64px;line-height:1.04;font-weight:500;letter-spacing:-.03em;text-wrap:balance}
+  .h2{font-size:36px;line-height:1.1;font-weight:500;letter-spacing:-.02em;text-wrap:balance}
   .h3{font-size:22px;line-height:1.25;font-weight:500;letter-spacing:-.01em}
   .lead{font-size:19px;line-height:1.5;color:var(--ink-2)}
   .small{font-size:14px;line-height:1.5}
   .eyebrow{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
   .num{font-size:56px;line-height:1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
   @media (max-width:720px){
-    .display{font-size:40px} .h2{font-size:28px} .num{font-size:40px} .lead{font-size:17px}
+    .display{font-size:38px} .h2{font-size:28px} .num{font-size:40px} .lead{font-size:17px}
   }
 
   .sec-head{margin-bottom:var(--s7)}
@@ -95,19 +95,22 @@
 
   main{padding-top:var(--topbar)}
 
-  /* hero */
-  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:center;
-    padding-top:var(--s9);padding-bottom:var(--s9)}
-  .hero .lead{margin-top:var(--s5);max-width:46ch}
-  .hero figure{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
-  .hero figure figcaption{padding:10px 14px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line)}
-  @media (max-width:860px){ .hero .wrap{grid-template-columns:1fr;gap:var(--s6)} }
+  /* hero — во весь экран, план-схема снизу */
+  .hero{min-height:100svh;display:flex;flex-direction:column}
+  .hero .hero-head{padding-top:var(--s8);padding-bottom:var(--s6)}
+  .hero .lead{margin-top:var(--s5);max-width:52ch}
+  .hero .hero-sub{margin-top:var(--s3);max-width:52ch;color:var(--ink-2)}
+  .hero-plan{flex:1 1 auto;min-height:54vh;background:var(--surface);border-top:1px solid var(--line);
+    position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .hero-plan svg{width:100%;height:100%;max-width:1180px}
+  .hero-plan figcaption{position:absolute;left:var(--s5);bottom:var(--s4);font-size:12px;color:var(--ink-2);
+    background:rgba(244,244,244,.9);padding:4px 10px;border-radius:6px}
+  @media (max-width:720px){ .hero-plan{min-height:46vh} }
 
   /* number band */
   .band{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
   .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5)}
   .tile .cap{margin-top:var(--s3);font-size:14px;color:var(--ink-2);line-height:1.4}
-  .tile .note{font-size:12px;color:var(--ink-2)}
   @media (max-width:860px){ .band{grid-template-columns:1fr 1fr} }
   @media (max-width:460px){ .band{grid-template-columns:1fr} }
 
@@ -123,7 +126,8 @@
   .list-clean li{padding-left:var(--s5);position:relative;color:var(--ink-2)}
   .list-clean li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:1px;background:var(--blue)}
 
-  /* project switcher */
+  /* project switcher — sticky только внутри .project-scope */
+  .project-scope{position:relative}
   .switcher{position:sticky;top:var(--topbar);z-index:40;background:var(--bg);
     border-bottom:1px solid var(--line);padding-top:var(--s4);padding-bottom:var(--s4)}
   .switcher .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
@@ -131,7 +135,7 @@
     padding:var(--s4) var(--s5);cursor:pointer;transition:border-color var(--t),background var(--t);
     display:flex;flex-direction:column;gap:2px}
   .qtab:hover{border-color:var(--ink-2)}
-  .qtab[aria-selected="true"]{border-color:var(--blue);background:var(--surface)}
+  .qtab[aria-selected="true"]{border-color:var(--blue)}
   .qtab .code{font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
   .qtab[aria-selected="true"] .code{color:var(--blue)}
   .qtab .nm{font-size:15px;font-weight:500;margin-top:2px}
@@ -203,15 +207,23 @@
     border:1px solid var(--line);border-radius:999px;display:grid;place-items:center;
     font-size:13px;font-weight:500;color:var(--ink)}
 
-  /* faq */
-  .faq{border-top:1px solid var(--line)}
-  .faq details{border-bottom:1px solid var(--line)}
-  .faq summary{list-style:none;cursor:pointer;padding:var(--s5) 0;font-size:17px;font-weight:500;
-    display:flex;justify-content:space-between;gap:var(--s4)}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";color:var(--ink-2);font-weight:400}
-  .faq details[open] summary::after{content:"–"}
-  .faq p{padding:0 0 var(--s5);color:var(--ink-2);max-width:var(--measure)}
+  /* faq — двухколоночный, левая колонка липкая (по образцу БСО "как купить") */
+  .faq-grid{display:grid;grid-template-columns:4fr 8fr;gap:var(--s8);align-items:start}
+  @media (max-width:860px){ .faq-grid{grid-template-columns:1fr;gap:var(--s6)} }
+  .faq-head{position:sticky;top:calc(var(--topbar) + var(--s5))}
+  .faq-head .eyebrow{display:block;margin-bottom:var(--s3)}
+  .faq-head .lead{margin-top:var(--s4)}
+  .faq-head .btn{margin-top:var(--s5)}
+  @media (max-width:860px){ .faq-head{position:static} }
+  .faq-list{display:grid;gap:var(--s3)}
+  .faq-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:0 var(--s5)}
+  .faq-card[open]{border-color:var(--ink-2)}
+  .faq-card summary{list-style:none;cursor:pointer;padding:var(--s5) 0;font-size:17px;font-weight:500;
+    display:flex;justify-content:space-between;gap:var(--s4);align-items:center}
+  .faq-card summary::-webkit-details-marker{display:none}
+  .faq-card summary::after{content:"+";color:var(--ink-2);font-weight:400;font-size:20px;line-height:1;flex:0 0 auto}
+  .faq-card[open] summary::after{content:"–"}
+  .faq-card p{padding:0 0 var(--s5);color:var(--ink-2)}
 
   /* form */
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
@@ -243,7 +255,7 @@
   <div class="wrap">
     <a href="#top" class="brand"><b>UNIT.</b>&nbsp;SPACE&nbsp;CITY</a>
     <nav class="topnav">
-      <a href="#queues">Очереди</a>
+      <a href="#complexes">Комплексы</a>
       <a href="#catalog">Юниты</a>
       <a href="#yield">Доходность</a>
       <a href="#location">Локация</a>
@@ -263,53 +275,50 @@
 <main id="top">
 
   <!-- 01 · HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <span class="eyebrow">Unit Space City — Nuanu, Бали</span>
-        <h1 class="display" style="margin-top:var(--s4)">Три очереди резиденций внутри Nuanu</h1>
-        <p class="lead">U1 и U2 сданы и работают. U3 строится, сдача осенью 2026.
-          Продажа свободных юнитов напрямую от девелопера.</p>
-        <div class="cta-row">
-          <a href="#catalog" class="btn btn--primary">Смотреть юниты</a>
-          <a href="#lead-form" class="btn btn--ghost">Забронировать просмотр</a>
-        </div>
+  <section class="hero" id="hero">
+    <div class="wrap hero-head">
+      <h1 class="display">Три комплекса в одной локации рядом с Nuanu</h1>
+      <p class="lead">В 3 минутах от океана, с доступом к инфраструктуре для жизни,
+        работы, отдыха и развития.</p>
+      <p class="hero-sub">U1 и U2 сданы и работают, U3 строится — сдача осенью 2026.
+        Продажа свободных юнитов напрямую от девелопера.</p>
+      <div class="cta-row">
+        <a href="#catalog" class="btn btn--primary">Смотреть юниты</a>
+        <a href="#lead-form" class="btn btn--ghost">Забронировать просмотр</a>
       </div>
-      <figure>
-        <svg viewBox="0 0 520 360" role="img" aria-label="Схема: расположение очередей U1, U2, U3 относительно Nuanu, посёлка Nyanyi и океана">
-          <rect width="520" height="360" fill="#F4F4F4"/>
-          <path d="M0 300 C 120 270, 200 320, 320 296 S 480 250, 520 268 L520 360 L0 360 Z" fill="#E4E4E6"/>
-          <text x="24" y="342" font-family="Helvetica,Arial" font-size="12" fill="#6B6B70" letter-spacing="1.5">ОКЕАН</text>
-          <line x1="150" y1="120" x2="150" y2="285" stroke="#C9C9CE" stroke-width="1.5"/>
-          <line x1="150" y1="200" x2="360" y2="150" stroke="#C9C9CE" stroke-width="1.5"/>
-          <!-- U1 -->
-          <circle cx="150" cy="120" r="6" fill="#0433FF"/>
-          <text x="164" y="118" font-family="Helvetica,Arial" font-size="13" font-weight="500" fill="#2C2C2E">U1 — Space Village</text>
-          <text x="164" y="134" font-family="Helvetica,Arial" font-size="11" fill="#6B6B70">Nuanu — сдан 2024</text>
-          <!-- U2 -->
-          <circle cx="150" cy="200" r="6" fill="#0433FF"/>
-          <text x="164" y="198" font-family="Helvetica,Arial" font-size="13" font-weight="500" fill="#2C2C2E">U2 — Nuanu Village</text>
-          <text x="164" y="214" font-family="Helvetica,Arial" font-size="11" fill="#6B6B70">Nuanu — сдан 2025</text>
-          <!-- U3 -->
-          <circle cx="360" cy="150" r="6" fill="none" stroke="#0433FF" stroke-width="1.5"/>
-          <text x="374" y="148" font-family="Helvetica,Arial" font-size="13" font-weight="500" fill="#2C2C2E">U3 — Nyanyi Village</text>
-          <text x="374" y="164" font-family="Helvetica,Arial" font-size="11" fill="#6B6B70">Nyanyi — строится</text>
-          <!-- beach -->
-          <circle cx="150" cy="285" r="4" fill="#6B6B70"/>
-          <text x="164" y="289" font-family="Helvetica,Arial" font-size="11" fill="#6B6B70">Пляж Nyanyi — 3 мин</text>
-        </svg>
-        <figcaption>Схема расположения. Точная карта — в разделе «Локация».</figcaption>
-      </figure>
     </div>
+    <figure class="hero-plan">
+      <svg viewBox="0 0 1180 520" role="img" aria-label="План-схема: U1 и U2 в Nuanu, U3 в посёлке Nyanyi, пляж Pantai Nyanyi, океан">
+        <rect width="1180" height="520" fill="#F4F4F4"/>
+        <rect x="240" y="72" width="360" height="298" rx="14" fill="none" stroke="#C9C9CE" stroke-width="1.5"/>
+        <text x="252" y="58" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70" letter-spacing="1.5">NUANU CREATIVE CITY</text>
+        <path d="M0 430 C 220 400, 380 460, 620 432 S 980 380, 1180 405 L1180 520 L0 520 Z" fill="#E4E4E6"/>
+        <text x="40" y="492" font-family="Helvetica,Arial" font-size="14" fill="#6B6B70" letter-spacing="2">ОКЕАН</text>
+        <line x1="330" y1="150" x2="330" y2="400" stroke="#C9C9CE" stroke-width="1.5"/>
+        <line x1="330" y1="250" x2="760" y2="210" stroke="#C9C9CE" stroke-width="1.5"/>
+        <circle cx="330" cy="150" r="8" fill="#0433FF"/>
+        <text x="352" y="146" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U1 — Space Village</text>
+        <text x="352" y="167" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nuanu — сдан 2024</text>
+        <circle cx="330" cy="250" r="8" fill="#0433FF"/>
+        <text x="352" y="246" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U2 — Nuanu Village</text>
+        <text x="352" y="267" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nuanu — сдан 2025</text>
+        <circle cx="760" cy="210" r="8" fill="none" stroke="#0433FF" stroke-width="2"/>
+        <text x="782" y="206" font-family="Helvetica,Arial" font-size="17" font-weight="500" fill="#2C2C2E">U3 — Nyanyi Village</text>
+        <text x="782" y="227" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Nyanyi — строится, сдача 2026</text>
+        <circle cx="330" cy="400" r="5" fill="#6B6B70"/>
+        <text x="352" y="404" font-family="Helvetica,Arial" font-size="13" fill="#6B6B70">Пляж Pantai Nyanyi — 3 мин</text>
+      </svg>
+      <figcaption>План-схема. На проде — интерактивная карта во весь экран.</figcaption>
+    </figure>
   </section>
 
   <!-- 02 · ПОЛОСА ЦИФР -->
   <section class="section" style="padding-top:var(--s7)">
     <div class="wrap">
       <div class="band">
-        <div class="tile"><div class="num tnum">3</div><div class="cap">очереди — U1, U2, U3</div></div>
-        <div class="tile"><div class="num tnum">2024</div><div class="cap">первая очередь сдана и заселена</div></div>
-        <div class="tile"><div class="num tnum">12–15%</div><div class="cap">прогноз доходности в год<br><span class="note">прогноз, не гарантия</span></div></div>
+        <div class="tile"><div class="num tnum">3</div><div class="cap">комплекса — U1, U2, U3</div></div>
+        <div class="tile"><div class="num tnum">2024</div><div class="cap">первый комплекс сдан и заселён</div></div>
+        <div class="tile"><div class="num tnum">12–15%</div><div class="cap">прогнозная доходность в год</div></div>
         <div class="tile"><div class="num tnum">10+ лет</div><div class="cap">своя управляющая компания на Бали</div></div>
       </div>
     </div>
@@ -325,11 +334,11 @@
       <div class="row-3">
         <div class="card">
           <h3 class="h3">Инвестиция</h3>
-          <p>Вход по цене на старте очереди. Юнит можно перепродать до сдачи.</p>
+          <p>Вход по стартовой цене. Юнит можно перепродать до сдачи.</p>
         </div>
         <div class="card">
           <h3 class="h3">Аренда</h3>
-          <p>Прогноз 12–15% годовых. Всю операционку ведёт управляющая компания.</p>
+          <p>Прогнозная доходность 12–15% годовых. Всю операционку ведёт управляющая компания.</p>
         </div>
         <div class="card">
           <h3 class="h3">Жизнь</h3>
@@ -337,28 +346,28 @@
         </div>
       </div>
       <div class="measure" style="margin-top:var(--s7)">
-        <span class="eyebrow" style="display:block;margin-bottom:var(--s3)">Почему эти очереди</span>
+        <span class="eyebrow" style="display:block;margin-bottom:var(--s3)">Почему эти комплексы</span>
         <ul class="list-clean">
-          <li>Внутри Nuanu, а не рядом — инфраструктура работает круглый год.</li>
-          <li>Две очереди уже сданы, есть закрытые сделки перепродажи.</li>
+          <li>Внутри Nuanu — инфраструктура работает круглый год.</li>
+          <li>Два комплекса уже сданы, есть закрытые сделки перепродажи.</li>
           <li>Своя управляющая компания — 10+ лет на Бали.</li>
           <li>Экосистема UNIT: свои заводы (сталь, бетон, мебель), 5 комплексов.</li>
         </ul>
-        <p class="small" style="margin-top:var(--s3);color:var(--ink-2)">Формулировку «почему мы» ещё уточняем с Боссом.</p>
       </div>
     </div>
   </section>
 
-  <!-- 04 · ПЕРЕКЛЮЧАТЕЛЬ ОЧЕРЕДЕЙ -->
-  <div class="wrap" id="queues" style="padding-top:var(--s8)">
+  <!-- 04–05 · КОМПЛЕКС: переключатель + блок (sticky только внутри этой области) -->
+  <div class="project-scope">
+  <div class="wrap" id="complexes" style="padding-top:var(--s8)">
     <div class="sec-head measure">
-      <span class="eyebrow">Очереди</span>
-      <h2 class="h2">Выберите очередь</h2>
+      <span class="eyebrow">Комплексы</span>
+      <h2 class="h2">Выберите комплекс</h2>
       <p class="lead">Выбор переключает описание, юнит-микс и каталог ниже.</p>
     </div>
   </div>
   <div class="switcher" id="switcher">
-    <div class="wrap" role="tablist" aria-label="Очередь">
+    <div class="wrap" role="tablist" aria-label="Комплекс">
       <button class="qtab" role="tab" aria-selected="true" data-q="u1" id="tab-u1" aria-controls="panel-u1">
         <span class="code">U1</span><span class="nm">Space Village</span><span class="mt">Nuanu — сдан 2024</span>
       </button>
@@ -371,7 +380,7 @@
     </div>
   </div>
 
-  <!-- 05 · БЛОК ОЧЕРЕДИ -->
+  <!-- 05 · БЛОК КОМПЛЕКСА -->
   <section class="section" style="padding-top:var(--s7)">
     <div class="wrap">
       <div class="panel" id="panel-u1" role="tabpanel" aria-labelledby="tab-u1">
@@ -379,11 +388,11 @@
           <div>
             <h2 class="h2">Space Village</h2>
             <div class="body">
-              <p>Первая очередь. Сдана в 2024, заселена, работает как арендный бизнес.
+              <p>Первый комплекс. Сдан в 2024, заселён, работает как арендный бизнес.
                 Есть закрытые сделки перепродажи юнитов.</p>
               <p>Готовая площадка без стройки рядом: кафе, коворкинг, сауна, cold plunge, зал — внутри квартала.</p>
             </div>
-            <div class="chips" role="group" aria-label="Разделы очереди">
+            <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
               <button class="chip" aria-pressed="false">Юниты</button>
               <button class="chip" aria-pressed="false">Отделка</button>
@@ -413,11 +422,11 @@
           <div>
             <h2 class="h2">Nuanu Village</h2>
             <div class="body">
-              <p>Вторая очередь в той же локации. Сдана в 2025, работает.</p>
+              <p>Второй комплекс в той же локации. Сдан в 2025, работает.</p>
               <p>Самый широкий выбор: от студии 32 м² до виллы 200 м² с бассейном.
                 Кухня и гостиная отдельно во всех форматах, кроме студии.</p>
             </div>
-            <div class="chips" role="group" aria-label="Разделы очереди">
+            <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
               <button class="chip" aria-pressed="false">Юниты</button>
               <button class="chip" aria-pressed="false">Отделка</button>
@@ -449,11 +458,11 @@
           <div>
             <h2 class="h2">Nyanyi Village</h2>
             <div class="body">
-              <p>Третья очередь — посёлок Nyanyi, ближе к океану. Строится, сдача осенью 2026.</p>
-              <p>Вход по цене на старте очереди. Появляются форматы с приватным бассейном — 1+1 и 2+1.
+              <p>Третий комплекс — посёлок Nyanyi, ближе к океану. Строится, сдача осенью 2026.</p>
+              <p>Вход по стартовой цене. Появляются форматы с приватным бассейном — 1+1 и 2+1.
                 Прогресс стройки публикуем по датам.</p>
             </div>
-            <div class="chips" role="group" aria-label="Разделы очереди">
+            <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
               <button class="chip" aria-pressed="false">Юниты</button>
               <button class="chip" aria-pressed="false">Прогресс стройки</button>
@@ -482,6 +491,7 @@
       </div>
     </div>
   </section>
+  </div><!-- /.project-scope -->
 
   <!-- 06 · ПЛАНИРОВКИ -->
   <section class="section" style="padding-top:0">
@@ -492,7 +502,7 @@
         <p class="lead">Собраны по типу. Полный пакет планировок в PDF — по запросу на email.</p>
       </div>
       <table class="data">
-        <thead><tr><th>Формат</th><th class="n">Площадь</th><th>Очереди</th><th class="n">PDF</th></tr></thead>
+        <thead><tr><th>Формат</th><th class="n">Площадь</th><th>Комплексы</th><th class="n">PDF</th></tr></thead>
         <tbody>
           <tr><td>Студия</td><td class="n">32 м²</td><td>U1, U2</td><td class="n">по запросу</td></tr>
           <tr><td>1+1 BD</td><td class="n">60 м²</td><td>U2, U3</td><td class="n">по запросу</td></tr>
@@ -514,7 +524,7 @@
         <p class="lead">Наличие и цены — из шахматки девелопера. Пока подключаем таблицу, показываем состав по юнит-миксу; цену уточняем по запросу.</p>
       </div>
       <div class="filters" id="filters">
-        <button class="chip" data-f="q" data-v="all" aria-pressed="true">Все очереди</button>
+        <button class="chip" data-f="q" data-v="all" aria-pressed="true">Все комплексы</button>
         <button class="chip" data-f="q" data-v="u1" aria-pressed="false">U1</button>
         <button class="chip" data-f="q" data-v="u2" aria-pressed="false">U2</button>
         <button class="chip" data-f="q" data-v="u3" aria-pressed="false">U3</button>
@@ -536,14 +546,14 @@
       <div class="sec-head measure">
         <span class="eyebrow">Доходность</span>
         <h2 class="h2">Как считается доход</h2>
-        <p class="lead">Ориентиры, не гарантия. Точные цифры загрузки и ставки U1 подключим из финмодели девелопера.</p>
+        <p class="lead">Три сценария и как в каждом складывается доход. Цифры загрузки и ставки U1 — из финмодели девелопера.</p>
       </div>
       <table class="data" style="margin-bottom:var(--s7)">
         <thead><tr><th>Сценарий</th><th>Что это</th><th>Ориентир</th></tr></thead>
         <tbody>
-          <tr><td>Краткосрочная аренда</td><td>посуточно, под управлением УК</td><td>12–15% годовых (прогноз)</td></tr>
+          <tr><td>Краткосрочная аренда</td><td>посуточно, под управлением УК</td><td>12–15% годовых</td></tr>
           <tr><td>Долгосрочная аренда</td><td>помесячно, стабильный поток</td><td>ниже, но предсказуемо</td></tr>
-          <tr><td>Перепродажа до сдачи</td><td>вход на старте очереди, выход к сдаче</td><td>зависит от очереди и срока</td></tr>
+          <tr><td>Перепродажа до сдачи</td><td>вход по стартовой цене, выход к сдаче</td><td>зависит от комплекса и срока</td></tr>
         </tbody>
       </table>
 
@@ -571,7 +581,7 @@
           <div class="row"><span>Валовый доход в год</span><b id="o-gross">—</b></div>
           <div class="row"><span>За вычетом УК</span><b id="o-net">—</b></div>
           <div class="row"><span>Доходность к цене</span><b id="o-roi">—</b></div>
-          <p class="small" style="margin-top:var(--s3);color:var(--ink-2)">Без учёта налогов, простоя на обслуживание и колебаний ставки. Расчёт по вашему запросу пришлём на почту.</p>
+          <p class="small" style="margin-top:var(--s3);color:var(--ink-2)">Без учёта налогов и простоя на обслуживание. Полный расчёт под ваш юнит пришлём на почту.</p>
         </div>
       </div>
 
@@ -593,7 +603,7 @@
         <span class="eyebrow">Локация</span>
         <h2 class="h2">Внутри Nuanu, у океана</h2>
       </div>
-      <div class="split panel" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
+      <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
         <figure style="border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)">
           <svg viewBox="0 0 560 380" role="img" aria-label="Карта-схема: U1 и U2 в Nuanu, U3 в Nyanyi, пляж Pantai Nyanyi, океан">
             <rect width="560" height="380" fill="#F4F4F4"/>
@@ -667,7 +677,7 @@
       </div>
       <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
         <ol class="steps">
-          <li>Выбор юнита и очереди.</li>
+          <li>Выбор юнита и комплекса.</li>
           <li>Депозит $1&thinsp;500 — фиксирует цену на 14 дней.</li>
           <li>Reservation Agreement в DocuSign.</li>
           <li>Разбор Purchase Agreement с юристом.</li>
@@ -683,30 +693,34 @@
     </div>
   </section>
 
-  <!-- 12 · FAQ -->
+  <!-- 12 · FAQ (двухколоночный, по образцу БСО «как купить») -->
   <section class="section" id="faq" style="padding-top:0">
     <div class="wrap">
-      <div class="sec-head measure">
-        <span class="eyebrow">FAQ</span>
-        <h2 class="h2">Частые вопросы</h2>
-      </div>
-      <div class="faq measure">
-        <details><summary>Это первичка или вторичка?</summary>
-          <p>Первичка. Продаются свободные юниты напрямую от девелопера во всех трёх очередях, включая сданные U1 и U2.</p></details>
-        <details><summary>12–15% — это gross или net?</summary>
-          <p>Это прогноз до налогов и до вычета простоя на обслуживание. Точная модель — из финмодели девелопера, пришлём по запросу.</p></details>
-        <details><summary>Можно перепродать до сдачи?</summary>
-          <p>Да, для строящейся очереди U3. Условия — в договоре.</p></details>
-        <details><summary>Что делает управляющая компания?</summary>
-          <p>Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от дохода.</p></details>
-        <details><summary>Когда сдача U3?</summary>
-          <p>Осень 2026. Прогресс стройки публикуем по датам.</p></details>
-        <details><summary>В какой валюте оплата?</summary>
-          <p>Уточняется. Предварительно — приём в разных валютах с расчётом в USD.</p></details>
-        <details><summary>Leasehold или freehold?</summary>
-          <p>Зависит от юнита и структуры сделки. Точные условия — в юр-пакете, согласуем формулировку.</p></details>
-        <details><summary>Как проходит сделка?</summary>
-          <p>Напрямую с Unit Space, документы подписываются в DocuSign. Полный процесс — в разделе «Как купить».</p></details>
+      <div class="faq-grid">
+        <div class="faq-head">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="h2">Частые вопросы</h2>
+          <p class="lead">Коротко о том, что спрашивают чаще всего перед сделкой.</p>
+          <a class="btn btn--primary" href="#lead-form">Задать свой вопрос</a>
+        </div>
+        <div class="faq-list">
+          <details class="faq-card"><summary>Это первичка или вторичка?</summary>
+            <p>Первичка. Свободные юниты продаются напрямую от девелопера во всех трёх комплексах, включая сданные U1 и U2.</p></details>
+          <details class="faq-card"><summary>12–15% — это gross или net?</summary>
+            <p>Прогноз до налогов и до вычета простоя на обслуживание. Точная модель — из финмодели девелопера, пришлём по запросу.</p></details>
+          <details class="faq-card"><summary>Можно перепродать до сдачи?</summary>
+            <p>Да, для строящегося комплекса U3. Условия — в договоре.</p></details>
+          <details class="faq-card"><summary>Что делает управляющая компания?</summary>
+            <p>Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от дохода.</p></details>
+          <details class="faq-card"><summary>Когда сдача U3?</summary>
+            <p>Осень 2026. Прогресс стройки публикуем по датам.</p></details>
+          <details class="faq-card"><summary>В какой валюте оплата?</summary>
+            <p>Уточняется. Предварительно — приём в разных валютах с расчётом в USD.</p></details>
+          <details class="faq-card"><summary>Leasehold или freehold?</summary>
+            <p>Зависит от юнита и структуры сделки. Точные условия — в юр-пакете, согласуем формулировку.</p></details>
+          <details class="faq-card"><summary>Как проходит сделка?</summary>
+            <p>Напрямую с Unit Space, документы подписываются в DocuSign. Полный процесс — в разделе «Как купить».</p></details>
+        </div>
       </div>
     </div>
   </section>
@@ -729,10 +743,10 @@
         <form class="card" onsubmit="return false">
           <div class="form-grid">
             <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text"></div>
-            <div class="field"><label for="f-contact">Телефon или email</label><input id="f-contact" type="text"></div>
+            <div class="field"><label for="f-contact">Телефон или email</label><input id="f-contact" type="text"></div>
             <div class="field"><label for="f-budget">Бюджет, $</label><input id="f-budget" type="text" placeholder="например, 150 000–250 000"></div>
-            <div class="field"><label for="f-queue">Очередь</label>
-              <select id="f-queue"><option>Любая</option><option>U1 — Space Village</option><option>U2 — Nuanu Village</option><option>U3 — Nyanyi Village</option></select>
+            <div class="field"><label for="f-complex">Комплекс</label>
+              <select id="f-complex"><option>Любой</option><option>U1 — Space Village</option><option>U2 — Nuanu Village</option><option>U3 — Nyanyi Village</option></select>
             </div>
             <div class="field"><label for="f-goal">Цель</label>
               <select id="f-goal"><option>Инвестиция</option><option>Аренда</option><option>Жизнь</option></select>
@@ -753,9 +767,9 @@
     <div>
       <a href="#top" class="brand"><b>UNIT.</b>&nbsp;SPACE&nbsp;CITY</a>
       <p class="small" style="margin-top:var(--s3);color:var(--ink-2);max-width:34ch">
-        Три очереди резиденций внутри Nuanu Creative City, Бали.</p>
+        Три комплекса в одной локации рядом с Nuanu Creative City, Бали.</p>
     </div>
-    <div><h4>Очереди</h4><ul><li>U1 — Space Village</li><li>U2 — Nuanu Village</li><li>U3 — Nyanyi Village</li></ul></div>
+    <div><h4>Комплексы</h4><ul><li>U1 — Space Village</li><li>U2 — Nuanu Village</li><li>U3 — Nyanyi Village</li></ul></div>
     <div><h4>Разделы</h4><ul><li><a href="#catalog">Юниты</a></li><li><a href="#yield">Доходность</a></li><li><a href="#location">Локация</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div><h4>Контакты</h4><ul><li>Telegram</li><li>Email</li><li>Забронировать звонок</li></ul></div>
     <p class="disc">Прототип. Материалы носят информационный характер и не являются публичной офертой.
@@ -773,7 +787,7 @@
       g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});
   });
 
-  // переключатель очередей
+  // переключатель комплексов
   var tabs=document.querySelectorAll('.qtab');
   var panels={u1:document.getElementById('panel-u1'),u2:document.getElementById('panel-u2'),u3:document.getElementById('panel-u3')};
   tabs.forEach(function(t){
@@ -784,7 +798,7 @@
     });
   });
 
-  // чипы разделов очереди (визуально, в пределах группы)
+  // чипы разделов комплекса (визуально, в пределах группы)
   document.querySelectorAll('.chips').forEach(function(grp){
     grp.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;
       grp.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});
