@@ -219,11 +219,12 @@ main [id]{scroll-margin-top:96px}
 /* ---------- plan formats ---------- */
 .formats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .fmt{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--white);
-  display:grid;gap:14px;align-content:start}
+  display:flex;flex-direction:column;gap:14px}
 .fmt svg{width:100%;height:96px;color:var(--line-2)}
 .fmt .ar{font-weight:700;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.03em;color:var(--blue)}
 .fmt h4{font-size:16px;font-weight:600}
 .fmt p{font-size:13px;color:var(--ink-2)}
+.fmt .fmt-price{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
 @media (max-width:900px){ .formats-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:460px){ .formats-grid{grid-template-columns:1fr} }
 
@@ -603,21 +604,22 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
       <div class="formats-grid rv">
         <div class="fmt">
           <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M62 14v68M62 48h48"/></svg>
-          <div class="ar">32 м²</div><h4>Студия</h4><p>U1, U2 · единое пространство</p>
+          <div class="ar">32 м²</div><h4>Студия</h4><p>U1, U2 · единое пространство</p><p class="fmt-price">от $100 000</p>
         </div>
         <div class="fmt">
           <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M55 14v68M10 48h45M55 40h55"/></svg>
-          <div class="ar">60 м²</div><h4>1 + 1 спальня</h4><p>U2, U3 · кухня и гостиная отдельно</p>
+          <div class="ar">60 м²</div><h4>1 + 1 спальня</h4><p>U2, U3 · кухня и гостиная отдельно</p><p class="fmt-price">от $118 000</p>
         </div>
         <div class="fmt">
           <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M48 14v68M10 40h38M48 34h30M78 14v68M78 54h32"/></svg>
-          <div class="ar">89 м²</div><h4>2 + 1 спальни</h4><p>U1, U2, U3 · для семьи</p>
+          <div class="ar">89 м²</div><h4>2 + 1 спальни</h4><p>U1, U2, U3 · для семьи</p><p class="fmt-price">от $190 000</p>
         </div>
         <div class="fmt">
           <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="100" height="52" rx="3"/><rect x="30" y="70" width="60" height="16" rx="3"/><path d="M50 10v52M50 36h60"/></svg>
-          <div class="ar">200 м²</div><h4>Вилла 3 + 1 с бассейном</h4><p>U2, U3 · сад и приватный бассейн</p>
+          <div class="ar">200 м²</div><h4>Вилла 3 + 1 с бассейном</h4><p>U2, U3 · сад и приватный бассейн</p><p class="fmt-price">от $278 000</p>
         </div>
       </div>
+      <p class="small muted rv" style="margin-top:20px">Цены ориентировочные, «от». Актуальный прайс и шахматку пришлём по запросу.</p>
     </div>
   </section>
 
@@ -986,6 +988,7 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
     {q:'u3',fmt:'villa',name:'Вилла 3+1 + бассейн',area:200,floor:'2 этажа'}
   ];
   var QN = {u1:'U1',u2:'U2',u3:'U3'}, st = {q:'all',fmt:'all'};
+  var PRICE = {studio:'от $100 000', '1bd':'от $118 000', '2bd':'от $190 000', villa:'от $278 000'};
   var uWrap = document.getElementById('units'), uCnt = document.getElementById('unitCount');
   function renderUnits(){
     var list = UNITS.filter(function(u){ return (st.q==='all'||u.q===st.q) && (st.fmt==='all'||u.fmt===st.fmt); });
@@ -994,7 +997,7 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
       return '<article class="unit"><div class="u-q">'+QN[u.q]+'</div>'+
         '<div class="u-name">'+u.name+'</div>'+
         '<div class="u-meta">'+u.area+' м² · '+u.floor+'</div>'+
-        '<div class="u-price">Цена — по запросу</div></article>';
+        '<div class="u-price">'+(PRICE[u.fmt]||'по запросу')+'</div></article>';
     }).join('');
   }
   document.getElementById('filters').addEventListener('click', function(e){
