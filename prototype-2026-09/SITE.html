@@ -386,11 +386,12 @@ footer ul a:hover{color:var(--blue)}
 footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;font-size:12px;color:var(--ink-2);max-width:70ch}
 @media (max-width:760px){ footer .wrap{grid-template-columns:1fr 1fr} }
 
-/* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rv.in{opacity:1;transform:none}
+/* контент всегда виден. Лёгкое проявление — ТОЛЬКО если JS успел пометить
+   <html class="js"> (иначе секции не должны прятаться ни на миг). */
+.js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
+  .js .rv{opacity:1;transform:none;transition:none}
   .marquee ul{animation:none}
   .scrollcue::before{animation:none}
   html{scroll-behavior:auto}
@@ -910,6 +911,10 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
 <script>
 (function(){
   var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.className += ' js';
+
+  /* страховка: что бы ни случилось с наблюдателем — весь контент виден через 1.2с */
+  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ el.classList.add('in'); }); }, 1200);
 
   /* topbar stuck state */
   var tb = document.getElementById('topbar');
@@ -921,12 +926,18 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
       g.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true':'false'); }); });
   });
 
-  /* reveal on scroll */
+  /* reveal on scroll — мягко и только как бонус */
   if ('IntersectionObserver' in window && !rm){
     var io = new IntersectionObserver(function(ents){
       ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    }, {threshold:0, rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+    /* элементы, уже попавшие в первый экран, показываем сразу */
+    requestAnimationFrame(function(){
+      document.querySelectorAll('.rv').forEach(function(el){
+        if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
+      });
+    });
   } else {
     document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
   }
