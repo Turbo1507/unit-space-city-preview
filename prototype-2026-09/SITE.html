@@ -6,984 +6,903 @@
 <title>Unit Space City — хай-тек виллы у Нуану, Бали</title>
 <meta name="description" content="Три жилых комплекса Unit Space рядом с Nuanu, Бали: 105 вилл и студий, 3 минуты до океана, проверенная доходность от 10% в год. Покупка напрямую у девелопера UNIT.">
 <style>
-/* ============================================================================
-   UNIT SPACE CITY — чистовая версия. Фирстиль UNIT: Helvetica Neue, фон #F4F4F4,
-   акцент #0433FF (жирно — цифры, кнопки, точка в «UNIT.»), заголовки вес 600–700,
-   тайтовый трекинг. Без теней. Тонкие линии 1px. Радиус 10. Сетка 12 кол.
-   Ритм секций — ОДИН токен --sy, без пер-секционных оверрайдов.
-   ========================================================================== */
+/* ============================================================
+   UNIT SPACE CITY — design-система снята с unitdeveloper.com 1:1
+   (токены, панели-карточки, кнопки, цвета, ритм). Контент — из
+   прототипа, подача под конечного покупателя.
+   ============================================================ */
+@font-face{font-family:'Helvetica Neue';font-weight:300;font-display:swap;src:url('assets/fonts/helveticaneue-light.woff2') format('woff2')}
+@font-face{font-family:'Helvetica Neue';font-weight:400;font-display:swap;src:url('assets/fonts/helveticaneue-roman.woff2') format('woff2')}
+@font-face{font-family:'Helvetica Neue';font-weight:500;font-display:swap;src:url('assets/fonts/helveticaneue-medium.woff2') format('woff2')}
+@font-face{font-family:'Helvetica Neue';font-weight:700;font-display:swap;src:url('assets/fonts/helveticaneue-bold.woff2') format('woff2')}
+
 :root{
-  --paper:#F4F4F4;
-  --ink:#14161A;
-  --ink-2:#6E6E75;
-  --line:#E2E2DF;
-  --line-2:#D2D2CE;
-  --white:#FFFFFF;
-  --blue:#0433FF;
-  --blue-press:#0327c9;
-  --wash:#ECECEA;
+  --blue:#0433ff; --blue-600:#0329d6; --blue-050:#eef1ff;
+  --ink:#3a3a3a; --ink-70:#3a3a3a; --ink-45:#8a8a8a;
+  --line:#e6e6e6; --bg:#f4f4f4; --bg-2:#eceef0; --card:#ffffff; --white:#ffffff;
 
-  --sy:clamp(80px, 10.5vw, 156px);      /* вертикальный ритм секции */
-  --gut:clamp(20px, 4.2vw, 44px);       /* поля контейнера */
-  --col:1240px;
+  --r-xl:15px; --r-lg:15px; --r-md:15px; --r-sm:10px; --r-pill:999px;
 
-  --r:10px;
-  --r-s:8px;
+  --container:1180px;
+  --gap:20px;
+  --pad-x:clamp(16px,4vw,24px);
+  --section-y:clamp(16px,2vw,26px);
 
-  --font:"Helvetica Neue","Helvetica Neue LT","Helvetica","Arial Nova",Arial,sans-serif;
+  --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --h1:clamp(36px,4.6vw,58px);
+  --h2:clamp(30px,3.6vw,46px);
+  --h3:clamp(20px,2vw,26px);
+  --lead:clamp(16px,1.4vw,19px);
+  --body:16px; --small:14px;
+
   --ease:cubic-bezier(.22,.61,.36,1);
+  --shadow:0 24px 60px -30px rgba(19,19,19,.28);
+  --shadow-sm:0 10px 30px -18px rgba(19,19,19,.25);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);
-  font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility}
-h1,h2,h3,h4,p,figure,blockquote{margin:0}
+*{margin:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:112px}
+body{font-family:var(--font);font-size:var(--body);line-height:1.5;color:var(--ink-70);
+  background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+img,svg,video{display:block;max-width:100%;height:auto}
+button,input,textarea,select{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
 a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit;color:inherit}
-ul,ol{margin:0}
-img{display:block;max-width:100%;height:auto}
+ul{list-style:none;padding:0}
+h1,h2,h3,h4{color:var(--ink-70);font-weight:500;line-height:1.06;letter-spacing:-.02em;text-wrap:balance}
 ::selection{background:var(--blue);color:#fff}
 
-.wrap{max-width:var(--col);margin:0 auto;padding-inline:var(--gut)}
-main [id]{scroll-margin-top:96px}
-.chapter{scroll-margin-top:132px}
-.section{padding-block:var(--sy)}
-.section--tight{padding-block:calc(var(--sy) * .58)}
-.hr{height:1px;background:var(--line);border:0;margin:0}
+.container{width:100%;max-width:calc(var(--container) + 2*var(--pad-x));margin-inline:auto;padding-inline:var(--pad-x)}
+.section{padding-block:var(--section-y)}
+.accent{color:var(--blue)}
+.muted{color:var(--ink-45)}
+.stack{display:grid;gap:var(--gap)}
 
-/* ---------- type ---------- */
-.display{font-weight:700;letter-spacing:-.038em;line-height:.96;
-  font-size:clamp(44px, 8.4vw, 116px);text-wrap:balance}
-.h2{font-weight:600;letter-spacing:-.03em;line-height:1.03;
-  font-size:clamp(30px, 4.6vw, 58px);text-wrap:balance}
-.h3{font-weight:600;letter-spacing:-.02em;line-height:1.12;font-size:clamp(20px,2.1vw,26px)}
-.lead{font-size:clamp(18px,1.7vw,22px);line-height:1.5;color:var(--ink-2);max-width:46ch}
-.kicker{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
-.small{font-size:14px;line-height:1.55}
-.muted{color:var(--ink-2)}
-.tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+/* ---------- panel = белая карточка секции ---------- */
+.panel{background:var(--card);border-radius:var(--r-md);padding:clamp(28px,3.6vw,50px) clamp(22px,4vw,56px)}
+.panel--pad0{padding:0;overflow:hidden}
+.panel-head{max-width:44ch}
+.panel-head h2{font-size:var(--h2)}
+.panel-head .lead{margin-top:14px;font-size:var(--lead);color:var(--ink-70)}
+.panel-body{margin-top:clamp(26px,3vw,40px)}
 
-.big-num{font-weight:700;letter-spacing:-.04em;line-height:.9;color:var(--blue);
-  font-size:clamp(52px,7vw,104px)}
-
-.sec-head{display:grid;gap:18px;margin-bottom:clamp(36px,5vw,68px);max-width:60ch}
-.sec-head .h2{max-width:16ch}
-
-/* ---------- buttons ---------- */
-.btn{--h:54px;display:inline-flex;align-items:center;gap:10px;height:var(--h);padding-inline:26px;
-  border-radius:999px;font-size:15px;font-weight:600;letter-spacing:.01em;border:1.5px solid transparent;
-  cursor:pointer;transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease)}
-.btn:active{transform:translateY(1px)}
-.btn--primary{background:var(--blue);color:#fff}
-.btn--primary:hover{background:var(--blue-press)}
-.btn--ghost{border-color:var(--ink);color:var(--ink)}
-.btn--ghost:hover{border-color:var(--blue);color:var(--blue)}
-.btn--light{border-color:rgba(255,255,255,.55);color:#fff}
-.btn--light:hover{background:#fff;color:var(--ink);border-color:#fff}
-.btn--sm{--h:44px;padding-inline:18px;font-size:14px}
-.btn svg{width:15px;height:15px}
+/* ---------- buttons: прямоугольник со скруглением (как БСО), НЕ пилюля ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:58px;padding:0 28px;border-radius:var(--r-sm);
+  font-size:16px;font-weight:500;line-height:1;
+  transition:background .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease)}
+.btn svg{width:16px;height:16px;flex:0 0 auto}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:inset 0 0 0 1px var(--blue)}
+@media(hover:hover){.btn-primary:hover{background:transparent;color:var(--blue)}}
+.btn-ghost{background:var(--bg);color:var(--ink)}
+@media(hover:hover){.btn-ghost:hover{background:var(--blue);color:#fff}}
+.btn-white{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px #fff}
+@media(hover:hover){.btn-white:hover{background:transparent;color:#fff}}
+.btn-sm{min-height:46px;padding:0 18px;font-size:14px}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(22px,2.6vw,32px)}
 
-.cta-row{display:flex;flex-wrap:wrap;gap:12px}
-.link-arrow{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--blue)}
-.link-arrow svg{width:14px;height:14px;transition:transform .2s var(--ease)}
-.link-arrow:hover svg{transform:translateX(3px)}
+/* ---------- chip / tag ---------- */
+.chip{width:34px;height:34px;border-radius:50%;background:var(--blue);display:grid;place-items:center;color:#fff;flex:0 0 auto}
+.chip svg{width:16px;height:16px}
+.tag{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:var(--r-sm);
+  background:transparent;color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue);
+  font-size:15px;font-weight:400;cursor:pointer;transition:background .2s var(--ease),color .2s var(--ease)}
+@media(hover:hover){.tag:hover{background:var(--blue-050)}}
+.tag[aria-pressed="true"]{background:var(--blue);color:#fff}
+.tag--static{cursor:default}
+.tag--static:hover{background:transparent}
+.taglist{display:flex;flex-wrap:wrap;gap:10px}
 
-/* ---------- topbar ---------- */
-.topbar{position:fixed;inset:0 0 auto 0;z-index:80;height:66px;
-  display:flex;align-items:center;
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  backdrop-filter:saturate(1.5) blur(12px);-webkit-backdrop-filter:saturate(1.5) blur(12px);
-  border-bottom:1px solid transparent;transition:border-color .25s,background .25s}
-.topbar.is-stuck{border-color:var(--line);background:color-mix(in srgb, var(--paper) 94%, transparent)}
-.topbar .wrap{display:flex;align-items:center;gap:36px;width:100%}
-.wordmark{font-size:19px;font-weight:700;letter-spacing:-.03em;white-space:nowrap}
-.wordmark i{color:var(--blue);font-style:normal}
-.topnav{display:flex;gap:26px;font-size:14px;color:var(--ink-2)}
-.topnav a{position:relative;padding-block:6px}
-.topnav a:hover{color:var(--ink)}
-.topbar .right{margin-left:auto;display:flex;align-items:center;gap:14px}
-.langsw{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
-.langsw button{padding:7px 11px;font-size:12px;font-weight:600;color:var(--ink-2);background:none;border:0;cursor:pointer}
-.langsw button[aria-pressed="true"]{background:var(--ink);color:#fff}
-@media (max-width:1000px){ .topnav{display:none} }
-@media (max-width:560px){ .topbar .right .btn{display:none} }
+/* ---------- generic card (bg, иконка-квадрат, h3, p) ---------- */
+.card{background:var(--bg);border-radius:var(--r-sm);padding:28px 30px;display:flex;flex-direction:column;gap:14px;
+  transition:transform .3s var(--ease),background .3s var(--ease)}
+@media(hover:hover){.card--hover:hover{transform:translateY(-3px);background:var(--blue-050)}}
+.card .isq{width:56px;height:56px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;flex:0 0 auto}
+.card .isq svg{width:26px;height:26px}
+.card h3{font-size:var(--h3)}
+.card p{color:rgba(58,58,58,.82);font-size:15px;line-height:1.45}
+.card .card-foot{margin-top:auto;padding-top:8px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+@media (max-width:900px){ .grid-3,.grid-4{grid-template-columns:1fr 1fr} }
+@media (max-width:600px){ .grid-2,.grid-3,.grid-4{grid-template-columns:1fr} }
+
+/* ---------- stat (число синее + бейдж + подпись) ---------- */
+.stat{position:relative;background:var(--bg);border-radius:var(--r-sm);padding:26px;min-height:200px;
+  display:flex;flex-direction:column;justify-content:space-between}
+.stat .chip{position:absolute;top:20px;right:20px}
+.stat-num{font-size:clamp(46px,5vw,72px);font-weight:500;color:var(--blue);line-height:.85;letter-spacing:-.03em}
+.stat-num sup{font-size:.42em;vertical-align:super}
+.stat-label{font-size:15px;color:var(--ink-70);line-height:1.3;max-width:18ch}
+@media (max-width:600px){ .stat{min-height:auto;padding:20px} .stat-num{font-size:44px} }
+#company .stat{min-height:150px}
+
+/* ---------- header ---------- */
+.site-header{position:sticky;top:0;z-index:60;background:var(--white);transition:box-shadow .3s var(--ease)}
+.site-header.is-scrolled{box-shadow:0 8px 30px -20px rgba(19,19,19,.35)}
+.header-inner{display:flex;align-items:center;gap:32px;height:88px}
+.logo{font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--blue);white-space:nowrap}
+.nav{display:flex;align-items:center;gap:clamp(16px,1.8vw,30px);margin-inline:auto}
+.nav a{font-size:15px;font-weight:300;color:var(--ink-70);padding:6px 0;transition:color .2s}
+@media(hover:hover){.nav a:hover{color:var(--blue)}}
+.nav a.is-active{color:var(--blue)}
+.header-actions{display:flex;align-items:center;gap:12px}
+.lang{position:relative;display:flex;padding:3px;background:var(--bg);border-radius:999px;font-size:12px;font-weight:600}
+.lang button{position:relative;z-index:1;min-width:32px;padding:6px 10px;border-radius:999px;color:var(--ink-45)}
+.lang button.is-active{color:var(--ink);background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.burger{display:none;width:44px;height:44px;border-radius:var(--r-sm);flex-direction:column;gap:5px;align-items:center;justify-content:center}
+.burger span{width:24px;height:2px;background:var(--blue);transition:.3s var(--ease)}
+body.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open .burger span:nth-child(2){opacity:0}
+body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.menu-overlay{position:fixed;inset:0;z-index:55;background:var(--white);transform:translateY(-100%);
+  transition:transform .45s var(--ease);display:flex;flex-direction:column;padding:96px var(--pad-x) 40px;gap:6px;overflow-y:auto}
+body.menu-open .menu-overlay{transform:translateY(0)}
+.menu-overlay a{font-size:24px;font-weight:500;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--line)}
+@media (max-width:900px){ .nav,.header-actions .lang,.header-actions>.btn{display:none} .burger{display:flex} .header-inner{height:76px} .logo{font-size:21px} }
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
-  color:#fff;overflow:hidden;isolation:isolate}
-.hero .bg{position:absolute;inset:0;z-index:-2}
-.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg, rgba(10,11,13,.30) 0%, rgba(10,11,13,.05) 32%, rgba(10,11,13,.55) 78%, rgba(10,11,13,.82) 100%)}
-.hero-inner{padding-block:clamp(40px,7vw,86px)}
-.hero .display{max-width:15ch}
-.hero p.h-sub{margin-top:clamp(18px,2.4vw,30px);max-width:44ch;font-size:clamp(16px,1.5vw,20px);
-  line-height:1.5;color:rgba(255,255,255,.88)}
-.hero .cta-row{margin-top:clamp(26px,3.4vw,40px)}
-.hero-legend{margin-top:clamp(34px,4.6vw,58px);padding-top:22px;border-top:1px solid rgba(255,255,255,.22);
-  display:flex;flex-wrap:wrap;gap:28px 40px}
-.hero-legend div{display:grid;gap:3px}
-.hero-legend b{font-size:15px;font-weight:600;letter-spacing:-.01em}
-.hero-legend span{font-size:12.5px;color:rgba(255,255,255,.66)}
-.scrollcue{position:absolute;left:var(--gut);bottom:18px;font-size:11px;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px}
-.scrollcue::before{content:"";width:22px;height:1px;background:rgba(255,255,255,.6);animation:cue 1.8s var(--ease) infinite}
-@keyframes cue{0%,100%{transform:scaleX(.3);opacity:.4}50%{transform:scaleX(1);opacity:1}}
-@media (max-width:560px){ .scrollcue{display:none} }
-
-/* ---------- stats strip (dark) ---------- */
-.stats{background:var(--ink);color:#fff}
-.stats .grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.stats .cell{padding:clamp(30px,4vw,54px) clamp(18px,2.4vw,34px);border-left:1px solid rgba(255,255,255,.14)}
-.stats .cell:first-child{border-left:0}
-.stats .n{font-weight:700;letter-spacing:-.04em;line-height:.9;color:#fff;
-  font-size:clamp(40px,5.2vw,74px)}
-.stats .n em{color:var(--blue);font-style:normal}
-.stats .c{margin-top:14px;font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.6);max-width:24ch}
-@media (max-width:820px){ .stats .grid{grid-template-columns:1fr 1fr} .stats .cell:nth-child(-n+2){border-top:0} .stats .cell:nth-child(3),.stats .cell:nth-child(4){border-top:1px solid rgba(255,255,255,.14)} .stats .cell:nth-child(odd){border-left:0} }
-@media (max-width:460px){ .stats .grid{grid-template-columns:1fr} .stats .cell{border-left:0;border-top:1px solid rgba(255,255,255,.14)} .stats .cell:first-child{border-top:0} }
-
-/* ---------- manifesto / about ---------- */
-.manifesto blockquote{font-weight:600;letter-spacing:-.025em;line-height:1.12;
-  font-size:clamp(26px,3.6vw,46px);max-width:20ch}
-.manifesto blockquote b{color:var(--blue);font-weight:600}
-.manifesto .body{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gut)}
-.pillar{padding-top:20px;border-top:2px solid var(--ink)}
-.pillar h4{font-size:16px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
-.pillar p{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
-@media (max-width:800px){ .manifesto .body{grid-template-columns:1fr} .pillar{border-top-width:1px} }
-
-/* ---------- full-bleed photo band ---------- */
-.band{position:relative;height:clamp(320px,52vw,620px);overflow:hidden}
-.band img{width:100%;height:100%;object-fit:cover}
-.band figcaption{position:absolute;left:var(--gut);bottom:20px;color:#fff;font-size:13px;
-  letter-spacing:.02em;background:rgba(10,11,13,.42);backdrop-filter:blur(4px);
-  padding:7px 13px;border-radius:999px}
-
-/* ---------- complexes ---------- */
-.cx-nav{position:sticky;top:66px;z-index:40;background:var(--paper);border-bottom:1px solid var(--line)}
-.cx-nav .wrap{display:flex;gap:6px;align-items:stretch;position:relative}
-.cx-nav a{padding:20px 4px;margin-right:34px;font-size:clamp(16px,1.9vw,22px);font-weight:600;
-  letter-spacing:-.02em;color:var(--ink-2);transition:color .2s}
-.cx-nav a .code{color:var(--blue)}
-.cx-nav a.is-active{color:var(--ink)}
-.cx-nav .ink{position:absolute;bottom:-1px;height:2px;background:var(--blue);transition:left .32s var(--ease),width .32s var(--ease)}
-@media (max-width:640px){ .cx-nav .wrap{overflow-x:auto;scrollbar-width:none} .cx-nav .wrap::-webkit-scrollbar{display:none} .cx-nav a{margin-right:22px;white-space:nowrap} }
-
-.chapter{padding-block:clamp(56px,7vw,110px);border-bottom:1px solid var(--line)}
-.chapter:last-child{border-bottom:0}
-.chapter .head{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--gut) clamp(30px,6vw,90px);align-items:end}
-.chapter .code-lg{font-weight:700;letter-spacing:-.04em;line-height:.85;color:var(--blue);
-  font-size:clamp(64px,10vw,150px)}
-.chapter .name{font-weight:600;letter-spacing:-.03em;line-height:1;font-size:clamp(28px,4vw,52px);margin-top:8px}
-.chapter .intro{font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--ink-2)}
-.chapter .facts{margin-top:26px;display:flex;flex-wrap:wrap;gap:0}
-.chapter .facts div{padding-right:34px;margin-right:34px;border-right:1px solid var(--line-2)}
-.chapter .facts div:last-child{border-right:0;margin-right:0;padding-right:0}
-.chapter .facts b{display:block;font-size:clamp(24px,2.6vw,34px);font-weight:700;letter-spacing:-.03em;color:var(--ink)}
-.chapter .facts span{font-size:12.5px;color:var(--ink-2)}
-.chapter .formats{margin-top:26px;font-size:15px;color:var(--ink-2)}
-.chapter .formats b{color:var(--ink);font-weight:600}
-.chapter .collage{margin-top:clamp(34px,4.6vw,64px);display:grid;
-  grid-template-columns:1.42fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(420px,44vw,600px)}
-.chapter .collage figure{position:relative;overflow:hidden;border-radius:var(--r);background:var(--wash);margin:0}
-.chapter .collage figure:first-child{grid-row:1 / span 2}
-.chapter .collage img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
-.chapter .collage figure:hover img{transform:scale(1.04)}
-@media (max-width:800px){
-  .chapter .head{grid-template-columns:1fr}
-  .chapter .collage{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto}
-  .chapter .collage figure:first-child{grid-column:1/-1;grid-row:auto;aspect-ratio:16/10}
-  .chapter .collage figure{aspect-ratio:4/3}
-  .chapter .facts div{border-right:0;padding-right:0;margin-right:0;flex:1 0 44%;margin-bottom:16px}
+.hero{padding-top:26px;padding-bottom:var(--section-y)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:var(--gap);align-items:stretch}
+.hero-main{background:var(--card);border-radius:var(--r-md);
+  padding:clamp(28px,3.4vw,48px) clamp(22px,3vw,40px) clamp(28px,3.4vw,44px) clamp(26px,3.8vw,52px);
+  display:flex;flex-direction:column;min-height:560px}
+.hero-title{font-size:var(--h1);font-weight:500;color:var(--ink-70);letter-spacing:-.025em;line-height:1.05;max-width:19ch}
+.hero-title b{color:var(--blue);font-weight:500}
+.hero-sub{margin-top:18px;max-width:44ch;font-size:var(--lead);color:var(--ink-70);line-height:1.4}
+.hero-stats{margin-top:auto;padding-top:clamp(30px,5vw,64px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hero-stats .stat{min-height:180px;padding:22px}
+.hero-stats .stat-num{font-size:clamp(38px,4vw,54px)}
+.hero-aside{display:flex;flex-direction:column;gap:var(--gap)}
+.hero-photo{position:relative;border-radius:var(--r-md);overflow:hidden;flex:1;min-height:420px;background:var(--bg-2)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-badge{position:absolute;top:26px;right:26px;max-width:210px;background:#fff;border-radius:12px;
+  padding:13px 15px;font-size:13px;color:var(--ink-70);line-height:1.35;box-shadow:var(--shadow-sm)}
+.hero-badge b{color:var(--blue);font-weight:600}
+.hero-badge .dot{position:absolute;top:-6px;right:-6px;width:14px;height:14px;border-radius:50%;background:var(--blue);border:3px solid #fff}
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-main{min-height:auto}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .hero-photo{min-height:320px}
 }
 
-/* ---------- scenarios ---------- */
-.scn{display:grid;gap:0}
-.scn-row{display:grid;grid-template-columns:56px 1fr 42%;gap:clamp(20px,4vw,56px);
-  align-items:start;padding-block:clamp(28px,3.6vw,46px);border-top:1px solid var(--line)}
-.scn-row:last-child{border-bottom:1px solid var(--line)}
-.scn-row .no{font-weight:700;font-size:15px;color:var(--blue);letter-spacing:.04em;padding-top:6px}
-.scn-row h3{font-size:clamp(22px,2.6vw,32px);font-weight:600;letter-spacing:-.025em;margin-bottom:10px}
-.scn-row p{color:var(--ink-2);max-width:44ch}
-.scn-row figure{overflow:hidden;border-radius:var(--r);aspect-ratio:16/10;background:var(--wash)}
-.scn-row figure img{width:100%;height:100%;object-fit:cover}
-@media (max-width:800px){
-  .scn-row{grid-template-columns:1fr;gap:16px}
-  .scn-row .no{font-size:16px}
-  .scn-row figure{order:-1;aspect-ratio:16/9}
+/* ---------- photo panel ---------- */
+.photo-panel{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:2.4/1;background:var(--bg-2)}
+.photo-panel img{width:100%;height:100%;object-fit:cover}
+.photo-panel figcaption{position:absolute;left:22px;bottom:20px;color:#fff;font-size:clamp(14px,1.3vw,18px);
+  text-shadow:0 2px 12px rgba(0,0,0,.55)}
+@media (max-width:760px){ .photo-panel{aspect-ratio:4/3} }
+
+/* ---------- комплексы: табы в одной панели ---------- */
+.cx-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(24px,3vw,36px)}
+.cx-tab{min-height:52px;padding:0 22px;border-radius:var(--r-sm);background:var(--bg);color:var(--ink-70);
+  font-size:16px;font-weight:500;display:inline-flex;align-items:center;gap:9px;transition:background .2s,color .2s}
+.cx-tab .code{color:var(--blue)}
+@media(hover:hover){.cx-tab:hover{background:var(--blue-050)}}
+.cx-tab[aria-selected="true"]{background:var(--blue);color:#fff}
+.cx-tab[aria-selected="true"] .code{color:#fff}
+.cx-pane[hidden]{display:none}
+.cx-pane h3{font-size:var(--h3);margin-bottom:12px}
+.cx-pane .cx-intro{color:rgba(58,58,58,.82);max-width:60ch}
+.cx-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.cx-mini div{background:var(--bg);border-radius:var(--r-sm);padding:16px}
+.cx-mini b{display:block;font-size:clamp(20px,2.2vw,28px);font-weight:500;color:var(--blue);letter-spacing:-.02em}
+.cx-mini span{font-size:12.5px;color:var(--ink-45)}
+.cx-pane .taglist{margin-top:16px}
+.cx-photos{margin-top:clamp(22px,3vw,32px);display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(360px,40vw,470px)}
+.cx-photos figure{position:relative;overflow:hidden;border-radius:var(--r-sm);background:var(--bg-2);margin:0}
+.cx-photos figure:first-child{grid-row:1/span 2}
+.cx-photos img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+@media(hover:hover){.cx-photos figure:hover img{transform:scale(1.04)}}
+@media (max-width:860px){
+  .cx-photos{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto}
+  .cx-photos figure{aspect-ratio:4/3}
+  .cx-photos figure:first-child{grid-column:1/-1;grid-row:auto;aspect-ratio:16/10}
 }
 
-/* ---------- plan formats ---------- */
-.formats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.fmt{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--white);
-  display:flex;flex-direction:column;gap:14px}
-.fmt svg{width:100%;height:96px;color:var(--line-2)}
-.fmt .ar{font-weight:700;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.03em;color:var(--blue)}
-.fmt h4{font-size:16px;font-weight:600}
-.fmt p{font-size:13px;color:var(--ink-2)}
-.fmt .fmt-price{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
-@media (max-width:900px){ .formats-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:460px){ .formats-grid{grid-template-columns:1fr} }
+/* ---------- форматы ---------- */
+.fmt{background:var(--bg);border-radius:var(--r-sm);padding:26px;display:flex;flex-direction:column;gap:10px}
+.fmt .fmt-ar{font-size:clamp(30px,3vw,40px);font-weight:500;color:var(--blue);letter-spacing:-.03em;line-height:.9}
+.fmt h3{font-size:18px}
+.fmt p{font-size:13.5px;color:var(--ink-45)}
+.fmt .fmt-price{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:15px;font-weight:500;color:var(--ink)}
 
-/* ---------- catalog ---------- */
-.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:26px}
-.chip{height:38px;padding:0 15px;display:inline-flex;align-items:center;border:1px solid var(--line-2);
-  border-radius:999px;background:var(--white);font-size:13.5px;color:var(--ink-2);cursor:pointer;transition:all .16s}
-.chip:hover{border-color:var(--ink-2)}
-.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
-.filters .sep{width:1px;height:22px;background:var(--line-2);margin:0 4px}
-.filters .cnt{margin-left:auto;font-size:13.5px;color:var(--ink-2)}
+/* ---------- каталог ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
+.filters .sep{width:1px;height:24px;background:var(--line);margin:0 4px}
+.filters .cnt{margin-left:auto;font-size:14px;color:var(--ink-45)}
 .filters .cnt b{color:var(--ink)}
-.units{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.unit{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--white);display:grid;gap:6px;align-content:start}
+.unit{background:var(--bg);border-radius:var(--r-sm);padding:24px;display:flex;flex-direction:column;gap:6px}
 .unit .u-q{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--blue)}
-.unit .u-name{font-size:18px;font-weight:600;letter-spacing:-.01em}
-.unit .u-meta{font-size:13.5px;color:var(--ink-2)}
-.unit .u-price{margin-top:8px;font-size:13.5px;font-weight:600}
-@media (max-width:900px){ .units{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .units{grid-template-columns:1fr} }
+.unit .u-name{font-size:17px;font-weight:500}
+.unit .u-meta{font-size:13.5px;color:var(--ink-45)}
+.unit .u-price{margin-top:10px;font-size:14px;font-weight:500}
 
-/* ---------- yield ---------- */
-.yield-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,84px);align-items:start}
-.scen-list{display:grid}
-.scen-list .r{display:grid;grid-template-columns:1fr auto;gap:20px;padding-block:20px;border-top:1px solid var(--line);align-items:baseline}
-.scen-list .r:last-child{border-bottom:1px solid var(--line)}
-.scen-list .r b{font-size:16px;font-weight:600}
-.scen-list .r span{font-size:14px;color:var(--ink-2);display:block;margin-top:3px}
-.scen-list .r .v{font-weight:700;color:var(--blue);letter-spacing:-.02em;white-space:nowrap;font-size:16px}
-.calc{border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,3vw,36px);background:var(--white)}
-.calc .field{display:grid;gap:6px;margin-bottom:16px}
-.calc label{font-size:12.5px;color:var(--ink-2)}
-.calc input{height:46px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 13px;background:var(--paper);font-variant-numeric:tabular-nums}
+/* ---------- доходность ---------- */
+.yield-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);align-items:start}
+.scen{background:var(--bg);border-radius:var(--r-sm);padding:24px 26px;display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+.scen b{font-size:16px;font-weight:500}
+.scen span{display:block;font-size:13.5px;color:var(--ink-45);margin-top:3px}
+.scen .v{font-weight:500;color:var(--blue);white-space:nowrap}
+.calc{background:var(--bg);border-radius:var(--r-sm);padding:clamp(24px,3vw,34px)}
+.calc .field{display:grid;gap:6px;margin-bottom:14px}
+.calc label{font-size:12.5px;color:var(--ink-45)}
+.calc input{height:46px;border:1px solid var(--line);border-radius:var(--r-sm);padding:0 13px;background:#fff;font-variant-numeric:tabular-nums}
 .calc input:focus{outline:none;border-color:var(--blue)}
-.calc-out{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
-.calc-out .roi{display:flex;align-items:baseline;gap:12px}
-.calc-out .roi b{font-weight:700;color:var(--blue);letter-spacing:-.04em;font-size:clamp(44px,6vw,68px);line-height:1}
-.calc-out .roi span{font-size:13px;color:var(--ink-2)}
+.calc-out{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.calc-out .roi{font-size:clamp(46px,6vw,72px);font-weight:500;color:var(--blue);line-height:.9;letter-spacing:-.03em}
+.calc-out .roi small{font-size:.28em;color:var(--ink-45);font-weight:400;display:block;margin-top:8px;letter-spacing:0}
 .calc-out .rows{margin-top:16px;display:grid;gap:8px;font-size:14px}
 .calc-out .rows div{display:flex;justify-content:space-between}
-.calc-out .rows b{font-weight:600;font-variant-numeric:tabular-nums}
-@media (max-width:800px){ .yield-split{grid-template-columns:1fr} }
+.calc-out .rows b{font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:800px){ .yield-grid{grid-template-columns:1fr} }
 
-/* ---------- location ---------- */
-.dist{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut);margin-bottom:clamp(36px,5vw,64px)}
-.dist div{border-top:2px solid var(--blue);padding-top:16px}
-.dist b{display:block;font-weight:700;letter-spacing:-.04em;line-height:.9;color:var(--ink);
-  font-size:clamp(40px,5vw,72px)}
-.dist span{font-size:13px;color:var(--ink-2);display:block;margin-top:8px}
-@media (max-width:700px){ .dist{grid-template-columns:1fr 1fr;gap:22px} }
-
-.marquee{overflow:hidden;border-block:1px solid var(--line);padding-block:16px;margin-block:clamp(36px,5vw,60px);
-  --spd:38s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.marquee ul{display:flex;gap:38px;list-style:none;padding:0;white-space:nowrap;width:max-content;
-  animation:scroll var(--spd) linear infinite}
-.marquee li{font-size:15px;color:var(--ink-2)}
-.marquee li::after{content:"·";margin-left:38px;color:var(--line-2)}
-@keyframes scroll{to{transform:translateX(-50%)}}
-
-.loc-split{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,72px);align-items:start}
-.loc-map{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--white)}
-.loc-map figcaption{padding:11px 15px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line)}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:14px}
-.kv dt{color:var(--ink-2)}
+/* ---------- локация ---------- */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.metric{background:var(--bg);border-radius:var(--r-sm);padding:26px;text-align:left}
+.metric b{font-size:clamp(40px,4.4vw,60px);font-weight:500;color:var(--blue);line-height:.85;letter-spacing:-.03em;display:block}
+.metric span{font-size:13px;color:var(--ink-45);display:block;margin-top:12px;line-height:1.35}
+@media (max-width:700px){ .metrics{grid-template-columns:1fr 1fr} }
+.loc-split{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--gap);margin-top:var(--gap);align-items:start}
+.loc-map{border-radius:var(--r-md);overflow:hidden;background:var(--bg);aspect-ratio:4/3}
+.loc-map svg{width:100%;height:100%}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:14px}
+.kv dt{color:var(--ink-45)}
 .kv dd{margin:0}
-.loc-list{list-style:none;padding:0;margin-top:26px;display:grid;gap:11px}
-.loc-list li{padding-left:22px;position:relative;color:var(--ink-2);font-size:14.5px}
-.loc-list li::before{content:"";position:absolute;left:0;top:12px;width:9px;height:1px;background:var(--blue)}
-@media (max-width:820px){ .loc-split{grid-template-columns:1fr} }
+@media (max-width:820px){ .loc-split{grid-template-columns:1fr} .loc-map{aspect-ratio:16/10} }
 
-/* ---------- company ---------- */
-.founders{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-block:clamp(34px,4.6vw,58px)}
-.founder{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--white)}
-.founder .ph{aspect-ratio:16/11;border-bottom:1px solid var(--line);
-  background:linear-gradient(135deg, #EEF1FF, #E4E4E1);
-  display:grid;place-items:center;color:var(--blue);font-weight:700;font-size:44px;letter-spacing:-.03em}
-.founder .t{padding:22px}
-.founder h4{font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:8px}
-.founder p{font-size:14px;color:var(--ink-2)}
-@media (max-width:700px){ .founders{grid-template-columns:1fr} }
+/* ---------- о компании ---------- */
+.subs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sub{background:var(--bg);border-radius:var(--r-sm);padding:20px}
+.sub b{font-size:15px;font-weight:600;color:var(--ink);display:block}
+.sub span{font-size:12.5px;color:var(--ink-45);display:block;margin-top:5px;line-height:1.4}
+@media (max-width:820px){ .subs{grid-template-columns:1fr 1fr} }
+.founder{display:flex;gap:24px;background:var(--bg);border-radius:var(--r-md);padding:24px;min-height:180px}
+.founder .fph{width:140px;height:140px;flex:0 0 140px;border-radius:10px;background:linear-gradient(135deg,#eef1ff,#e4e4e1);
+  display:grid;place-items:center;color:var(--blue);font-weight:700;font-size:38px;letter-spacing:-.03em}
+.founder .fi{padding-top:6px}
+.founder .fi h3{font-size:22px;font-weight:500}
+.founder .fi p{margin-top:10px;color:rgba(58,58,58,.82);font-size:14px;line-height:1.45}
+@media (max-width:520px){ .founder{flex-direction:column} .founder .fph{width:110px;flex-basis:110px} }
 
-.principles{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut)}
-.principles div{border-top:2px solid var(--ink);padding-top:16px}
-.principles h4{font-size:15px;font-weight:600;margin-bottom:6px}
-.principles p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
-@media (max-width:820px){ .principles{grid-template-columns:1fr 1fr} }
-@media (max-width:460px){ .principles{grid-template-columns:1fr} }
-
-.trust-strip{margin-top:clamp(40px,5vw,64px);display:grid;gap:0}
-.trust-strip .t{display:grid;grid-template-columns:auto 1fr;gap:8px 26px;padding-block:22px;border-top:1px solid var(--line)}
-.trust-strip .t:last-child{border-bottom:1px solid var(--line)}
-.trust-strip .t b{font-size:17px;font-weight:600;letter-spacing:-.01em}
-.trust-strip .t span{font-size:14px;color:var(--ink-2);grid-column:2}
-@media (max-width:640px){ .trust-strip .t{grid-template-columns:1fr} .trust-strip .t span{grid-column:1} }
-
-/* ---------- builder ---------- */
-.builder{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,80px);align-items:start}
-.builder p{color:var(--ink-2)}
-.facts-list{list-style:none;padding:0;display:grid;gap:12px}
-.facts-list li{padding-left:24px;position:relative;font-size:14.5px;color:var(--ink-2)}
-.facts-list li::before{content:"";position:absolute;left:0;top:11px;width:11px;height:1px;background:var(--blue)}
-@media (max-width:760px){ .builder{grid-template-columns:1fr} }
-
-/* ---------- how to buy ---------- */
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s}
-.steps li{counter-increment:s;list-style:none;padding-top:44px;position:relative;font-size:14px;color:var(--ink-2)}
-.steps li::before{content:counter(s);position:absolute;top:0;left:0;width:32px;height:32px;border-radius:999px;
-  border:1.5px solid var(--blue);color:var(--blue);display:grid;place-items:center;font-weight:700;font-size:14px}
-.steps li::after{content:"";position:absolute;top:16px;left:40px;right:-14px;height:1.5px;background:var(--line-2)}
-.steps li:last-child::after{display:none}
-.steps li b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:6px}
-@media (max-width:860px){
-  .steps{grid-template-columns:1fr}
-  .steps li{padding:0 0 22px 48px}
-  .steps li::after{top:32px;left:15px;right:auto;bottom:0;width:1.5px;height:auto}
-}
+/* ---------- как купить ---------- */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.steps li{counter-increment:s;background:var(--bg);border-radius:var(--r-sm);padding:24px 22px;display:flex;flex-direction:column;gap:10px}
+.steps li::before{content:counter(s);width:34px;height:34px;border-radius:var(--r-sm);background:var(--blue);color:#fff;
+  display:grid;place-items:center;font-weight:600;font-size:14px}
+.steps li b{font-weight:500;font-size:15px}
+.steps li span{font-size:13px;color:var(--ink-45);line-height:1.4}
+@media (max-width:900px){ .steps{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .steps{grid-template-columns:1fr} }
 
 /* ---------- faq ---------- */
-.faq-grid{display:grid;grid-template-columns:4.5fr 7.5fr;gap:clamp(30px,6vw,84px);align-items:start}
-.faq-head{position:sticky;top:100px}
-.faq-head .btn{margin-top:24px}
+.faq-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(24px,4vw,56px);align-items:start}
+.faq-head{position:sticky;top:112px}
 .faq-list{display:grid;gap:10px}
-.faq-item{border:1px solid var(--line);border-radius:var(--r);background:var(--white);padding:0 22px}
-.faq-item[open]{border-color:var(--ink-2)}
-.faq-item summary{list-style:none;cursor:pointer;padding:20px 0;font-size:16px;font-weight:600;letter-spacing:-.01em;
+.faq-item{background:var(--bg);border-radius:var(--r-sm);padding:0 24px}
+.faq-item summary{list-style:none;cursor:pointer;padding:20px 0;font-size:16px;font-weight:500;
   display:flex;justify-content:space-between;gap:18px;align-items:center}
 .faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{content:"";flex:0 0 auto;width:12px;height:12px;
-  background:linear-gradient(var(--blue),var(--blue)) center/12px 1.6px no-repeat,
-             linear-gradient(var(--blue),var(--blue)) center/1.6px 12px no-repeat;transition:transform .2s}
-.faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{padding:0 0 20px;color:var(--ink-2);font-size:14.5px;max-width:60ch}
+.faq-item summary::after{content:"+";color:var(--blue);font-size:22px;line-height:1;flex:0 0 auto}
+.faq-item[open] summary::after{content:"–"}
+.faq-item p{padding:0 0 20px;color:rgba(58,58,58,.82);font-size:14.5px;max-width:62ch}
 @media (max-width:820px){ .faq-grid{grid-template-columns:1fr} .faq-head{position:static} }
 
-/* ---------- final cta ---------- */
-.final{background:var(--ink);color:#fff}
-.final .split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(30px,6vw,84px);align-items:start}
-.final .h2{color:#fff}
-.final .lead{color:rgba(255,255,255,.7)}
-.final .contacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-.form{background:#fff;color:var(--ink);border-radius:var(--r);padding:clamp(24px,3vw,36px)}
+/* ---------- финал (тёмная панель) ---------- */
+.final{background:#131313;border-radius:var(--r-md);padding:clamp(30px,4vw,56px) clamp(22px,4vw,56px);color:#fff}
+.final h2{color:#fff;font-size:var(--h2);max-width:20ch}
+.final .lead{margin-top:16px;color:rgba(255,255,255,.72);font-size:var(--lead);max-width:46ch}
+.final-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(24px,4vw,56px);align-items:start}
+.form{background:#fff;border-radius:var(--r-md);padding:clamp(24px,3vw,34px)}
 .form .g{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form .field{display:grid;gap:6px}
 .form .field.full{grid-column:1/-1}
-.form label{font-size:12.5px;color:var(--ink-2)}
-.form input,.form select{height:46px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 13px;background:var(--paper)}
+.form label{font-size:12.5px;color:var(--ink-45)}
+.form input,.form select{height:46px;border:1px solid var(--line);border-radius:var(--r-sm);padding:0 13px;background:var(--bg)}
 .form input:focus,.form select:focus{outline:none;border-color:var(--blue)}
-.form .btn{width:100%;justify-content:center;margin-top:4px}
-@media (max-width:760px){ .final .split{grid-template-columns:1fr} .form .g{grid-template-columns:1fr} }
+.form .btn{width:100%}
+@media (max-width:820px){ .final-grid{grid-template-columns:1fr} .form .g{grid-template-columns:1fr} }
 
 /* ---------- footer ---------- */
-footer{background:var(--paper);border-top:1px solid var(--line)}
-footer .wrap{padding-block:clamp(48px,6vw,80px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
-footer .brand p{margin-top:12px;font-size:13.5px;color:var(--ink-2);max-width:34ch}
-footer h5{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:0 0 14px}
-footer ul{list-style:none;padding:0;display:grid;gap:9px;font-size:14px;color:var(--ink-2)}
-footer ul a:hover{color:var(--blue)}
-footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;font-size:12px;color:var(--ink-2);max-width:70ch}
-@media (max-width:760px){ footer .wrap{grid-template-columns:1fr 1fr} }
+.site-footer{background:var(--card);border-radius:var(--r-xl) var(--r-xl) 0 0;margin-top:var(--gap);
+  padding:clamp(44px,5vw,72px) 0 32px}
+.footer-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}
+.footer-brand .logo{font-size:30px}
+.footer-brand p{margin-top:16px;color:var(--ink-45);font-size:13.5px;max-width:34ch;line-height:1.6}
+.footer-col h4{font-size:15px;font-weight:500;margin-bottom:16px}
+.footer-col a{display:block;color:var(--ink-45);font-size:14px;padding:8px 0;transition:color .2s}
+@media(hover:hover){.footer-col a:hover{color:var(--blue)}}
+.footer-bottom{margin-top:clamp(36px,4vw,56px);padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--ink-45);font-size:13px}
+@media (max-width:760px){ .footer-inner{grid-template-columns:1fr 1fr} }
 
-/* контент всегда виден. Лёгкое проявление — ТОЛЬКО если JS успел пометить
-   <html class="js"> (иначе секции не должны прятаться ни на миг). */
-.js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.js .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){
-  .js .rv{opacity:1;transform:none;transition:none}
-  .marquee ul{animation:none}
-  .scrollcue::before{animation:none}
-  html{scroll-behavior:auto}
-}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
 </style>
 </head>
 <body>
 
-<header class="topbar" id="topbar">
-  <div class="wrap">
-    <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
-    <nav class="topnav">
-      <a href="#about">О&nbsp;проекте</a>
-      <a href="#complexes">Комплексы</a>
-      <a href="#catalog">Виллы</a>
-      <a href="#yield">Доходность</a>
-      <a href="#location">Локация</a>
-      <a href="#company">О&nbsp;компании</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <div class="right">
-      <div class="langsw" role="group" aria-label="Язык">
-        <button type="button" aria-pressed="true">RU</button>
-        <button type="button" aria-pressed="false">EN</button>
+<header class="site-header" id="hdr">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#top" class="logo">UNIT.&nbsp;SPACE&nbsp;CITY</a>
+      <nav class="nav">
+        <a href="#about">О проекте</a>
+        <a href="#complexes">Комплексы</a>
+        <a href="#catalog">Виллы</a>
+        <a href="#yield">Доходность</a>
+        <a href="#location">Локация</a>
+        <a href="#company">О компании</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang" role="group" aria-label="Язык">
+          <button type="button" class="is-active">RU</button>
+          <button type="button">EN</button>
+        </div>
+        <a href="#lead" class="btn btn-primary btn-sm">Оставить заявку</a>
+        <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
       </div>
-      <a href="#lead" class="btn btn--primary btn--sm">Оставить заявку</a>
     </div>
   </div>
 </header>
 
+<div class="menu-overlay" id="menu">
+  <a href="#about">О проекте</a><a href="#complexes">Комплексы</a><a href="#catalog">Виллы</a>
+  <a href="#yield">Доходность</a><a href="#location">Локация</a><a href="#company">О компании</a>
+  <a href="#faq">FAQ</a><a href="#lead" class="accent">Оставить заявку</a>
+</div>
+
 <main id="top">
 
-  <!-- 01 · HERO -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="bg">
-      <picture>
-        <source srcset="assets/u1-05.webp" type="image/webp">
-        <img src="assets/u1-05.jpg" alt="Вилла Unit Space на закате, рисовые поля" fetchpriority="high">
-      </picture>
-    </div>
-    <div class="wrap hero-inner">
-      <h1 class="display">Хай-тек виллы у Нуану —<br>по цене апартаментов</h1>
-      <p class="h-sub">Три жилых комплекса Unit Space в одной локации на Бали. Три минуты до океана,
-        вся инфраструктура города Nuanu, покупка напрямую у девелопера.</p>
-      <div class="cta-row">
-        <a href="#catalog" class="btn btn--light">Смотреть виллы</a>
-        <a href="#lead" class="btn btn--light">Записаться на просмотр</a>
-      </div>
-      <div class="hero-legend">
-        <div><b>U1 — Space Village</b><span>22 юнита · сдан 2024</span></div>
-        <div><b>U2 — Nuanu Village</b><span>55 юнитов · сдан 2025</span></div>
-        <div><b>U3 — Nyanyi Village</b><span>28 юнитов · сдача 2026</span></div>
-      </div>
-    </div>
-    <div class="scrollcue">Листайте</div>
-  </section>
-
-  <!-- 02 · ЦИФРЫ -->
-  <section class="stats">
-    <div class="wrap"><div class="grid">
-      <div class="cell"><div class="n tnum" data-count="3">3</div><div class="c">комплекса рядом с Nuanu — U1, U2, U3</div></div>
-      <div class="cell"><div class="n tnum" data-count="105">105</div><div class="c">вилл в трёх комплексах</div></div>
-      <div class="cell"><div class="n tnum">от&nbsp;<em data-count="10">10</em>%</div><div class="c">проверенная доходность в год</div></div>
-      <div class="cell"><div class="n tnum"><em data-count="10">10</em>+ лет</div><div class="c">своя управляющая компания на Бали</div></div>
-    </div></div>
-  </section>
-
-  <!-- 03 · О ПРОЕКТЕ -->
-  <section class="section manifesto" id="about">
-    <div class="wrap rv">
-      <blockquote>Unit Space — единая <b>экосистема</b> для жизни и инвестиций у города будущего Nuanu.</blockquote>
-      <div class="body">
-        <div class="pillar">
-          <h4>Внутри Nuanu</h4>
-          <p>Город на 44 га: 70% зелени, 36 кафе и ресторанов, школы, спа, арт-объекты. Инфраструктура работает круглый год.</p>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <h1 class="hero-title">Хай-тек виллы <b>по цене апартаментов</b></h1>
+          <p class="hero-sub">Три жилых комплекса Unit Space в одной локации рядом с Нуану, Бали.
+            Три минуты до океана, вся инфраструктура города. Покупка напрямую у девелопера.</p>
+          <div class="cta-row">
+            <a href="#catalog" class="btn btn-primary">Смотреть виллы</a>
+            <a href="#lead" class="btn btn-ghost">Записаться на просмотр</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span>
+              <div class="stat-num" data-count="105">105</div>
+              <div class="stat-label">вилл и студий в трёх комплексах</div>
+            </div>
+            <div class="stat">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></span>
+              <div class="stat-num"><span data-count="10">10</span><sup>%</sup></div>
+              <div class="stat-label">проверенная доходность в год</div>
+            </div>
+            <div class="stat">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <div class="stat-num"><span data-count="3">3</span></div>
+              <div class="stat-label">минуты пешком до океана</div>
+            </div>
+          </div>
         </div>
-        <div class="pillar">
-          <h4>Проверенная доходность</h4>
-          <p>Два комплекса уже сданы и заселены, есть закрытые сделки перепродажи. Управляющая компания — 10+ лет на Бали.</p>
-        </div>
-        <div class="pillar">
-          <h4>Полный цикл UNIT</h4>
-          <p>Свои заводы: бетон, стальной каркас, мебель. Строим, как для себя — контроль качества и сроков на каждом этапе.</p>
+        <div class="hero-aside">
+          <figure class="hero-photo">
+            <picture><source srcset="assets/u1-05.webp" type="image/webp"><img src="assets/u1-05.jpg" alt="Вилла Unit Space на закате, рисовые поля" fetchpriority="high"></picture>
+            <div class="hero-badge"><span class="dot"></span>U1 <b>сдан в 2024</b> и работает как отельный бизнес</div>
+          </figure>
         </div>
       </div>
     </div>
   </section>
 
-  <figure class="band rv">
-    <picture><source srcset="assets/u3-01.webp" type="image/webp"><img src="assets/u3-01.jpg" alt="Комплекс Unit Space с высоты — виллы и зелёные дворы"></picture>
-    <figcaption>Кластер вилл Unit Space внутри Nuanu, западное побережье Бали</figcaption>
-  </figure>
-
-  <!-- 04–05 · КОМПЛЕКСЫ -->
-  <nav class="cx-nav" id="complexes" aria-label="Комплексы">
-    <div class="wrap">
-      <a href="#cx-u1" class="is-active" data-cx="cx-u1"><span class="code">U1</span> Space Village</a>
-      <a href="#cx-u2" data-cx="cx-u2"><span class="code">U2</span> Nuanu Village</a>
-      <a href="#cx-u3" data-cx="cx-u3"><span class="code">U3</span> Nyanyi Village</a>
-      <span class="ink" id="cxInk"></span>
+  <!-- О ПРОЕКТЕ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Unit Space — <span class="accent">экосистема</span> для жизни и инвестиций</h2>
+          <p class="lead">Три жилых комплекса рядом с городом будущего Nuanu. Локация растёт в цене,
+            инфраструктура работает круглый год.</p>
+        </div>
+        <div class="panel-body grid-3">
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-4 7 4v13"/></svg></span>
+            <h3>Внутри Nuanu</h3>
+            <p>Город на 44 га: 70% зелени, 36 кафе и ресторанов, школы, спа, арт-объекты.</p>
+          </div>
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></span>
+            <h3>Проверенная доходность</h3>
+            <p>Два комплекса уже сданы и заселены, есть закрытые сделки перепродажи. УК — 10+ лет на Бали.</p>
+          </div>
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+            <h3>Полный цикл UNIT</h3>
+            <p>Свои заводы: бетон, стальной каркас, мебель. Строим, как для себя.</p>
+          </div>
+        </div>
+        <div class="cta-row"><a href="#complexes" class="btn btn-primary">Выбрать комплекс</a></div>
+      </div>
     </div>
-  </nav>
+  </section>
 
-  <div class="wrap">
+  <!-- ФОТО -->
+  <section class="section">
+    <div class="container">
+      <figure class="photo-panel">
+        <picture><source srcset="assets/u3-01.webp" type="image/webp"><img src="assets/u3-01.jpg" alt="Комплекс Unit Space с высоты — виллы и зелёные дворы"></picture>
+        <figcaption>Кластер вилл Unit Space внутри Nuanu, западное побережье Бали</figcaption>
+      </figure>
+    </div>
+  </section>
 
-    <article class="chapter" id="cx-u1">
-      <div class="head">
-        <div>
-          <div class="code-lg">U1</div>
-          <h2 class="name">Space Village</h2>
+  <!-- КОМПЛЕКСЫ -->
+  <section class="section" id="complexes">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Три комплекса рядом с Nuanu</h2>
+          <p class="lead">Выберите комплекс — переключит описание, форматы и фото.</p>
         </div>
-        <p class="intro">Первый hi-tech комплекс на Бали. Сдан в 2024 году, заселён и работает как отельный
-          бизнес под управлением UNIT SPACE MANAGEMENT — приносит проверенную доходность.</p>
-      </div>
-      <div class="facts tnum">
-        <div><b>22</b><span>юнита</span></div>
-        <div><b>2024</b><span>сдан и заселён</span></div>
-        <div><b>32–89</b><span>м² форматы</span></div>
-      </div>
-      <p class="formats">Форматы: <b>студия 32 м²</b> · <b>2+1 спальни 89 м²</b>. Полная меблировка,
-        кафе, коворкинг, сауна и cold&nbsp;plunge — внутри квартала.</p>
-      <div class="collage">
-        <figure><picture><source srcset="assets/u1-09.webp" type="image/webp"><img src="assets/u1-09.jpg" alt="U1 — приватный бассейн и сауна вечером"></picture></figure>
-        <figure><picture><source srcset="assets/u1-01.webp" type="image/webp"><img src="assets/u1-01.jpg" alt="U1 — спальня в минималистичном стиле"></picture></figure>
-        <figure><picture><source srcset="assets/u1-06.webp" type="image/webp"><img src="assets/u1-06.jpg" alt="U1 — спальня с видом на сад"></picture></figure>
-      </div>
-    </article>
+        <div class="panel-body">
+          <div class="cx-tabs" role="tablist">
+            <button class="cx-tab" role="tab" aria-selected="true" data-pane="p1"><span class="code">U1</span> Space Village</button>
+            <button class="cx-tab" role="tab" aria-selected="false" data-pane="p2"><span class="code">U2</span> Nuanu Village</button>
+            <button class="cx-tab" role="tab" aria-selected="false" data-pane="p3"><span class="code">U3</span> Nyanyi Village</button>
+          </div>
 
-    <article class="chapter" id="cx-u2">
-      <div class="head">
-        <div>
-          <div class="code-lg">U2</div>
-          <h2 class="name">Nuanu Village</h2>
+          <div class="cx-pane" id="p1" role="tabpanel">
+            <div>
+              <h3>Space Village</h3>
+                <p class="cx-intro">Первый hi-tech комплекс на Бали. Сдан в 2024, заселён и работает как отельный
+                  бизнес под управлением UNIT SPACE MANAGEMENT — приносит проверенную доходность.</p>
+                <div class="cx-mini">
+                  <div><b>22</b><span>юнита</span></div>
+                  <div><b>2024</b><span>сдан и заселён</span></div>
+                  <div><b>от&nbsp;$100k</b><span>цена входа</span></div>
+                </div>
+              <div class="taglist">
+                <span class="tag tag--static">студия 32 м²</span>
+                <span class="tag tag--static">2+1 — 89 м²</span>
+              </div>
+            </div>
+            <div class="cx-photos">
+              <figure><picture><source srcset="assets/u1-09.webp" type="image/webp"><img src="assets/u1-09.jpg" alt="U1 — приватный бассейн и сауна"></picture></figure>
+              <figure><picture><source srcset="assets/u1-01.webp" type="image/webp"><img src="assets/u1-01.jpg" alt="U1 — спальня"></picture></figure>
+              <figure><picture><source srcset="assets/u1-06.webp" type="image/webp"><img src="assets/u1-06.jpg" alt="U1 — спальня с видом на сад"></picture></figure>
+            </div>
+          </div>
+
+          <div class="cx-pane" id="p2" role="tabpanel" hidden>
+            <div>
+              <h3>Nuanu Village</h3>
+                <p class="cx-intro">Второй комплекс в сердце Nuanu. Сдан в 2025, заселён. Самый широкий выбор —
+                  от студии до виллы 200 м² с собственным бассейном и садом.</p>
+                <div class="cx-mini">
+                  <div><b>55</b><span>юнитов</span></div>
+                  <div><b>2025</b><span>сдан и заселён</span></div>
+                  <div><b>от&nbsp;$105k</b><span>цена входа</span></div>
+                </div>
+              <div class="taglist">
+                <span class="tag tag--static">студия 32</span>
+                <span class="tag tag--static">1+1 — 60</span>
+                <span class="tag tag--static">2+1 — 89</span>
+                <span class="tag tag--static">вилла 3+1 — 200 м²</span>
+              </div>
+            </div>
+            <div class="cx-photos">
+              <figure><picture><source srcset="assets/u2-2bd-01.webp" type="image/webp"><img src="assets/u2-2bd-01.jpg" alt="U2 — фасад виллы, палисадник"></picture></figure>
+              <figure><picture><source srcset="assets/u2s-03.webp" type="image/webp"><img src="assets/u2s-03.jpg" alt="U2 — кухня с видом на рисовые поля"></picture></figure>
+              <figure><picture><source srcset="assets/u2-1bd-03.webp" type="image/webp"><img src="assets/u2-1bd-03.jpg" alt="U2 — терраса с зоной отдыха"></picture></figure>
+            </div>
+          </div>
+
+          <div class="cx-pane" id="p3" role="tabpanel" hidden>
+            <div>
+              <h3>Nyanyi Village</h3>
+                <p class="cx-intro">Третий комплекс — посёлок Nyanyi, ещё ближе к океану. Строится, сдача в 2026 году.
+                  Вход по стартовой цене до сдачи, появляются форматы с приватным бассейном.</p>
+                <div class="cx-mini">
+                  <div><b>28</b><span>юнитов</span></div>
+                  <div><b>2026</b><span>плановая сдача</span></div>
+                  <div><b>от&nbsp;$118k</b><span>цена входа</span></div>
+                </div>
+              <div class="taglist">
+                <span class="tag tag--static">1+1 — 60</span>
+                <span class="tag tag--static">1+1 + бассейн — 100</span>
+                <span class="tag tag--static">2+1 — 89</span>
+                <span class="tag tag--static">вилла 3+1 — 200 м²</span>
+              </div>
+            </div>
+            <div class="cx-photos">
+              <figure><picture><source srcset="assets/u3-03.webp" type="image/webp"><img src="assets/u3-03.jpg" alt="U3 — зона у приватного бассейна, рендер"></picture></figure>
+              <figure><picture><source srcset="assets/u3-04.webp" type="image/webp"><img src="assets/u3-04.jpg" alt="U3 — вилла с деревянным фасадом, рендер"></picture></figure>
+              <figure><picture><source srcset="assets/u3-02.webp" type="image/webp"><img src="assets/u3-02.jpg" alt="U3 — внутренний двор с пальмами, рендер"></picture></figure>
+            </div>
+          </div>
+
+          <p class="muted" style="font-size:13px;margin-top:20px">Юнит-микс предварительный. Актуальная шахматка — по запросу.</p>
         </div>
-        <p class="intro">Второй комплекс в сердце Nuanu. Сдан в 2025, заселён. Самый широкий выбор —
-          от студии до виллы 200&nbsp;м² с собственным бассейном и садом.</p>
       </div>
-      <div class="facts tnum">
-        <div><b>55</b><span>юнитов</span></div>
-        <div><b>2025</b><span>сдан и заселён</span></div>
-        <div><b>32–200</b><span>м² форматы</span></div>
-      </div>
-      <p class="formats">Форматы: <b>студия 32</b> · <b>1+1 — 60</b> · <b>2+1 — 89</b> ·
-        <b>вилла 3+1 с бассейном — 200 м²</b>. Кухня и гостиная отдельно во всех форматах, кроме студии.</p>
-      <div class="collage">
-        <figure><picture><source srcset="assets/u2-2bd-01.webp" type="image/webp"><img src="assets/u2-2bd-01.jpg" alt="U2 — фасад виллы, палисадник"></picture></figure>
-        <figure><picture><source srcset="assets/u2s-03.webp" type="image/webp"><img src="assets/u2s-03.jpg" alt="U2 — кухня с видом на рисовые поля"></picture></figure>
-        <figure><picture><source srcset="assets/u2-1bd-03.webp" type="image/webp"><img src="assets/u2-1bd-03.jpg" alt="U2 — терраса с зоной отдыха"></picture></figure>
-      </div>
-    </article>
+    </div>
+  </section>
 
-    <article class="chapter" id="cx-u3">
-      <div class="head">
-        <div>
-          <div class="code-lg">U3</div>
-          <h2 class="name">Nyanyi Village</h2>
-        </div>
-        <p class="intro">Третий комплекс — посёлок Nyanyi, ещё ближе к океану. Строится, сдача в 2026 году.
-          Вход по стартовой цене до сдачи, появляются форматы с приватным бассейном.</p>
-      </div>
-      <div class="facts tnum">
-        <div><b>28</b><span>юнитов</span></div>
-        <div><b>2026</b><span>плановая сдача</span></div>
-        <div><b>60–200</b><span>м² форматы</span></div>
-      </div>
-      <p class="formats">Форматы: <b>1+1 — 60</b> · <b>1+1 + бассейн — 100</b> · <b>2+1 — 89</b> ·
-        <b>2+1 + бассейн — 109</b> · <b>вилла 3+1 — 200 м²</b>. Прогресс стройки — фото по датам.</p>
-      <div class="collage">
-        <figure><picture><source srcset="assets/u3-03.webp" type="image/webp"><img src="assets/u3-03.jpg" alt="U3 — зона у приватного бассейна, рендер"></picture></figure>
-        <figure><picture><source srcset="assets/u3-04.webp" type="image/webp"><img src="assets/u3-04.jpg" alt="U3 — вилла с деревянным фасадом, рендер"></picture></figure>
-        <figure><picture><source srcset="assets/u3-02.webp" type="image/webp"><img src="assets/u3-02.jpg" alt="U3 — внутренний двор с пальмами, рендер"></picture></figure>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- 05b · СЦЕНАРИИ ВЛАДЕНИЯ -->
+  <!-- СЦЕНАРИИ -->
   <section class="section" id="scenarios">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Один дом — три сценария</h2>
-        <p class="lead">Живите семьёй, прилетайте в отпуск или сдавайте под ключ — юнит работает под любую задачу.</p>
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Один дом — три сценария</h2>
+          <p class="lead">Живите семьёй, прилетайте в отпуск или сдавайте под ключ.</p>
+        </div>
+        <div class="panel-body grid-3">
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-8 9 8M5 10v10h14V10"/></svg></span>
+            <h3>Жизнь</h3>
+            <p>Меблированный hi-tech дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p>
+          </div>
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <h3>Аренда под ключ</h3>
+            <p>Доходность от 10% в год. Заселение, уборку, брони и отчётность ведёт UNIT SPACE MANAGEMENT.</p>
+          </div>
+          <div class="card card--hover">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></span>
+            <h3>Инвестиция</h3>
+            <p>Вход по стартовой цене в строящемся U3. Юнит можно перепродать до сдачи.</p>
+          </div>
+        </div>
+        <div class="cta-row"><a href="#yield" class="btn btn-primary">Посчитать доход</a></div>
       </div>
-      <div class="scn">
-        <div class="scn-row rv">
-          <div class="no">01</div>
-          <div><h3>Жизнь</h3><p>Меблированный hi-tech дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p></div>
-          <figure><picture><source srcset="assets/u2-1bd-03.webp" type="image/webp"><img src="assets/u2-1bd-03.jpg" alt="Терраса виллы Unit Space"></picture></figure>
+    </div>
+  </section>
+
+  <!-- ФОРМАТЫ -->
+  <section class="section" id="plans">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Форматы вилл</h2>
+          <p class="lead">От компактной студии до виллы с бассейном. Пакет планировок в PDF — по запросу.</p>
         </div>
-        <div class="scn-row rv">
-          <div class="no">02</div>
-          <div><h3>Аренда под ключ</h3><p>Проверенная доходность от 10% в год. Заселение, уборку, брони и отчётность ведёт UNIT SPACE MANAGEMENT.</p></div>
-          <figure><picture><source srcset="assets/u2s-02.webp" type="image/webp"><img src="assets/u2s-02.jpg" alt="Кухня виллы с видом на поля"></picture></figure>
+        <div class="panel-body grid-4">
+          <div class="fmt"><div class="fmt-ar">32 м²</div><h3>Студия</h3><p>U1, U2 · единое пространство</p><div class="fmt-price">от $100 000</div></div>
+          <div class="fmt"><div class="fmt-ar">60 м²</div><h3>1 + 1 спальня</h3><p>U2, U3 · кухня отдельно</p><div class="fmt-price">от $118 000</div></div>
+          <div class="fmt"><div class="fmt-ar">89 м²</div><h3>2 + 1 спальни</h3><p>U1, U2, U3 · для семьи</p><div class="fmt-price">от $190 000</div></div>
+          <div class="fmt"><div class="fmt-ar">200 м²</div><h3>Вилла 3 + 1</h3><p>U2, U3 · сад и бассейн</p><div class="fmt-price">от $278 000</div></div>
         </div>
-        <div class="scn-row rv">
-          <div class="no">03</div>
-          <div><h3>Инвестиция</h3><p>Вход по стартовой цене в строящемся U3. Юнит можно перепродать до сдачи — локация растёт в цене.</p></div>
-          <figure><picture><source srcset="assets/u3-03.webp" type="image/webp"><img src="assets/u3-03.jpg" alt="Зона отдыха у бассейна U3"></picture></figure>
+        <p class="muted" style="font-size:13px;margin-top:18px">Цены ориентировочные, «от». Актуальный прайс и шахматку пришлём по запросу.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="section" id="catalog">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Свободные виллы</h2>
+          <p class="lead">Актуальную подборку с ценами и этажами пришлём по запросу.</p>
+        </div>
+        <div class="panel-body">
+          <div class="filters" id="filters">
+            <button class="tag" data-f="q" data-v="all" aria-pressed="true">Все комплексы</button>
+            <button class="tag" data-f="q" data-v="u1" aria-pressed="false">U1</button>
+            <button class="tag" data-f="q" data-v="u2" aria-pressed="false">U2</button>
+            <button class="tag" data-f="q" data-v="u3" aria-pressed="false">U3</button>
+            <span class="sep"></span>
+            <button class="tag" data-f="fmt" data-v="all" aria-pressed="true">Все форматы</button>
+            <button class="tag" data-f="fmt" data-v="studio" aria-pressed="false">Студия</button>
+            <button class="tag" data-f="fmt" data-v="1bd" aria-pressed="false">1+1</button>
+            <button class="tag" data-f="fmt" data-v="2bd" aria-pressed="false">2+1</button>
+            <button class="tag" data-f="fmt" data-v="villa" aria-pressed="false">Вилла</button>
+            <span class="cnt">Найдено <b id="unitCount">0</b></span>
+          </div>
+          <div class="grid-3" id="units"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 06 · ПЛАНИРОВКИ -->
-  <section class="section section--tight" id="plans">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Форматы вилл</h2>
-        <p class="lead">От компактной студии до виллы с бассейном. Полный пакет планировок в PDF — по запросу.</p>
-      </div>
-      <div class="formats-grid rv">
-        <div class="fmt">
-          <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M62 14v68M62 48h48"/></svg>
-          <div class="ar">32 м²</div><h4>Студия</h4><p>U1, U2 · единое пространство</p><p class="fmt-price">от $100 000</p>
-        </div>
-        <div class="fmt">
-          <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M55 14v68M10 48h45M55 40h55"/></svg>
-          <div class="ar">60 м²</div><h4>1 + 1 спальня</h4><p>U2, U3 · кухня и гостиная отдельно</p><p class="fmt-price">от $118 000</p>
-        </div>
-        <div class="fmt">
-          <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M48 14v68M10 40h38M48 34h30M78 14v68M78 54h32"/></svg>
-          <div class="ar">89 м²</div><h4>2 + 1 спальни</h4><p>U1, U2, U3 · для семьи</p><p class="fmt-price">от $190 000</p>
-        </div>
-        <div class="fmt">
-          <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="10" width="100" height="52" rx="3"/><rect x="30" y="70" width="60" height="16" rx="3"/><path d="M50 10v52M50 36h60"/></svg>
-          <div class="ar">200 м²</div><h4>Вилла 3 + 1 с бассейном</h4><p>U2, U3 · сад и приватный бассейн</p><p class="fmt-price">от $278 000</p>
-        </div>
-      </div>
-      <p class="small muted rv" style="margin-top:20px">Цены ориентировочные, «от». Актуальный прайс и шахматку пришлём по запросу.</p>
-    </div>
-  </section>
-
-  <!-- 07 · КАТАЛОГ -->
-  <section class="section section--tight" id="catalog">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Свободные виллы</h2>
-        <p class="lead">Актуальную подборку с ценами и этажами пришлём по запросу.</p>
-      </div>
-      <div class="filters rv" id="filters">
-        <button class="chip" data-f="q" data-v="all" aria-pressed="true">Все комплексы</button>
-        <button class="chip" data-f="q" data-v="u1" aria-pressed="false">U1</button>
-        <button class="chip" data-f="q" data-v="u2" aria-pressed="false">U2</button>
-        <button class="chip" data-f="q" data-v="u3" aria-pressed="false">U3</button>
-        <span class="sep"></span>
-        <button class="chip" data-f="fmt" data-v="all" aria-pressed="true">Все форматы</button>
-        <button class="chip" data-f="fmt" data-v="studio" aria-pressed="false">Студия</button>
-        <button class="chip" data-f="fmt" data-v="1bd" aria-pressed="false">1+1</button>
-        <button class="chip" data-f="fmt" data-v="2bd" aria-pressed="false">2+1</button>
-        <button class="chip" data-f="fmt" data-v="villa" aria-pressed="false">Вилла</button>
-        <span class="cnt">Найдено <b id="unitCount">0</b></span>
-      </div>
-      <div class="units" id="units"></div>
-    </div>
-  </section>
-
-  <!-- 08 · ДОХОДНОСТЬ -->
+  <!-- ДОХОДНОСТЬ -->
   <section class="section" id="yield">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Доходность от 10% в год</h2>
-        <p class="lead">Проверенный ориентир на работающих U1 и U2. Прикиньте доход под свой бюджет.</p>
-      </div>
-      <div class="yield-split rv">
-        <div class="scen-list">
-          <div class="r"><div><b>Краткосрочная аренда</b><span>посуточно, под управлением УК</span></div><div class="v">от 10% в год</div></div>
-          <div class="r"><div><b>Долгосрочная аренда</b><span>помесячно, стабильный поток</span></div><div class="v">ниже, предсказуемо</div></div>
-          <div class="r"><div><b>Перепродажа до сдачи</b><span>вход по стартовой цене, выход к сдаче</span></div><div class="v">зависит от срока</div></div>
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Доходность от 10% в год</h2>
+          <p class="lead">Проверенный ориентир на работающих U1 и U2. Прикиньте доход под свой бюджет.</p>
         </div>
-        <div class="calc">
-          <div class="field"><label for="c-price">Цена виллы, $ (ориентир)</label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
-          <div class="field"><label for="c-rate">Ставка за ночь, $</label><input type="number" id="c-rate" value="100" min="0" step="5"></div>
-          <div class="field"><label for="c-occ">Загрузка, %</label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
-          <div class="field"><label for="c-mgmt">Комиссия УК, %</label><input type="number" id="c-mgmt" value="20" min="0" max="100"></div>
-          <div class="calc-out" aria-live="polite">
-            <div class="roi"><b id="o-roi">—</b><span>доходность к цене<br>в год</span></div>
-            <div class="rows">
-              <div><span>Валовый доход в год</span><b id="o-gross" class="tnum">—</b></div>
-              <div><span>За вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
+        <div class="panel-body yield-grid">
+          <div class="stack">
+            <div class="scen"><div><b>Краткосрочная аренда</b><span>посуточно, под управлением УК</span></div><span class="v">от 10% в год</span></div>
+            <div class="scen"><div><b>Долгосрочная аренда</b><span>помесячно, стабильный поток</span></div><span class="v">ниже, стабильно</span></div>
+            <div class="scen"><div><b>Перепродажа до сдачи</b><span>вход по стартовой цене</span></div><span class="v">зависит от срока</span></div>
+          </div>
+          <div class="calc">
+            <div class="field"><label for="c-price">Цена виллы, $ (ориентир)</label><input type="number" id="c-price" value="190000" step="1000"></div>
+            <div class="field"><label for="c-rate">Ставка за ночь, $</label><input type="number" id="c-rate" value="100" step="5"></div>
+            <div class="field"><label for="c-occ">Загрузка, %</label><input type="number" id="c-occ" value="70"></div>
+            <div class="field"><label for="c-mgmt">Комиссия УК, %</label><input type="number" id="c-mgmt" value="20"></div>
+            <div class="calc-out" aria-live="polite">
+              <div class="roi" id="o-roi">—<small>доходность к цене в год</small></div>
+              <div class="rows">
+                <div><span>Валовый доход в год</span><b id="o-gross">—</b></div>
+                <div><span>За вычетом комиссии УК</span><b id="o-net">—</b></div>
+              </div>
+              <p class="muted" style="font-size:12.5px;margin-top:12px">Без учёта налогов и простоя. Полный расчёт под вашу виллу пришлём на почту.</p>
             </div>
-            <p class="small muted" style="margin-top:14px">Без учёта налогов и простоя на обслуживание. Полный расчёт под вашу виллу пришлём на почту.</p>
           </div>
         </div>
+        <div class="cta-row"><a href="#lead" class="btn btn-primary">Расчёт под мою виллу</a></div>
       </div>
     </div>
   </section>
 
-  <!-- 09 · ЛОКАЦИЯ -->
+  <!-- ЛОКАЦИЯ -->
   <section class="section" id="location">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Внутри Nuanu, в трёх минутах от океана</h2>
-      </div>
-      <div class="dist rv tnum">
-        <div><b data-count="0">0</b><span>минут до территории Nuanu</span></div>
-        <div><b data-count="3">3</b><span>минуты пешком до океана</span></div>
-        <div><b data-count="20">20</b><span>минут до Чангу</span></div>
-        <div><b data-count="15">15</b><span>минут до Танах Лот</span></div>
-      </div>
-
-      <div class="marquee rv" aria-hidden="true">
-        <ul>
-          <li>Рестораны и кафе</li><li>Chill-зона с сауной и купелью</li><li>2 бассейна</li><li>Фитнес-зал</li>
-          <li>Библиотека</li><li>Кинотеатр</li><li>Музыкальная студия</li><li>Коворкинг</li><li>Зал для мероприятий</li>
-          <li>Международная школа</li><li>Детский сад</li><li>СПА-центр</li><li>Парк искусств</li>
-          <li>Luna Beach Club</li><li>Ash</li><li>Lumeira</li><li>Oshom</li>
-          <li>Рестораны и кафе</li><li>Chill-зона с сауной и купелью</li><li>2 бассейна</li><li>Фитнес-зал</li>
-          <li>Библиотека</li><li>Кинотеатр</li><li>Музыкальная студия</li><li>Коворкинг</li><li>Зал для мероприятий</li>
-          <li>Международная школа</li><li>Детский сад</li><li>СПА-центр</li><li>Парк искусств</li>
-          <li>Luna Beach Club</li><li>Ash</li><li>Lumeira</li><li>Oshom</li>
-        </ul>
-      </div>
-
-      <div class="loc-split rv">
-        <figure class="loc-map">
-          <svg viewBox="0 0 640 400" role="img" aria-label="Схема: U1 и U2 в Nuanu, U3 в посёлке Nyanyi, пляж Pantai Nyanyi, океан">
-            <rect width="640" height="400" fill="#F4F4F4"/>
-            <path d="M0 336 C160 306, 270 356, 400 330 S580 286, 640 304 L640 400 L0 400 Z" fill="#E4E4E1"/>
-            <text x="26" y="378" font-family="Helvetica,Arial" font-size="12" fill="#6E6E75" letter-spacing="2">ОКЕАН</text>
-            <rect x="120" y="96" width="170" height="170" rx="10" fill="none" stroke="#0433FF" stroke-width="1.5" stroke-dasharray="3 4"/>
-            <text x="128" y="88" font-family="Helvetica,Arial" font-size="11" fill="#6E6E75" letter-spacing="1">NUANU CREATIVE CITY</text>
-            <circle cx="168" cy="140" r="7" fill="#0433FF"/><text x="184" y="145" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U1</text>
-            <circle cx="168" cy="206" r="7" fill="#0433FF"/><text x="184" y="211" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U2</text>
-            <line x1="290" y1="176" x2="420" y2="160" stroke="#C9C9C4" stroke-width="1.5"/>
-            <circle cx="440" cy="160" r="7" fill="none" stroke="#0433FF" stroke-width="2"/><text x="456" y="165" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U3 — Nyanyi</text>
-            <line x1="168" y1="266" x2="168" y2="320" stroke="#C9C9C4" stroke-width="1.5"/>
-            <circle cx="168" cy="324" r="4" fill="#6E6E75"/><text x="184" y="329" font-family="Helvetica,Arial" font-size="11" fill="#6E6E75">Пляж Pantai Nyanyi — 3 мин</text>
-          </svg>
-          <figcaption>Схема расположения комплексов Unit Space</figcaption>
-        </figure>
-        <div>
-          <dl class="kv">
-            <dt>Адрес</dt><dd>Jl Pantai Nyanyi 88, Beraban, Tabanan, Бали</dd>
-            <dt>До океана</dt><dd>3 минуты пешком</dd>
-            <dt>Nuanu</dt><dd>44 га, 70% зелени, 36 кафе и ресторанов</dd>
-            <dt>Инфраструктура</dt><dd>35+ объектов Nuanu, открыты круглый год</dd>
-          </dl>
-          <ul class="loc-list">
-            <li>Рестораны, chill-зона с сауной и купелью, 2 бассейна, фитнес-зал</li>
-            <li>Библиотека, кинотеатр, музыкальная и стриминг-студии</li>
-            <li>Коворкинг и зал для мероприятий</li>
-            <li>Международная школа, детский сад, спа-центр, парк искусств</li>
-          </ul>
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Внутри Nuanu, в трёх минутах от океана</h2>
+          <p class="lead">Инфраструктура городского типа — в шаговой доступности, открыта круглый год.</p>
+        </div>
+        <div class="panel-body">
+          <div class="metrics">
+            <div class="metric"><b data-count="0">0</b><span>минут до территории Nuanu</span></div>
+            <div class="metric"><b data-count="3">3</b><span>минуты пешком до океана</span></div>
+            <div class="metric"><b data-count="20">20</b><span>минут до Чангу</span></div>
+            <div class="metric"><b data-count="15">15</b><span>минут до Танах Лот</span></div>
+          </div>
+          <div class="loc-split">
+            <figure class="loc-map">
+              <svg viewBox="0 0 640 480" role="img" aria-label="Схема: U1 и U2 в Nuanu, U3 в Nyanyi, пляж, океан">
+                <rect width="640" height="480" fill="#f4f4f4"/>
+                <path d="M0 400 C160 366,270 424,400 396 S580 344,640 364 L640 480 L0 480 Z" fill="#e4e4e1"/>
+                <text x="28" y="448" font-family="Helvetica,Arial" font-size="13" fill="#8a8a8a" letter-spacing="2">ОКЕАН</text>
+                <rect x="130" y="110" width="190" height="190" rx="12" fill="none" stroke="#0433ff" stroke-width="1.5" stroke-dasharray="3 5"/>
+                <text x="138" y="100" font-family="Helvetica,Arial" font-size="12" fill="#8a8a8a" letter-spacing="1">NUANU CREATIVE CITY</text>
+                <circle cx="182" cy="160" r="8" fill="#0433ff"/><text x="200" y="166" font-family="Helvetica,Arial" font-size="15" fill="#3a3a3a" font-weight="600">U1</text>
+                <circle cx="182" cy="238" r="8" fill="#0433ff"/><text x="200" y="244" font-family="Helvetica,Arial" font-size="15" fill="#3a3a3a" font-weight="600">U2</text>
+                <line x1="320" y1="200" x2="450" y2="180" stroke="#c9c9c4" stroke-width="1.5"/>
+                <circle cx="470" cy="180" r="8" fill="none" stroke="#0433ff" stroke-width="2"/><text x="488" y="186" font-family="Helvetica,Arial" font-size="15" fill="#3a3a3a" font-weight="600">U3 — Nyanyi</text>
+                <line x1="182" y1="300" x2="182" y2="382" stroke="#c9c9c4" stroke-width="1.5"/>
+                <circle cx="182" cy="386" r="4" fill="#8a8a8a"/><text x="200" y="392" font-family="Helvetica,Arial" font-size="12" fill="#8a8a8a">Пляж Pantai Nyanyi — 3 мин</text>
+              </svg>
+            </figure>
+            <div>
+              <dl class="kv">
+                <dt>Адрес</dt><dd>Jl Pantai Nyanyi 88, Beraban, Tabanan, Бали</dd>
+                <dt>До океана</dt><dd>3 минуты пешком</dd>
+                <dt>Nuanu</dt><dd>44 га, 70% зелени, 36 кафе</dd>
+                <dt>Рядом</dt><dd>35+ объектов инфраструктуры</dd>
+              </dl>
+              <div class="taglist" style="margin-top:22px">
+                <span class="tag tag--static">Рестораны и кафе</span>
+                <span class="tag tag--static">2 бассейна</span>
+                <span class="tag tag--static">Фитнес-зал</span>
+                <span class="tag tag--static">Сауна и купель</span>
+                <span class="tag tag--static">Библиотека</span>
+                <span class="tag tag--static">Кинотеатр</span>
+                <span class="tag tag--static">Коворкинг</span>
+                <span class="tag tag--static">Школа и детсад</span>
+                <span class="tag tag--static">СПА-центр</span>
+                <span class="tag tag--static">Парк искусств</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <figure class="band rv">
-    <picture><source srcset="assets/u2v-03.webp" type="image/webp"><img src="assets/u2v-03.jpg" alt="Коридор виллы с панорамным видом на рисовые поля"></picture>
-  </figure>
-
-  <!-- 10 · О КОМПАНИИ -->
+  <!-- О КОМПАНИИ -->
   <section class="section" id="company">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">О компании</h2>
-        <p class="lead">UNIT — девелопер с собственным производством и философией будущего.
-          Мы создаём экосистему для жизни и инвестиций: от архитектуры до мебели.</p>
-      </div>
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>О компании</h2>
+          <p class="lead">UNIT — девелопер с собственным производством. Мы создаём экосистему для жизни
+            и инвестиций: от архитектуры до мебели.</p>
+        </div>
 
-      <p class="rv" style="max-width:64ch;color:var(--ink-2)">10+ лет опыта на Бали. Собственные заводы
-        UNIT&nbsp;BUILD (строительство), UNIT&nbsp;FRAMES (стальные каркасы), UNIT&nbsp;FURNITURE (мебель)
-        и управляющая компания UNIT&nbsp;SPACE&nbsp;MANAGEMENT. Три завода, пять направлений, 100+ реализованных объектов.</p>
+        <div class="panel-body">
+          <div class="subs">
+            <div class="sub"><b>UNIT BUILD</b><span>строительство по лицензии PBG/SLF</span></div>
+            <div class="sub"><b>UNIT FRAMES</b><span>завод стальных каркасов</span></div>
+            <div class="sub"><b>UNIT FURNITURE</b><span>мебель и комплектация</span></div>
+            <div class="sub"><b>SPACE MANAGEMENT</b><span>управляющая компания, 10+ лет</span></div>
+          </div>
 
-      <div class="founders rv">
-        <div class="founder">
-          <div class="ph" aria-hidden="true">СФ</div>
-          <div class="t">
-            <h4>Степан Федосеев</h4>
-            <p>Глава UNIT, основатель девелоперской компании Unit Space и фабрики Unit Build.
-              Эксперт по системному управлению, 13+ лет опыта.</p>
+          <div class="grid-3" style="margin-top:var(--gap)">
+            <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">собственных завода</div></div>
+            <div class="stat"><div class="stat-num" data-count="5">5</div><div class="stat-label">направлений внутри группы</div></div>
+            <div class="stat"><div class="stat-num" data-count="100">100</div><div class="stat-label">+ реализованных объектов на Бали</div></div>
+          </div>
+
+          <h3 style="font-size:var(--h3);margin:calc(var(--gap)*1.6) 0 var(--gap)">Основатели</h3>
+          <div class="grid-2">
+            <div class="founder">
+              <div class="fph" aria-hidden="true">СФ</div>
+              <div class="fi"><h3>Степан Федосеев</h3><p>Глава UNIT, основатель Unit Space и фабрики Unit Build. Эксперт по системному управлению, 13+ лет опыта.</p></div>
+            </div>
+            <div class="founder">
+              <div class="fph" aria-hidden="true">АО</div>
+              <div class="fi"><h3>Анна Орлова</h3><p>Совладелец UNIT, архитектор и дизайнер с 10-летним международным опытом. Проекты в Индонезии, России и Франции.</p></div>
+            </div>
+          </div>
+
+          <h3 style="font-size:var(--h3);margin:calc(var(--gap)*1.6) 0 var(--gap)">Философия бренда</h3>
+          <div class="grid-4">
+            <div class="card"><h3 style="font-size:16px">Эффективность</h3><p>Каждая деталь работает на результат — без лишнего шума.</p></div>
+            <div class="card"><h3 style="font-size:16px">Минимализм</h3><p>Порядок, ясность и ценность — в архитектуре и в жизни.</p></div>
+            <div class="card"><h3 style="font-size:16px">Экология</h3><p>Малоэтажность, сохранение рельефа, забота о будущем.</p></div>
+            <div class="card"><h3 style="font-size:16px">Сообщество</h3><p>Синергия людей вокруг общих ценностей.</p></div>
+          </div>
+
+          <h3 style="font-size:var(--h3);margin:calc(var(--gap)*1.6) 0 var(--gap)">Нам доверяют</h3>
+          <div class="grid-2">
+            <div class="founder">
+              <div class="fph" aria-hidden="true">СС</div>
+              <div class="fi"><h3>Сергей Солонин</h3><p>Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь Qiwi, создатель города будущего Nuanu City на Бали.</p></div>
+            </div>
+            <div class="founder">
+              <div class="fph" aria-hidden="true">МД</div>
+              <div class="fi"><h3>Михаил Дашкиев</h3><p>Сооснователь «Бизнес Молодости», серийный предприниматель. Строит комплекс 5 Elements в Убуде с UNIT.BUILD.</p></div>
+            </div>
           </div>
         </div>
-        <div class="founder">
-          <div class="ph" aria-hidden="true">АО</div>
-          <div class="t">
-            <h4>Анна Орлова</h4>
-            <p>Совладелец UNIT, архитектор и дизайнер с более чем 10-летним международным опытом
-              и портфелем проектов в Индонезии, России и Франции.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- КТО СТРОИТ -->
+  <section class="section" id="builder">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head"><h2>Кто строит и как проходит сделка</h2></div>
+        <div class="panel-body grid-2">
+          <div class="card">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M4 20V8l8-5 8 5v12M9 20v-6h6v6"/></svg></span>
+            <h3 style="font-size:18px">Договор напрямую</h3>
+            <p>С Unit Space, без брокеров. Подпись онлайн в DocuSign. Структура сделки и юридический пакет — предоставляются.</p>
+          </div>
+          <div class="card">
+            <span class="isq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+            <h3 style="font-size:18px">Опыт и прозрачность</h3>
+            <p>5 жилых комплексов за 4 года, свои заводы. Прогресс стройки U3 — фото по датам. Виллы уже купили владельцы из 9 стран.</p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="principles rv">
-        <div><h4>Эффективность</h4><p>Каждый юнит и каждая деталь работают на результат — без лишнего шума.</p></div>
-        <div><h4>Минимализм</h4><p>Порядок, ясность и ценность — в архитектуре и в жизни.</p></div>
-        <div><h4>Экология</h4><p>Малоэтажное строительство, сохранение рельефа, забота о будущем.</p></div>
-        <div><h4>Сообщество</h4><p>Синергия людей вокруг общих ценностей: один плюс один даёт больше, чем два.</p></div>
-      </div>
-
-      <div class="trust-strip rv">
-        <div class="t">
-          <b>Сергей Солонин</b>
-          <span>Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь платёжного сервиса Qiwi, создатель города будущего Nuanu City на Бали.</span>
+  <!-- КАК КУПИТЬ -->
+  <section class="section" id="buy">
+    <div class="container">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Как купить</h2>
+          <p class="lead">Напрямую у девелопера, без посредников. Всё дистанционно.</p>
         </div>
-        <div class="t">
-          <b>Михаил Дашкиев</b>
-          <span>Сооснователь «Бизнес Молодости», серийный предприниматель. Строит премиальный комплекс 5&nbsp;Elements в Убуде вместе с UNIT.BUILD.</span>
+        <ol class="steps panel-body">
+          <li><b>Выбор виллы</b><span>Поможем подобрать под бюджет и цель.</span></li>
+          <li><b>Депозит $1&thinsp;500</b><span>Фиксирует виллу и цену на 14 дней.</span></li>
+          <li><b>Бронирование</b><span>Договор бронирования онлайн в DocuSign.</span></li>
+          <li><b>Основной контракт</b><span>Напрямую с Unit Space, в DocuSign.</span></li>
+          <li><b>Передача и статус VIP</b><span>Подключаем управляющую компанию.</span></li>
+        </ol>
+        <div class="card" style="margin-top:var(--gap)">
+          <h3 style="font-size:16px">Оплата и владение</h3>
+          <p>Приём в разных валютах с расчётом в USD, возможна рассрочка. Форма владения (leasehold / freehold),
+            срок и налоги — в юридическом пакете, разбираем на сделке.</p>
         </div>
+        <div class="cta-row"><a href="#lead" class="btn btn-primary">Оставить заявку</a></div>
       </div>
     </div>
   </section>
 
-  <!-- 11 · КТО СТРОИТ -->
-  <section class="section section--tight" id="builder">
-    <div class="wrap">
-      <div class="builder rv">
-        <div>
-          <h2 class="h2" style="margin-bottom:20px">Кто строит</h2>
-          <p>Unit Space / UNIT — группа компаний на Бали. За 4 года — 5 жилых комплексов, свои заводы
-            (сталь, бетон, мебель) и управляющая компания с 10+ годами работы на острове.
-            Строительство по лицензии PBG/SLF, без подрядчиков-посредников.</p>
-        </div>
-        <ul class="facts-list">
-          <li>Договор напрямую с Unit Space, подпись онлайн в DocuSign</li>
-          <li>Структура сделки и юридический пакет — предоставляются</li>
-          <li>Прогресс стройки U3 — фото по датам, по запросу</li>
-          <li>Уже купили владельцы из Сингапура, США, Канады, Франции, Швейцарии, Казахстана, Турции, России, Китая</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 12 · КАК КУПИТЬ -->
-  <section class="section section--tight" id="buy">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <h2 class="h2">Как купить</h2>
-        <p class="lead">Напрямую у девелопера, без брокеров и посредников. Всё дистанционно.</p>
-      </div>
-      <ol class="steps rv">
-        <li><b>Выбор виллы</b>Поможем подобрать под бюджет и цель.</li>
-        <li><b>Депозит $1&thinsp;500</b>Фиксирует виллу и цену на 14 дней.</li>
-        <li><b>Бронирование</b>Договор бронирования онлайн в DocuSign.</li>
-        <li><b>Основной контракт</b>Напрямую с Unit Space, тоже в DocuSign.</li>
-        <li><b>Передача и статус VIP</b>Подключаем управляющую компанию.</li>
-      </ol>
-      <p class="small muted rv" style="margin-top:28px;max-width:64ch">
-        Оплата — в разных валютах с расчётом в USD, возможна рассрочка. Форма владения (leasehold / freehold),
-        срок и налоги — в юридическом пакете, разбираем на сделке.
-      </p>
-    </div>
-  </section>
-
-  <!-- 13 · FAQ -->
+  <!-- FAQ -->
   <section class="section" id="faq">
-    <div class="wrap">
-      <div class="faq-grid">
-        <div class="faq-head rv">
-          <h2 class="h2">Частые вопросы</h2>
-          <p class="lead">Коротко о том, что спрашивают перед сделкой.</p>
-          <a class="btn btn--primary" href="#lead">Задать свой вопрос</a>
-        </div>
-        <div class="faq-list rv">
-          <details class="faq-item"><summary>Это первичка?</summary><p>Да. Свободные виллы продаются напрямую от девелопера во всех трёх комплексах, включая сданные U1 и U2.</p></details>
-          <details class="faq-item"><summary>«От 10%» — это до налогов?</summary><p>Это проверенный ориентир доходности до налогов и до вычета простоя на обслуживание, на основе работающих U1 и U2. Точную модель под вашу виллу пришлём по запросу.</p></details>
-          <details class="faq-item"><summary>Можно перепродать до сдачи?</summary><p>Да, для строящегося комплекса U3. Условия — в договоре.</p></details>
-          <details class="faq-item"><summary>Что делает управляющая компания?</summary><p>Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от дохода.</p></details>
-          <details class="faq-item"><summary>Когда сдача U3?</summary><p>2026 год. Прогресс стройки публикуем по датам.</p></details>
-          <details class="faq-item"><summary>В какой валюте оплата?</summary><p>Приём в разных валютах с расчётом в USD, возможна рассрочка. Точные условия согласуем на сделке.</p></details>
-          <details class="faq-item"><summary>Leasehold или freehold?</summary><p>Зависит от виллы и структуры сделки. Точные условия — в юридическом пакете, разбираем перед подписанием.</p></details>
-          <details class="faq-item"><summary>Как проходит сделка?</summary><p>Напрямую с Unit Space, документы подписываются онлайн в DocuSign. Полный процесс — в разделе «Как купить».</p></details>
+    <div class="container">
+      <div class="panel">
+        <div class="faq-grid">
+          <div class="faq-head">
+            <h2 style="font-size:var(--h2)">Частые вопросы</h2>
+            <p class="lead" style="margin-top:14px">Коротко о том, что спрашивают перед сделкой.</p>
+            <div class="cta-row"><a href="#lead" class="btn btn-primary">Задать свой вопрос</a></div>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item"><summary>Это первичка?</summary><p>Да. Свободные виллы продаются напрямую от девелопера во всех трёх комплексах, включая сданные U1 и U2.</p></details>
+            <details class="faq-item"><summary>«От 10%» — это до налогов?</summary><p>Это проверенный ориентир доходности до налогов и до вычета простоя на обслуживание, на основе работающих U1 и U2. Точную модель под вашу виллу пришлём по запросу.</p></details>
+            <details class="faq-item"><summary>Можно перепродать до сдачи?</summary><p>Да, для строящегося комплекса U3. Условия — в договоре.</p></details>
+            <details class="faq-item"><summary>Что делает управляющая компания?</summary><p>Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от дохода.</p></details>
+            <details class="faq-item"><summary>Когда сдача U3?</summary><p>2026 год. Прогресс стройки публикуем по датам.</p></details>
+            <details class="faq-item"><summary>В какой валюте оплата?</summary><p>Приём в разных валютах с расчётом в USD, возможна рассрочка. Точные условия согласуем на сделке.</p></details>
+            <details class="faq-item"><summary>Leasehold или freehold?</summary><p>Зависит от виллы и структуры сделки. Точные условия — в юридическом пакете, разбираем перед подписанием.</p></details>
+            <details class="faq-item"><summary>Как проходит сделка?</summary><p>Напрямую с Unit Space, документы подписываются онлайн в DocuSign. Полный процесс — в разделе «Как купить».</p></details>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 14 · ФИНАЛ -->
-  <section class="section final" id="lead">
-    <div class="wrap">
-      <div class="split">
-        <div>
-          <h2 class="h2">Забронируйте своё пространство на Бали</h2>
-          <p class="lead">Оставьте контакты — вернёмся с подборкой вилл под ваш бюджет и расчётом доходности.</p>
-          <div class="contacts">
-            <a href="#" class="btn btn--light btn--sm">Telegram</a>
-            <a href="#" class="btn btn--light btn--sm">WhatsApp</a>
-            <a href="#" class="btn btn--light btn--sm">Скачать презентацию (PDF)</a>
+  <!-- ФИНАЛ -->
+  <section class="section" id="lead">
+    <div class="container">
+      <div class="final">
+        <div class="final-grid">
+          <div>
+            <h2>Забронируйте виллу на Бали</h2>
+            <p class="lead">Оставьте контакты — вернёмся с подборкой вилл под ваш бюджет и расчётом доходности.</p>
+            <div class="cta-row">
+              <a href="#" class="btn btn-white">Telegram</a>
+              <a href="#" class="btn btn-white">WhatsApp</a>
+            </div>
           </div>
+          <form class="form" onsubmit="return false">
+            <div class="g">
+              <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
+              <div class="field"><label for="f-contact">Телефон или email</label><input id="f-contact" type="text"></div>
+              <div class="field"><label for="f-budget">Бюджет, $</label><input id="f-budget" type="text" placeholder="150 000 – 250 000"></div>
+              <div class="field"><label for="f-complex">Комплекс</label>
+                <select id="f-complex"><option>Любой</option><option>U1 — Space Village</option><option>U2 — Nuanu Village</option><option>U3 — Nyanyi Village</option></select>
+              </div>
+              <div class="field full"><label for="f-goal">Цель</label>
+                <select id="f-goal"><option>Инвестиция</option><option>Аренда</option><option>Жизнь</option></select>
+              </div>
+              <div class="field full"><button class="btn btn-primary" type="submit">Отправить заявку</button></div>
+            </div>
+          </form>
         </div>
-        <form class="form" onsubmit="return false">
-          <div class="g">
-            <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
-            <div class="field"><label for="f-contact">Телефон или email</label><input id="f-contact" type="text"></div>
-            <div class="field"><label for="f-budget">Бюджет, $</label><input id="f-budget" type="text" placeholder="150 000 – 250 000"></div>
-            <div class="field"><label for="f-complex">Комплекс</label>
-              <select id="f-complex"><option>Любой</option><option>U1 — Space Village</option><option>U2 — Nuanu Village</option><option>U3 — Nyanyi Village</option></select>
-            </div>
-            <div class="field full"><label for="f-goal">Цель</label>
-              <select id="f-goal"><option>Инвестиция</option><option>Аренда</option><option>Жизнь</option></select>
-            </div>
-            <div class="field full"><button class="btn btn--primary" type="submit">Отправить заявку</button></div>
-          </div>
-        </form>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="brand">
-      <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
-      <p>Три жилых комплекса в одной локации рядом с Nuanu Creative City, Бали.</p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#top" class="logo">UNIT.&nbsp;SPACE&nbsp;CITY</a>
+        <p>Три жилых комплекса в одной локации рядом с Nuanu Creative City, Бали.</p>
+      </div>
+      <div class="footer-col"><h4>Комплексы</h4><a href="#complexes">U1 — Space Village</a><a href="#complexes">U2 — Nuanu Village</a><a href="#complexes">U3 — Nyanyi Village</a></div>
+      <div class="footer-col"><h4>Разделы</h4><a href="#catalog">Виллы</a><a href="#yield">Доходность</a><a href="#location">Локация</a><a href="#company">О компании</a></div>
+      <div class="footer-col"><h4>Контакты</h4><a href="#lead">Telegram</a><a href="#lead">WhatsApp</a><a href="#lead">Оставить заявку</a></div>
     </div>
-    <div><h5>Комплексы</h5><ul><li><a href="#cx-u1">U1 — Space Village</a></li><li><a href="#cx-u2">U2 — Nuanu Village</a></li><li><a href="#cx-u3">U3 — Nyanyi Village</a></li></ul></div>
-    <div><h5>Разделы</h5><ul><li><a href="#catalog">Виллы</a></li><li><a href="#yield">Доходность</a></li><li><a href="#location">Локация</a></li><li><a href="#company">О компании</a></li></ul></div>
-    <div><h5>Контакты</h5><ul><li><a href="#lead">Telegram</a></li><li><a href="#lead">WhatsApp</a></li><li><a href="#lead">Оставить заявку</a></li></ul></div>
-    <p class="disc">Материалы носят информационный характер и не являются публичной офертой.
-      Визуализации, планировки и цифры могут отличаться от готового объекта. Юнит-микс — предварительный,
-      актуальная шахматка предоставляется по запросу.</p>
+    <div class="footer-bottom">
+      <span>© 2026 UNIT. Space City</span>
+      <span>Материалы информационные и не являются публичной офертой.</span>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
-  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.documentElement.className += ' js';
+  var hdr = document.getElementById('hdr');
+  addEventListener('scroll', function(){ hdr.classList.toggle('is-scrolled', scrollY > 8); }, {passive:true});
 
-  /* страховка: что бы ни случилось с наблюдателем — весь контент виден через 1.2с */
-  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ el.classList.add('in'); }); }, 1200);
-
-  /* topbar stuck state */
-  var tb = document.getElementById('topbar');
-  addEventListener('scroll', function(){ tb.classList.toggle('is-stuck', scrollY > 12); }, {passive:true});
-
-  /* язык (визуально) */
-  document.querySelectorAll('.langsw').forEach(function(g){
-    g.addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return;
-      g.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true':'false'); }); });
+  /* lang (визуально) */
+  document.querySelector('.lang').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    this.querySelectorAll('button').forEach(function(x){ x.classList.toggle('is-active', x===b); });
   });
 
-  /* reveal on scroll — мягко и только как бонус */
-  if ('IntersectionObserver' in window && !rm){
-    var io = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {threshold:0, rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
-    /* элементы, уже попавшие в первый экран, показываем сразу */
-    requestAnimationFrame(function(){
-      document.querySelectorAll('.rv').forEach(function(el){
-        if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
-      });
+  /* мобильное меню */
+  var burger = document.getElementById('burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){ document.body.classList.toggle('menu-open'); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ document.body.classList.remove('menu-open'); }); });
+
+  /* табы комплексов */
+  var tabs = [].slice.call(document.querySelectorAll('.cx-tab'));
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.setAttribute('aria-selected', x===t ? 'true':'false'); });
+      document.querySelectorAll('.cx-pane').forEach(function(p){ p.hidden = p.id !== t.dataset.pane; });
     });
-  } else {
-    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
-  }
-
-  /* count-up */
-  function countUp(el){
-    var target = parseFloat(el.getAttribute('data-count')); if(isNaN(target)) return;
-    if(rm){ el.textContent = target; return; }
-    var dur = 1100, t0 = performance.now(), dec = (String(target).split('.')[1]||'').length;
-    function tick(now){
-      var p = Math.min((now - t0)/dur, 1), e = 1 - Math.pow(1-p, 3);
-      el.textContent = (target*e).toFixed(dec);
-      if(p < 1) requestAnimationFrame(tick); else el.textContent = target;
-    }
-    requestAnimationFrame(tick);
-  }
-  if ('IntersectionObserver' in window){
-    var nio = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); nio.unobserve(en.target); } });
-    }, {threshold:.6});
-    document.querySelectorAll('[data-count]').forEach(function(el){ nio.observe(el); });
-  }
-
-  /* complex nav — sliding underline + active on scroll */
-  var cxNav = document.querySelector('.cx-nav');
-  if (cxNav){
-    var links = [].slice.call(cxNav.querySelectorAll('a'));
-    var ink = document.getElementById('cxInk');
-    function moveInk(a){ ink.style.left = a.offsetLeft + 'px'; ink.style.width = (a.offsetWidth) + 'px'; }
-    function setActive(a){ links.forEach(function(x){ x.classList.toggle('is-active', x===a); }); moveInk(a); }
-    moveInk(links[0]);
-    links.forEach(function(a){ a.addEventListener('click', function(){ setActive(a); }); });
-    addEventListener('resize', function(){ moveInk(document.querySelector('.cx-nav a.is-active') || links[0]); });
-    var chapters = links.map(function(a){ return document.getElementById(a.dataset.cx); });
-    if ('IntersectionObserver' in window){
-      var cio = new IntersectionObserver(function(ents){
-        ents.forEach(function(en){
-          if(en.isIntersecting){
-            var i = chapters.indexOf(en.target);
-            if(i>=0) setActive(links[i]);
-          }
-        });
-      }, {rootMargin:'-40% 0px -55% 0px'});
-      chapters.forEach(function(c){ if(c) cio.observe(c); });
-    }
-  }
+  });
 
   /* каталог */
   var UNITS = [
@@ -998,41 +917,55 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
     {q:'u3',fmt:'2bd',name:'2+1 + бассейн',area:109,floor:'этаж 1'},
     {q:'u3',fmt:'villa',name:'Вилла 3+1 + бассейн',area:200,floor:'2 этажа'}
   ];
-  var QN = {u1:'U1',u2:'U2',u3:'U3'}, st = {q:'all',fmt:'all'};
-  var PRICE = {studio:'от $100 000', '1bd':'от $118 000', '2bd':'от $190 000', villa:'от $278 000'};
+  var QN = {u1:'U1',u2:'U2',u3:'U3'}, PRICE = {studio:'от $100 000','1bd':'от $118 000','2bd':'от $190 000',villa:'от $278 000'};
+  var st = {q:'all',fmt:'all'};
   var uWrap = document.getElementById('units'), uCnt = document.getElementById('unitCount');
   function renderUnits(){
     var list = UNITS.filter(function(u){ return (st.q==='all'||u.q===st.q) && (st.fmt==='all'||u.fmt===st.fmt); });
     uCnt.textContent = list.length;
     uWrap.innerHTML = list.map(function(u){
-      return '<article class="unit"><div class="u-q">'+QN[u.q]+'</div>'+
-        '<div class="u-name">'+u.name+'</div>'+
-        '<div class="u-meta">'+u.area+' м² · '+u.floor+'</div>'+
-        '<div class="u-price">'+(PRICE[u.fmt]||'по запросу')+'</div></article>';
+      return '<article class="unit"><div class="u-q">'+QN[u.q]+'</div><div class="u-name">'+u.name+'</div>'+
+        '<div class="u-meta">'+u.area+' м² · '+u.floor+'</div><div class="u-price">'+(PRICE[u.fmt]||'по запросу')+'</div></article>';
     }).join('');
   }
   document.getElementById('filters').addEventListener('click', function(e){
-    var b = e.target.closest('.chip'); if(!b) return;
+    var b = e.target.closest('.tag'); if(!b) return;
     var f = b.dataset.f;
-    document.querySelectorAll('#filters .chip[data-f="'+f+'"]').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
+    document.querySelectorAll('#filters .tag[data-f="'+f+'"]').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
     st[f] = b.dataset.v; renderUnits();
   });
   renderUnits();
 
   /* калькулятор */
   function money(n){ return '$' + Math.round(n).toLocaleString('ru-RU'); }
-  var ids = ['c-price','c-rate','c-occ','c-mgmt'];
+  function v(id){ return +document.getElementById(id).value || 0; }
   function calc(){
-    var price = +val('c-price'), rate = +val('c-rate'),
-        occ = (+val('c-occ'))/100, mgmt = (+val('c-mgmt'))/100;
-    var gross = rate*365*occ, net = gross*(1-mgmt);
+    var price=v('c-price'), gross=v('c-rate')*365*(v('c-occ')/100), net=gross*(1-v('c-mgmt')/100);
     document.getElementById('o-gross').textContent = money(gross);
     document.getElementById('o-net').textContent = money(net);
-    document.getElementById('o-roi').textContent = price>0 ? (net/price*100).toFixed(1)+'%' : '—';
+    document.getElementById('o-roi').innerHTML = (price>0 ? (net/price*100).toFixed(1)+'%' : '—') + '<small>доходность к цене в год</small>';
   }
-  function val(id){ return document.getElementById(id).value || 0; }
-  ids.forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
+  ['c-price','c-rate','c-occ','c-mgmt'].forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
   calc();
+
+  /* count-up */
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function up(el){
+    var t = parseFloat(el.getAttribute('data-count')); if(isNaN(t)) return;
+    if(rm){ el.textContent = t; return; }
+    var d = 1000, s = performance.now();
+    (function tick(n){
+      var p = Math.min((n-s)/d,1), e = 1-Math.pow(1-p,3);
+      el.textContent = Math.round(t*e);
+      if(p<1) requestAnimationFrame(tick); else el.textContent = t;
+    })(s);
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ up(en.target); io.unobserve(en.target); } }); }, {threshold:.5});
+    document.querySelectorAll('[data-count]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-count]').forEach(up);
+  }
 })();
 </script>
 </body>
