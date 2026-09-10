@@ -44,7 +44,9 @@
   img,svg{display:block;max-width:100%}
 
   .wrap{max-width:var(--container);margin:0 auto;padding-left:var(--s5);padding-right:var(--s5)}
-  .section{padding-top:var(--s9);padding-bottom:var(--s9)}
+  /* ритм между блоками — плотнее (правка Босса 10.09: «слишком много воздуха») */
+  .section{padding-top:var(--s8);padding-bottom:var(--s8)}
+  @media (max-width:720px){ .section{padding-top:var(--s7);padding-bottom:var(--s7)} }
   .measure{max-width:var(--measure)}
   .tnum{font-variant-numeric:tabular-nums}
 
@@ -59,7 +61,7 @@
     .display{font-size:38px} .h2{font-size:28px} .num{font-size:40px} .lead{font-size:17px}
   }
 
-  .sec-head{margin-bottom:var(--s7)}
+  .sec-head{margin-bottom:var(--s6)}
   .sec-head .lead{margin-top:var(--s4)}
   .subhead{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:var(--s3)}
 
@@ -103,7 +105,7 @@
 
   /* hero — во весь экран, визуал-плейсхолдер снизу */
   .hero{min-height:100svh;display:flex;flex-direction:column}
-  .hero .hero-head{padding-top:var(--s8);padding-bottom:var(--s6)}
+  .hero .hero-head{padding-top:var(--s7);padding-bottom:var(--s6)}
   .hero .lead{margin-top:var(--s5);max-width:52ch}
   .hero-visual{flex:1 1 auto;min-height:52vh;border-left:0;border-right:0;border-bottom:0;border-radius:0}
   @media (max-width:720px){ .hero-visual{min-height:44vh} }
@@ -265,7 +267,7 @@
       <a href="#catalog">Юниты</a>
       <a href="#yield">Доходность</a>
       <a href="#location">Локация</a>
-      <a href="#trust">Застройщик</a>
+      <a href="#company">О компании</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="right">
@@ -283,9 +285,9 @@
   <!-- 01 · HERO -->
   <section class="hero" id="hero">
     <div class="wrap hero-head">
-      <h1 class="display">Три комплекса в одной локации рядом с Nuanu</h1>
-      <p class="lead">В 3 минутах от океана, с доступом к инфраструктуре для жизни,
-        работы, отдыха и развития.</p>
+      <h1 class="display">Хай-тек виллы по цене апартаментов рядом с Нуану</h1>
+      <p class="lead">Три комплекса в одной локации: 3 минуты до океана, вся инфраструктура
+        Nuanu — для жизни, работы и отдыха. Покупка напрямую у девелопера.</p>
       <div class="cta-row">
         <a href="#catalog" class="btn btn--primary">Смотреть юниты</a>
         <a href="#lead-form" class="btn btn--ghost">Забронировать просмотр</a>
@@ -298,45 +300,48 @@
   <section class="section" style="padding-top:var(--s7)">
     <div class="wrap">
       <div class="band">
-        <div class="tile"><div class="num tnum">3</div><div class="cap">комплекса — U1, U2, U3</div></div>
-        <div class="tile"><div class="num tnum">2024</div><div class="cap">первый комплекс сдан и заселён</div></div>
-        <div class="tile"><div class="num tnum">12–15%</div><div class="cap">прогнозная доходность в год</div></div>
+        <div class="tile"><div class="num tnum">3</div><div class="cap">комплекса рядом с Nuanu — U1, U2, U3</div></div>
+        <div class="tile"><div class="num tnum">105</div><div class="cap">вилл и студий в трёх комплексах</div></div>
+        <div class="tile"><div class="num tnum">от 10%</div><div class="cap">проверенная доходность в год</div></div>
         <div class="tile"><div class="num tnum">10+ лет</div><div class="cap">своя управляющая компания на Бали</div></div>
       </div>
     </div>
   </section>
 
-  <!-- 03 · СЦЕНАРИИ + ПОЧЕМУ -->
+  <!-- 03 · О ПРОЕКТЕ UNIT SPACE -->
   <section class="section">
     <div class="wrap">
-      <div class="sec-head measure">
-        <h2 class="h2">Три сценария владения</h2>
+      <div class="split" style="display:grid;grid-template-columns:6fr 6fr;gap:var(--s8);align-items:start">
+        <div>
+          <div class="sec-head measure" style="margin-bottom:var(--s5)">
+            <h2 class="h2">Unit Space — единая экосистема для жизни и инвестиций</h2>
+          </div>
+          <p style="color:var(--ink-2)">Три жилых комплекса — U1, U2 и U3 — в трёх минутах от океана и в шаговой
+            доступности от инфраструктуры города будущего Nuanu. Локация растёт в цене.</p>
+          <p style="margin-top:var(--s3);color:var(--ink-2)">Каждый юнит — современный hi-tech дизайн с продуманными
+            деталями в интерьере. Строим, как для себя: собственное производство бетона, стального каркаса и мебели,
+            без подрядчиков-посредников.</p>
+          <p style="margin-top:var(--s3);color:var(--ink-2)">Первый комплекс, U1 Space Village, сдан в 2024 году и работает
+            как отельный бизнес под управлением UNIT SPACE MANAGEMENT.</p>
+        </div>
+        <div class="ph" data-label="аэро U1 / U2 / Nuanu" style="aspect-ratio:4/3"></div>
       </div>
-      <div class="row-3">
+      <div class="row-3" style="margin-top:var(--s7)">
         <div class="card">
-          <div class="ph media" data-label="перепродажа / рост"></div>
-          <h3 class="h3">Инвестиция</h3>
-          <p>Вход по стартовой цене. Юнит можно перепродать до сдачи.</p>
+          <h3 class="h3">Внутри Nuanu</h3>
+          <p>Город будущего на 44 га: 70% зелени, 36 кафе и ресторанов, школы, спа, арт-объекты.
+            Инфраструктура работает круглый год.</p>
         </div>
         <div class="card">
-          <div class="ph media" data-label="интерьер под аренду"></div>
-          <h3 class="h3">Аренда</h3>
-          <p>Прогнозная доходность 12–15% годовых. Всю операционку ведёт управляющая компания.</p>
+          <h3 class="h3">Проверенная доходность</h3>
+          <p>Два комплекса уже сданы и заселены. Есть закрытые сделки перепродажи юнитов.
+            Управляющая компания — 10+ лет на Бали.</p>
         </div>
         <div class="card">
-          <div class="ph media" data-label="жизнь у океана"></div>
-          <h3 class="h3">Жизнь</h3>
-          <p>Меблированный дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p>
+          <h3 class="h3">Полный цикл UNIT</h3>
+          <p>Свои заводы: сталь, бетон, мебель. 5 реализованных комплексов. Контроль качества
+            и сроков на каждом этапе.</p>
         </div>
-      </div>
-      <div class="measure" style="margin-top:var(--s7)">
-        <h3 class="subhead">Почему эти комплексы</h3>
-        <ul class="list-clean">
-          <li>Внутри Nuanu — инфраструктура работает круглый год.</li>
-          <li>Два комплекса уже сданы, есть закрытые сделки перепродажи.</li>
-          <li>Своя управляющая компания — 10+ лет на Бали.</li>
-          <li>Экосистема UNIT: свои заводы (сталь, бетон, мебель), 5 комплексов.</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -352,13 +357,13 @@
   <div class="switcher" id="switcher">
     <div class="wrap" role="tablist" aria-label="Комплекс">
       <button class="qtab" role="tab" aria-selected="true" data-q="u1" id="tab-u1" aria-controls="panel-u1">
-        <span class="code">U1</span><span class="nm">Space Village</span><span class="mt">Nuanu — сдан 2024</span>
+        <span class="code">U1</span><span class="nm">Space Village</span><span class="mt">22 юнита · Nuanu · сдан 2024</span>
       </button>
       <button class="qtab" role="tab" aria-selected="false" data-q="u2" id="tab-u2" aria-controls="panel-u2">
-        <span class="code">U2</span><span class="nm">Nuanu Village</span><span class="mt">Nuanu — сдан 2025</span>
+        <span class="code">U2</span><span class="nm">Nuanu Village</span><span class="mt">55 юнитов · Nuanu · сдан 2025</span>
       </button>
       <button class="qtab" role="tab" aria-selected="false" data-q="u3" id="tab-u3" aria-controls="panel-u3">
-        <span class="code">U3</span><span class="nm">Nyanyi Village</span><span class="mt">Nyanyi — сдача осень 2026</span>
+        <span class="code">U3</span><span class="nm">Nyanyi Village</span><span class="mt">28 юнитов · Nyanyi · сдача 2026</span>
       </button>
     </div>
   </div>
@@ -369,11 +374,12 @@
       <div class="panel" id="panel-u1" role="tabpanel" aria-labelledby="tab-u1">
         <div class="split">
           <div>
-            <h2 class="h2">Space Village</h2>
+            <h2 class="h2">U1 Space Village</h2>
             <div class="body">
-              <p>Первый комплекс. Сдан в 2024, заселён, работает как арендный бизнес.
-                Есть закрытые сделки перепродажи юнитов.</p>
-              <p>Готовая площадка без стройки рядом: кафе, коворкинг, сауна, cold plunge, зал — внутри квартала.</p>
+              <p>Первый hi-tech комплекс на Бали — сдан как отельный бизнес в 2024 году,
+                заселён и работает под управлением UNIT SPACE MANAGEMENT. Приносит проверенную доходность.</p>
+              <p>22 юнита, продуманные планировки, минималистичный дизайн, живая инфраструктура: кафе,
+                коворкинг, сауна, cold plunge, зал — внутри квартала. Есть закрытые сделки перепродажи.</p>
             </div>
             <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
@@ -386,10 +392,11 @@
             <table class="data">
               <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
               <tbody>
-                <tr><td>Студия</td><td class="n">32</td><td class="n">20</td></tr>
+                <tr><td>Студия</td><td class="n">32</td><td class="n">21</td></tr>
                 <tr><td>2+1 BD</td><td class="n">89</td><td class="n">1</td></tr>
               </tbody>
             </table>
+            <p class="small" style="margin-top:var(--s2);color:var(--ink-2)">Юнит-микс предварительный. Актуальная шахматка — по запросу.</p>
             <dl class="kv">
               <dt>Локация</dt><dd>Nuanu Creative City</dd>
               <dt>Статус</dt><dd>сдан 2024, работает</dd>
@@ -409,11 +416,12 @@
       <div class="panel" id="panel-u2" role="tabpanel" aria-labelledby="tab-u2" hidden>
         <div class="split">
           <div>
-            <h2 class="h2">Nuanu Village</h2>
+            <h2 class="h2">U2 Nuanu Village</h2>
             <div class="body">
-              <p>Второй комплекс в той же локации. Сдан в 2025, работает.</p>
-              <p>Самый широкий выбор: от студии 32 м² до виллы 200 м² с бассейном.
-                Кухня и гостиная отдельно во всех форматах, кроме студии.</p>
+              <p>Второй комплекс в той же локации в сердце Nuanu. Сдан в 2025, заселён и работает.
+                55 юнитов — самый широкий выбор форматов.</p>
+              <p>От студии 32 м² до виллы 200 м² с собственным бассейном и садом. Кухня и гостиная
+                отдельно во всех форматах, кроме студии. Полная меблировка.</p>
             </div>
             <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
@@ -427,11 +435,12 @@
               <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
               <tbody>
                 <tr><td>Студия</td><td class="n">32</td><td class="n">4</td></tr>
-                <tr><td>1+1 BD</td><td class="n">60</td><td class="n">17</td></tr>
+                <tr><td>1+1 BD</td><td class="n">60</td><td class="n">18</td></tr>
                 <tr><td>2+1 BD</td><td class="n">89</td><td class="n">24</td></tr>
                 <tr><td>3+1 BD вилла + бассейн</td><td class="n">200</td><td class="n">9</td></tr>
               </tbody>
             </table>
+            <p class="small" style="margin-top:var(--s2);color:var(--ink-2)">Юнит-микс предварительный. Актуальная шахматка — по запросу.</p>
             <dl class="kv">
               <dt>Локация</dt><dd>Nuanu Creative City</dd>
               <dt>Статус</dt><dd>сдан 2025, работает</dd>
@@ -451,11 +460,12 @@
       <div class="panel" id="panel-u3" role="tabpanel" aria-labelledby="tab-u3" hidden>
         <div class="split">
           <div>
-            <h2 class="h2">Nyanyi Village</h2>
+            <h2 class="h2">U3 Nyanyi Village</h2>
             <div class="body">
-              <p>Третий комплекс — посёлок Nyanyi, ближе к океану. Строится, сдача осенью 2026.</p>
-              <p>Вход по стартовой цене. Появляются форматы с приватным бассейном — 1+1 и 2+1.
-                Прогресс стройки публикуем по датам.</p>
+              <p>Третий комплекс — посёлок Nyanyi, ещё ближе к океану. Строится, сдача в 2026 году.
+                28 юнитов, вход по стартовой цене до сдачи.</p>
+              <p>Появляются форматы с приватным бассейном — 1+1 и 2+1. Прогресс стройки публикуем
+                по датам, фото по запросу.</p>
             </div>
             <div class="chips" role="group" aria-label="Разделы комплекса">
               <button class="chip" aria-pressed="true">Планировки</button>
@@ -468,16 +478,17 @@
             <table class="data">
               <thead><tr><th>Формат</th><th class="n">м²</th><th class="n">юнитов</th></tr></thead>
               <tbody>
-                <tr><td>1+1 BD</td><td class="n">60</td><td class="n">25</td></tr>
+                <tr><td>1+1 BD</td><td class="n">60</td><td class="n">20</td></tr>
                 <tr><td>1+1 BD + бассейн</td><td class="n">100</td><td class="n">5</td></tr>
                 <tr><td>2+1 BD</td><td class="n">89</td><td class="n">1</td></tr>
                 <tr><td>2+1 BD + бассейн</td><td class="n">109</td><td class="n">1</td></tr>
                 <tr><td>3+1 BD вилла + бассейн</td><td class="n">200</td><td class="n">1</td></tr>
               </tbody>
             </table>
+            <p class="small" style="margin-top:var(--s2);color:var(--ink-2)">Юнит-микс предварительный. Актуальная шахматка — по запросу.</p>
             <dl class="kv">
               <dt>Локация</dt><dd>посёлок Nyanyi</dd>
-              <dt>Статус</dt><dd>строится, сдача осень 2026</dd>
+              <dt>Статус</dt><dd>строится, сдача 2026</dd>
               <dt>Сделка</dt><dd>напрямую с Unit Space, DocuSign</dd>
             </dl>
           </div>
@@ -493,6 +504,36 @@
     </div>
   </section>
   </div><!-- /.project-scope -->
+
+  <!-- 05b · СЦЕНАРИИ ВЛАДЕНИЯ (после описания юнитов — правка Босса 10.09) -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head measure">
+        <h2 class="h2">Три сценария владения</h2>
+        <p class="lead">Один дом — под разные задачи: жить, сдавать под ключ или войти по стартовой цене.</p>
+      </div>
+      <div class="row-3">
+        <div class="card">
+          <div class="ph media" data-label="жизнь у океана"></div>
+          <h3 class="h3">Жизнь</h3>
+          <p>Меблированный hi-tech дом внутри Nuanu: школа, спорт, кафе, океан — пешком.
+            Прилетайте в отпуск или живите семьёй.</p>
+        </div>
+        <div class="card">
+          <div class="ph media" data-label="интерьер под аренду"></div>
+          <h3 class="h3">Аренда под ключ</h3>
+          <p>Проверенная доходность от 10% в год. Всю операционку — заселение, уборку, брони,
+            отчётность — ведёт UNIT SPACE MANAGEMENT.</p>
+        </div>
+        <div class="card">
+          <div class="ph media" data-label="перепродажа / рост"></div>
+          <h3 class="h3">Инвестиция</h3>
+          <p>Вход по стартовой цене в строящемся U3. Юнит можно перепродать до сдачи —
+            локация растёт в цене.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 06 · ПЛАНИРОВКИ -->
   <section class="section" style="padding-top:0">
@@ -549,7 +590,7 @@
       <table class="data" style="margin-bottom:var(--s7)">
         <thead><tr><th>Сценарий</th><th>Что это</th><th>Ориентир</th></tr></thead>
         <tbody>
-          <tr><td>Краткосрочная аренда</td><td>посуточно, под управлением УК</td><td>12–15% годовых</td></tr>
+          <tr><td>Краткосрочная аренда</td><td>посуточно, под управлением УК</td><td>от 10% годовых</td></tr>
           <tr><td>Долгосрочная аренда</td><td>помесячно, стабильный поток</td><td>ниже, но предсказуемо</td></tr>
           <tr><td>Перепродажа до сдачи</td><td>вход по стартовой цене, выход к сдаче</td><td>зависит от комплекса и срока</td></tr>
         </tbody>
@@ -560,11 +601,11 @@
           <h3 class="h3" style="margin-bottom:var(--s4)">Быстрая оценка</h3>
           <div class="field">
             <label for="c-price">Цена юнита, $ (ориентир)</label>
-            <input type="number" id="c-price" value="180000" min="0" step="1000">
+            <input type="number" id="c-price" value="190000" min="0" step="1000">
           </div>
           <div class="field">
             <label for="c-rate">Ставка за ночь, $</label>
-            <input type="number" id="c-rate" value="120" min="0" step="5">
+            <input type="number" id="c-rate" value="100" min="0" step="5">
           </div>
           <div class="field">
             <label for="c-occ">Загрузка, %</label>
@@ -599,6 +640,14 @@
     <div class="wrap">
       <div class="sec-head measure">
         <h2 class="h2">Внутри Nuanu, у океана</h2>
+        <p class="lead">Nuanu Creative City — город будущего на западном побережье Бали: 44 га, 70% зелени.
+          Инфраструктура городского типа в шаговой доступности.</p>
+      </div>
+      <div class="band" style="margin-bottom:var(--s7)">
+        <div class="tile"><div class="num tnum">0</div><div class="cap">минут до территории Nuanu</div></div>
+        <div class="tile"><div class="num tnum">3</div><div class="cap">минуты до океана и пляжа</div></div>
+        <div class="tile"><div class="num tnum">20</div><div class="cap">минут до Чангу</div></div>
+        <div class="tile"><div class="num tnum">15</div><div class="cap">минут до Танах Лот</div></div>
       </div>
       <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
         <figure style="border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--surface)">
@@ -622,16 +671,71 @@
         <div>
           <dl class="kv" style="margin-top:0">
             <dt>Адрес</dt><dd>Jl Pantai Nyanyi 88, Beraban, Tabanan, Бали</dd>
-            <dt>До пляжа</dt><dd>3 минуты</dd>
+            <dt>До пляжа</dt><dd>3 минуты пешком</dd>
             <dt>Nuanu</dt><dd>44 га, 70% зелени, 36 кафе и ресторанов</dd>
-            <dt>Аэропорт</dt><dd>время уточняется</dd>
+            <dt>Инфраструктура</dt><dd>35+ объектов Nuanu — открыты круглый год</dd>
           </dl>
-          <h3 class="subhead" style="margin-top:var(--s6)">Что рядом</h3>
+          <h3 class="subhead" style="margin-top:var(--s6)">В шаговой доступности</h3>
           <ul class="list-clean">
+            <li>Рестораны и кафе, chill-зона с сауной и купелью, 2 бассейна, фитнес-зал</li>
+            <li>Библиотека, кинотеатр, музыкальная и стриминг-студии</li>
+            <li>Коворкинг и зал для мероприятий</li>
+            <li>Международная школа и детский сад, спа-центр, парк искусств</li>
             <li>Luna Beach Club, Ash, Lumeira, Oshom, Alpacafe</li>
-            <li>Коворкинг, спортзал, сауна, cold plunge</li>
-            <li>Школа и детский сад</li>
           </ul>
+        </div>
+      </div>
+      <div class="ph" data-label="lifestyle Nuanu: вечерний свет, кафе, океан" style="aspect-ratio:21/9;margin-top:var(--s7)"></div>
+    </div>
+  </section>
+
+  <!-- 09b · О КОМПАНИИ (владелец, философия, инвесторы — правка Босса 10.09) -->
+  <section class="section" id="company" style="padding-top:0">
+    <div class="wrap">
+      <div class="split" style="display:grid;grid-template-columns:6fr 6fr;gap:var(--s8);align-items:start">
+        <div>
+          <div class="sec-head measure" style="margin-bottom:var(--s5)">
+            <h2 class="h2">О компании</h2>
+          </div>
+          <p style="color:var(--ink-2)">UNIT — девелопер с философией будущего и собственным производством.
+            Мы создаём экосистему для жизни и инвестиций: всё — от архитектуры до мебели — спроектировано
+            в духе минимализма, технологий и уважения к природе.</p>
+          <p style="margin-top:var(--s3);color:var(--ink-2)">10+ лет опыта на Бали. Собственные заводы
+            UNIT&nbsp;BUILD (строительство), UNIT&nbsp;FRAMES (стальные каркасы), UNIT&nbsp;FURNITURE (мебель)
+            и управляющая компания UNIT&nbsp;SPACE&nbsp;MANAGEMENT. 3 завода, 5 направлений, 100+ реализованных объектов.</p>
+        </div>
+        <div class="ph" data-label="фабрика UNIT / стройка" style="aspect-ratio:4/3"></div>
+      </div>
+
+      <div class="row-2" style="margin-top:var(--s7)">
+        <div class="card">
+          <div class="ph media" data-label="портрет — Степан Федосеев"></div>
+          <h3 class="h3">Степан Федосеев</h3>
+          <p>Глава UNIT, основатель девелоперской компании Unit Space и фабрики Unit Build.
+            Эксперт по системному управлению, 13+ лет опыта, 20+ компаний с внедрёнными системами управления.</p>
+        </div>
+        <div class="card">
+          <div class="ph media" data-label="портрет — Анна Орлова"></div>
+          <h3 class="h3">Анна Орлова</h3>
+          <p>Совладелец UNIT, архитектор и дизайнер с более чем 10-летним международным опытом
+            и портфелем проектов в Индонезии, России и Франции.</p>
+        </div>
+      </div>
+
+      <h3 class="subhead" style="margin-top:var(--s7)">Философия бренда</h3>
+      <div class="row-3">
+        <div class="card"><h3 class="h3">Эффективность</h3><p>Каждый юнит и каждая деталь работают на результат — без лишнего шума.</p></div>
+        <div class="card"><h3 class="h3">Минимализм</h3><p>Порядок, ясность и ценность — в архитектуре и в жизни.</p></div>
+        <div class="card"><h3 class="h3">Экология</h3><p>Малоэтажное строительство, сохранение рельефа, забота о будущем — не маркетинг.</p></div>
+      </div>
+      <div class="row-3" style="margin-top:var(--gap)">
+        <div class="card"><h3 class="h3">Сообщество</h3><p>Синергия людей вокруг общих ценностей: один плюс один даёт больше, чем два.</p></div>
+        <div class="card" style="grid-column:span 2">
+          <h3 class="h3">Инвесторы и клиенты</h3>
+          <p><b style="color:var(--ink)">Сергей Солонин</b> — якорный инвестор Unit Space. Входит в топ-200 Forbes,
+            сооснователь платёжного сервиса Qiwi, создатель города будущего Nuanu City на Бали.</p>
+          <p style="margin-top:var(--s3)"><b style="color:var(--ink)">Михаил Дашкиев</b> — сооснователь «Бизнес Молодости»,
+            серийный предприниматель, строит премиальный комплекс 5&nbsp;Elements в Убуде вместе с UNIT.BUILD.</p>
         </div>
       </div>
     </div>
@@ -647,7 +751,7 @@
         <div class="card">
           <h3 class="h3">Unit Space / UNIT</h3>
           <p>Группа компаний на Бали. За 4 года — 5 жилых комплексов, свои заводы (сталь, бетон, мебель),
-            управляющая компания с 10+ годами работы на острове. Основатель — Steven Fedos.</p>
+            управляющая компания с 10+ годами работы на острове. Строительство по лицензии PBG/SLF.</p>
         </div>
         <div class="card">
           <h3 class="h3">Документы</h3>
@@ -669,20 +773,21 @@
     <div class="wrap">
       <div class="sec-head measure">
         <h2 class="h2">Как купить</h2>
+        <p class="lead">Напрямую у девелопера, без брокеров и посредников. Всё дистанционно.</p>
       </div>
       <div class="split" style="display:grid;grid-template-columns:7fr 5fr;gap:var(--s8);align-items:start">
         <ol class="steps">
-          <li>Выбор юнита и комплекса.</li>
-          <li>Депозит $1&thinsp;500 — фиксирует цену на 14 дней.</li>
-          <li>Reservation Agreement в DocuSign.</li>
-          <li>Разбор Purchase Agreement с юристом.</li>
-          <li>Основной договор — DocuSign.</li>
-          <li>Передача юнита и подключение управляющей компании.</li>
+          <li>Выбор юнита — поможем подобрать под бюджет и цель.</li>
+          <li>Депозит $1&thinsp;500 — фиксирует юнит и цену на 14 дней.</li>
+          <li>Подписание договора бронирования онлайн в DocuSign.</li>
+          <li>Основной контракт напрямую с Unit Space — тоже в DocuSign.</li>
+          <li>Передача юнита и подключение управляющей компании. Дальше — статус VIP-клиента UNIT.</li>
         </ol>
         <div>
-          <h3 class="subhead">Покупка иностранцем</h3>
-          <p style="color:var(--ink-2)">Leasehold или freehold, срок, PT PMA и налоги — из юр-пакета девелопера.
-            Формулировки согласуем перед публикацией.</p>
+          <h3 class="subhead">Оплата и владение</h3>
+          <p style="color:var(--ink-2)">Приём в разных валютах с расчётом в USD, возможна рассрочка.
+            Форма владения (leasehold / freehold), срок и налоги — в юр-пакете, разбираем на сделке.</p>
+          <p style="margin-top:var(--s3)"><span class="small" style="color:var(--ink-2)">Точные формулировки по валюте и владению согласуем перед публикацией.</span></p>
         </div>
       </div>
     </div>
@@ -700,8 +805,9 @@
         <div class="faq-list">
           <details class="faq-card"><summary>Это первичка или вторичка?</summary>
             <p>Первичка. Свободные юниты продаются напрямую от девелопера во всех трёх комплексах, включая сданные U1 и U2.</p></details>
-          <details class="faq-card"><summary>12–15% — это gross или net?</summary>
-            <p>Прогноз до налогов и до вычета простоя на обслуживание. Точную модель под ваш юнит пришлём по запросу.</p></details>
+          <details class="faq-card"><summary>«От 10%» — это gross или net?</summary>
+            <p>Это проверенный ориентир по доходности до налогов и до вычета простоя на обслуживание,
+              на основе работающих U1 и U2. Точную модель под ваш юнит пришлём по запросу.</p></details>
           <details class="faq-card"><summary>Можно перепродать до сдачи?</summary>
             <p>Да, для строящегося комплекса U3. Условия — в договоре.</p></details>
           <details class="faq-card"><summary>Что делает управляющая компания?</summary>
