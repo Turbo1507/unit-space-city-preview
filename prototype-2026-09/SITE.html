@@ -395,6 +395,27 @@ footer ul a:hover{color:var(--blue)}
 footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;font-size:12px;color:var(--ink-2);max-width:70ch}
 @media (max-width:760px){ footer .wrap{grid-template-columns:1fr 1fr} }
 
+/* ---------- широкий десктоп (1600px+): свой ярус, не растянутый 1440 ----------
+   Ниже 1600 все clamp() упираются в потолок, рассчитанный под ~1440 (--gut
+   фиксируется на 40px уже с ~950px, --col вообще статичный 1180px) — на 1920
+   сайт выглядел как 1440 с лишними пустыми полями по бокам. Здесь контейнер
+   и ключевые типографические размеры получают отдельный, более широкий потолок. */
+@media (min-width:1600px){
+  :root{
+    --col:1400px;
+    --gut:64px;
+  }
+  .display{font-size:clamp(58px, 4vw, 78px)}
+  .h2{font-size:clamp(46px, 3vw, 58px)}
+  .h3{font-size:clamp(24px, 1.6vw, 28px)}
+  .lead{font-size:clamp(19px, 1.2vw, 21px)}
+  .hero p.h-sub{font-size:clamp(20px, 1.2vw, 23px)}
+  .numgrid .n{font-size:clamp(42px, 2.6vw, 54px)}
+  .dist b{font-size:clamp(72px, 4vw, 90px)}
+  .chapter .name{font-size:clamp(52px, 3.2vw, 66px)}
+  .chapter .head{gap:var(--gut) clamp(90px, 6vw, 150px)}
+}
+
 /* контент всегда виден. Лёгкое проявление — ТОЛЬКО если JS успел пометить
    <html class="js"> (иначе секции не должны прятаться ни на миг). */
 .js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
