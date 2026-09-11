@@ -137,8 +137,7 @@ main [id]{scroll-margin-top:96px}
 @media (max-width:560px){ .scrollcue{display:none} }
 
 /* ---------- цифры: компактная стат-полоса (без карточек/иконок) ---------- */
-.numgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut)}
-.numgrid > div{border-top:2px solid var(--blue);padding-top:16px}
+.numgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut) clamp(22px,3vw,40px)}
 .numgrid .n{font-weight:500;letter-spacing:-.03em;line-height:.9;color:var(--ink);
   font-size:clamp(30px,3vw,42px)}
 .numgrid .n em{color:var(--blue);font-style:normal}
@@ -260,8 +259,7 @@ main [id]{scroll-margin-top:96px}
 @media (max-width:800px){ .yield-split{grid-template-columns:1fr} }
 
 /* ---------- location ---------- */
-.dist{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut);margin-bottom:clamp(36px,5vw,64px)}
-.dist div{border-top:2px solid var(--blue);padding-top:16px}
+.dist{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gut) clamp(22px,3vw,40px);margin-bottom:clamp(36px,5vw,64px)}
 .dist b{display:block;font-weight:700;letter-spacing:-.04em;line-height:.9;color:var(--ink);
   font-size:clamp(40px,5vw,72px)}
 .dist span{font-size:13px;color:var(--ink-2);display:block;margin-top:8px}
@@ -303,7 +301,7 @@ main [id]{scroll-margin-top:96px}
 
 /* подсетка «заводы» / факты */
 .subgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-block:clamp(20px,3vw,32px)}
-.subgrid > div{border-top:2px solid var(--blue);padding-top:14px}
+.subgrid > div{border-top:1px solid var(--line);padding-top:14px}
 .subgrid b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
 .subgrid span{display:block;font-size:12px;color:var(--ink-2);margin-top:5px;line-height:1.4}
 @media (max-width:820px){ .subgrid{grid-template-columns:1fr 1fr} }
