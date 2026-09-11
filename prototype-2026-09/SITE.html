@@ -408,12 +408,32 @@ footer .disc{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;
   .display{font-size:clamp(58px, 4vw, 78px)}
   .h2{font-size:clamp(46px, 3vw, 58px)}
   .h3{font-size:clamp(24px, 1.6vw, 28px)}
-  .lead{font-size:clamp(19px, 1.2vw, 21px)}
-  .hero p.h-sub{font-size:clamp(20px, 1.2vw, 23px)}
+  .lead{font-size:clamp(20px, 1.5vw, 24px)}
+  .hero p.h-sub{font-size:clamp(21px, 1.5vw, 25px)}
   .numgrid .n{font-size:clamp(42px, 2.6vw, 54px)}
   .dist b{font-size:clamp(72px, 4vw, 90px)}
   .chapter .name{font-size:clamp(52px, 3.2vw, 66px)}
   .chapter .head{gap:var(--gut) clamp(90px, 6vw, 150px)}
+  /* подзаголовки/лиды и мелкий текст (чипы, теги, подписи под цифрами) росли
+     слабее заголовков — на 1920 давало неприятный контраст: гигантский h1
+     рядом с текстом как на 1440. Подтягиваем их следом, не так резко. */
+  .kicker{font-size:15px}
+  .small{font-size:15px}
+  .chip{font-size:15px;height:44px;padding-inline:18px}
+  .infra-tags span{font-size:15px;min-height:42px;padding-inline:17px}
+  .numgrid .c{font-size:15px}
+  .dist span{font-size:15px}
+  .hero-legend span{font-size:14px}
+  .hero-legend b{font-size:17px}
+  .subgrid span{font-size:13.5px}
+  .subgrid b{font-size:15px}
+  .loc-list li{font-size:16px}
+  .kv{font-size:15.5px}
+  .fmt p{font-size:14.5px}
+  .unit .u-meta{font-size:15px}
+  .faq-item p{font-size:16px}
+  .founder p{font-size:15.5px}
+  .filters .cnt{font-size:15px}
 }
 
 /* контент всегда виден. Лёгкое проявление — ТОЛЬКО если JS успел пометить
