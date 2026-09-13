@@ -1,579 +1,126 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-assets="../prototype-2026-09/assets/">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unit Space City&nbsp;— хай-тек виллы у&nbsp;Нуану, Бали</title>
-<meta name="description" content="Три жилых комплекса Unit Space рядом с Nuanu, Бали: 105 вилл и студий, 3 минуты до океана, проверенная доходность от 10% в год. Покупка напрямую у девелопера UNIT.">
+<title>Unit Space City — хай-тек виллы у Нуану, Бали</title>
+<meta name="description" content="Три жилых комплекса Unit Space рядом с Nuanu, Бали: 105 вилл и студий, 3 минуты до океана, доходность от 10% в год. Покупка напрямую у девелопера UNIT.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233a3a3a'/%3E%3Ccircle cx='23' cy='23' r='4.5' fill='%230433FF'/%3E%3C/svg%3E">
-<style>
-/* ============================================================================
-   UNIT SPACE CITY — v2 (с нуля). Референсы сняты по факту с живых страниц:
-   hero — Aurora (Mobbin ba0d0b65); статы — apollo.io (карточки: подпись
-   сверху, число 88px/550 внизу, radius 8, padding 24, без линий); карточки
-   планировок/каталога — framer.com/marketplace (фото 4:3 radius 16 без бокса,
-   под ним имя+подпись, справа пилюля цены); основатели — Titan (Mobbin
-   fdfe275c: имя+роль над фото); доходность — таблица-сравнение Samara
-   (Mobbin 8fdd6979: колонка-рекомендация тёмной карточкой); финальная форма —
-   GitBook contact (Mobbin d872901b: текст слева, форма-карточка на цветной
-   панели справа).
-   Дизайн-система: шкала 8px (4px — только для микро-зазоров текста), единый
-   ритм секций --sy, hover только цветом/рамкой, reveal деградирует без JS,
-   мобильное меню — полноэкранный оверлей. Фирстиль UNIT: Helvetica Neue,
-   #F4F4F4/#0433FF, радиус 10 (решение Босса), линии 1px, без теней.
-   ========================================================================== */
-:root{
-  --paper:#F4F4F4;
-  --ink:#3a3a3a;
-  --ink-2:#6E6E75;
-  --line:#e6e6e6;
-  --line-2:#D2D2CE;
-  --white:#FFFFFF;
-  --blue:#0433FF;
-  --blue-press:#0327c9;
-  --blue-050:#eef1ff;
-  --wash:#ECECEA;
-
-  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:56px; --s7:80px;
-
-  --sy:clamp(56px, 6.5vw, 96px);        /* единый вертикальный ритм секций */
-  --gut:clamp(24px, 4.2vw, 40px);
-  --col:1180px;
-  --r:10px;
-  --r-s:8px;
-  --hdr:64px;
-
-  --font:"Helvetica Neue","Helvetica Neue LT","Helvetica","Arial Nova",Arial,sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
-}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);
-  font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility}
-body.is-locked{overflow:hidden}
-h1,h2,h3,h4,p,figure{margin:0}
-a{color:inherit;text-decoration:none}
-button,input,select{font:inherit;color:inherit}
-ul,ol{margin:0;padding:0}
-img{display:block;max-width:100%;height:auto}
-table{border-collapse:collapse}
-::selection{background:var(--blue);color:#fff}
-
-.container{max-width:var(--col);margin:0 auto;padding-inline:var(--gut)}
-main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
-.sect{padding-block:var(--sy)}
-.sect--alt{background:var(--white)}
-
-/* ---------- typography ---------- */
-.t-display{font-weight:500;letter-spacing:-.03em;line-height:1.04;font-size:clamp(32px,4.8vw,58px)}
-.t-h2{font-weight:500;letter-spacing:-.025em;line-height:1.05;font-size:clamp(28px,3.8vw,46px)}
-.t-h3{font-weight:500;letter-spacing:-.02em;line-height:1.14;font-size:clamp(19px,2vw,24px)}
-.t-lead{font-size:clamp(18px,1.7vw,22px);line-height:1.5;color:var(--ink-2);max-width:52ch}
-.t-small{font-size:14px;line-height:1.55}
-.muted{color:var(--ink-2)}
-.tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
-
-.sect-head{display:grid;gap:var(--s2);margin-bottom:clamp(32px,3.4vw,48px)}
-.sect-head .t-h2{max-width:24ch}
-.sub-head{margin-block:clamp(32px,4vw,56px) var(--s3)}
-
-/* ---------- buttons ---------- */
-.btn{--h:56px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);height:var(--h);padding-inline:var(--s3);
-  border-radius:var(--r);font-size:15px;font-weight:500;letter-spacing:.01em;border:1.5px solid transparent;
-  cursor:pointer;transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:var(--blue-press)}
-.btn-outline{border-color:var(--ink);color:var(--ink)}
-.btn-outline:hover{border-color:var(--blue);color:var(--blue)}
-.btn-inverse{border-color:rgba(255,255,255,.55);color:#fff}
-.btn-inverse:hover{background:#fff;color:var(--ink);border-color:#fff}
-.btn-sm{--h:40px;padding-inline:var(--s2);font-size:14px}
-.btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
-.cta-row{display:flex;flex-wrap:wrap;gap:var(--s2)}
-.cta-row--after{margin-top:clamp(24px,3vw,40px)}
-
-/* ---------- header ---------- */
-.site-header{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);display:flex;align-items:center;
-  background:color-mix(in srgb, var(--paper) 82%, transparent);
-  backdrop-filter:saturate(1.5) blur(12px);-webkit-backdrop-filter:saturate(1.5) blur(12px);
-  border-bottom:1px solid transparent;transition:border-color .25s,background .25s}
-.site-header.is-stuck{border-color:var(--line);background:color-mix(in srgb, var(--paper) 94%, transparent)}
-.site-header .container{display:flex;align-items:center;gap:var(--s5);width:100%}
-.wordmark{font-size:19px;font-weight:700;letter-spacing:-.03em;white-space:nowrap}
-.wordmark i{color:var(--blue);font-style:normal}
-.site-nav{display:flex;gap:var(--s3);font-size:14px;color:var(--ink-2)}
-.site-nav a:hover{color:var(--ink)}
-.header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
-.langsw{display:inline-flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
-.langsw button{padding:var(--s1) 12px;font-size:12px;font-weight:600;color:var(--ink-2);background:none;border:0;cursor:pointer}
-.langsw button[aria-pressed="true"]{background:var(--ink);color:#fff}
-
-.burger{display:none;width:40px;height:40px;border:0;background:none;cursor:pointer;flex-direction:column;
-  justify-content:center;align-items:center;gap:6px;border-radius:var(--r-s)}
-.burger span{display:block;width:22px;height:2px;background:var(--ink)}
-.burger:hover span{background:var(--blue)}
-@media (max-width:1000px){ .site-nav{display:none} .burger{display:flex} }
-@media (max-width:560px){ .header-right .btn{display:none} }
-
-/* мобильное меню — полноэкранный оверлей (дизайн-система п.4) */
-.mnav{position:fixed;inset:0;z-index:90;background:var(--white);display:flex;flex-direction:column;
-  padding:0 var(--gut) var(--gut)}
-.mnav[hidden]{display:none}
-.mnav__top{height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
-.mnav__close{width:40px;height:40px;border:0;background:none;cursor:pointer;font-size:28px;line-height:1;color:var(--ink);border-radius:var(--r-s)}
-.mnav__close:hover{color:var(--blue)}
-.mnav__list{display:grid;gap:var(--s2);margin-top:var(--s4);font-size:clamp(24px,6vw,32px);font-weight:500;letter-spacing:-.02em}
-.mnav__list a:hover{color:var(--blue)}
-.mnav .btn{margin-top:auto;width:100%}
-
-/* ================================================================
-   HERO — Aurora: заголовок+подзаголовок внизу слева, ниже — строка
-   бордер-чипов на всю ширину; карта-виджет справа сверху (вместо фото
-   грузовика в референсе), раскрывается ПОСЛЕ активации cookie-баннера.
-   ================================================================ */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
-  color:#fff;overflow:hidden;isolation:isolate}
-.hero__media{position:absolute;inset:0;z-index:-2}
-.hero__media img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg, rgba(10,11,13,.35) 0%, rgba(10,11,13,.15) 18%, rgba(10,11,13,.64) 40%, rgba(10,11,13,.84) 100%)}
-.hero__content{width:100%;padding-top:calc(var(--hdr) + var(--s3));padding-bottom:clamp(40px,7vw,80px)}
-.hero .t-display{max-width:22ch}
-.hero__sub{margin-top:clamp(16px,2.4vw,32px);max-width:80ch;font-size:clamp(15px,1vw,17px);
-  line-height:1.45;color:rgba(255,255,255,.82)}
-.hero .cta-row{margin-top:clamp(32px,4.4vw,56px)}
-
-.hero__stats{margin-top:clamp(32px,4.6vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
-.hero__stats div{display:grid;gap:4px;padding:var(--s2) var(--s3);border:1px solid rgba(255,255,255,.28);
-  border-radius:var(--r);background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
-.hero__stats b{font-size:15px;font-weight:500}
-.hero__stats span{font-size:13px;color:rgba(255,255,255,.7)}
-@media (max-width:700px){ .hero__stats{grid-template-columns:1fr} }
-
-.hero__map{position:absolute;right:var(--gut);top:clamp(96px,15vw,192px);z-index:1;
-  display:flex;align-items:center;gap:var(--s2);padding:var(--s2);max-width:320px;
-  background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-radius:var(--r);
-  opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.hero__map.in{opacity:1;transform:none}
-.hero__map-thumb{width:56px;height:56px;flex:none;border-radius:var(--r-s)}
-.hero__map-text{display:grid;gap:4px;min-width:0}
-.hero__map-kicker{font-size:12px;font-weight:500;color:var(--blue)}
-.hero__map-title{font-size:14px;font-weight:500;line-height:1.25;color:var(--ink)}
-.hero__map-arrow{flex:none;width:32px;height:32px;border-radius:50%;background:var(--blue);
-  display:flex;align-items:center;justify-content:center;transition:background .18s var(--ease)}
-.hero__map:hover .hero__map-arrow{background:var(--blue-press)}
-@media (max-width:820px){
-  .hero__map{position:static;margin:var(--s3) var(--gut) var(--s4);max-width:none;background:rgba(255,255,255,.10)}
-  .hero__map-title{color:#fff}
-}
-
-.consent-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;
-  gap:var(--s2) var(--s3);padding:var(--s2) var(--gut);background:#fff;border-top:1px solid var(--line);
-  transform:translateY(100%);opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease)}
-.consent-bar.in{transform:translateY(0);opacity:1}
-.consent-bar p{font-size:13.5px;line-height:1.5;color:var(--ink-2);max-width:64ch;flex:1 1 320px}
-.consent-bar a{color:var(--ink);text-decoration:underline}
-.consent-bar .btn{flex:none}
-@media (prefers-reduced-motion: reduce){ .consent-bar,.hero__map{transition:none} }
-
-/* ================================================================
-   STAT-CARD — apollo.io: карточка с заливкой, подпись сверху мелко,
-   большое число внизу, без линий. На белой секции — paper, на paper — white.
-   ================================================================ */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:clamp(32px,4vw,48px)}
-.stat-card{background:var(--white);border-radius:var(--r);padding:var(--s3);min-height:clamp(168px,17vw,232px);
-  display:flex;flex-direction:column}
-.sect--alt .stat-card{background:var(--paper)}
-.stat-card__label{font-size:14px;line-height:1.4;color:var(--ink-2);max-width:20ch}
-.stat-card__value{margin-top:auto;padding-top:var(--s3);font-weight:500;letter-spacing:-.035em;line-height:.95;color:var(--ink);
-  font-size:clamp(44px,5.2vw,80px)}
-.stat-card__value em{color:var(--blue);font-style:normal}
-.stat-card__value sup{font-size:.4em;vertical-align:super;letter-spacing:-.01em}
-@media (max-width:820px){ .stat-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .stat-grid{grid-template-columns:1fr} .stat-card{min-height:0} .stat-card__value{padding-top:var(--s2)} }
-
-/* prose block «о проекте» */
-.about-copy{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--gut) clamp(32px,5vw,72px);
-  align-items:start;margin-top:clamp(24px,3.6vw,40px)}
-.about-copy p:first-child{grid-row:1/3;font-size:clamp(18px,1.7vw,22px);line-height:1.5;color:var(--ink)}
-.about-copy p:nth-child(2),.about-copy p:nth-child(3){font-size:14.5px;line-height:1.55;color:var(--ink-2)}
-.about-copy p b{display:block;margin-bottom:var(--s1);color:var(--ink);font-weight:500;font-size:inherit}
-@media (max-width:820px){ .about-copy{grid-template-columns:1fr} .about-copy p:first-child{grid-row:auto} }
-
-/* full-bleed photo band (баннер, не секция — вне ритма --sy) */
-.photo-band{position:relative;height:clamp(320px,52vw,620px);overflow:hidden}
-.photo-band img{width:100%;height:100%;object-fit:cover}
-.photo-band figcaption{position:absolute;left:var(--gut);bottom:var(--s3);color:#fff;font-size:13px;letter-spacing:.02em;
-  background:rgba(10,11,13,.42);backdrop-filter:blur(4px);padding:var(--s1) var(--s2);border-radius:999px}
-
-/* ---------- complexes (Босс: «2 ладно» — структура v1, только шкала 8px) ---------- */
-.complex-nav{background:var(--paper);border-bottom:1px solid var(--line)}
-.complex-nav .container{display:flex;gap:var(--s1);align-items:stretch;position:relative}
-.complex-nav a{padding:var(--s3) 0;margin-right:var(--s4);font-size:clamp(16px,1.9vw,22px);font-weight:500;
-  letter-spacing:-.02em;color:var(--ink-2);transition:color .2s}
-.complex-nav a b{color:var(--blue);font-weight:500}
-.complex-nav a.is-active{color:var(--ink)}
-.complex-nav .ink{position:absolute;bottom:-1px;height:2px;background:var(--blue);transition:left .32s var(--ease),width .32s var(--ease)}
-@media (max-width:640px){ .complex-nav .container{overflow-x:auto;scrollbar-width:none} .complex-nav .container::-webkit-scrollbar{display:none} .complex-nav a{margin-right:var(--s3);white-space:nowrap} }
-
-.complex{padding-block:var(--sy);border-bottom:1px solid var(--line)}
-.complex:last-child{border-bottom:0}
-.complex__head{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--gut) clamp(32px,6vw,88px);align-items:end}
-.complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:var(--blue);
-  background:var(--blue-050);border-radius:999px;padding:4px var(--s2);font-size:13px}
-.complex__title{font-weight:500;letter-spacing:-.03em;line-height:1;font-size:clamp(28px,4vw,52px);margin-top:var(--s1)}
-.complex__intro{font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--ink-2)}
-.complex__facts{margin-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5)}
-.complex__facts b{display:block;font-size:clamp(24px,2.6vw,34px);font-weight:500;letter-spacing:-.03em;color:var(--ink)}
-.complex__facts span{font-size:13px;color:var(--ink-2)}
-.complex__formats{margin-top:var(--s3);font-size:15px;color:var(--ink-2)}
-.complex__formats b{color:var(--ink);font-weight:500}
-.complex__gallery{margin-top:clamp(32px,4.6vw,56px);display:grid;grid-template-columns:1.42fr 1fr;
-  grid-template-rows:1fr 1fr;gap:var(--s2);height:clamp(416px,44vw,600px)}
-.complex__gallery figure{position:relative;overflow:hidden;border-radius:var(--r);background:var(--wash);margin:0}
-.complex__gallery figure:first-child{grid-row:1 / span 2}
-.complex__gallery img{width:100%;height:100%;object-fit:cover}
-@media (max-width:800px){
-  .complex__head{grid-template-columns:1fr}
-  .complex__gallery{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto}
-  .complex__gallery figure:first-child{grid-column:1/-1;grid-row:auto;aspect-ratio:16/10}
-  .complex__gallery figure{aspect-ratio:4/3}
-}
-
-/* ---------- scenarios (Босс: «3 нет» — без изменений сути) ---------- */
-.scenario-row{display:grid;grid-template-columns:1fr 42%;gap:clamp(24px,4vw,56px);align-items:start;
-  padding-block:clamp(24px,3.6vw,48px)}
-.scenario-row + .scenario-row{border-top:1px solid var(--line)}
-.scenario-row h3{font-size:clamp(22px,2.6vw,32px);font-weight:500;letter-spacing:-.025em;margin-bottom:var(--s1)}
-.scenario-row p{color:var(--ink-2);max-width:44ch}
-.scenario-row figure{overflow:hidden;border-radius:var(--r);aspect-ratio:16/10;background:var(--wash)}
-.scenario-row img{width:100%;height:100%;object-fit:cover}
-@media (max-width:800px){ .scenario-row{grid-template-columns:1fr;gap:var(--s2)} .scenario-row figure{order:-1;aspect-ratio:16/9} }
-
-/* ================================================================
-   PRODUCT CARD — framer.com/marketplace: медиа 4:3 со скруглением, без
-   бокса и рамки; под ним имя + подпись слева, пилюля цены справа.
-   Общий компонент для планировок (SVG-схема) и каталога (фото).
-   ================================================================ */
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4) var(--s3)}
-.product-grid--3{grid-template-columns:repeat(3,1fr)}
-.product-card{display:grid;gap:var(--s1);align-content:start}
-.product-card__media{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--wash);
-  display:flex;align-items:center;justify-content:center}
-.product-card__media svg{width:100%;height:100%;padding:var(--s3);color:var(--line-2)}
-.product-card__media img{width:100%;height:100%;object-fit:cover}
-.product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
-.product-card__name{font-size:15px;font-weight:500;line-height:1.35}
-.product-card__name b{color:var(--blue);font-weight:500}
-.product-card__meta{font-size:14px;line-height:1.4;color:var(--ink-2)}
-.product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);
-  background:var(--ink);color:#fff;font-size:13px;font-weight:500;white-space:nowrap}
-@media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
-@media (max-width:460px){ .product-grid,.product-grid--3{grid-template-columns:1fr} }
-
-/* ---------- catalog filters ---------- */
-.catalog-filters{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;margin-bottom:var(--s3)}
-.chip{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);
-  border-radius:var(--r);background:var(--white);font-size:13.5px;color:var(--ink-2);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
-.chip:hover{border-color:var(--ink-2)}
-.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
-.catalog-filters .sep{width:1px;height:24px;background:var(--line-2);margin:0 var(--s1)}
-.catalog-filters .cnt{margin-left:auto;font-size:13.5px;color:var(--ink-2)}
-.catalog-filters .cnt b{color:var(--ink);font-weight:500}
-
-/* ================================================================
-   YIELD — таблица-сравнение как у Samara «How it stacks up»: критерии
-   в строках, сценарии в колонках, рекомендуемая колонка — тёмной
-   карточкой. Без линий между строками. Ниже — калькулятор.
-   ================================================================ */
-.cmp{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cmp__hint{display:none;margin-top:var(--s1);font-size:12px;color:var(--ink-2)}
-@media (max-width:700px){ .cmp__hint{display:block} }
-.cmp table{width:100%;min-width:640px;font-size:14px;line-height:1.4;table-layout:fixed}
-.cmp th,.cmp td{text-align:left;vertical-align:top;padding:var(--s2) var(--s3)}
-.cmp th:first-child,.cmp td:first-child{padding-left:0}
-.cmp thead th{font-weight:500;color:var(--ink);font-size:15px;padding-bottom:var(--s3)}
-.cmp tbody th{font-weight:500;color:var(--ink)}
-.cmp tbody td{color:var(--ink-2)}
-.cmp thead th:first-child{width:19%}
-.cmp thead th.is-hi{width:33%}
-.cmp .is-hi{background:var(--ink);color:#fff}
-.cmp thead .is-hi{border-radius:var(--r) var(--r) 0 0}
-.cmp tbody tr:last-child .is-hi{border-radius:0 0 var(--r) var(--r)}
-.cmp tbody td.is-hi{color:rgba(255,255,255,.85)}
-.cmp tbody td.is-hi b{color:#fff;font-weight:500}
-.cmp thead th.is-hi small{display:block;font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:4px}
-
-.calc{margin-top:clamp(32px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);
-  background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
-.calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
-.calc .field{display:grid;gap:var(--s1)}
-.calc label{font-size:13px;color:var(--ink-2)}
-.calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);
-  background:var(--paper);font-variant-numeric:tabular-nums}
-.calc input:focus{outline:none;border-color:var(--blue)}
-.calc__out{display:grid;align-content:start;gap:var(--s2)}
-.calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
-.calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:clamp(48px,6vw,80px);line-height:.95}
-.calc__roi span{font-size:13px;color:var(--ink-2)}
-.calc__rows{display:grid;gap:var(--s1);font-size:14px}
-.calc__rows div{display:flex;justify-content:space-between;gap:var(--s2)}
-.calc__rows b{font-weight:500;font-variant-numeric:tabular-nums}
-@media (max-width:800px){ .calc{grid-template-columns:1fr} }
-@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
-
-/* ---------- location ---------- */
-.location-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,72px);align-items:start}
-.location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
-.location-map figcaption{padding:var(--s1) var(--s2);font-size:12px;color:var(--ink-2)}
-@media (max-width:820px){ .location-grid{grid-template-columns:1fr} }
-
-.tag-row{display:flex;flex-wrap:wrap;gap:var(--s1);margin-block:clamp(24px,3.4vw,40px)}
-.tag-row span{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s2);border-radius:var(--r);
-  border:1px solid var(--line-2);background:var(--white);font-size:13.5px;color:var(--ink-2)}
-
-/* ---------- «подпись + текст» сетка: заводы / принципы / партнёры / факты ---------- */
-.kv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s4)}
-.kv-grid--2{grid-template-columns:1fr 1fr}
-.kv-grid--3{grid-template-columns:repeat(3,1fr)}
-.kv-grid--1{grid-template-columns:1fr}
-.kv-grid b{display:block;font-size:15px;font-weight:500;color:var(--ink);margin-bottom:4px}
-.kv-grid span,.kv-grid p{display:block;font-size:14px;line-height:1.5;color:var(--ink-2)}
-@media (max-width:820px){ .kv-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:820px){ .kv-grid--3{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .kv-grid,.kv-grid--2,.kv-grid--3{grid-template-columns:1fr} }
-
-/* ================================================================
-   TEAM — Titan (Mobbin fdfe275c): имя и роль НАД фото, фото — портретный
-   блок; портретов пока нет — честная монограмма (долг Босса).
-   ================================================================ */
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
-.team-card{display:grid;gap:var(--s2);align-content:start}
-.team-card__name{font-size:17px;font-weight:500;letter-spacing:-.01em;line-height:1.25}
-.team-card__role{font-size:13px;color:var(--ink-2);line-height:1.4;margin-top:4px}
-.team-card__photo{aspect-ratio:4/5;border-radius:var(--r);background:linear-gradient(135deg,#EEF1FF,#E4E4E1);
-  display:grid;place-items:center;color:var(--blue);font-weight:500;font-size:44px;letter-spacing:-.03em}
-.team-card__bio{font-size:14px;line-height:1.5;color:var(--ink-2)}
-@media (max-width:800px){ .team-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .team-grid{grid-template-columns:1fr} }
-
-/* ---------- how to buy (Босс: «9 супер») ---------- */
-.step-list{display:grid;margin-top:clamp(24px,3.6vw,40px)}
-.step-row{display:grid;grid-template-columns:56px 1fr;gap:var(--s2);padding-block:var(--s3)}
-.step-row + .step-row{border-top:1px solid var(--line)}
-.step-row .num{font-weight:500;color:var(--blue);letter-spacing:-.02em;font-size:15px;font-variant-numeric:tabular-nums}
-.step-row b{display:block;color:var(--ink);font-weight:500;font-size:16px;margin-bottom:4px}
-.step-row p{color:var(--ink-2);font-size:14.5px;max-width:52ch}
-@media (max-width:620px){ .step-row{grid-template-columns:1fr;gap:4px} }
-
-/* ---------- faq (Босс: «как у Airbnb, ок») ---------- */
-.faq-grid{display:grid;grid-template-columns:4.5fr 7.5fr;gap:clamp(32px,6vw,80px);align-items:start}
-.faq-head{position:sticky;top:calc(var(--hdr) + var(--s4))}
-.faq-head .btn{margin-top:var(--s3)}
-.faq-list{display:grid;gap:var(--s1)}
-.faq-item{border:1px solid var(--line);border-radius:var(--r);background:var(--white);padding:0 var(--s3)}
-.faq-item[open]{border-color:var(--ink-2)}
-.faq-item summary{list-style:none;cursor:pointer;padding:var(--s3) 0;font-size:16px;font-weight:500;letter-spacing:-.01em;
-  display:flex;justify-content:space-between;gap:var(--s2);align-items:center}
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{content:"";flex:0 0 auto;width:12px;height:12px;
-  background:linear-gradient(var(--blue),var(--blue)) center/12px 1.6px no-repeat,
-             linear-gradient(var(--blue),var(--blue)) center/1.6px 12px no-repeat;transition:transform .2s}
-.faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{padding:0 0 var(--s3);color:var(--ink-2);font-size:14.5px;max-width:60ch}
-@media (max-width:820px){ .faq-grid{grid-template-columns:1fr} .faq-head{position:static} }
-
-/* ================================================================
-   FINAL — GitBook contact (Mobbin d872901b): текст слева, справа —
-   форма-карточка на цветной панели. Поля компактные, в один столбец,
-   бюджет+комплекс — второстепенная пара.
-   ================================================================ */
-.final-cta__split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,80px);align-items:center}
-.final-cta__contacts{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
-.lead-panel{background:var(--blue);border-radius:var(--r);padding:clamp(24px,4vw,56px)}
-.lead-form{background:var(--white);color:var(--ink);border-radius:var(--r);padding:clamp(24px,3vw,32px);
-  display:grid;gap:var(--s2)}
-.lead-form .t-h3{margin-bottom:var(--s1)}
-.lead-form__pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
-.lead-form .field{display:grid;gap:var(--s1)}
-.lead-form label{font-size:13px;color:var(--ink-2)}
-.lead-form input,.lead-form select{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);
-  padding:0 var(--s2);background:var(--paper);font-size:15px}
-.lead-form input:focus,.lead-form select:focus{outline:none;border-color:var(--blue)}
-.lead-form .btn{width:100%;justify-content:center}
-.lead-form__note{font-size:12px;line-height:1.5;color:var(--ink-2)}
-@media (max-width:760px){ .final-cta__split{grid-template-columns:1fr} .lead-form__pair{grid-template-columns:1fr} }
-
-/* ---------- footer ---------- */
-.site-footer{background:var(--paper);border-top:1px solid var(--line)}
-.site-footer .container{padding-block:clamp(48px,6vw,80px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s4)}
-.site-footer .brand p{margin-top:var(--s2);font-size:13.5px;color:var(--ink-2);max-width:34ch}
-.site-footer h5{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--ink-2);margin:0 0 var(--s2)}
-.site-footer ul{list-style:none;display:grid;gap:var(--s1);font-size:14px;color:var(--ink-2)}
-.site-footer ul a:hover{color:var(--blue)}
-.site-footer .disclaimer{grid-column:1/-1;padding-top:var(--s3);font-size:12px;color:var(--ink-2);max-width:70ch}
-@media (max-width:760px){ .site-footer .container{grid-template-columns:1fr 1fr} }
-
-/* ---------- широкий десктоп 1600px+ ---------- */
-@media (min-width:1600px){
-  :root{ --col:1400px; --gut:64px; }
-  .t-display{font-size:clamp(58px, 4vw, 78px)}
-  .t-h2{font-size:clamp(46px, 3vw, 58px)}
-  .t-h3{font-size:clamp(24px, 1.6vw, 28px)}
-  .stat-card__value{font-size:clamp(80px, 5vw, 96px)}
-  .complex__title{font-size:clamp(52px, 3.2vw, 66px)}
-  .complex__head{gap:var(--gut) clamp(88px, 6vw, 152px)}
-  .t-small{font-size:15px}
-  .chip{font-size:15px;height:44px}
-  .tag-row span{font-size:15px;min-height:44px}
-  .stat-card__label{font-size:15px}
-  .hero__stats span{font-size:14px}
-  .hero__stats b{font-size:17px}
-  .kv-grid span,.kv-grid p{font-size:15px}
-  .kv-grid b{font-size:16px}
-  .product-card__meta{font-size:15px}
-  .product-card__name{font-size:16px}
-  .faq-item p{font-size:16px}
-  .team-card__bio{font-size:15.5px}
-  .catalog-filters .cnt{font-size:15px}
-  .cmp table{font-size:15px}
-}
-
-/* reveal-on-scroll — только если JS выставил <html class="js"> */
-.js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.js .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){
-  .js .rv{opacity:1;transform:none;transition:none}
-  html{scroll-behavior:auto}
-}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
+<header class="site-header" id="header">
   <div class="container">
     <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
     <nav class="site-nav" aria-label="Разделы">
-      <a href="#about">О&nbsp;проекте</a>
-      <a href="#complexes">Комплексы</a>
-      <a href="#catalog">Виллы</a>
-      <a href="#yield">Доходность</a>
-      <a href="#location">Локация</a>
-      <a href="#company">О&nbsp;компании</a>
+      <a href="#about" data-i18n="nav.about">О&nbsp;проекте</a>
+      <a href="#complexes" data-i18n="nav.complexes">Комплексы</a>
+      <a href="#catalog" data-i18n="nav.catalog">Виллы</a>
+      <a href="#yield" data-i18n="nav.yield">Доходность</a>
+      <a href="#location" data-i18n="nav.location">Локация</a>
+      <a href="#company" data-i18n="nav.company">О&nbsp;компании</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="header-right">
-      <div class="langsw" role="group" aria-label="Язык">
-        <button type="button" aria-pressed="true">RU</button>
-        <button type="button" aria-pressed="false">EN</button>
+      <div class="lang" role="group" aria-label="Язык">
+        <button type="button" data-lang="ru" class="is-active">RU</button><span>/</span><button type="button" data-lang="en">EN</button>
       </div>
-      <a href="#lead" class="btn btn-primary btn-sm">Оставить заявку</a>
-      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
+      <a href="#lead" class="btn btn-primary btn-sm"><span data-i18n="nav.cta">Оставить заявку</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button class="burger" id="burger" type="button" aria-label="Меню" aria-controls="menuOverlay" data-i18n-aria="menu.title"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<div class="mnav" id="mobileMenu" hidden aria-hidden="true">
-  <div class="mnav__top">
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-head">
     <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
-    <button class="mnav__close" id="mnavClose" type="button" aria-label="Закрыть меню">×</button>
+    <button class="burger" id="menuClose" type="button" aria-label="Закрыть меню" data-i18n-aria="menu.close" style="display:flex"><span></span><span></span><span></span></button>
   </div>
-  <nav class="mnav__list" aria-label="Разделы">
-    <a href="#about">О&nbsp;проекте</a>
-    <a href="#complexes">Комплексы</a>
-    <a href="#catalog">Виллы</a>
-    <a href="#yield">Доходность</a>
-    <a href="#location">Локация</a>
-    <a href="#company">О&nbsp;компании</a>
+  <nav class="menu-list" aria-label="Разделы">
+    <a href="#about" data-i18n="nav.about">О&nbsp;проекте</a>
+    <a href="#complexes" data-i18n="nav.complexes">Комплексы</a>
+    <a href="#catalog" data-i18n="nav.catalog">Виллы</a>
+    <a href="#yield" data-i18n="nav.yield">Доходность</a>
+    <a href="#location" data-i18n="nav.location">Локация</a>
+    <a href="#company" data-i18n="nav.company">О&nbsp;компании</a>
     <a href="#faq">FAQ</a>
   </nav>
-  <a href="#lead" class="btn btn-primary">Оставить заявку</a>
+  <div class="menu-foot">
+    <div class="lang" role="group" aria-label="Язык">
+      <button type="button" data-lang="ru" class="is-active">RU</button><span>/</span><button type="button" data-lang="en">EN</button>
+    </div>
+    <a href="#lead" class="btn btn-primary" data-i18n="nav.cta">Оставить заявку</a>
+  </div>
 </div>
 
 <main id="top">
 
-  <!-- 01 · HERO (Aurora) -->
+  <!-- 01 · HERO (aurora.tech) -->
   <section class="hero">
     <div class="hero__media">
       <picture>
         <source srcset="../prototype-2026-09/assets/u1-05.webp" type="image/webp">
-        <img src="../prototype-2026-09/assets/u1-05.jpg" alt="Вилла Unit Space на закате, рисовые поля" fetchpriority="high">
+        <img src="../prototype-2026-09/assets/u1-05.jpg" alt="Вилла Unit Space на закате, рисовые поля" fetchpriority="high" data-i18n-alt="hero.alt">
       </picture>
     </div>
     <div class="container hero__content">
-      <h1 class="t-display">Хай-тек виллы по&nbsp;цене апартаментов</h1>
-      <p class="hero__sub">Три жилых комплекса Unit Space в&nbsp;одной локации рядом с&nbsp;Нуану, Бали.
-        Три минуты до&nbsp;океана, вся инфраструктура города. Покупка напрямую у&nbsp;девелопера.</p>
-      <div class="cta-row">
-        <a href="#catalog" class="btn btn-inverse">Смотреть виллы</a>
-        <a href="#lead" class="btn btn-inverse">Записаться на&nbsp;просмотр</a>
+      <div>
+        <h1 class="hero__title" data-i18n="hero.title">Хай-тек виллы по&nbsp;цене апартаментов</h1>
+        <p class="hero__sub" data-i18n="hero.sub">Три комплекса рядом с&nbsp;Nuanu, Бали. Три минуты до&nbsp;океана, покупка напрямую у&nbsp;девелопера.</p>
       </div>
-      <div class="hero__stats">
-        <div><b>U1&nbsp;— Space Village</b><span>22 юнита · сдан 2024</span></div>
-        <div><b>U2&nbsp;— Nuanu Village</b><span>55 юнитов · сдан 2025</span></div>
-        <div><b>U3&nbsp;— Nyanyi Village</b><span>28 юнитов · сдача 2026</span></div>
+      <a href="#location" class="hero__card" id="heroCard" aria-label="Смотреть локацию комплексов на карте" data-i18n-aria="hero.card_aria">
+        <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <rect width="320" height="200" fill="#EDEDEA"/>
+          <path d="M0 158 C60 146,120 168,190 156 S280 132,320 142 L320 200 L0 200 Z" fill="#DCDCD8"/>
+          <rect x="52" y="30" width="110" height="110" rx="10" fill="none" stroke="#0433FF" stroke-width="1.6" stroke-dasharray="3 4"/>
+          <text x="56" y="24" font-family="Helvetica,Arial" font-size="9" fill="#6E6E75" letter-spacing="1.5">NUANU</text>
+          <circle cx="84" cy="62" r="6" fill="#0433FF"/><text x="96" y="66" font-family="Helvetica,Arial" font-size="11" fill="#3a3a3a" font-weight="600">U1</text>
+          <circle cx="84" cy="108" r="6" fill="#0433FF"/><text x="96" y="112" font-family="Helvetica,Arial" font-size="11" fill="#3a3a3a" font-weight="600">U2</text>
+          <line x1="162" y1="86" x2="228" y2="74" stroke="#C9C9C4" stroke-width="1.5"/>
+          <circle cx="240" cy="72" r="6" fill="none" stroke="#0433FF" stroke-width="2"/><text x="252" y="76" font-family="Helvetica,Arial" font-size="11" fill="#3a3a3a" font-weight="600">U3</text>
+        </svg>
+        <span class="hero__card-text">
+          <span class="hero__card-kicker" data-i18n="hero.card_kicker">Локация</span>
+          <span class="hero__card-title" data-i18n="hero.card_title">3 комплекса рядом с&nbsp;Nuanu</span>
+        </span>
+        <span class="hero__card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+    <div class="hero__strip">
+      <div class="container">
+        <div>U1 Space Village<span data-i18n="hero.s1">22 юнита · сдан 2024</span></div>
+        <div>U2 Nuanu Village<span data-i18n="hero.s2">55 юнитов · сдан 2025</span></div>
+        <div>U3 Nyanyi Village<span data-i18n="hero.s3">28 юнитов · сдача 2026</span></div>
       </div>
     </div>
-    <a href="#location" class="hero__map" id="heroMap" aria-label="Смотреть локацию комплексов на карте">
-      <svg class="hero__map-thumb" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
-        <rect width="96" height="96" rx="10" fill="#EDEDEA"/>
-        <path d="M0 78 C24 72,40 82,60 77 S88 68,96 71 L96 96 L0 96 Z" fill="#DCDCD8"/>
-        <rect x="16" y="12" width="42" height="42" rx="6" fill="none" stroke="#0433FF" stroke-width="1.6" stroke-dasharray="2.5 3.2"/>
-        <circle cx="29" cy="27" r="3.2" fill="#0433FF"/>
-        <circle cx="29" cy="43" r="3.2" fill="#0433FF"/>
-        <circle cx="66" cy="35" r="3.2" fill="none" stroke="#0433FF" stroke-width="1.8"/>
-      </svg>
-      <span class="hero__map-text">
-        <span class="hero__map-kicker">Локация</span>
-        <span class="hero__map-title">3 комплекса рядом с&nbsp;Nuanu</span>
-      </span>
-      <span class="hero__map-arrow" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </a>
   </section>
 
-  <!-- 02 · О ПРОЕКТЕ (apollo.io stat-cards) -->
+  <!-- 02 · О ПРОЕКТЕ -->
   <section class="sect sect--alt" id="about">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Экосистема для&nbsp;жизни и&nbsp;инвестиций</h2>
-        <p class="t-lead">Три комплекса рядом с&nbsp;городом будущего Nuanu. Локация растёт в&nbsp;цене.</p>
+        <h2 class="t-h2" data-i18n="about.title">105 вилл и&nbsp;студий в&nbsp;трёх комплексах у&nbsp;Nuanu</h2>
+        <p class="t-lead dim" data-i18n="about.lead">Два комплекса сданы и&nbsp;работают, третий строится. Локация растёт в&nbsp;цене.</p>
       </div>
       <div class="stat-grid rv">
-        <div class="stat-card">
-          <div class="stat-card__label">комплекса рядом с&nbsp;Nuanu&nbsp;— U1, U2, U3</div>
-          <div class="stat-card__value tnum" data-count="3">3</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__label">вилл и&nbsp;студий в&nbsp;трёх комплексах</div>
-          <div class="stat-card__value tnum" data-count="105">105</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__label">проверенная доходность в&nbsp;год</div>
-          <div class="stat-card__value tnum">от&nbsp;<em data-count="10">10</em><sup>%</sup></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__label">своя управляющая компания на&nbsp;Бали</div>
-          <div class="stat-card__value tnum"><em data-count="10">10</em><sup>+ лет</sup></div>
-        </div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st1">комплекса рядом с&nbsp;Nuanu — U1, U2, U3</div><div class="stat-card__value tnum" data-count="3">3</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st2">вилл и&nbsp;студий в&nbsp;трёх комплексах</div><div class="stat-card__value tnum" data-count="105">105</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st3">доходность в&nbsp;год на&nbsp;работающих U1 и&nbsp;U2</div><div class="stat-card__value tnum"><span data-i18n="about.from">от</span>&nbsp;<em data-count="10">10</em><sup>%</sup></div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st4">своя управляющая компания на&nbsp;Бали</div><div class="stat-card__value tnum"><em data-count="10">10</em><sup>+ <span data-i18n="about.years">лет</span></sup></div></div>
       </div>
-      <div class="about-copy rv">
-        <p><b>Внутри Nuanu.</b> Город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа,
-          арт-объекты&nbsp;— инфраструктура работает круглый год, в&nbsp;шаговой доступности от&nbsp;дома.</p>
-        <p><b>Проверенная доходность.</b> Два комплекса уже сданы и&nbsp;заселены, есть закрытые сделки
-          перепродажи. УК&nbsp;— 10+ лет на&nbsp;Бали.</p>
-        <p><b>Полный цикл UNIT.</b> Свои заводы: бетон, стальной каркас, мебель. Строим, как&nbsp;для
-          себя&nbsp;— контроль качества и&nbsp;сроков на&nbsp;каждом этапе.</p>
+      <div class="rows rv">
+        <div class="row"><div class="t-label" data-i18n="about.r1l">Локация</div><p class="dim" data-i18n="about.r1">Nuanu — город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа, арт-объекты. Всё открыто круглый год и&nbsp;в&nbsp;шаговой доступности от&nbsp;дома.</p></div>
+        <div class="row"><div class="t-label" data-i18n="about.r2l">Доходность</div><p class="dim" data-i18n="about.r2">U1 и&nbsp;U2 сданы и&nbsp;заселены, есть закрытые сделки перепродажи. Управляющая компания UNIT работает на&nbsp;Бали больше 10&nbsp;лет.</p></div>
+        <div class="row"><div class="t-label" data-i18n="about.r3l">Производство</div><p class="dim" data-i18n="about.r3">Свои заводы: бетон, стальной каркас, мебель. Качество и&nbsp;сроки контролируем сами на&nbsp;каждом этапе.</p></div>
       </div>
-      <div class="cta-row cta-row--after"><a href="#complexes" class="btn btn-primary">Выбрать комплекс</a></div>
+      <div class="cta-row cta-row--after"><a href="#complexes" class="btn btn-primary" data-i18n="about.cta">Выбрать комплекс</a></div>
     </div>
   </section>
 
   <figure class="photo-band rv">
     <picture><source srcset="../prototype-2026-09/assets/u3-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-01.jpg" alt="Комплекс Unit Space с высоты — виллы и зелёные дворы"></picture>
-    <figcaption>Кластер вилл Unit Space внутри Nuanu, западное побережье Бали</figcaption>
+    <figcaption data-i18n="band1">Кластер вилл Unit Space внутри Nuanu, западное побережье Бали</figcaption>
   </figure>
 
   <!-- 03 · КОМПЛЕКСЫ -->
@@ -589,21 +136,18 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
   <div class="container">
 
     <article class="complex" id="cx-u1">
-      <div class="complex__head">
-        <div>
-          <div class="complex__badge">U1</div>
-          <h2 class="complex__title">Space Village</h2>
+      <div class="row">
+        <div><div class="complex__badge">U1</div><h2 class="complex__title">Space Village</h2></div>
+        <div class="complex__body">
+          <p class="complex__intro" data-i18n="u1.intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под управлением UNIT SPACE MANAGEMENT.</p>
+          <div class="complex__facts tnum">
+            <div><b>22</b><span class="dim" data-i18n="u1.f1">юнита</span></div>
+            <div><b>2024</b><span class="dim" data-i18n="u1.f2">сдан и&nbsp;заселён</span></div>
+            <div><b>32–89</b><span class="dim" data-i18n="u1.f3">м² форматы</span></div>
+          </div>
+          <p class="complex__formats dim" data-i18n="u1.formats"><b>Форматы:</b> студия 32&nbsp;м² · 2+1 спальни 89&nbsp;м². Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge внутри квартала.</p>
         </div>
-        <p class="complex__intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024 году, заселён и&nbsp;работает как&nbsp;отельный
-          бизнес под&nbsp;управлением UNIT SPACE MANAGEMENT&nbsp;— приносит проверенную доходность.</p>
       </div>
-      <div class="complex__facts tnum">
-        <div><b>22</b><span>юнита</span></div>
-        <div><b>2024</b><span>сдан и&nbsp;заселён</span></div>
-        <div><b>32–89</b><span>м² форматы</span></div>
-      </div>
-      <p class="complex__formats">Форматы: <b>студия 32&nbsp;м²</b> ·&nbsp;<b>2+1 спальни 89&nbsp;м²</b>. Полная меблировка,
-        кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge&nbsp;— внутри квартала.</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-09.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-09.jpg" alt="U1 — приватный бассейн и сауна вечером"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-01.jpg" alt="U1 — спальня в минималистичном стиле"></picture></figure>
@@ -612,20 +156,18 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
     </article>
 
     <article class="complex" id="cx-u2">
-      <div class="complex__head">
-        <div>
-          <div class="complex__badge">U2</div>
-          <h2 class="complex__title">Nuanu Village</h2>
+      <div class="row">
+        <div><div class="complex__badge">U2</div><h2 class="complex__title">Nuanu Village</h2></div>
+        <div class="complex__body">
+          <p class="complex__intro" data-i18n="u2.intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор — от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;бассейном и&nbsp;садом.</p>
+          <div class="complex__facts tnum">
+            <div><b>55</b><span class="dim" data-i18n="u2.f1">юнитов</span></div>
+            <div><b>2025</b><span class="dim" data-i18n="u2.f2">сдан и&nbsp;заселён</span></div>
+            <div><b>32–200</b><span class="dim" data-i18n="u2.f3">м² форматы</span></div>
+          </div>
+          <p class="complex__formats dim" data-i18n="u2.formats"><b>Форматы:</b> студия 32 · 1+1&nbsp;— 60 · 2+1&nbsp;— 89 · вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м². Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии.</p>
         </div>
-        <p class="complex__intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор&nbsp;—
-          от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;собственным бассейном и&nbsp;садом.</p>
       </div>
-      <div class="complex__facts tnum">
-        <div><b>55</b><span>юнитов</span></div>
-        <div><b>2025</b><span>сдан и&nbsp;заселён</span></div>
-        <div><b>32–200</b><span>м² форматы</span></div>
-      </div>
-      <p class="complex__formats">Форматы: <b>студия&nbsp;32</b> ·&nbsp;<b>1+1&nbsp;— 60</b> ·&nbsp;<b>2+1&nbsp;— 89</b> ·&nbsp;<b>вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м²</b>. Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии.</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u2-2bd-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2-2bd-01.jpg" alt="U2 — фасад виллы, палисадник"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u2s-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2s-03.jpg" alt="U2 — кухня с видом на рисовые поля"></picture></figure>
@@ -634,20 +176,18 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
     </article>
 
     <article class="complex" id="cx-u3">
-      <div class="complex__head">
-        <div>
-          <div class="complex__badge">U3</div>
-          <h2 class="complex__title">Nyanyi Village</h2>
+      <div class="row">
+        <div><div class="complex__badge">U3</div><h2 class="complex__title">Nyanyi Village</h2></div>
+        <div class="complex__body">
+          <p class="complex__intro" data-i18n="u3.intro">Третий комплекс в&nbsp;посёлке Nyanyi, ближе к&nbsp;океану. Строится, сдача в&nbsp;2026. Вход по&nbsp;стартовой цене; появляются форматы с&nbsp;приватным бассейном.</p>
+          <div class="complex__facts tnum">
+            <div><b>28</b><span class="dim" data-i18n="u3.f1">юнитов</span></div>
+            <div><b>2026</b><span class="dim" data-i18n="u3.f2">плановая сдача</span></div>
+            <div><b>60–200</b><span class="dim" data-i18n="u3.f3">м² форматы</span></div>
+          </div>
+          <p class="complex__formats dim" data-i18n="u3.formats"><b>Форматы:</b> 1+1&nbsp;— 60 · 1+1 с&nbsp;бассейном&nbsp;— 100 · 2+1&nbsp;— 89 · 2+1 с&nbsp;бассейном&nbsp;— 109 · вилла 3+1&nbsp;— 200&nbsp;м². Прогресс стройки — фото по&nbsp;датам, по&nbsp;запросу.</p>
         </div>
-        <p class="complex__intro">Третий комплекс&nbsp;— посёлок Nyanyi, ещё ближе к&nbsp;океану. Строится, сдача в&nbsp;2026 году.
-          Вход по&nbsp;стартовой цене до&nbsp;сдачи, появляются форматы с&nbsp;приватным бассейном.</p>
       </div>
-      <div class="complex__facts tnum">
-        <div><b>28</b><span>юнитов</span></div>
-        <div><b>2026</b><span>плановая сдача</span></div>
-        <div><b>60–200</b><span>м² форматы</span></div>
-      </div>
-      <p class="complex__formats">Форматы: <b>1+1&nbsp;— 60</b> ·&nbsp;<b>1+1 + бассейн&nbsp;— 100</b> ·&nbsp;<b>2+1&nbsp;— 89</b> ·&nbsp;<b>2+1 + бассейн&nbsp;— 109</b> ·&nbsp;<b>вилла 3+1&nbsp;— 200&nbsp;м²</b>. Прогресс стройки&nbsp;— фото по&nbsp;датам.</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-03.jpg" alt="U3 — зона у приватного бассейна, рендер"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-04.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-04.jpg" alt="U3 — вилла с деревянным фасадом, рендер"></picture></figure>
@@ -657,158 +197,150 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 
   </div>
 
-  <!-- 04 · СЦЕНАРИИ ВЛАДЕНИЯ -->
+  <!-- 04 · СЦЕНАРИИ -->
   <section class="sect sect--alt" id="scenarios">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Один дом&nbsp;— три сценария</h2>
-        <p class="t-lead">Живите семьёй, прилетайте в&nbsp;отпуск или&nbsp;сдавайте под&nbsp;ключ&nbsp;— юнит работает под&nbsp;любую задачу.</p>
+        <h2 class="t-h2" data-i18n="scn.title">Один дом — три сценария</h2>
+        <p class="t-lead dim" data-i18n="scn.lead">Жить, приезжать в&nbsp;отпуск или сдавать — юнит работает под любую задачу.</p>
       </div>
       <div>
         <div class="scenario-row rv">
-          <div><h3>Жизнь</h3><p>Меблированный hi-tech дом внутри Nuanu: школа, спорт, кафе, океан&nbsp;— пешком.</p></div>
+          <div><h3 data-i18n="scn.1t">Жизнь</h3><p class="dim" data-i18n="scn.1p">Меблированный дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u2-1bd-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2-1bd-03.jpg" alt="Терраса виллы Unit Space"></picture></figure>
         </div>
         <div class="scenario-row rv">
-          <div><h3>Аренда под&nbsp;ключ</h3><p>Проверенная доходность от&nbsp;10% в&nbsp;год. Заселение, уборку, брони и&nbsp;отчётность ведёт UNIT SPACE MANAGEMENT.</p></div>
+          <div><h3 data-i18n="scn.2t">Аренда под ключ</h3><p class="dim" data-i18n="scn.2p">От&nbsp;10% в&nbsp;год на&nbsp;работающих U1 и&nbsp;U2. Заселение, уборку, брони и&nbsp;отчётность ведёт UNIT SPACE MANAGEMENT.</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u2s-02.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2s-02.jpg" alt="Кухня виллы с видом на поля"></picture></figure>
         </div>
         <div class="scenario-row rv">
-          <div><h3>Инвестиция</h3><p>Вход по&nbsp;стартовой цене в&nbsp;строящемся U3. Юнит можно перепродать до&nbsp;сдачи&nbsp;— локация растёт в&nbsp;цене.</p></div>
+          <div><h3 data-i18n="scn.3t">Инвестиция</h3><p class="dim" data-i18n="scn.3p">Вход по&nbsp;стартовой цене в&nbsp;строящемся U3. Юнит можно перепродать до&nbsp;сдачи.</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u3-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-03.jpg" alt="Зона отдыха у бассейна U3"></picture></figure>
         </div>
       </div>
-      <div class="cta-row cta-row--after"><a href="#yield" class="btn btn-primary">Посчитать доход</a></div>
+      <div class="cta-row cta-row--after"><a href="#yield" class="btn btn-primary" data-i18n="scn.cta">Посчитать доход</a></div>
     </div>
   </section>
 
-  <!-- 05 · ПЛАНИРОВКИ (Framer product-card) -->
+  <!-- 05 · ПЛАНИРОВКИ -->
   <section class="sect" id="plans">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Форматы вилл</h2>
-        <p class="t-lead">От&nbsp;компактной студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок в&nbsp;PDF&nbsp;— по&nbsp;запросу.</p>
+        <h2 class="t-h2" data-i18n="plans.title">Форматы вилл</h2>
+        <p class="t-lead dim" data-i18n="plans.lead">От&nbsp;студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок в&nbsp;PDF — по&nbsp;запросу.</p>
       </div>
       <div class="product-grid rv">
-        <article class="product-card">
+        <a class="product-card" href="units/u2-studio.html">
           <div class="product-card__media"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M62 14v68M62 48h48"/></svg></div>
-          <div class="product-card__row">
-            <div><div class="product-card__name">Студия ·&nbsp;<b>32&nbsp;м²</b></div><div class="product-card__meta">U1, U2 · единое пространство</div></div>
-            <span class="product-card__price">от&nbsp;$100 000</span>
-          </div>
-        </article>
-        <article class="product-card">
+          <div class="product-card__row"><div><div class="product-card__name"><span data-i18n="fmt.studio">Студия</span> · <b>32 м²</b></div><div class="product-card__meta dim" data-i18n="fmt.studio_m">U1, U2 · единое пространство</div></div><span class="product-card__price">от $100 000</span></div>
+        </a>
+        <a class="product-card" href="units/u2-1bd.html">
           <div class="product-card__media"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M55 14v68M10 48h45M55 40h55"/></svg></div>
-          <div class="product-card__row">
-            <div><div class="product-card__name">1 + 1 спальня ·&nbsp;<b>60&nbsp;м²</b></div><div class="product-card__meta">U2, U3 · кухня и&nbsp;гостиная отдельно</div></div>
-            <span class="product-card__price">от&nbsp;$118 000</span>
-          </div>
-        </article>
-        <article class="product-card">
+          <div class="product-card__row"><div><div class="product-card__name"><span data-i18n="fmt.1bd">1+1 спальня</span> · <b>60 м²</b></div><div class="product-card__meta dim" data-i18n="fmt.1bd_m">U2, U3 · кухня и&nbsp;гостиная отдельно</div></div><span class="product-card__price">от $118 000</span></div>
+        </a>
+        <a class="product-card" href="units/u2-2bd.html">
           <div class="product-card__media"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="10" y="14" width="100" height="68" rx="3"/><path d="M48 14v68M10 40h38M48 34h30M78 14v68M78 54h32"/></svg></div>
-          <div class="product-card__row">
-            <div><div class="product-card__name">2 + 1 спальни ·&nbsp;<b>89&nbsp;м²</b></div><div class="product-card__meta">U1, U2, U3 · для&nbsp;семьи</div></div>
-            <span class="product-card__price">от&nbsp;$190 000</span>
-          </div>
-        </article>
-        <article class="product-card">
+          <div class="product-card__row"><div><div class="product-card__name"><span data-i18n="fmt.2bd">2+1 спальни</span> · <b>89 м²</b></div><div class="product-card__meta dim" data-i18n="fmt.2bd_m">U1, U2, U3 · для семьи</div></div><span class="product-card__price">от $190 000</span></div>
+        </a>
+        <a class="product-card" href="units/u2-villa.html">
           <div class="product-card__media"><svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="10" y="10" width="100" height="52" rx="3"/><rect x="30" y="70" width="60" height="16" rx="3"/><path d="M50 10v52M50 36h60"/></svg></div>
-          <div class="product-card__row">
-            <div><div class="product-card__name">Вилла 3 + 1 с&nbsp;бассейном ·&nbsp;<b>200&nbsp;м²</b></div><div class="product-card__meta">U2, U3 · сад и&nbsp;приватный бассейн</div></div>
-            <span class="product-card__price">от&nbsp;$278 000</span>
-          </div>
-        </article>
+          <div class="product-card__row"><div><div class="product-card__name"><span data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</span> · <b>200 м²</b></div><div class="product-card__meta dim" data-i18n="fmt.villa_m">U2, U3 · сад и&nbsp;приватный бассейн</div></div><span class="product-card__price">от $278 000</span></div>
+        </a>
       </div>
-      <p class="t-small muted rv" style="margin-top:var(--s3)">Цены ориентировочные, «от». Актуальный прайс и&nbsp;шахматку пришлём по&nbsp;запросу.</p>
+      <p class="t-small dim rv" style="margin-top:var(--s3)" data-i18n="plans.note">Цены ориентировочные, «от». Актуальный прайс и&nbsp;шахматку пришлём по&nbsp;запросу.</p>
     </div>
   </section>
 
-  <!-- 06 · КАТАЛОГ (Framer product-card + реальные фото) -->
+  <!-- 06 · КАТАЛОГ -->
   <section class="sect sect--alt" id="catalog">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Свободные виллы</h2>
-        <p class="t-lead">Актуальную подборку с&nbsp;ценами и&nbsp;этажами пришлём по&nbsp;запросу.</p>
+        <h2 class="t-h2" data-i18n="cat.title">Свободные виллы</h2>
+        <p class="t-lead dim" data-i18n="cat.lead">Актуальную подборку с&nbsp;ценами и&nbsp;этажами пришлём по&nbsp;запросу.</p>
       </div>
       <div class="catalog-filters rv" id="filters">
-        <button class="chip" data-f="q" data-v="all" aria-pressed="true">Все комплексы</button>
+        <button class="chip" data-f="q" data-v="all" aria-pressed="true" data-i18n="cat.all_q">Все комплексы</button>
         <button class="chip" data-f="q" data-v="u1" aria-pressed="false">U1</button>
         <button class="chip" data-f="q" data-v="u2" aria-pressed="false">U2</button>
         <button class="chip" data-f="q" data-v="u3" aria-pressed="false">U3</button>
         <span class="sep"></span>
-        <button class="chip" data-f="fmt" data-v="all" aria-pressed="true">Все форматы</button>
-        <button class="chip" data-f="fmt" data-v="studio" aria-pressed="false">Студия</button>
+        <button class="chip" data-f="fmt" data-v="all" aria-pressed="true" data-i18n="cat.all_f">Все форматы</button>
+        <button class="chip" data-f="fmt" data-v="studio" aria-pressed="false" data-i18n="fmt.studio">Студия</button>
         <button class="chip" data-f="fmt" data-v="1bd" aria-pressed="false">1+1</button>
         <button class="chip" data-f="fmt" data-v="2bd" aria-pressed="false">2+1</button>
-        <button class="chip" data-f="fmt" data-v="villa" aria-pressed="false">Вилла</button>
-        <span class="cnt">Найдено&nbsp;<b id="unitCount">0</b></span>
+        <button class="chip" data-f="fmt" data-v="villa" aria-pressed="false" data-i18n="cat.villa">Вилла</button>
+        <span class="cnt dim"><span data-i18n="cat.found">Найдено</span>&nbsp;<b id="unitCount">0</b></span>
       </div>
       <div class="product-grid product-grid--3" id="units"></div>
     </div>
   </section>
 
-  <!-- 07 · ДОХОДНОСТЬ (Samara comparison table + калькулятор) -->
+  <!-- 07 · ДОХОДНОСТЬ (Samara) -->
   <section class="sect" id="yield">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Доходность от&nbsp;10% в&nbsp;год</h2>
-        <p class="t-lead">Три способа заработать на&nbsp;юните&nbsp;— что выбрать под&nbsp;вашу задачу. Ниже&nbsp;— прикидка под&nbsp;свой бюджет.</p>
+        <h2 class="t-h2" data-i18n="yield.title">Доходность от&nbsp;10% в&nbsp;год</h2>
+        <p class="t-lead dim" data-i18n="yield.lead">Три способа заработать на&nbsp;юните. Ниже — прикидка под свой бюджет.</p>
       </div>
       <div class="cmp rv">
         <table>
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col" class="is-hi">Краткосрочная аренда<small>рекомендуем для&nbsp;U1, U2</small></th>
-              <th scope="col">Долгосрочная аренда</th>
-              <th scope="col">Перепродажа до&nbsp;сдачи</th>
+              <th scope="col" class="is-hi" data-i18n="y.c1">Краткосрочная аренда<small>рекомендуем для U1 и&nbsp;U2</small></th>
+              <th scope="col" data-i18n="y.c2">Долгосрочная аренда</th>
+              <th scope="col" data-i18n="y.c3">Перепродажа до&nbsp;сдачи</th>
             </tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Доходность в&nbsp;год</th><td class="is-hi"><b>от&nbsp;10%</b> —&nbsp;проверено на&nbsp;работающих U1 и&nbsp;U2</td><td>ниже, предсказуемо</td><td>зависит от&nbsp;срока входа</td></tr>
-            <tr><th scope="row">Кто управляет</th><td class="is-hi">UNIT SPACE MANAGEMENT: заселение, уборка, брони, отчётность</td><td>УК&nbsp;или&nbsp;самостоятельно</td><td>не&nbsp;требуется</td></tr>
-            <tr><th scope="row">Горизонт</th><td class="is-hi">от&nbsp;1 года, бессрочно</td><td>от&nbsp;6 месяцев</td><td>до&nbsp;сдачи U3&nbsp;— 2026</td></tr>
-            <tr><th scope="row">Своё проживание</th><td class="is-hi">в&nbsp;свободные даты</td><td>нет</td><td>нет</td></tr>
-            <tr><th scope="row">Подходит</th><td class="is-hi">U1, U2&nbsp;— сданы и&nbsp;заселены</td><td>U1, U2</td><td>U3&nbsp;— строится</td></tr>
+            <tr><th scope="row" data-i18n="y.r1">Доходность в&nbsp;год</th><td class="is-hi" data-i18n="y.r1a">от&nbsp;10%<small>проверено на&nbsp;работающих U1 и&nbsp;U2</small></td><td data-i18n="y.r1b">ниже<small>зато предсказуемо</small></td><td data-i18n="y.r1c">зависит от&nbsp;срока<small>чем раньше вход, тем выше</small></td></tr>
+            <tr><th scope="row" data-i18n="y.r2">Кто управляет</th><td class="is-hi" data-i18n="y.r2a">UNIT SPACE MANAGEMENT<small>заселение, уборка, брони, отчётность</small></td><td data-i18n="y.r2b">УК или сами</td><td data-i18n="y.r2c">не&nbsp;требуется</td></tr>
+            <tr><th scope="row" data-i18n="y.r3">Горизонт</th><td class="is-hi" data-i18n="y.r3a">от&nbsp;1 года<small>бессрочно</small></td><td data-i18n="y.r3b">от&nbsp;6 месяцев</td><td data-i18n="y.r3c">до&nbsp;сдачи U3<small>2026</small></td></tr>
+            <tr><th scope="row" data-i18n="y.r4">Своё проживание</th><td class="is-hi" data-i18n="y.r4a">да<small>в&nbsp;свободные даты</small></td><td data-i18n="y.r4b">нет</td><td data-i18n="y.r4c">нет</td></tr>
+            <tr><th scope="row" data-i18n="y.r5">Подходит</th><td class="is-hi" data-i18n="y.r5a">U1, U2<small>сданы и&nbsp;заселены</small></td><td data-i18n="y.r5b">U1, U2</td><td data-i18n="y.r5c">U3<small>строится</small></td></tr>
           </tbody>
         </table>
-        <p class="cmp__hint">Таблица листается по&nbsp;горизонтали</p>
+        <p class="cmp__hint dim" data-i18n="y.hint">Таблица листается по&nbsp;горизонтали</p>
       </div>
       <div class="calc rv">
         <div class="calc__inputs">
-          <div class="field"><label for="c-price">Цена виллы, $ (ориентир)</label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
-          <div class="field"><label for="c-rate">Ставка за&nbsp;ночь, $</label><input type="number" id="c-rate" value="100" min="0" step="5"></div>
-          <div class="field"><label for="c-occ">Загрузка, %</label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
-          <div class="field"><label for="c-mgmt">Комиссия УК, %</label><input type="number" id="c-mgmt" value="20" min="0" max="100"></div>
+          <div class="field"><label for="c-price" class="dim" data-i18n="calc.price">Цена виллы, $</label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
+          <div class="field"><label for="c-rate" class="dim" data-i18n="calc.rate">Ставка за&nbsp;ночь, $</label><input type="number" id="c-rate" value="100" min="0" step="5"></div>
+          <div class="field"><label for="c-occ" class="dim" data-i18n="calc.occ">Загрузка, %</label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
+          <div class="field"><label for="c-mgmt" class="dim" data-i18n="calc.mgmt">Комиссия УК, %</label><input type="number" id="c-mgmt" value="20" min="0" max="100"></div>
         </div>
         <div class="calc__out" aria-live="polite">
-          <div class="calc__roi"><b id="o-roi">—</b><span>доходность к&nbsp;цене<br>в&nbsp;год</span></div>
+          <div class="calc__roi"><b id="o-roi">—</b><span class="dim" data-i18n="calc.roi">доходность к&nbsp;цене<br>в&nbsp;год</span></div>
           <div class="calc__rows">
-            <div><span>Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
-            <div><span>За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
+            <div><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
+            <div><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
           </div>
-          <p class="t-small muted">Без&nbsp;учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под&nbsp;вашу виллу пришлём на&nbsp;почту.</p>
+          <p class="t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту.</p>
         </div>
       </div>
-      <div class="cta-row cta-row--after"><a href="#lead" class="btn btn-primary">Расчёт под&nbsp;мою виллу</a></div>
+      <div class="cta-row cta-row--after"><a href="#lead" class="btn btn-primary" data-i18n="yield.cta">Расчёт под мою виллу</a></div>
     </div>
   </section>
 
-  <!-- 08 · ЛОКАЦИЯ (apollo.io stat-cards, белые на paper) -->
+  <!-- 08 · ЛОКАЦИЯ -->
   <section class="sect sect--alt" id="location">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Внутри Nuanu, у&nbsp;океана</h2>
-        <p class="t-lead">U1 и&nbsp;U2&nbsp;— внутри Nuanu Creative City, U3&nbsp;— в&nbsp;соседнем посёлке Nyanyi, ещё ближе к&nbsp;океану.</p>
+        <h2 class="t-h2" data-i18n="loc.title">Внутри Nuanu, у&nbsp;океана</h2>
+        <p class="t-lead dim" data-i18n="loc.lead">U1 и&nbsp;U2 — внутри Nuanu Creative City, U3 — в&nbsp;соседнем посёлке Nyanyi, ближе к&nbsp;океану.</p>
       </div>
       <div class="stat-grid rv tnum">
-        <div class="stat-card"><div class="stat-card__label">минут до&nbsp;территории Nuanu</div><div class="stat-card__value" data-count="0">0</div></div>
-        <div class="stat-card"><div class="stat-card__label">минуты пешком до&nbsp;океана</div><div class="stat-card__value" data-count="3">3</div></div>
-        <div class="stat-card"><div class="stat-card__label">минут до&nbsp;Чангу</div><div class="stat-card__value" data-count="20">20</div></div>
-        <div class="stat-card"><div class="stat-card__label">минут до&nbsp;Танах Лот</div><div class="stat-card__value" data-count="15">15</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="loc.st1">минут до&nbsp;территории Nuanu</div><div class="stat-card__value" data-count="0">0</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="loc.st2">минуты пешком до&nbsp;океана</div><div class="stat-card__value" data-count="3">3</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="loc.st3">минут до&nbsp;Чангу</div><div class="stat-card__value" data-count="20">20</div></div>
+        <div class="stat-card"><div class="stat-card__label dim" data-i18n="loc.st4">минут до&nbsp;Танах Лот</div><div class="stat-card__value" data-count="15">15</div></div>
       </div>
-
-      <div class="location-grid rv">
+      <div class="row rv">
+        <div class="kv-grid kv-grid--1">
+          <div><b data-i18n="loc.addr_l">Адрес</b><span>Jl Pantai Nyanyi 88, Beraban, Tabanan, <span data-i18n="loc.bali">Бали</span></span></div>
+          <div><b data-i18n="loc.beach_l">Пляж</b><span data-i18n="loc.beach">Pantai Nyanyi — 3 минуты пешком от&nbsp;U1 и&nbsp;U2</span></div>
+          <div><b data-i18n="loc.infra_l">Инфраструктура Nuanu</b><span data-i18n="loc.infra">35+ объектов, открыты круглый год</span></div>
+        </div>
         <figure class="location-map">
           <svg viewBox="0 0 640 400" role="img" aria-label="Схема: U1 и U2 в Nuanu, U3 в посёлке Nyanyi, пляж Pantai Nyanyi, океан">
             <rect width="640" height="400" fill="#F4F4F4"/>
@@ -819,24 +351,21 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
             <circle cx="168" cy="140" r="7" fill="#0433FF"/><text x="184" y="145" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U1</text>
             <circle cx="168" cy="206" r="7" fill="#0433FF"/><text x="184" y="211" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U2</text>
             <line x1="290" y1="176" x2="420" y2="160" stroke="#C9C9C4" stroke-width="1.5"/>
-            <circle cx="440" cy="160" r="7" fill="none" stroke="#0433FF" stroke-width="2"/><text x="456" y="165" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U3&nbsp;— Nyanyi</text>
+            <circle cx="440" cy="160" r="7" fill="none" stroke="#0433FF" stroke-width="2"/><text x="456" y="165" font-family="Helvetica,Arial" font-size="14" fill="#14161A" font-weight="600">U3 — Nyanyi</text>
             <line x1="168" y1="266" x2="168" y2="320" stroke="#C9C9C4" stroke-width="1.5"/>
-            <circle cx="168" cy="324" r="4" fill="#6E6E75"/><text x="184" y="329" font-family="Helvetica,Arial" font-size="11" fill="#6E6E75">Пляж Pantai Nyanyi&nbsp;— 3 мин</text>
+            <circle cx="168" cy="324" r="4" fill="#6E6E75"/><text x="184" y="329" font-family="Helvetica,Arial" font-size="11" fill="#6E6E75">Пляж Pantai Nyanyi — 3 мин</text>
           </svg>
-          <figcaption>Схема расположения комплексов Unit Space</figcaption>
+          <figcaption class="dim" data-i18n="loc.map_cap">Схема расположения комплексов Unit Space</figcaption>
         </figure>
-        <div class="kv-grid kv-grid--1">
-          <div><b>Адрес</b><span>Jl Pantai Nyanyi 88, Beraban, Tabanan, Бали</span></div>
-          <div><b>Пляж</b><span>Pantai Nyanyi&nbsp;— 3 минуты пешком от&nbsp;U1 и&nbsp;U2</span></div>
-          <div><b>Инфраструктура Nuanu</b><span>35+ объектов, открыты круглый год&nbsp;— список ниже</span></div>
-        </div>
       </div>
-
-      <div class="tag-row rv" style="margin-bottom:0">
-        <span>Рестораны и&nbsp;кафе</span><span>Chill-зона с&nbsp;сауной и&nbsp;купелью</span><span>2 бассейна</span>
-        <span>Фитнес-зал</span><span>Библиотека</span><span>Кинотеатр</span><span>Музыкальная студия</span>
-        <span>Коворкинг</span><span>Зал для&nbsp;мероприятий</span><span>Международная школа</span><span>Детский сад</span>
-        <span>СПА-центр</span><span>Парк искусств</span><span>Luna Beach Club</span><span>Ash</span><span>Lumeira</span><span>Oshom</span>
+      <div class="row rv" style="margin-top:clamp(24px,3vw,40px)">
+        <div class="t-label" data-i18n="loc.tags_l">Что уже работает в&nbsp;Nuanu</div>
+        <div class="tag-row dim">
+          <span data-i18n="tag.1">Рестораны и&nbsp;кафе</span><span data-i18n="tag.2">Chill-зона с&nbsp;сауной и&nbsp;купелью</span><span data-i18n="tag.3">2 бассейна</span>
+          <span data-i18n="tag.4">Фитнес-зал</span><span data-i18n="tag.5">Библиотека</span><span data-i18n="tag.6">Кинотеатр</span><span data-i18n="tag.7">Музыкальная студия</span>
+          <span data-i18n="tag.8">Коворкинг</span><span data-i18n="tag.9">Зал для мероприятий</span><span data-i18n="tag.10">Международная школа</span><span data-i18n="tag.11">Детский сад</span>
+          <span data-i18n="tag.12">СПА-центр</span><span data-i18n="tag.13">Парк искусств</span><span>Luna Beach Club</span><span>Ash</span><span>Lumeira</span><span>Oshom</span>
+        </div>
       </div>
     </div>
   </section>
@@ -845,57 +374,47 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
     <picture><source srcset="../prototype-2026-09/assets/u2v-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2v-03.jpg" alt="Коридор виллы с панорамным видом на рисовые поля"></picture>
   </figure>
 
-  <!-- 09 · О КОМПАНИИ (Titan team cards) -->
+  <!-- 09 · О КОМПАНИИ -->
   <section class="sect" id="company">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">О&nbsp;компании</h2>
-        <p class="t-lead">UNIT&nbsp;— девелопер с&nbsp;собственным производством и&nbsp;философией будущего.
-          Мы&nbsp;создаём экосистему для&nbsp;жизни и&nbsp;инвестиций: от&nbsp;архитектуры до&nbsp;мебели.</p>
+        <h2 class="t-h2" data-i18n="co.title">О&nbsp;компании</h2>
+        <p class="t-lead dim" data-i18n="co.lead">UNIT — девелопер на&nbsp;Бали с&nbsp;собственным производством: строим, делаем стальные каркасы и&nbsp;мебель, управляем готовыми виллами.</p>
       </div>
-
       <div class="kv-grid rv">
-        <div><b>UNIT BUILD</b><span>строительство, PBG/SLF</span></div>
-        <div><b>UNIT FRAMES</b><span>завод стальных каркасов</span></div>
-        <div><b>UNIT FURNITURE</b><span>мебель и&nbsp;комплектация</span></div>
-        <div><b>SPACE MANAGEMENT</b><span>управляющая компания, 10+ лет</span></div>
+        <div><b>UNIT BUILD</b><span data-i18n="co.k1">строительство, лицензия PBG/SLF</span></div>
+        <div><b>UNIT FRAMES</b><span data-i18n="co.k2">завод стальных каркасов</span></div>
+        <div><b>UNIT FURNITURE</b><span data-i18n="co.k3">мебель и&nbsp;комплектация</span></div>
+        <div><b>SPACE MANAGEMENT</b><span data-i18n="co.k4">управляющая компания, 10+ лет</span></div>
       </div>
 
-      <h3 class="t-h3 sub-head rv">Основатели</h3>
+      <h3 class="t-h3 sub-head rv" data-i18n="co.team">Основатели</h3>
       <div class="team-grid rv">
         <article class="team-card">
-          <div>
-            <div class="team-card__name">Степан Федосеев</div>
-            <div class="team-card__role">Глава UNIT, основатель Unit Space и&nbsp;Unit Build</div>
-          </div>
+          <div><div class="team-card__name" data-i18n="co.p1n">Степан Федосеев</div><div class="team-card__role" data-i18n="co.p1r">Глава UNIT, основатель Unit Space и&nbsp;Unit Build</div></div>
           <div class="team-card__photo" aria-hidden="true">СФ</div>
-          <p class="team-card__bio">Эксперт по&nbsp;системному управлению, 13+ лет опыта. Основатель девелоперской
-            компании и&nbsp;фабрики стальных каркасов.</p>
+          <p class="team-card__bio" data-i18n="co.p1b">13+ лет в&nbsp;системном управлении. Основал девелоперскую компанию и&nbsp;завод стальных каркасов.</p>
         </article>
         <article class="team-card">
-          <div>
-            <div class="team-card__name">Анна Орлова</div>
-            <div class="team-card__role">Совладелец UNIT, архитектор и&nbsp;дизайнер</div>
-          </div>
+          <div><div class="team-card__name" data-i18n="co.p2n">Анна Орлова</div><div class="team-card__role" data-i18n="co.p2r">Совладелец UNIT, архитектор и&nbsp;дизайнер</div></div>
           <div class="team-card__photo" aria-hidden="true">АО</div>
-          <p class="team-card__bio">Более 10 лет международного опыта, портфель проектов в&nbsp;Индонезии,
-            России и&nbsp;Франции.</p>
+          <p class="team-card__bio" data-i18n="co.p2b">Больше 10 лет международной практики: проекты в&nbsp;Индонезии, России и&nbsp;Франции.</p>
         </article>
       </div>
 
-      <h3 class="t-h3 sub-head rv">Принципы</h3>
+      <h3 class="t-h3 sub-head rv" data-i18n="co.pr">Принципы</h3>
       <div class="kv-grid kv-grid--2 rv">
-        <div><b>Эффективность</b><p>Каждый юнит и&nbsp;каждое решение работают на&nbsp;результат&nbsp;— без&nbsp;декоративного шума.</p></div>
-        <div><b>Минимализм</b><p>Ясность в&nbsp;архитектуре и&nbsp;в&nbsp;жизни: меньше лишнего, больше ценности.</p></div>
-        <div><b>Экология</b><p>Малоэтажная застройка, сохранённый рельеф, ответственность на&nbsp;годы вперёд.</p></div>
-        <div><b>Сообщество</b><p>Соседи и&nbsp;партнёры вокруг общих ценностей&nbsp;— синергия сильнее суммы.</p></div>
+        <div><b data-i18n="co.pr1">Эффективность</b><p data-i18n="co.pr1p">Ничего лишнего в&nbsp;планировке и&nbsp;бюджете: площадь работает, цена держится.</p></div>
+        <div><b data-i18n="co.pr2">Минимализм</b><p data-i18n="co.pr2p">Чистые линии, натуральные материалы, порядок в&nbsp;деталях.</p></div>
+        <div><b data-i18n="co.pr3">Экология</b><p data-i18n="co.pr3p">Малоэтажная застройка, сохранённый рельеф и&nbsp;зелень участка.</p></div>
+        <div><b data-i18n="co.pr4">Сообщество</b><p data-i18n="co.pr4p">Соседи с&nbsp;общими ценностями: коворкинг, кафе и&nbsp;события внутри квартала.</p></div>
       </div>
 
-      <h3 class="t-h3 sub-head rv">Кому доверяют</h3>
+      <h3 class="t-h3 sub-head rv" data-i18n="co.trust">Кому доверяют</h3>
       <div class="kv-grid kv-grid--3 rv">
-        <div><b>Сергей Солонин</b><p>Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь платёжного сервиса Qiwi, создатель города будущего Nuanu City на&nbsp;Бали.</p></div>
-        <div><b>Михаил Дашкиев</b><p>Сооснователь «Бизнес Молодости», серийный предприниматель. Строит премиальный комплекс 5&nbsp;Elements в&nbsp;Убуде вместе с&nbsp;UNIT.BUILD.</p></div>
-        <div><b>Владельцы из&nbsp;9 стран</b><p>Виллы уже купили инвесторы из&nbsp;Сингапура, США, Канады, Франции и&nbsp;других стран.</p></div>
+        <div><b>Сергей Солонин</b><p data-i18n="co.t1">Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь Qiwi, создатель Nuanu City.</p></div>
+        <div><b>Михаил Дашкиев</b><p data-i18n="co.t2">Сооснователь «Бизнес Молодости». Строит комплекс 5&nbsp;Elements в&nbsp;Убуде вместе с&nbsp;UNIT.BUILD.</p></div>
+        <div><b data-i18n="co.t3n">Владельцы из&nbsp;9 стран</b><p data-i18n="co.t3">Сингапур, США, Канада, Франция и&nbsp;другие — виллы уже куплены.</p></div>
       </div>
     </div>
   </section>
@@ -904,18 +423,17 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
   <section class="sect sect--alt" id="buy">
     <div class="container">
       <div class="sect-head rv">
-        <h2 class="t-h2">Как&nbsp;купить</h2>
-        <p class="t-lead">Напрямую у&nbsp;девелопера, без&nbsp;брокеров и&nbsp;посредников. Всё дистанционно.</p>
+        <h2 class="t-h2" data-i18n="buy.title">Как купить</h2>
+        <p class="t-lead dim" data-i18n="buy.lead">Напрямую у&nbsp;девелопера, без брокеров. Всё дистанционно.</p>
       </div>
       <div class="step-list rv">
-        <div class="step-row"><div class="num">01</div><div><b>Выбор виллы</b><p>Поможем подобрать под&nbsp;бюджет и&nbsp;цель.</p></div></div>
-        <div class="step-row"><div class="num">02</div><div><b>Депозит $1 500</b><p>Фиксирует виллу и&nbsp;цену на&nbsp;14 дней.</p></div></div>
-        <div class="step-row"><div class="num">03</div><div><b>Бронирование</b><p>Договор бронирования онлайн в&nbsp;DocuSign.</p></div></div>
-        <div class="step-row"><div class="num">04</div><div><b>Основной контракт</b><p>Напрямую с&nbsp;Unit Space, тоже в&nbsp;DocuSign.</p></div></div>
-        <div class="step-row"><div class="num">05</div><div><b>Передача и&nbsp;статус VIP</b><p>Подключаем управляющую компанию.</p></div></div>
+        <div class="step-row"><div class="num">01</div><div><b data-i18n="buy.1">Выбор виллы</b><p data-i18n="buy.1p">Подберём под бюджет и&nbsp;цель.</p></div></div>
+        <div class="step-row"><div class="num">02</div><div><b data-i18n="buy.2">Депозит $1&thinsp;500</b><p data-i18n="buy.2p">Фиксирует виллу и&nbsp;цену на&nbsp;14 дней.</p></div></div>
+        <div class="step-row"><div class="num">03</div><div><b data-i18n="buy.3">Бронирование</b><p data-i18n="buy.3p">Договор бронирования онлайн в&nbsp;DocuSign.</p></div></div>
+        <div class="step-row"><div class="num">04</div><div><b data-i18n="buy.4">Основной контракт</b><p data-i18n="buy.4p">Напрямую с&nbsp;Unit Space, тоже в&nbsp;DocuSign.</p></div></div>
+        <div class="step-row"><div class="num">05</div><div><b data-i18n="buy.5">Передача и&nbsp;статус VIP</b><p data-i18n="buy.5p">Подключаем управляющую компанию.</p></div></div>
       </div>
-      <p class="t-small muted rv" style="margin-top:var(--s3);max-width:64ch">Оплата&nbsp;— в&nbsp;разных валютах с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Форма владения (leasehold / freehold),
-        срок и&nbsp;налоги&nbsp;— в&nbsp;юридическом пакете, разбираем на&nbsp;сделке.</p>
+      <p class="t-small dim rv" style="margin-top:var(--s3);max-width:64ch" data-i18n="buy.note">Оплата в&nbsp;разных валютах с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Форма владения (leasehold / freehold), срок и&nbsp;налоги — в&nbsp;юридическом пакете, разбираем на&nbsp;сделке.</p>
     </div>
   </section>
 
@@ -924,19 +442,19 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
     <div class="container">
       <div class="faq-grid">
         <div class="faq-head rv">
-          <h2 class="t-h2">Частые вопросы</h2>
-          <p class="t-lead" style="margin-top:var(--s2)">Коротко о&nbsp;том, что спрашивают перед сделкой.</p>
-          <a class="btn btn-primary" href="#lead">Задать свой вопрос</a>
+          <h2 class="t-h2" data-i18n="faq.title">Частые вопросы</h2>
+          <p class="t-lead dim" data-i18n="faq.lead">Коротко о&nbsp;том, что спрашивают перед сделкой.</p>
+          <a class="btn btn-primary" href="#lead" data-i18n="faq.cta">Задать свой вопрос</a>
         </div>
         <div class="faq-list rv">
-          <details class="faq-item"><summary>Это первичка?</summary><p>Да. Свободные виллы продаются напрямую от&nbsp;девелопера во&nbsp;всех трёх комплексах, включая сданные U1 и&nbsp;U2.</p></details>
-          <details class="faq-item"><summary>«От&nbsp;10%»&nbsp;— это до&nbsp;налогов?</summary><p>Это проверенный ориентир доходности до&nbsp;налогов и&nbsp;до&nbsp;вычета простоя на&nbsp;обслуживание, на&nbsp;основе работающих U1 и&nbsp;U2. Точную модель под&nbsp;вашу виллу пришлём по&nbsp;запросу.</p></details>
-          <details class="faq-item"><summary>Можно перепродать до&nbsp;сдачи?</summary><p>Да, для&nbsp;строящегося комплекса U3. Условия&nbsp;— в&nbsp;договоре.</p></details>
-          <details class="faq-item"><summary>Что делает управляющая компания?</summary><p>Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия&nbsp;— процент от&nbsp;дохода.</p></details>
-          <details class="faq-item"><summary>Когда сдача U3?</summary><p>2026&nbsp;год. Прогресс стройки публикуем по&nbsp;датам.</p></details>
-          <details class="faq-item"><summary>В&nbsp;какой валюте оплата?</summary><p>Приём в&nbsp;разных валютах с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Точные условия согласуем на&nbsp;сделке.</p></details>
-          <details class="faq-item"><summary>Leasehold или&nbsp;freehold?</summary><p>Зависит от&nbsp;виллы и&nbsp;структуры сделки. Точные условия&nbsp;— в&nbsp;юридическом пакете, разбираем перед подписанием.</p></details>
-          <details class="faq-item"><summary>Как&nbsp;проходит сделка?</summary><p>Напрямую с&nbsp;Unit Space, документы подписываются онлайн в&nbsp;DocuSign. Полный процесс&nbsp;— в&nbsp;разделе «Как&nbsp;купить».</p></details>
+          <details class="faq-item"><summary data-i18n="faq.1q">Это первичка?</summary><p data-i18n="faq.1a">Да. Свободные виллы продаются напрямую от&nbsp;девелопера во&nbsp;всех трёх комплексах, включая сданные U1 и&nbsp;U2.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.2q">«От&nbsp;10%» — это до&nbsp;налогов?</summary><p data-i18n="faq.2a">Да: ориентир до&nbsp;налогов и&nbsp;до&nbsp;вычета простоя на&nbsp;обслуживание, по&nbsp;данным работающих U1 и&nbsp;U2. Точную модель под вашу виллу пришлём по&nbsp;запросу.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.3q">Можно перепродать до&nbsp;сдачи?</summary><p data-i18n="faq.3a">Да, для строящегося U3. Условия — в&nbsp;договоре.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.4q">Что делает управляющая компания?</summary><p data-i18n="faq.4a">Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от&nbsp;дохода.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.5q">Когда сдача U3?</summary><p data-i18n="faq.5a">2026 год. Прогресс стройки публикуем по&nbsp;датам.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.6q">В&nbsp;какой валюте оплата?</summary><p data-i18n="faq.6a">Принимаем разные валюты с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Точные условия согласуем на&nbsp;сделке.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.7q">Leasehold или freehold?</summary><p data-i18n="faq.7a">Зависит от&nbsp;виллы и&nbsp;структуры сделки. Разбираем в&nbsp;юридическом пакете перед подписанием.</p></details>
+          <details class="faq-item"><summary data-i18n="faq.8q">Как проходит сделка?</summary><p data-i18n="faq.8a">Напрямую с&nbsp;Unit Space, документы подписываются онлайн в&nbsp;DocuSign. Полный процесс — в&nbsp;разделе «Как купить».</p></details>
         </div>
       </div>
     </div>
@@ -947,30 +465,30 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
     <div class="container">
       <div class="final-cta__split">
         <div class="rv">
-          <h2 class="t-h2">Забронируйте виллу на&nbsp;Бали</h2>
-          <p class="t-lead" style="margin-top:var(--s2)">Оставьте контакты&nbsp;— вернёмся с&nbsp;подборкой вилл под&nbsp;ваш бюджет и&nbsp;расчётом доходности.</p>
+          <h2 class="t-h2" data-i18n="lead.title">Забронируйте виллу на&nbsp;Бали</h2>
+          <p class="t-lead dim" data-i18n="lead.lead">Оставьте контакты — вернёмся с&nbsp;подборкой вилл под ваш бюджет и&nbsp;расчётом доходности.</p>
           <div class="final-cta__contacts">
             <a href="#" class="btn btn-outline btn-sm">Telegram</a>
             <a href="#" class="btn btn-outline btn-sm">WhatsApp</a>
-            <a href="#" class="btn btn-outline btn-sm">Скачать презентацию (PDF)</a>
+            <a href="#" class="btn btn-outline btn-sm" data-i18n="lead.pdf">Презентация (PDF)</a>
           </div>
         </div>
         <div class="lead-panel rv">
           <form class="lead-form" onsubmit="return false">
-            <h3 class="t-h3">Оставить заявку</h3>
-            <div class="field"><label for="f-name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
-            <div class="field"><label for="f-contact">Телефон или&nbsp;email</label><input id="f-contact" type="text" autocomplete="tel email"></div>
+            <h3 class="t-h3" data-i18n="form.title">Оставить заявку</h3>
+            <div class="field"><label for="f-name" class="dim" data-i18n="form.name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
+            <div class="field"><label for="f-contact" class="dim" data-i18n="form.contact">Телефон или email</label><input id="f-contact" type="text"></div>
             <div class="lead-form__pair">
-              <div class="field"><label for="f-budget">Бюджет, $</label><input id="f-budget" type="text" placeholder="150 000 – 250 000"></div>
-              <div class="field"><label for="f-complex">Комплекс</label>
-                <select id="f-complex"><option>Любой</option><option>U1&nbsp;— Space Village</option><option>U2&nbsp;— Nuanu Village</option><option>U3&nbsp;— Nyanyi Village</option></select>
+              <div class="field"><label for="f-budget" class="dim" data-i18n="form.budget">Бюджет, $</label><input id="f-budget" type="text" placeholder="150 000 – 250 000"></div>
+              <div class="field"><label for="f-complex" class="dim" data-i18n="form.complex">Комплекс</label>
+                <select id="f-complex"><option data-i18n="form.any">Любой</option><option>U1 — Space Village</option><option>U2 — Nuanu Village</option><option>U3 — Nyanyi Village</option></select>
               </div>
             </div>
-            <div class="field"><label for="f-goal">Цель</label>
-              <select id="f-goal"><option>Инвестиция</option><option>Аренда</option><option>Жизнь</option></select>
+            <div class="field"><label for="f-goal" class="dim" data-i18n="form.goal">Цель</label>
+              <select id="f-goal"><option data-i18n="form.g1">Инвестиция</option><option data-i18n="form.g2">Аренда</option><option data-i18n="form.g3">Жизнь</option></select>
             </div>
-            <button class="btn btn-primary" type="submit">Отправить заявку</button>
-            <p class="lead-form__note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8). Данные не&nbsp;передаём третьим лицам.</p>
+            <button class="btn btn-primary" type="submit" data-i18n="form.submit">Отправить заявку</button>
+            <p class="lead-form__note" data-i18n="form.note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8). Данные не&nbsp;передаём третьим лицам.</p>
           </form>
         </div>
       </div>
@@ -983,191 +501,22 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
   <div class="container">
     <div class="brand">
       <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
-      <p>Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали.</p>
+      <p data-i18n="foot.brand">Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали.</p>
     </div>
-    <div><h5>Комплексы</h5><ul><li><a href="#cx-u1">U1&nbsp;— Space Village</a></li><li><a href="#cx-u2">U2&nbsp;— Nuanu Village</a></li><li><a href="#cx-u3">U3&nbsp;— Nyanyi Village</a></li></ul></div>
-    <div><h5>Разделы</h5><ul><li><a href="#catalog">Виллы</a></li><li><a href="#yield">Доходность</a></li><li><a href="#location">Локация</a></li><li><a href="#company">О&nbsp;компании</a></li></ul></div>
-    <div><h5>Контакты</h5><ul><li><a href="#lead">Telegram</a></li><li><a href="#lead">WhatsApp</a></li><li><a href="#lead">Оставить заявку</a></li></ul></div>
-    <p class="disclaimer">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой.
-      Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс&nbsp;— предварительный,
-      актуальная шахматка предоставляется по&nbsp;запросу.</p>
+    <div><h5 data-i18n="nav.complexes">Комплексы</h5><ul><li><a href="#cx-u1">U1 — Space Village</a></li><li><a href="#cx-u2">U2 — Nuanu Village</a></li><li><a href="#cx-u3">U3 — Nyanyi Village</a></li></ul></div>
+    <div><h5 data-i18n="foot.sections">Разделы</h5><ul><li><a href="#catalog" data-i18n="nav.catalog">Виллы</a></li><li><a href="#yield" data-i18n="nav.yield">Доходность</a></li><li><a href="#location" data-i18n="nav.location">Локация</a></li><li><a href="#company" data-i18n="nav.company">О&nbsp;компании</a></li></ul></div>
+    <div><h5 data-i18n="foot.contacts">Контакты</h5><ul><li><a href="#lead">Telegram</a></li><li><a href="#lead">WhatsApp</a></li><li><a href="#lead" data-i18n="nav.cta">Оставить заявку</a></li></ul></div>
+    <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальная шахматка — по&nbsp;запросу.</p>
   </div>
 </footer>
 
 <div class="consent-bar" id="consentBar" role="dialog" aria-label="Уведомление об использовании cookie">
-  <p>Мы&nbsp;используем cookie для&nbsp;аналитики и&nbsp;удобной работы сайта. Подробнее&nbsp;— в&nbsp;<a href="#">политике конфиденциальности</a>.</p>
-  <button class="btn btn-primary btn-sm" id="consentOk" type="button">Хорошо</button>
+  <p class="dim" data-i18n="cookie.text">Мы используем cookie для аналитики и&nbsp;удобной работы сайта. Подробнее — в&nbsp;<a href="#">политике конфиденциальности</a>.</p>
+  <button class="btn btn-primary btn-sm" id="consentOk" type="button" data-i18n="cookie.ok">Хорошо</button>
 </div>
 
-<script>
-(function(){
-  var ASSETS = '../prototype-2026-09/assets/';
-  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.documentElement.className += ' js';
-
-  setTimeout(function(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ el.classList.add('in'); }); }, 1200);
-
-  /* мобильное меню: оверлей + inert/aria-hidden + блокировка скролла */
-  (function(){
-    var burger = document.getElementById('burger'), menu = document.getElementById('mobileMenu'),
-        closeBtn = document.getElementById('mnavClose'), main = document.querySelector('main'),
-        header = document.getElementById('siteHeader'), footer = document.querySelector('footer');
-    if (!burger || !menu) return;
-    function setOpen(open){
-      menu.hidden = !open;
-      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      document.body.classList.toggle('is-locked', open);
-      [main, header, footer].forEach(function(el){ if (!el) return; if (open) el.setAttribute('inert',''); else el.removeAttribute('inert'); });
-      if (open) closeBtn.focus(); else burger.focus();
-    }
-    burger.addEventListener('click', function(){ setOpen(true); });
-    closeBtn.addEventListener('click', function(){ setOpen(false); });
-    menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
-  })();
-
-  /* cookie-баннер → только после него показываем карточку карты в хиро */
-  (function(){
-    var KEY = 'usc_cookie_ok';
-    var bar = document.getElementById('consentBar');
-    var mapCard = document.getElementById('heroMap');
-    var accepted = false;
-    try { accepted = !!localStorage.getItem(KEY); } catch(e){}
-
-    function showMapCard(delay){ setTimeout(function(){ if (mapCard) mapCard.classList.add('in'); }, delay); }
-
-    if (accepted || !bar){
-      showMapCard(400);
-    } else {
-      setTimeout(function(){
-        bar.classList.add('in');
-        showMapCard(600);
-      }, 700);
-      var okBtn = document.getElementById('consentOk');
-      if (okBtn) okBtn.addEventListener('click', function(){
-        try { localStorage.setItem(KEY, '1'); } catch(e){}
-        bar.classList.remove('in');
-      });
-    }
-  })();
-
-  var header = document.getElementById('siteHeader');
-  addEventListener('scroll', function(){ header.classList.toggle('is-stuck', scrollY > 12); }, {passive:true});
-
-  document.querySelectorAll('.langsw').forEach(function(g){
-    g.addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return;
-      g.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true':'false'); }); });
-  });
-
-  if ('IntersectionObserver' in window && !rm){
-    var io = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {threshold:0, rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
-    requestAnimationFrame(function(){
-      document.querySelectorAll('.rv').forEach(function(el){
-        if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
-      });
-    });
-  } else {
-    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
-  }
-
-  function countUp(el){
-    var target = parseFloat(el.getAttribute('data-count')); if(isNaN(target)) return;
-    if(rm){ el.textContent = target; return; }
-    var dur = 1100, t0 = performance.now(), dec = (String(target).split('.')[1]||'').length;
-    function tick(now){
-      var p = Math.min((now - t0)/dur, 1), e = 1 - Math.pow(1-p, 3);
-      el.textContent = (target*e).toFixed(dec);
-      if(p < 1) requestAnimationFrame(tick); else el.textContent = target;
-    }
-    requestAnimationFrame(tick);
-  }
-  if ('IntersectionObserver' in window){
-    var nio = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); nio.unobserve(en.target); } });
-    }, {threshold:.6});
-    document.querySelectorAll('[data-count]').forEach(function(el){ nio.observe(el); });
-  }
-
-  var cxNav = document.querySelector('.complex-nav');
-  if (cxNav){
-    var links = [].slice.call(cxNav.querySelectorAll('a'));
-    var ink = document.getElementById('cxInk');
-    function moveInk(a){ ink.style.left = a.offsetLeft + 'px'; ink.style.width = (a.offsetWidth) + 'px'; }
-    function setActive(a){ links.forEach(function(x){ x.classList.toggle('is-active', x===a); }); moveInk(a); }
-    moveInk(links[0]);
-    links.forEach(function(a){ a.addEventListener('click', function(){ setActive(a); }); });
-    addEventListener('resize', function(){ moveInk(document.querySelector('.complex-nav a.is-active') || links[0]); });
-    var chapters = links.map(function(a){ return document.getElementById(a.dataset.cx); });
-    if ('IntersectionObserver' in window){
-      var cio = new IntersectionObserver(function(ents){
-        ents.forEach(function(en){
-          if(en.isIntersecting){
-            var i = chapters.indexOf(en.target);
-            if(i>=0) setActive(links[i]);
-          }
-        });
-      }, {rootMargin:'-40% 0px -55% 0px'});
-      chapters.forEach(function(c){ if(c) cio.observe(c); });
-    }
-  }
-
-  /* каталог — карточки-товары (Framer): фото 4:3, имя+подпись, пилюля цены */
-  var UNITS = [
-    {q:'u1',fmt:'studio',name:'Студия',area:32,floor:'этаж 1–3',photo:'u1-01'},
-    {q:'u1',fmt:'2bd',name:'2+1 спальни',area:89,floor:'этаж 2',photo:'u1-06'},
-    {q:'u2',fmt:'studio',name:'Студия',area:32,floor:'этаж 1–2',photo:'u2s-01'},
-    {q:'u2',fmt:'1bd',name:'1+1 спальня',area:60,floor:'этаж 1–4',photo:'u2-1bd-01'},
-    {q:'u2',fmt:'2bd',name:'2+1 спальни',area:89,floor:'этаж 2–3',photo:'u2-2bd-01'},
-    {q:'u2',fmt:'villa',name:'Вилла 3+1 + бассейн',area:200,floor:'2 этажа',photo:'u2v-01'},
-    {q:'u3',fmt:'1bd',name:'1+1 спальня',area:60,floor:'этаж 1–3',photo:'u3-01'},
-    {q:'u3',fmt:'1bd',name:'1+1 + бассейн',area:100,floor:'этаж 1',photo:'u3-02'},
-    {q:'u3',fmt:'2bd',name:'2+1 + бассейн',area:109,floor:'этаж 1',photo:'u3-03'},
-    {q:'u3',fmt:'villa',name:'Вилла 3+1 + бассейн',area:200,floor:'2 этажа',photo:'u3-04'}
-  ];
-  var QN = {u1:'U1 — Space Village',u2:'U2 — Nuanu Village',u3:'U3 — Nyanyi Village'}, st = {q:'all',fmt:'all'};
-  var PRICE = {studio:'от $100 000', '1bd':'от $118 000', '2bd':'от $190 000', villa:'от $278 000'};
-  var uWrap = document.getElementById('units'), uCnt = document.getElementById('unitCount');
-  function renderUnits(){
-    var list = UNITS.filter(function(u){ return (st.q==='all'||u.q===st.q) && (st.fmt==='all'||u.fmt===st.fmt); });
-    uCnt.textContent = list.length;
-    uWrap.innerHTML = list.map(function(u){
-      return '<article class="product-card">'+
-        '<div class="product-card__media"><picture>'+
-          '<source srcset="'+ASSETS+u.photo+'.webp" type="image/webp">'+
-          '<img src="'+ASSETS+u.photo+'.jpg" alt="'+QN[u.q]+' — '+u.name+'" width="480" height="360" loading="lazy"></picture></div>'+
-        '<div class="product-card__row">'+
-          '<div><div class="product-card__name">'+u.name+' · <b>'+u.area+' м²</b></div>'+
-          '<div class="product-card__meta">'+QN[u.q]+' · '+u.floor+'</div></div>'+
-          '<span class="product-card__price">'+(PRICE[u.fmt]||'по запросу')+'</span>'+
-        '</div></article>';
-    }).join('');
-  }
-  document.getElementById('filters').addEventListener('click', function(e){
-    var b = e.target.closest('.chip'); if(!b) return;
-    var f = b.dataset.f;
-    document.querySelectorAll('#filters .chip[data-f="'+f+'"]').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
-    st[f] = b.dataset.v; renderUnits();
-  });
-  renderUnits();
-
-  function money(n){ return '$' + Math.round(n).toLocaleString('ru-RU'); }
-  var ids = ['c-price','c-rate','c-occ','c-mgmt'];
-  function calc(){
-    var price = +val('c-price'), rate = +val('c-rate'),
-        occ = (+val('c-occ'))/100, mgmt = (+val('c-mgmt'))/100;
-    var gross = rate*365*occ, net = gross*(1-mgmt);
-    document.getElementById('o-gross').textContent = money(gross);
-    document.getElementById('o-net').textContent = money(net);
-    document.getElementById('o-roi').textContent = price>0 ? (net/price*100).toFixed(1)+'%' : '—';
-  }
-  function val(id){ return document.getElementById(id).value || 0; }
-  ids.forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
-  calc();
-})();
-</script>
+<script src="assets/units.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/site.js"></script>
 </body>
 </html>
