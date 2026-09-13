@@ -37,7 +37,7 @@ for (const u of USC_UNITS) {
     .replaceAll('{{FLOOR}}', u.floor.ru).replaceAll('{{PRICE}}', USC_PRICE.ru[u.fmt]).replaceAll('{{WHERE}}', cx.where.ru).replaceAll('{{STATUS}}', cx.status.ru)
     .replaceAll('{{GALLERY}}', gallery).replaceAll('{{GALLERY_MOD}}', u.photos.length < 3 ? ' unit-gallery--2' : '')
     .replaceAll('{{RENDER_NOTE}}', u.render ? '<p class="t-small dim" style="margin-top:var(--s2)" data-i18n="unit.render_note">U3 строится — это рендеры, не&nbsp;фото.</p>' : '')
-    .replaceAll('{{PLAN}}', PLANS[u.fmt]);
+    .replaceAll('{{PLAN}}', '<div class="ph ph--plan" aria-hidden="true"></div>');
   fs.writeFileSync(path.join(outDir, `${u.slug}.html`), html);
   console.log('ok', u.slug);
 }

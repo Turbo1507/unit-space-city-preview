@@ -99,9 +99,6 @@
       if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }
       if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
     });
-    var x0 = null;
-    cxTrack.addEventListener('pointerdown', function (e) { x0 = e.clientX; }, { passive: true });
-    cxTrack.addEventListener('pointerup', function (e) { if (x0 == null) return; var dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1)); });
     addEventListener('resize', function () { moveInk(tabs[cur]); });
     var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
     go(start >= 0 ? start : 0);
