@@ -22,8 +22,8 @@ window.USC_COMPLEX = {
 window.USC_PRICE = {ru:{studio:'от $100 000','1bd':'от $118 000','2bd':'от $190 000',villa:'от $278 000'},
                     en:{studio:'from $100,000','1bd':'from $118,000','2bd':'from $190,000',villa:'from $278,000'}};
 window.USC_FMT = {
-  studio:{desc:{ru:'Единое пространство: спальня, кухня и гостиная в одном объёме. Полная меблировка.',en:'A single open space: bedroom, kitchen and living room in one volume. Fully furnished.'}},
-  '1bd':{desc:{ru:'Отдельная спальня, кухня и гостиная. Вариант с приватным бассейном — в U3.',en:'A separate bedroom, kitchen and living room. A private-pool option is available in U3.'}},
-  '2bd':{desc:{ru:'Две спальни, кухня и гостиная отдельно. Формат для семьи или под аренду на двоих.',en:'Two bedrooms, separate kitchen and living room. A format for a family or a two-guest rental.'}},
-  villa:{desc:{ru:'Два этажа, три спальни, собственный сад и приватный бассейн.',en:'Two floors, three bedrooms, own garden and private pool.'}}
+  studio:{desc:{ru:'Единое пространство: спальня, кухня и гостиная в одном объёме. Полная меблировка',en:'A single open space: bedroom, kitchen and living room in one volume. Fully furnished'}},
+  '1bd':{desc:{ru:'Отдельная спальня, кухня и гостиная. Вариант с приватным бассейном — в U3',en:'A separate bedroom, kitchen and living room. A private-pool option is available in U3'}},
+  '2bd':{desc:{ru:'Две спальни, кухня и гостиная отдельно. Формат для семьи или под аренду на двоих',en:'Two bedrooms, separate kitchen and living room. A format for a family or a two-guest rental'}},
+  villa:{desc:{ru:'Два этажа, три спальни, собственный сад и приватный бассейн',en:'Two floors, three bedrooms, own garden and private pool'}}
 };
