@@ -80,20 +80,33 @@
     document.querySelectorAll('[data-count]').forEach(function (el) { nio.observe(el); });
   }
 
-  /* ---------- complex nav ---------- */
-  var cxNav = document.querySelector('.complex-nav');
-  if (cxNav) {
-    var links = [].slice.call(cxNav.querySelectorAll('a')), ink = document.getElementById('cxInk');
-    function moveInk(a) { ink.style.left = a.offsetLeft + 'px'; ink.style.width = a.offsetWidth + 'px'; }
-    function setActive(a) { links.forEach(function (x) { x.classList.toggle('is-active', x === a); }); moveInk(a); }
-    moveInk(links[0]);
-    links.forEach(function (a) { a.addEventListener('click', function () { setActive(a); }); });
-    addEventListener('resize', function () { moveInk(cxNav.querySelector('a.is-active') || links[0]); });
-    var chapters = links.map(function (a) { return document.getElementById(a.dataset.cx); });
-    if ('IntersectionObserver' in window) {
-      var cio = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { var i = chapters.indexOf(en.target); if (i >= 0) setActive(links[i]); } }); }, { rootMargin: '-40% 0px -55% 0px' });
-      chapters.forEach(function (c) { if (c) cio.observe(c); });
+  /* ---------- комплексы: слайдер, переключение кнопками U1/U2/U3 (+ свайп, стрелки, #cx-uN) ---------- */
+  var cxNav = document.querySelector('.complex-nav'), cxTrack = document.querySelector('.complex-track');
+  if (cxNav && cxTrack) {
+    var tabs = [].slice.call(cxNav.querySelectorAll('button[data-cx]')), ink = document.getElementById('cxInk');
+    var slides = tabs.map(function (t) { return document.getElementById(t.dataset.cx); });
+    var cur = 0;
+    function moveInk(t) { if (ink) { ink.style.left = t.offsetLeft + 'px'; ink.style.width = t.offsetWidth + 'px'; } }
+    function go(i, focusTab) {
+      i = Math.max(0, Math.min(slides.length - 1, i)); cur = i;
+      slides.forEach(function (s, k) { s.setAttribute('data-state', k === i ? 'active' : (k < i ? 'prev' : 'next')); });
+      tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      moveInk(tabs[i]);
+      if (focusTab) tabs[i].focus();
     }
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
+    cxNav.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
+    });
+    var x0 = null;
+    cxTrack.addEventListener('pointerdown', function (e) { x0 = e.clientX; }, { passive: true });
+    cxTrack.addEventListener('pointerup', function (e) { if (x0 == null) return; var dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1)); });
+    addEventListener('resize', function () { moveInk(tabs[cur]); });
+    var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
+    go(start >= 0 ? start : 0);
+    if (start >= 0) requestAnimationFrame(function () { cxNav.scrollIntoView({ block: 'start' }); });
+    addEventListener('hashchange', function () { var h = location.hash.replace('#', ''), i = slides.findIndex(function (s) { return s.id === h; }); if (i >= 0) go(i); });
   }
 
   /* ---------- каталог: карточки-товары, ссылки на units/<slug>.html; перерисовка при смене языка ---------- */

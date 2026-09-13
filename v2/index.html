@@ -67,7 +67,7 @@
     <div class="container hero__content">
       <div>
         <h1 class="hero__title" data-i18n="hero.title">Хай-тек виллы по&nbsp;цене апартаментов</h1>
-        <p class="hero__sub" data-i18n="hero.sub">Три комплекса рядом с&nbsp;Nuanu, Бали. Три минуты до&nbsp;океана, покупка напрямую у&nbsp;девелопера.</p>
+        <p class="hero__sub" data-i18n="hero.sub">Три комплекса рядом с&nbsp;Nuanu, Бали. Три минуты до&nbsp;океана, покупка напрямую у&nbsp;девелопера</p>
       </div>
       <a href="#location" class="hero__card" id="heroCard" aria-label="Смотреть локацию комплексов на карте" data-i18n-aria="hero.card_aria">
         <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -89,9 +89,9 @@
     </div>
     <div class="hero__strip">
       <div class="container">
-        <div>U1 Space Village<span data-i18n="hero.s1">22 юнита · сдан 2024</span></div>
-        <div>U2 Nuanu Village<span data-i18n="hero.s2">55 юнитов · сдан 2025</span></div>
-        <div>U3 Nyanyi Village<span data-i18n="hero.s3">28 юнитов · сдача 2026</span></div>
+        <div>U1 Space Village<span data-i18n="hero.s1">22 юнита, сдан в&nbsp;2024</span></div>
+        <div>U2 Nuanu Village<span data-i18n="hero.s2">55 юнитов, сдан в&nbsp;2025</span></div>
+        <div>U3 Nyanyi Village<span data-i18n="hero.s3">28 юнитов, сдача в&nbsp;2026</span></div>
       </div>
     </div>
   </section>
@@ -101,7 +101,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="about.title">105 вилл и&nbsp;студий в&nbsp;трёх комплексах у&nbsp;Nuanu</h2>
-        <p class="t-lead dim" data-i18n="about.lead">Два комплекса сданы и&nbsp;работают, третий строится. Локация растёт в&nbsp;цене.</p>
+        <p class="t-lead" data-i18n="about.lead">Два комплекса сданы и&nbsp;работают, третий строится. Локация растёт в&nbsp;цене</p>
       </div>
       <div class="stat-grid rv">
         <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st1">комплекса рядом с&nbsp;Nuanu — U1, U2, U3</div><div class="stat-card__value tnum" data-count="3">3</div></div>
@@ -110,9 +110,9 @@
         <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st4">своя управляющая компания на&nbsp;Бали</div><div class="stat-card__value tnum"><em data-count="10">10</em><sup>+ <span data-i18n="about.years">лет</span></sup></div></div>
       </div>
       <div class="rows rv">
-        <div class="row"><div class="t-label" data-i18n="about.r1l">Локация</div><p class="dim" data-i18n="about.r1">Nuanu — город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа, арт-объекты. Всё открыто круглый год и&nbsp;в&nbsp;шаговой доступности от&nbsp;дома.</p></div>
-        <div class="row"><div class="t-label" data-i18n="about.r2l">Доходность</div><p class="dim" data-i18n="about.r2">U1 и&nbsp;U2 сданы и&nbsp;заселены, есть закрытые сделки перепродажи. Управляющая компания UNIT работает на&nbsp;Бали больше 10&nbsp;лет.</p></div>
-        <div class="row"><div class="t-label" data-i18n="about.r3l">Производство</div><p class="dim" data-i18n="about.r3">Свои заводы: бетон, стальной каркас, мебель. Качество и&nbsp;сроки контролируем сами на&nbsp;каждом этапе.</p></div>
+        <div class="row"><div class="t-label" data-i18n="about.r1l">Локация</div><p data-i18n="about.r1">Nuanu — город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа, арт-объекты. Всё открыто круглый год и&nbsp;в&nbsp;шаговой доступности от&nbsp;дома</p></div>
+        <div class="row"><div class="t-label" data-i18n="about.r2l">Доходность</div><p data-i18n="about.r2">U1 и&nbsp;U2 сданы и&nbsp;заселены, есть закрытые сделки перепродажи. Управляющая компания UNIT работает на&nbsp;Бали больше 10&nbsp;лет</p></div>
+        <div class="row"><div class="t-label" data-i18n="about.r3l">Производство</div><p data-i18n="about.r3">Свои заводы: бетон, стальной каркас, мебель. Качество и&nbsp;сроки контролируем сами на&nbsp;каждом этапе</p></div>
       </div>
       <div class="cta-row cta-row--after"><a href="#complexes" class="btn btn-primary" data-i18n="about.cta">Выбрать комплекс</a></div>
     </div>
@@ -124,28 +124,30 @@
   </figure>
 
   <!-- 03 · КОМПЛЕКСЫ -->
-  <nav class="complex-nav" id="complexes" aria-label="Комплексы">
+  <div class="complex-nav" id="complexes" role="tablist" aria-label="Комплексы">
     <div class="container">
-      <a href="#cx-u1" class="is-active" data-cx="cx-u1"><b>U1</b> Space Village</a>
-      <a href="#cx-u2" data-cx="cx-u2"><b>U2</b> Nuanu Village</a>
-      <a href="#cx-u3" data-cx="cx-u3"><b>U3</b> Nyanyi Village</a>
+      <button type="button" role="tab" aria-selected="true" aria-controls="cx-u1" data-cx="cx-u1"><b>U1</b> Space Village</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u2" data-cx="cx-u2"><b>U2</b> Nuanu Village</button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u3" data-cx="cx-u3"><b>U3</b> Nyanyi Village</button>
       <span class="ink" id="cxInk"></span>
     </div>
-  </nav>
+  </div>
 
-  <div class="container">
+  <div class="complex-slider" id="complexSlider">
+   <div class="complex-track">
 
-    <article class="complex" id="cx-u1">
+    <article class="complex" id="cx-u1" role="tabpanel" data-state="active">
+     <div class="container">
       <div class="row">
         <div><div class="complex__badge">U1</div><h2 class="complex__title">Space Village</h2></div>
         <div class="complex__body">
-          <p class="complex__intro" data-i18n="u1.intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под управлением UNIT SPACE MANAGEMENT.</p>
+          <p class="complex__intro" data-i18n="u1.intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под управлением UNIT SPACE MANAGEMENT</p>
           <div class="complex__facts tnum">
             <div><b>22</b><span class="dim" data-i18n="u1.f1">юнита</span></div>
             <div><b>2024</b><span class="dim" data-i18n="u1.f2">сдан и&nbsp;заселён</span></div>
             <div><b>32–89</b><span class="dim" data-i18n="u1.f3">м² форматы</span></div>
           </div>
-          <p class="complex__formats dim" data-i18n="u1.formats"><b>Форматы:</b> студия 32&nbsp;м² · 2+1 спальни 89&nbsp;м². Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge внутри квартала.</p>
+          <p class="complex__formats dim" data-i18n="u1.formats"><b>Форматы:</b> студия 32&nbsp;м² · 2+1 спальни 89&nbsp;м². Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge внутри квартала</p>
         </div>
       </div>
       <div class="complex__gallery">
@@ -153,19 +155,21 @@
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-01.jpg" alt="U1 — спальня в минималистичном стиле"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-06.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-06.jpg" alt="U1 — спальня с видом на сад"></picture></figure>
       </div>
+     </div>
     </article>
 
-    <article class="complex" id="cx-u2">
+    <article class="complex" id="cx-u2" role="tabpanel" data-state="next">
+     <div class="container">
       <div class="row">
         <div><div class="complex__badge">U2</div><h2 class="complex__title">Nuanu Village</h2></div>
         <div class="complex__body">
-          <p class="complex__intro" data-i18n="u2.intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор — от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;бассейном и&nbsp;садом.</p>
+          <p class="complex__intro" data-i18n="u2.intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор — от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;бассейном и&nbsp;садом</p>
           <div class="complex__facts tnum">
             <div><b>55</b><span class="dim" data-i18n="u2.f1">юнитов</span></div>
             <div><b>2025</b><span class="dim" data-i18n="u2.f2">сдан и&nbsp;заселён</span></div>
             <div><b>32–200</b><span class="dim" data-i18n="u2.f3">м² форматы</span></div>
           </div>
-          <p class="complex__formats dim" data-i18n="u2.formats"><b>Форматы:</b> студия 32 · 1+1&nbsp;— 60 · 2+1&nbsp;— 89 · вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м². Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии.</p>
+          <p class="complex__formats dim" data-i18n="u2.formats"><b>Форматы:</b> студия 32 · 1+1&nbsp;— 60 · 2+1&nbsp;— 89 · вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м². Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии</p>
         </div>
       </div>
       <div class="complex__gallery">
@@ -173,19 +177,21 @@
         <figure><picture><source srcset="../prototype-2026-09/assets/u2s-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2s-03.jpg" alt="U2 — кухня с видом на рисовые поля"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u2-1bd-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2-1bd-03.jpg" alt="U2 — терраса с зоной отдыха"></picture></figure>
       </div>
+     </div>
     </article>
 
-    <article class="complex" id="cx-u3">
+    <article class="complex" id="cx-u3" role="tabpanel" data-state="next">
+     <div class="container">
       <div class="row">
         <div><div class="complex__badge">U3</div><h2 class="complex__title">Nyanyi Village</h2></div>
         <div class="complex__body">
-          <p class="complex__intro" data-i18n="u3.intro">Третий комплекс в&nbsp;посёлке Nyanyi, ближе к&nbsp;океану. Строится, сдача в&nbsp;2026. Вход по&nbsp;стартовой цене; появляются форматы с&nbsp;приватным бассейном.</p>
+          <p class="complex__intro" data-i18n="u3.intro">Третий комплекс в&nbsp;посёлке Nyanyi, ближе к&nbsp;океану. Строится, сдача в&nbsp;2026. Вход по&nbsp;стартовой цене; появляются форматы с&nbsp;приватным бассейном</p>
           <div class="complex__facts tnum">
             <div><b>28</b><span class="dim" data-i18n="u3.f1">юнитов</span></div>
             <div><b>2026</b><span class="dim" data-i18n="u3.f2">плановая сдача</span></div>
             <div><b>60–200</b><span class="dim" data-i18n="u3.f3">м² форматы</span></div>
           </div>
-          <p class="complex__formats dim" data-i18n="u3.formats"><b>Форматы:</b> 1+1&nbsp;— 60 · 1+1 с&nbsp;бассейном&nbsp;— 100 · 2+1&nbsp;— 89 · 2+1 с&nbsp;бассейном&nbsp;— 109 · вилла 3+1&nbsp;— 200&nbsp;м². Прогресс стройки — фото по&nbsp;датам, по&nbsp;запросу.</p>
+          <p class="complex__formats dim" data-i18n="u3.formats"><b>Форматы:</b> 1+1&nbsp;— 60 · 1+1 с&nbsp;бассейном&nbsp;— 100 · 2+1&nbsp;— 89 · 2+1 с&nbsp;бассейном&nbsp;— 109 · вилла 3+1&nbsp;— 200&nbsp;м². Прогресс стройки — фото по&nbsp;датам, по&nbsp;запросу</p>
         </div>
       </div>
       <div class="complex__gallery">
@@ -193,8 +199,10 @@
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-04.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-04.jpg" alt="U3 — вилла с деревянным фасадом, рендер"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-02.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-02.jpg" alt="U3 — внутренний двор с пальмами, рендер"></picture></figure>
       </div>
+     </div>
     </article>
 
+   </div>
   </div>
 
   <!-- 04 · СЦЕНАРИИ -->
@@ -202,19 +210,19 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="scn.title">Один дом — три сценария</h2>
-        <p class="t-lead dim" data-i18n="scn.lead">Жить, приезжать в&nbsp;отпуск или сдавать — юнит работает под любую задачу.</p>
+        <p class="t-lead" data-i18n="scn.lead">Жить, приезжать в&nbsp;отпуск или сдавать — юнит работает под любую задачу</p>
       </div>
       <div>
         <div class="scenario-row rv">
-          <div><h3 data-i18n="scn.1t">Жизнь</h3><p class="dim" data-i18n="scn.1p">Меблированный дом внутри Nuanu: школа, спорт, кафе, океан — пешком.</p></div>
+          <div><h3 data-i18n="scn.1t">Жизнь</h3><p data-i18n="scn.1p">Меблированный дом внутри Nuanu: школа, спорт, кафе, океан — пешком</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u2-1bd-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2-1bd-03.jpg" alt="Терраса виллы Unit Space"></picture></figure>
         </div>
         <div class="scenario-row rv">
-          <div><h3 data-i18n="scn.2t">Аренда под ключ</h3><p class="dim" data-i18n="scn.2p">От&nbsp;10% в&nbsp;год на&nbsp;работающих U1 и&nbsp;U2. Заселение, уборку, брони и&nbsp;отчётность ведёт UNIT SPACE MANAGEMENT.</p></div>
+          <div><h3 data-i18n="scn.2t">Аренда под ключ</h3><p data-i18n="scn.2p">От&nbsp;10% в&nbsp;год на&nbsp;работающих U1 и&nbsp;U2. Заселение, уборку, брони и&nbsp;отчётность ведёт UNIT SPACE MANAGEMENT</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u2s-02.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2s-02.jpg" alt="Кухня виллы с видом на поля"></picture></figure>
         </div>
         <div class="scenario-row rv">
-          <div><h3 data-i18n="scn.3t">Инвестиция</h3><p class="dim" data-i18n="scn.3p">Вход по&nbsp;стартовой цене в&nbsp;строящемся U3. Юнит можно перепродать до&nbsp;сдачи.</p></div>
+          <div><h3 data-i18n="scn.3t">Инвестиция</h3><p data-i18n="scn.3p">Вход по&nbsp;стартовой цене в&nbsp;строящемся U3. Юнит можно перепродать до&nbsp;сдачи</p></div>
           <figure><picture><source srcset="../prototype-2026-09/assets/u3-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-03.jpg" alt="Зона отдыха у бассейна U3"></picture></figure>
         </div>
       </div>
@@ -227,7 +235,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="plans.title">Форматы вилл</h2>
-        <p class="t-lead dim" data-i18n="plans.lead">От&nbsp;студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок в&nbsp;PDF — по&nbsp;запросу.</p>
+        <p class="t-lead" data-i18n="plans.lead">От&nbsp;студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок в&nbsp;PDF — по&nbsp;запросу</p>
       </div>
       <div class="product-grid rv">
         <a class="product-card" href="units/u2-studio.html">
@@ -247,7 +255,7 @@
           <div class="product-card__row"><div><div class="product-card__name"><span data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</span> · <b>200 м²</b></div><div class="product-card__meta dim" data-i18n="fmt.villa_m">U2, U3 · сад и&nbsp;приватный бассейн</div></div><span class="product-card__price">от $278 000</span></div>
         </a>
       </div>
-      <p class="t-small dim rv" style="margin-top:var(--s3)" data-i18n="plans.note">Цены ориентировочные, «от». Актуальный прайс и&nbsp;шахматку пришлём по&nbsp;запросу.</p>
+      <p class="t-small dim rv" style="margin-top:var(--s3)" data-i18n="plans.note">Цены ориентировочные, «от». Актуальный прайс и&nbsp;шахматку пришлём по&nbsp;запросу</p>
     </div>
   </section>
 
@@ -256,7 +264,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="cat.title">Свободные виллы</h2>
-        <p class="t-lead dim" data-i18n="cat.lead">Актуальную подборку с&nbsp;ценами и&nbsp;этажами пришлём по&nbsp;запросу.</p>
+        <p class="t-lead" data-i18n="cat.lead">Актуальную подборку с&nbsp;ценами и&nbsp;этажами пришлём по&nbsp;запросу</p>
       </div>
       <div class="catalog-filters rv" id="filters">
         <button class="chip" data-f="q" data-v="all" aria-pressed="true" data-i18n="cat.all_q">Все комплексы</button>
@@ -280,7 +288,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="yield.title">Доходность от&nbsp;10% в&nbsp;год</h2>
-        <p class="t-lead dim" data-i18n="yield.lead">Три способа заработать на&nbsp;юните. Ниже — прикидка под свой бюджет.</p>
+        <p class="t-lead" data-i18n="yield.lead">Три способа заработать на&nbsp;юните. Ниже — прикидка под свой бюджет</p>
       </div>
       <div class="cmp rv">
         <table>
@@ -315,7 +323,7 @@
             <div><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
             <div><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
           </div>
-          <p class="t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту.</p>
+          <p class="t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту</p>
         </div>
       </div>
       <div class="cta-row cta-row--after"><a href="#lead" class="btn btn-primary" data-i18n="yield.cta">Расчёт под мою виллу</a></div>
@@ -327,7 +335,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="loc.title">Внутри Nuanu, у&nbsp;океана</h2>
-        <p class="t-lead dim" data-i18n="loc.lead">U1 и&nbsp;U2 — внутри Nuanu Creative City, U3 — в&nbsp;соседнем посёлке Nyanyi, ближе к&nbsp;океану.</p>
+        <p class="t-lead" data-i18n="loc.lead">U1 и&nbsp;U2 — внутри Nuanu Creative City, U3 — в&nbsp;соседнем посёлке Nyanyi, ближе к&nbsp;океану</p>
       </div>
       <div class="stat-grid rv tnum">
         <div class="stat-card"><div class="stat-card__label dim" data-i18n="loc.st1">минут до&nbsp;территории Nuanu</div><div class="stat-card__value" data-count="0">0</div></div>
@@ -379,7 +387,7 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="co.title">О&nbsp;компании</h2>
-        <p class="t-lead dim" data-i18n="co.lead">UNIT — девелопер на&nbsp;Бали с&nbsp;собственным производством: строим, делаем стальные каркасы и&nbsp;мебель, управляем готовыми виллами.</p>
+        <p class="t-lead" data-i18n="co.lead">UNIT — девелопер на&nbsp;Бали с&nbsp;собственным производством: строим, делаем стальные каркасы и&nbsp;мебель, управляем готовыми виллами</p>
       </div>
       <div class="kv-grid rv">
         <div><b>UNIT BUILD</b><span data-i18n="co.k1">строительство, лицензия PBG/SLF</span></div>
@@ -393,28 +401,28 @@
         <article class="team-card">
           <div><div class="team-card__name" data-i18n="co.p1n">Степан Федосеев</div><div class="team-card__role" data-i18n="co.p1r">Глава UNIT, основатель Unit Space и&nbsp;Unit Build</div></div>
           <div class="team-card__photo" aria-hidden="true">СФ</div>
-          <p class="team-card__bio" data-i18n="co.p1b">13+ лет в&nbsp;системном управлении. Основал девелоперскую компанию и&nbsp;завод стальных каркасов.</p>
+          <p class="team-card__bio" data-i18n="co.p1b">13+ лет в&nbsp;системном управлении. Основал девелоперскую компанию и&nbsp;завод стальных каркасов</p>
         </article>
         <article class="team-card">
           <div><div class="team-card__name" data-i18n="co.p2n">Анна Орлова</div><div class="team-card__role" data-i18n="co.p2r">Совладелец UNIT, архитектор и&nbsp;дизайнер</div></div>
           <div class="team-card__photo" aria-hidden="true">АО</div>
-          <p class="team-card__bio" data-i18n="co.p2b">Больше 10 лет международной практики: проекты в&nbsp;Индонезии, России и&nbsp;Франции.</p>
+          <p class="team-card__bio" data-i18n="co.p2b">Больше 10 лет международной практики: проекты в&nbsp;Индонезии, России и&nbsp;Франции</p>
         </article>
       </div>
 
       <h3 class="t-h3 sub-head rv" data-i18n="co.pr">Принципы</h3>
       <div class="kv-grid kv-grid--2 rv">
-        <div><b data-i18n="co.pr1">Эффективность</b><p data-i18n="co.pr1p">Ничего лишнего в&nbsp;планировке и&nbsp;бюджете: площадь работает, цена держится.</p></div>
-        <div><b data-i18n="co.pr2">Минимализм</b><p data-i18n="co.pr2p">Чистые линии, натуральные материалы, порядок в&nbsp;деталях.</p></div>
-        <div><b data-i18n="co.pr3">Экология</b><p data-i18n="co.pr3p">Малоэтажная застройка, сохранённый рельеф и&nbsp;зелень участка.</p></div>
-        <div><b data-i18n="co.pr4">Сообщество</b><p data-i18n="co.pr4p">Соседи с&nbsp;общими ценностями: коворкинг, кафе и&nbsp;события внутри квартала.</p></div>
+        <div><b data-i18n="co.pr1">Эффективность</b><p data-i18n="co.pr1p">Ничего лишнего в&nbsp;планировке и&nbsp;бюджете: площадь работает, цена держится</p></div>
+        <div><b data-i18n="co.pr2">Минимализм</b><p data-i18n="co.pr2p">Чистые линии, натуральные материалы, порядок в&nbsp;деталях</p></div>
+        <div><b data-i18n="co.pr3">Экология</b><p data-i18n="co.pr3p">Малоэтажная застройка, сохранённый рельеф и&nbsp;зелень участка</p></div>
+        <div><b data-i18n="co.pr4">Сообщество</b><p data-i18n="co.pr4p">Соседи с&nbsp;общими ценностями: коворкинг, кафе и&nbsp;события внутри квартала</p></div>
       </div>
 
       <h3 class="t-h3 sub-head rv" data-i18n="co.trust">Кому доверяют</h3>
       <div class="kv-grid kv-grid--3 rv">
-        <div><b>Сергей Солонин</b><p data-i18n="co.t1">Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь Qiwi, создатель Nuanu City.</p></div>
-        <div><b>Михаил Дашкиев</b><p data-i18n="co.t2">Сооснователь «Бизнес Молодости». Строит комплекс 5&nbsp;Elements в&nbsp;Убуде вместе с&nbsp;UNIT.BUILD.</p></div>
-        <div><b data-i18n="co.t3n">Владельцы из&nbsp;9 стран</b><p data-i18n="co.t3">Сингапур, США, Канада, Франция и&nbsp;другие — виллы уже куплены.</p></div>
+        <div><b>Сергей Солонин</b><p data-i18n="co.t1">Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь Qiwi, создатель Nuanu City</p></div>
+        <div><b>Михаил Дашкиев</b><p data-i18n="co.t2">Сооснователь «Бизнес Молодости». Строит комплекс 5&nbsp;Elements в&nbsp;Убуде вместе с&nbsp;UNIT.BUILD</p></div>
+        <div><b data-i18n="co.t3n">Владельцы из&nbsp;9 стран</b><p data-i18n="co.t3">Сингапур, США, Канада, Франция и&nbsp;другие — виллы уже куплены</p></div>
       </div>
     </div>
   </section>
@@ -424,16 +432,16 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="buy.title">Как купить</h2>
-        <p class="t-lead dim" data-i18n="buy.lead">Напрямую у&nbsp;девелопера, без брокеров. Всё дистанционно.</p>
+        <p class="t-lead" data-i18n="buy.lead">Напрямую у&nbsp;девелопера, без брокеров. Всё дистанционно</p>
       </div>
       <div class="step-list rv">
-        <div class="step-row"><div class="num">01</div><div><b data-i18n="buy.1">Выбор виллы</b><p data-i18n="buy.1p">Подберём под бюджет и&nbsp;цель.</p></div></div>
-        <div class="step-row"><div class="num">02</div><div><b data-i18n="buy.2">Депозит $1&thinsp;500</b><p data-i18n="buy.2p">Фиксирует виллу и&nbsp;цену на&nbsp;14 дней.</p></div></div>
-        <div class="step-row"><div class="num">03</div><div><b data-i18n="buy.3">Бронирование</b><p data-i18n="buy.3p">Договор бронирования онлайн в&nbsp;DocuSign.</p></div></div>
-        <div class="step-row"><div class="num">04</div><div><b data-i18n="buy.4">Основной контракт</b><p data-i18n="buy.4p">Напрямую с&nbsp;Unit Space, тоже в&nbsp;DocuSign.</p></div></div>
-        <div class="step-row"><div class="num">05</div><div><b data-i18n="buy.5">Передача и&nbsp;статус VIP</b><p data-i18n="buy.5p">Подключаем управляющую компанию.</p></div></div>
+        <div class="step-row"><div class="num">01</div><div><b data-i18n="buy.1">Выбор виллы</b><p data-i18n="buy.1p">Подберём под бюджет и&nbsp;цель</p></div></div>
+        <div class="step-row"><div class="num">02</div><div><b data-i18n="buy.2">Депозит $1&thinsp;500</b><p data-i18n="buy.2p">Фиксирует виллу и&nbsp;цену на&nbsp;14 дней</p></div></div>
+        <div class="step-row"><div class="num">03</div><div><b data-i18n="buy.3">Бронирование</b><p data-i18n="buy.3p">Договор бронирования онлайн в&nbsp;DocuSign</p></div></div>
+        <div class="step-row"><div class="num">04</div><div><b data-i18n="buy.4">Основной контракт</b><p data-i18n="buy.4p">Напрямую с&nbsp;Unit Space, тоже в&nbsp;DocuSign</p></div></div>
+        <div class="step-row"><div class="num">05</div><div><b data-i18n="buy.5">Передача и&nbsp;статус VIP</b><p data-i18n="buy.5p">Подключаем управляющую компанию</p></div></div>
       </div>
-      <p class="t-small dim rv" style="margin-top:var(--s3);max-width:64ch" data-i18n="buy.note">Оплата в&nbsp;разных валютах с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Форма владения (leasehold / freehold), срок и&nbsp;налоги — в&nbsp;юридическом пакете, разбираем на&nbsp;сделке.</p>
+      <p class="t-small dim rv" style="margin-top:var(--s3);max-width:64ch" data-i18n="buy.note">Оплата в&nbsp;разных валютах с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Форма владения (leasehold / freehold), срок и&nbsp;налоги — в&nbsp;юридическом пакете, разбираем на&nbsp;сделке</p>
     </div>
   </section>
 
@@ -443,18 +451,18 @@
       <div class="faq-grid">
         <div class="faq-head rv">
           <h2 class="t-h2" data-i18n="faq.title">Частые вопросы</h2>
-          <p class="t-lead dim" data-i18n="faq.lead">Коротко о&nbsp;том, что спрашивают перед сделкой.</p>
+          <p class="t-lead" data-i18n="faq.lead">Коротко о&nbsp;том, что спрашивают перед сделкой</p>
           <a class="btn btn-primary" href="#lead" data-i18n="faq.cta">Задать свой вопрос</a>
         </div>
         <div class="faq-list rv">
-          <details class="faq-item"><summary data-i18n="faq.1q">Это первичка?</summary><p data-i18n="faq.1a">Да. Свободные виллы продаются напрямую от&nbsp;девелопера во&nbsp;всех трёх комплексах, включая сданные U1 и&nbsp;U2.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.2q">«От&nbsp;10%» — это до&nbsp;налогов?</summary><p data-i18n="faq.2a">Да: ориентир до&nbsp;налогов и&nbsp;до&nbsp;вычета простоя на&nbsp;обслуживание, по&nbsp;данным работающих U1 и&nbsp;U2. Точную модель под вашу виллу пришлём по&nbsp;запросу.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.3q">Можно перепродать до&nbsp;сдачи?</summary><p data-i18n="faq.3a">Да, для строящегося U3. Условия — в&nbsp;договоре.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.4q">Что делает управляющая компания?</summary><p data-i18n="faq.4a">Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от&nbsp;дохода.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.5q">Когда сдача U3?</summary><p data-i18n="faq.5a">2026 год. Прогресс стройки публикуем по&nbsp;датам.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.6q">В&nbsp;какой валюте оплата?</summary><p data-i18n="faq.6a">Принимаем разные валюты с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Точные условия согласуем на&nbsp;сделке.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.7q">Leasehold или freehold?</summary><p data-i18n="faq.7a">Зависит от&nbsp;виллы и&nbsp;структуры сделки. Разбираем в&nbsp;юридическом пакете перед подписанием.</p></details>
-          <details class="faq-item"><summary data-i18n="faq.8q">Как проходит сделка?</summary><p data-i18n="faq.8a">Напрямую с&nbsp;Unit Space, документы подписываются онлайн в&nbsp;DocuSign. Полный процесс — в&nbsp;разделе «Как купить».</p></details>
+          <details class="faq-item"><summary data-i18n="faq.1q">Это первичка?</summary><p data-i18n="faq.1a">Да. Свободные виллы продаются напрямую от&nbsp;девелопера во&nbsp;всех трёх комплексах, включая сданные U1 и&nbsp;U2</p></details>
+          <details class="faq-item"><summary data-i18n="faq.2q">«От&nbsp;10%» — это до&nbsp;налогов?</summary><p data-i18n="faq.2a">Да: ориентир до&nbsp;налогов и&nbsp;до&nbsp;вычета простоя на&nbsp;обслуживание, по&nbsp;данным работающих U1 и&nbsp;U2. Точную модель под вашу виллу пришлём по&nbsp;запросу</p></details>
+          <details class="faq-item"><summary data-i18n="faq.3q">Можно перепродать до&nbsp;сдачи?</summary><p data-i18n="faq.3a">Да, для строящегося U3. Условия — в&nbsp;договоре</p></details>
+          <details class="faq-item"><summary data-i18n="faq.4q">Что делает управляющая компания?</summary><p data-i18n="faq.4a">Заселение, уборка, обслуживание, каналы бронирования, отчётность. Комиссия — процент от&nbsp;дохода</p></details>
+          <details class="faq-item"><summary data-i18n="faq.5q">Когда сдача U3?</summary><p data-i18n="faq.5a">2026 год. Прогресс стройки публикуем по&nbsp;датам</p></details>
+          <details class="faq-item"><summary data-i18n="faq.6q">В&nbsp;какой валюте оплата?</summary><p data-i18n="faq.6a">Принимаем разные валюты с&nbsp;расчётом в&nbsp;USD, возможна рассрочка. Точные условия согласуем на&nbsp;сделке</p></details>
+          <details class="faq-item"><summary data-i18n="faq.7q">Leasehold или freehold?</summary><p data-i18n="faq.7a">Зависит от&nbsp;виллы и&nbsp;структуры сделки. Разбираем в&nbsp;юридическом пакете перед подписанием</p></details>
+          <details class="faq-item"><summary data-i18n="faq.8q">Как проходит сделка?</summary><p data-i18n="faq.8a">Напрямую с&nbsp;Unit Space, документы подписываются онлайн в&nbsp;DocuSign. Полный процесс — в&nbsp;разделе «Как купить»</p></details>
         </div>
       </div>
     </div>
@@ -466,7 +474,7 @@
       <div class="final-cta__split">
         <div class="rv">
           <h2 class="t-h2" data-i18n="lead.title">Забронируйте виллу на&nbsp;Бали</h2>
-          <p class="t-lead dim" data-i18n="lead.lead">Оставьте контакты — вернёмся с&nbsp;подборкой вилл под ваш бюджет и&nbsp;расчётом доходности.</p>
+          <p class="t-lead" data-i18n="lead.lead">Оставьте контакты — вернёмся с&nbsp;подборкой вилл под ваш бюджет и&nbsp;расчётом доходности</p>
           <div class="final-cta__contacts">
             <a href="#" class="btn btn-outline btn-sm">Telegram</a>
             <a href="#" class="btn btn-outline btn-sm">WhatsApp</a>
@@ -488,7 +496,7 @@
               <select id="f-goal"><option data-i18n="form.g1">Инвестиция</option><option data-i18n="form.g2">Аренда</option><option data-i18n="form.g3">Жизнь</option></select>
             </div>
             <button class="btn btn-primary" type="submit" data-i18n="form.submit">Отправить заявку</button>
-            <p class="lead-form__note" data-i18n="form.note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8). Данные не&nbsp;передаём третьим лицам.</p>
+            <p class="lead-form__note" data-i18n="form.note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8). Данные не&nbsp;передаём третьим лицам</p>
           </form>
         </div>
       </div>
@@ -501,17 +509,17 @@
   <div class="container">
     <div class="brand">
       <a href="#top" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
-      <p data-i18n="foot.brand">Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали.</p>
+      <p data-i18n="foot.brand">Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали</p>
     </div>
     <div><h5 data-i18n="nav.complexes">Комплексы</h5><ul><li><a href="#cx-u1">U1 — Space Village</a></li><li><a href="#cx-u2">U2 — Nuanu Village</a></li><li><a href="#cx-u3">U3 — Nyanyi Village</a></li></ul></div>
     <div><h5 data-i18n="foot.sections">Разделы</h5><ul><li><a href="#catalog" data-i18n="nav.catalog">Виллы</a></li><li><a href="#yield" data-i18n="nav.yield">Доходность</a></li><li><a href="#location" data-i18n="nav.location">Локация</a></li><li><a href="#company" data-i18n="nav.company">О&nbsp;компании</a></li></ul></div>
     <div><h5 data-i18n="foot.contacts">Контакты</h5><ul><li><a href="#lead">Telegram</a></li><li><a href="#lead">WhatsApp</a></li><li><a href="#lead" data-i18n="nav.cta">Оставить заявку</a></li></ul></div>
-    <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальная шахматка — по&nbsp;запросу.</p>
+    <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальная шахматка — по&nbsp;запросу</p>
   </div>
 </footer>
 
 <div class="consent-bar" id="consentBar" role="dialog" aria-label="Уведомление об использовании cookie">
-  <p class="dim" data-i18n="cookie.text">Мы используем cookie для аналитики и&nbsp;удобной работы сайта. Подробнее — в&nbsp;<a href="#">политике конфиденциальности</a>.</p>
+  <p class="dim" data-i18n="cookie.text">Мы используем cookie для аналитики и&nbsp;удобной работы сайта. Подробнее — в&nbsp;<a href="#">политике конфиденциальности</a></p>
   <button class="btn btn-primary btn-sm" id="consentOk" type="button" data-i18n="cookie.ok">Хорошо</button>
 </div>
 
