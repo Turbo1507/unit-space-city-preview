@@ -195,7 +195,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    ================================================================ */
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:var(--s2)}
 .stat-grid--3{grid-template-columns:repeat(3,1fr)}
-.stat-card--blue .stat-card__value{color:var(--blue)}
+.stat-card--blue .stat-card__value{color:var(--blue);font-size:clamp(56px,6.4vw,96px);letter-spacing:-.04em}
 .stat-card{background:var(--white);border-radius:var(--r);padding:var(--s3);min-height:clamp(168px,17vw,232px);display:flex;flex-direction:column}
 .sect--alt .stat-card{background:var(--paper)}
 .stat-card__label{font-size:var(--fs-cap);line-height:1.4;max-width:20ch}
@@ -414,6 +414,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* ---------- 1600px+ ---------- */
 @media (min-width:1600px){
   :root{ --col:1680px; --gut:64px; --fs-cap:15px; --fs-body:17px; --fs-sub:21px; --fs-title:clamp(44px,3vw,52px); --fs-display:clamp(64px,4vw,72px); }
+  .stat-card--blue .stat-card__value{font-size:112px}
   .chip{height:44px} .tag-row span{min-height:44px}
 }
 
