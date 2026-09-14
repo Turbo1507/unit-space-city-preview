@@ -186,13 +186,19 @@
     var count = ugal.querySelector('.ugal__count b'), cur = 0, busy = false, HALF = 3;
     function horizontal() { return matchMedia('(max-width:760px)').matches; }
     function slot(k) { return ((k % n) + n) % n; }
+    /* окно превью: до 7 вокруг активного, но не больше n — без дублей при коротких наборах (U3: 4 рендера);
+       при асимметричном окне (-1..2) лента сдвигается на base, чтобы активное осталось по центру */
+    var LO = -Math.min(HALF, Math.floor((n - 1) / 2)), HI = Math.min(HALF, n - 1 + LO);
+    function step() { var th = track.querySelector('.ugal__thumb'); return (horizontal() ? th.offsetWidth : th.offsetHeight) + 8; }
+    function shift(px) { return horizontal() ? 'translateX(calc(-50% - ' + px + 'px))' : 'translateY(calc(-50% - ' + px + 'px))'; }
+    function centerFix() { return (HI + LO) / 2 * step(); }
     function renderTrack() {
       var html = '';
-      for (var o = -HALF; o <= HALF; o++) {
+      for (var o = LO; o <= HI; o++) {
         var i = slot(cur + o);
         html += '<button type="button" class="ugal__thumb' + (o === 0 ? ' is-active' : '') + '" data-o="' + o + '" aria-label="' + (i + 1) + '/' + n + '"><img src="' + base + photos[i] + '.webp" alt="" width="160" height="120"></button>';
       }
-      track.classList.remove('is-anim'); track.style.transform = ''; track.innerHTML = html;
+      track.classList.remove('is-anim'); track.innerHTML = html; track.style.transform = shift(centerFix());
     }
     function swapStage(i) {
       var old = stage.querySelector('img.is-in'), img = document.createElement('img');
@@ -206,9 +212,8 @@
     }
     function go(delta) {
       if (busy || !delta) return; busy = true;
-      var th = track.querySelector('.ugal__thumb'), gap = 8, step = (horizontal() ? th.offsetWidth : th.offsetHeight) + gap;
       track.classList.add('is-anim');
-      track.style.transform = horizontal() ? 'translateX(calc(-50% - ' + (delta * step) + 'px))' : 'translateY(calc(-50% - ' + (delta * step) + 'px))';
+      track.style.transform = shift(centerFix() + delta * step());
       cur = slot(cur + delta); swapStage(cur);
       var done = false; function fin() { if (done) return; done = true; renderTrack(); busy = false; }
       track.addEventListener('transitionend', fin, { once: true }); setTimeout(fin, 520);
@@ -225,6 +230,71 @@
     drum.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
     addEventListener('resize', renderTrack);
   })();
+
+  /* ---------- кастомные выпадающие списки в форме: нативный <select> остаётся источником значения ---------- */
+  var CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  var csels = [];
+  document.querySelectorAll('.lead-form select').forEach(function (select) {
+    var wrap = document.createElement('div'); wrap.className = 'csel';
+    select.parentNode.insertBefore(wrap, select); wrap.appendChild(select);
+    select.classList.add('csel-native'); select.tabIndex = -1;
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'csel-btn';
+    btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false');
+    var lab = select.id && document.querySelector('label[for="' + select.id + '"]');
+    if (lab) { lab.id = lab.id || select.id + '-label'; btn.setAttribute('aria-labelledby', lab.id); }
+    btn.innerHTML = '<span class="csel-val"></span>' + CHEV;
+    var list = document.createElement('ul'); list.className = 'csel-list'; list.setAttribute('role', 'listbox'); list.hidden = true;
+    wrap.appendChild(btn); wrap.appendChild(list);
+    var active = -1;
+    function render() {
+      list.innerHTML = '';
+      Array.prototype.forEach.call(select.options, function (o, i) {
+        var li = document.createElement('li'); li.className = 'csel-opt' + (i === select.selectedIndex ? ' is-sel' : '');
+        li.setAttribute('role', 'option'); li.setAttribute('aria-selected', String(i === select.selectedIndex)); li.dataset.i = i; li.textContent = o.textContent;
+        list.appendChild(li);
+      });
+      btn.querySelector('.csel-val').textContent = select.selectedIndex >= 0 ? select.options[select.selectedIndex].textContent : '';
+    }
+    function mark(i) {
+      active = i; Array.prototype.forEach.call(list.children, function (li, k) { li.classList.toggle('is-active', k === i); });
+      if (list.children[i]) list.children[i].scrollIntoView({ block: 'nearest' });
+    }
+    function open() { if (wrap.classList.contains('is-open')) return; render(); list.hidden = false; wrap.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); mark(select.selectedIndex); }
+    function close() { if (!wrap.classList.contains('is-open')) return; list.hidden = true; wrap.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); active = -1; }
+    function pick(i) { select.selectedIndex = i; select.dispatchEvent(new Event('change', { bubbles: true })); render(); close(); btn.focus(); }
+    btn.addEventListener('click', function () { wrap.classList.contains('is-open') ? close() : open(); });
+    btn.addEventListener('keydown', function (e) {
+      var n = select.options.length, isOpen = wrap.classList.contains('is-open');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!isOpen) open(); else mark((active + (e.key === 'ArrowDown' ? 1 : n - 1)) % n); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isOpen) open(); else if (active >= 0) pick(active); }
+      else if (e.key === 'Escape') { close(); }
+      else if (e.key === 'Tab') { close(); }
+    });
+    list.addEventListener('click', function (e) { var li = e.target.closest('.csel-opt'); if (li) pick(+li.dataset.i); });
+    list.addEventListener('mousemove', function (e) { var li = e.target.closest('.csel-opt'); if (li) mark(+li.dataset.i); });
+    render(); csels.push({ wrap: wrap, render: render, close: close });
+  });
+  if (csels.length) {
+    document.addEventListener('click', function (e) { csels.forEach(function (c) { if (!c.wrap.contains(e.target)) c.close(); }); });
+    var prevCsel = window.__uscRerender;
+    window.__uscRerender = function (lang) { if (prevCsel) prevCsel(lang); csels.forEach(function (c) { c.render(); }); };
+  }
+
+  /* ---------- живая строка футера: время на Бали (WITA) + температура (Open-Meteo, без ключа; если фетч не прошёл — прячем только температуру) ---------- */
+  var baliTime = document.getElementById('baliTime');
+  if (baliTime) {
+    var tf = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Makassar', hour: '2-digit', minute: '2-digit' });
+    var syncBali = function () { baliTime.textContent = tf.format(new Date()); };
+    syncBali(); setInterval(syncBali, 30000);
+  }
+  var baliTemp = document.getElementById('baliTemp'), baliWrap = document.getElementById('baliWeatherWrap');
+  if (baliTemp && baliWrap) {
+    baliWrap.hidden = true;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=-8.57&longitude=115.08&current=temperature_2m&timezone=Asia%2FMakassar')
+      .then(function (r) { if (!r.ok) throw new Error('weather ' + r.status); return r.json(); })
+      .then(function (d) { var t = d && d.current && d.current.temperature_2m; if (typeof t !== 'number') throw new Error('no temp'); var n = Math.round(t); baliTemp.textContent = (n >= 0 ? '+' : '') + n + '°C'; baliWrap.hidden = false; })
+      .catch(function () { baliWrap.hidden = true; });
+  }
 
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];

@@ -117,6 +117,7 @@
         <div class="lead-panel rv">
           <form class="lead-form" onsubmit="return false">
             <h3 class="t-h3" data-i18n="form.title">Оставить заявку</h3>
+            <p class="lead-form__consent" data-i18n="form.consent">Отправляя форму, вы соглашаетесь на&nbsp;обработку персональных данных и&nbsp;использование cookie — <a href="#">политика конфиденциальности</a></p>
             <div class="field"><label for="f-name" class="dim" data-i18n="form.name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
             <div class="field"><label for="f-contact" class="dim" data-i18n="form.contact">Телефон или email</label><input id="f-contact" type="text"></div>
             <div class="field"><label for="f-goal" class="dim" data-i18n="form.goal">Цель</label>
@@ -124,7 +125,7 @@
             </div>
             <input type="hidden" name="unit" value="{{SLUG}}">
             <button class="btn btn-primary" type="submit" data-i18n="form.submit">Отправить заявку</button>
-            <p class="lead-form__note" data-i18n="form.note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8). Данные не&nbsp;передаём третьим лицам</p>
+            <p class="lead-form__note" data-i18n="form.note">Отвечаем в&nbsp;рабочие часы Бали (UTC+8)</p>
           </form>
         </div>
       </div>
@@ -144,11 +145,21 @@
     <div class="brand">
       <a href="../index.html" class="wordmark">UNIT<i>.</i>&nbsp;SPACE&nbsp;CITY</a>
       <p data-i18n="foot.brand">Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали</p>
+      <div class="footer-social" aria-label="Соцсети" data-i18n-aria="foot.social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#lead" aria-label="Telegram"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg></a>
+        <a href="#lead" aria-label="WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-message-circle"/></svg></a>
+      </div>
     </div>
     <div><h5 data-i18n="nav.complexes">Комплексы</h5><ul><li><a href="../index.html#cx-u1">U1 — Space Village</a></li><li><a href="../index.html#cx-u2">U2 — Nuanu Village</a></li><li><a href="../index.html#cx-u3">U3 — Nyanyi Village</a></li></ul></div>
     <div><h5 data-i18n="foot.sections">Разделы</h5><ul><li><a href="../index.html#catalog" data-i18n="nav.catalog">Виллы</a></li><li><a href="../index.html#yield" data-i18n="nav.yield">Доходность</a></li><li><a href="../index.html#location" data-i18n="nav.location">Локация</a></li><li><a href="../index.html#company" data-i18n="nav.company">О&nbsp;компании</a></li></ul></div>
     <div><h5 data-i18n="foot.contacts">Контакты</h5><ul><li><a href="#lead">Telegram</a></li><li><a href="#lead">WhatsApp</a></li><li><a href="#lead" data-i18n="nav.cta">Оставить заявку</a></li></ul></div>
     <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальная шахматка — по&nbsp;запросу</p>
+  </div>
+  <div class="container footer-bottom">
+    <span>Made with ♥ by UNIT. team</span>
+    <span class="bali-clock" id="baliClock" aria-hidden="true"><span class="bali-clock__place">Nuanu, Bali — <b id="baliTime">--:--</b> WITA</span><span id="baliWeatherWrap"><span class="footer-bottom__sep">/</span><b id="baliTemp"></b></span></span>
+    <span>© 2026 unit.now<span class="footer-bottom__sep">/</span><a href="#" data-i18n="foot.privacy">Политика конфиденциальности</a></span>
   </div>
 </footer>
 
