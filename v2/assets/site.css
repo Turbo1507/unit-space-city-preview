@@ -268,7 +268,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__formats b{font-weight:500}
 /* коллаж комплекса — бенто как на БСО: 4 колонки × 2 ряда фиксированной высоты, крупные тайлы = span ячеек,
    на всю ширину контейнера; на мобиле — горизонтальная лента со snap */
-.complex__gallery{margin-top:clamp(32px,4.6vw,56px);display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(200px,20vw,293px);gap:var(--s2)}
+.complex__gallery{margin-top:clamp(32px,4.6vw,56px);display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(200px,20vw,296px);gap:var(--s2)}
 .complex__gallery figure{overflow:hidden;border-radius:var(--r);background:var(--wash);margin:0}
 .complex__gallery img{width:100%;height:100%;object-fit:cover;display:block}
 .complex__gallery--6 .tile-a{grid-column:1;grid-row:1 / 3}
@@ -361,7 +361,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card{display:grid;gap:var(--s1);align-content:start;color:inherit}
 .product-card__media{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--wash);position:relative;display:flex;align-items:center;justify-content:center}
 /* метраж — чип-пилюля на фото, слева сверху (правка Босса 15.09); в подписи остаётся только название */
-.product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
+.product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
 .product-card__media img{width:100%;height:100%;object-fit:cover}
 .product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
 .product-card__name{font-size:var(--fs-body);font-weight:500;line-height:1.35}
@@ -628,5 +628,5 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* нав ленты — в шапке ленты, не абсолют (перебивает .ugal__nav ниже по каскаду) */
 .strip .strip__nav{position:static;background:var(--wash)}
 /* подсказка «скопировано» для mailto */
-.copied{position:fixed;left:50%;bottom:var(--s4);transform:translate(-50%,8px);z-index:200;padding:10px 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:var(--fs-cap);opacity:0;transition:opacity .25s,transform .25s}
+.copied{position:fixed;left:50%;bottom:var(--s4);transform:translate(-50%,8px);z-index:200;padding:8px 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:var(--fs-cap);opacity:0;transition:opacity .25s,transform .25s}
 .copied.in{opacity:1;transform:translate(-50%,0)}
