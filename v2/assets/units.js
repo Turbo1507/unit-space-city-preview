@@ -1,17 +1,17 @@
 /* Данные свободных юнитов — один источник для каталога (index.html) и страниц units/*.html.
-   Фото — реальные наборы из prototype-2026-09/assets по комплексу/формату (U3 — рендеры).
+   Фото — отбор Босса 14.09 (квиз), файлы в v2/photos (U3 — рендеры).
    EN-поля — черновой перевод до утверждения RU. */
 window.USC_UNITS = [
-  {slug:'u1-studio',   q:'u1',fmt:'studio',name:{ru:'Студия',ru_en:'Studio'},                    area:32, floor:{ru:'этаж 1–3',en:'floors 1–3'}, photos:['u1-01','u1-02','u1-03','u1-04','u1-05']},
-  {slug:'u1-2bd',      q:'u1',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2',en:'floor 2'},      photos:['u1-06','u1-07','u1-08','u1-09','u1-01']},
-  {slug:'u2-studio',   q:'u2',fmt:'studio',name:{ru:'Студия',ru_en:'Studio'},                    area:32, floor:{ru:'этаж 1–2',en:'floors 1–2'}, photos:['u2s-01','u2s-02','u2s-03','u2s-04','u2s-05']},
-  {slug:'u2-1bd',      q:'u2',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–4',en:'floors 1–4'}, photos:['u2-1bd-01','u2-1bd-02','u2-1bd-03','u2-1bd-04','u2-1bd-05','u2-1bd-06']},
-  {slug:'u2-2bd',      q:'u2',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2–3',en:'floors 2–3'}, photos:['u2-2bd-05','u2-2bd-02','u2-2bd-03','u2-2bd-04','u2-2bd-01','u2-2bd-06']},
-  {slug:'u2-villa',    q:'u2',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u2v-01','u2v-02','u2v-03','u2v-04','u2v-05','u2v-06','u2v-07']},
-  {slug:'u3-1bd',      q:'u3',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–3',en:'floors 1–3'}, photos:['u3-01','u3-02','u3-03','u3-04'], render:true},
-  {slug:'u3-1bd-pool', q:'u3',fmt:'1bd',   name:{ru:'1+1 с бассейном',ru_en:'1+1 with pool'},     area:100,floor:{ru:'этаж 1',en:'floor 1'},      photos:['u3-02','u3-03','u3-04','u3-01'], render:true},
-  {slug:'u3-2bd-pool', q:'u3',fmt:'2bd',   name:{ru:'2+1 с бассейном',ru_en:'2+1 with pool'},     area:109,floor:{ru:'этаж 1',en:'floor 1'},      photos:['u3-03','u3-04','u3-01','u3-02'], render:true},
-  {slug:'u3-villa',    q:'u3',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u3-04','u3-01','u3-02','u3-03'], render:true}
+  {slug:'u1-studio',   q:'u1',fmt:'studio',name:{ru:'Студия',ru_en:'Studio'},                    area:32, floor:{ru:'этаж 1–3',en:'floors 1–3'}, photos:['u1-01','u1-03','u1-17','u1-16','u1-05','u1-22','u1-06']},
+  {slug:'u1-2bd',      q:'u1',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2',en:'floor 2'},      photos:['u1-18','u1-12','u1-04','u1-21','u1-25','u1-23','u1-19','u1-20','u1-26','u1-10']},
+  {slug:'u2-studio',   q:'u2',fmt:'studio',name:{ru:'Студия',ru_en:'Studio'},                    area:32, floor:{ru:'этаж 1–2',en:'floors 1–2'}, photos:['u2-studio-03','u2-studio-04','u2-studio-05','u2-studio-06','u2-studio-09','u2-studio-11','u2-studio-02','u2-studio-10','u2-studio-01']},
+  {slug:'u2-1bd',      q:'u2',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–4',en:'floors 1–4'}, photos:['u2-1bd-12','u2-1bd-04','u2-1bd-05','u2-1bd-06','u2-1bd-11','u2-1bd-07','u2-1bd-10','u2-1bd-08','u2-1bd-02','u2-1bd-01']},
+  {slug:'u2-2bd',      q:'u2',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2–3',en:'floors 2–3'}, photos:['u2-2bd-14','u2-2bd-11','u2-2bd-08','u2-2bd-10','u2-2bd-16','u2-2bd-09','u2-2bd-13','u2-2bd-17','u2-2bd-19','u2-2bd-20','u2-2bd-02','u2-2bd-23']},
+  {slug:'u2-villa',    q:'u2',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u2-villa-02','u2-villa-31','u2-villa-32','u2-villa-05','u2-villa-04','u2-villa-13','u2-villa-08','u2-villa-12','u2-villa-17','u2-villa-26','u2-iphone-17','u2-iphone-27']},
+  {slug:'u3-1bd',      q:'u3',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–3',en:'floors 1–3'}, photos:['u3-01','u3-02','u3-05','u3-04'], render:true},
+  {slug:'u3-1bd-pool', q:'u3',fmt:'1bd',   name:{ru:'1+1 с бассейном',ru_en:'1+1 with pool'},     area:100,floor:{ru:'этаж 1',en:'floor 1'},      photos:['u3-04','u3-05','u3-01','u3-02'], render:true},
+  {slug:'u3-2bd-pool', q:'u3',fmt:'2bd',   name:{ru:'2+1 с бассейном',ru_en:'2+1 with pool'},     area:109,floor:{ru:'этаж 1',en:'floor 1'},      photos:['u3-02','u3-01','u3-05','u3-04'], render:true},
+  {slug:'u3-villa',    q:'u3',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u3-05','u3-04','u3-01','u3-02'], render:true}
 ];
 window.USC_UNITS.forEach(function (u) { u.name.en = u.name.ru_en; delete u.name.ru_en; });
 window.USC_COMPLEX = {

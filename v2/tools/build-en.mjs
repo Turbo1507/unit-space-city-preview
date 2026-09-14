@@ -22,11 +22,11 @@ fs.writeFileSync(path.join(root, 'index.html'), stamp(ruOut));
 
 // EN index
 let en = translateAttrs(applyDict(ru, EN)).replaceAll(' м²</b>', ' m²</b>');
-en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../../prototype-2026-09/assets/">');
+en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../photos/">');
 en = en.replace(/<title>[^<]*<\/title>/, `<title>${EN['meta.title']}</title>`);
 en = en.replace(/(<meta name="description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
 en = en.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
-en = en.replaceAll('../prototype-2026-09/assets/', '../../prototype-2026-09/assets/');
+en = en.replaceAll('="photos/', '="../photos/');
 en = en.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
   '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');
 // EN: Анну Орлову не показываем — карточка Стивена становится широкой (фото + био рядом)

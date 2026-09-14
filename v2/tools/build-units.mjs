@@ -8,7 +8,7 @@ import { applyDict, langHead, translateAttrs, stamp } from './i18n-static.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
-const assetsDir = path.resolve(root, '../prototype-2026-09/assets');
+const assetsDir = path.join(root, 'photos');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/i18n.js'), 'utf8').split('window.setLang')[0], ctx);
@@ -25,7 +25,7 @@ for (const lang of ['ru', 'en']) {
   for (const u of USC_UNITS) {
     const cx = USC_COMPLEX[u.q];
     for (const p of u.photos) for (const ext of ['jpg', 'webp']) if (!fs.existsSync(path.join(assetsDir, `${p}.${ext}`))) missing.push(`${p}.${ext}`);
-    const photoBase = lang === 'ru' ? '../../prototype-2026-09/assets/' : '../../../prototype-2026-09/assets/';
+    const photoBase = lang === 'ru' ? '../photos/' : '../../photos/';
     const thumbs = u.photos.map((p, i) =>
       `        <button type="button" class="ugal__thumb${i ? '' : ' is-active'}" data-i="${i}"><img src="${photoBase}${p}.webp" alt="" width="160" height="120"${i > 2 ? ' loading="lazy"' : ''}></button>`).join('\n');
     const title = `${u.name[lang]} ${u.area} ${m2[lang]}, ${cx.code} ${cx.name}`;
@@ -43,7 +43,7 @@ for (const lang of ['ru', 'en']) {
     if (lang === 'en') {
       html = translateAttrs(applyDict(html, dict));
       html = html.replaceAll('data-unit-field="m2">м²<', 'data-unit-field="m2">m²<');
-      html = html.replace('data-assets="../../prototype-2026-09/assets/"', 'data-assets="../../../prototype-2026-09/assets/"');
+      html = html.replace('data-assets="../photos/"', 'data-assets="../../photos/"');
       html = html.replaceAll('href="../assets/', 'href="../../assets/').replaceAll('src="../assets/', 'src="../../assets/');
     }
     html = html.replaceAll('href="privacy.html"', 'href="../privacy.html"'); // ссылки из словаря — на уровень выше
