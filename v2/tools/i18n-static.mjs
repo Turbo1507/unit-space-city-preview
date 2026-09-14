@@ -7,7 +7,7 @@ export function applyDict(html, dict) {
     (m, open, tag, key, _inner, close) => (key in dict) ? open + dict[key] + close : m);
   html = html.replace(/<[^>]*\bdata-i18n-alt="([^"]+)"[^>]*>/g, (m, key) => {
     if (!(key in dict)) return m; const v = dict[key].replace(/"/g, '&quot;');
-    return m.replace(/\balt="[^"]*"/, `alt="${v}"`);
+    return m.replace(/(^|\s)alt="[^"]*"/, `$1alt="${v}"`);
   });
   html = html.replace(/<[^>]*\bdata-i18n-aria="([^"]+)"[^>]*>/g, (m, key) => {
     if (!(key in dict)) return m; const v = dict[key].replace(/"/g, '&quot;');

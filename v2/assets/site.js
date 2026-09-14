@@ -27,7 +27,16 @@
   /* ---------- язык (паттерн БСО): у каждого языка свой URL (/ и /en/), кнопка ведёт на
      hreflang-альтернативу; словарь применяется к JS-частям по <html lang> ---------- */
   var pageLang = document.documentElement.lang === 'en' ? 'en' : 'ru';
-  function altHref(lang) { var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]'); return l ? l.getAttribute('href') : null; }
+  /* альтернатива берётся из hreflang, но переводится на текущий origin/путь — с превью или своего домена не уводит на GitHub Pages */
+  function altHref(lang) {
+    var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]'); if (!l) return null;
+    var me = document.querySelector('link[rel="canonical"]'), href = l.getAttribute('href');
+    if (!me) return href;
+    var tail = /(?:en\/)?(?:units\/[^/]*\.html|privacy\.html|index\.html)?$/;
+    var base = me.getAttribute('href').replace(tail, '');
+    if (href.indexOf(base) !== 0) return href;
+    return location.pathname.replace(tail, '') + href.slice(base.length);
+  }
   var wanted = /[?&]lang=(ru|en)/.exec(location.search);
   if (wanted && wanted[1] !== pageLang && altHref(wanted[1])) { location.replace(altHref(wanted[1]) + location.hash); }
   document.querySelectorAll('[data-lang]').forEach(function (b) {
@@ -52,8 +61,9 @@
   }
 
   /* ---------- reveal ---------- */
-  setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (el) { el.classList.add('in'); }); }, 1200);
   if ('IntersectionObserver' in window && !rm) {
+    /* страховка: если observer не сработал (скрытая вкладка) — видимое показываем через 4 с; ниже экрана — только по скроллу */
+    setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); }, 4000);
     var io = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
     requestAnimationFrame(function () { document.querySelectorAll('.rv').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); });
@@ -217,7 +227,7 @@
       track.style.transform = shift(centerFix() + delta * step());
       cur = slot(cur + delta); swapStage(cur);
       var done = false; function fin() { if (done) return; done = true; renderTrack(); busy = false; }
-      track.addEventListener('transitionend', fin, { once: true }); setTimeout(fin, 520);
+      track.addEventListener('transitionend', function onEnd(e) { if (e.target !== track || e.propertyName !== 'transform') return; track.removeEventListener('transitionend', onEnd); fin(); }); setTimeout(fin, 520);
     }
     renderTrack(); if (count) count.textContent = 1;
     track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
@@ -339,9 +349,13 @@
   document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
     a.addEventListener('click', function () {
       var mail = a.getAttribute('href').replace('mailto:', '');
-      try { navigator.clipboard.writeText(mail); } catch (e) {}
-      var tip = document.createElement('span'); tip.className = 'copied'; tip.textContent = mail + ' — ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано');
-      document.body.appendChild(tip); setTimeout(function () { tip.classList.add('in'); }, 10); setTimeout(function () { tip.remove(); }, 2600);
+      function tipShow(ok) {
+        var tip = document.createElement('span'); tip.className = 'copied';
+        tip.textContent = ok ? mail + ' — ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано') : mail;
+        document.body.appendChild(tip); setTimeout(function () { tip.classList.add('in'); }, 10); setTimeout(function () { tip.remove(); }, 2600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(function () { tipShow(true); }, function () { tipShow(false); });
+      else tipShow(false);
     });
   });
 
