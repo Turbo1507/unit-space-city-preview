@@ -1,6 +1,6 @@
 // Собирает en/index.html из index.html + window.I18N.en (паттерн build-ru.mjs с БСО).
 // Также добавляет в RU index.html языковой <head>-блок (canonical/hreflang/localStorage).
-// Запуск после любой правки index.html или словаря: node tools/build-en.mjs && node tools/build-units.mjs
+// Запуск после любой правки index.html или словаря: node tools/build-en.mjs && node tools/build-units.mjs && node tools/build-privacy.mjs && node tools/build-sitemap.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
