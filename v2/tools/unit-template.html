@@ -61,14 +61,24 @@
     <a href="../index.html#catalog" class="crumb"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg><span data-i18n="unit.back">Все свободные виллы</span></a>
     <div class="unit-head">
       <div>
-        <h1><span data-unit-field="name">{{NAME}}</span> · <b>{{AREA}}&nbsp;<span data-unit-field="m2">м²</span></b></h1>
-        <p class="t-lead">{{CODE}} — {{CXNAME}} · <span data-unit-field="floor">{{FLOOR}}</span></p>
+        <h1><span data-unit-field="name">{{NAME}}</span> <b>{{AREA}}&nbsp;<span data-unit-field="m2">м²</span></b></h1>
+        <p class="t-lead">{{CODE}} — {{CXNAME}}, <span data-unit-field="floor">{{FLOOR}}</span></p>
       </div>
       <span class="unit-price" data-unit-field="price">{{PRICE}}</span>
     </div>
 
-    <div class="unit-gallery{{GALLERY_MOD}}">
-{{GALLERY}}
+    <div class="ugal" id="ugal" data-photos="{{PHOTOS}}" data-alt="{{ALT}}">
+      <div class="ugal__drum" tabindex="0" aria-label="Фото" data-i18n-aria="unit.gallery"><div class="ugal__track">
+{{THUMBS}}
+      </div></div>
+      <div class="ugal__stage">
+        <picture><source srcset="{{PB}}{{P0}}.webp" type="image/webp"><img class="is-in" src="{{PB}}{{P0}}.jpg" alt="{{ALT}}" width="1200" height="900"></picture>
+        <div class="ugal__nav">
+          <button type="button" class="ugal__btn" data-dir="-1" aria-label="Предыдущее фото"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+          <span class="ugal__count tnum"><b>1</b>/{{N}}</span>
+          <button type="button" class="ugal__btn" data-dir="1" aria-label="Следующее фото"><svg class="ic ic--flip" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+        </div>
+      </div>
     </div>
     {{RENDER_NOTE}}
 
@@ -77,11 +87,12 @@
         <h3 class="t-h3" data-i18n="unit.about">О&nbsp;формате</h3>
         <p class="t-lead" style="margin-top:var(--s2)" data-unit-field="desc">{{DESC}}</p>
         <div class="card" style="margin-top:var(--s3)">
-          <div class="kv-grid kv-grid--2">
-            <div><b class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span data-i18n="unit.complex">Комплекс</span></b><span>{{CODE}} — {{CXNAME}}, <span data-unit-field="where">{{WHERE}}</span></span></div>
-            <div><b class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-circle-check"/></svg><span data-i18n="unit.status">Статус</span></b><span data-unit-field="status">{{STATUS}}</span></div>
-            <div><b class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="unit.area">Площадь</span></b><span>{{AREA}} <span data-unit-field="m2">м²</span></span></div>
-            <div><b class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layers-2"/></svg><span data-i18n="unit.floor">Этаж</span></b><span data-unit-field="floor">{{FLOOR}}</span></div>
+          <div class="leaders">
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span data-i18n="unit.complex">Комплекс</span></span><b>{{CODE}} — {{CXNAME}}</b></div>
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-circle-check"/></svg><span data-i18n="unit.status">Статус</span></span><b data-unit-field="status">{{STATUS}}</b></div>
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="unit.area">Площадь</span></span><b>{{AREA}} <span data-unit-field="m2">м²</span></b></div>
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layers-2"/></svg><span data-i18n="unit.floor">Этаж</span></span><b data-unit-field="floor">{{FLOOR}}</b></div>
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="unit.price">Цена</span></span><b data-unit-field="price">{{PRICE}}</b></div>
           </div>
         </div>
       </div>

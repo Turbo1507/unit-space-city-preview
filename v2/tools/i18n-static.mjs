@@ -51,3 +51,19 @@ export function translateAttrs(html) {
   for (const [ruV, enV] of Object.entries(ATTR)) html = html.replaceAll(`="${ruV}"`, `="${enV}"`);
   return html.replace(/<!--[\s\S]*?-->/g, m => m.replace(/[А-Яа-яЁё]+/g, '').replace(/\s{2,}/g, ' '));
 }
+
+// кеш-бастинг: ?v=<hash содержимого> у site.css / site.js / i18n.js / units.js (Pages кеширует 10 мин)
+import { createHash } from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export function assetVersion() {
+  const h = createHash('md5');
+  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
+  return h.digest('hex').slice(0, 8);
+}
+export function stamp(html) {
+  const v = assetVersion();
+  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
+}
