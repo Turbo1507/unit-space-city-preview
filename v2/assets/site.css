@@ -74,6 +74,15 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .btn-sm{--h:40px;padding-inline:var(--s2);font-size:var(--fs-cap)}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .cta-row{display:flex;flex-wrap:wrap;gap:var(--s2)}
+/* иконки — Rune Icons outline, inline-спрайт, наследуют цвет текста */
+.ic{width:18px;height:18px;flex:none;stroke:currentColor;fill:none}
+.btn .ic{width:16px;height:16px}
+.lbl{display:inline-flex;align-items:center;gap:var(--s1)}
+.lbl .ic{width:16px;height:16px;opacity:.8}
+.card > b.lbl,.kv-grid b.lbl{display:flex}
+.hero__card-kicker{display:inline-flex;align-items:center;gap:6px}
+.hero__card-kicker .ic{width:12px;height:12px}
+.crumb .ic{width:14px;height:14px}
 .cta-row--after{margin-top:clamp(24px,3vw,40px)}
 
 /* ---------- header (логика БСО) ----------
