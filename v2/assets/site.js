@@ -127,6 +127,19 @@
     function renderUnits() {
       var list = window.USC_UNITS.filter(function (u) { return (st.q === 'all' || u.q === st.q) && (st.fmt === 'all' || u.fmt === st.fmt); });
       if (uCnt) uCnt.textContent = list.length;
+      if (!list.length) {
+        var d = (window.I18N && window.I18N[L()]) || {};
+        uWrap.innerHTML = '<div class="card empty"><h3 class="t-h3">' + (d['cat.empty_t'] || '') + '</h3><p>' + (d['cat.empty_p'] || '') + '</p>' +
+          '<div class="cta-row"><a href="#lead" class="btn btn-primary">' + (d['cat.empty_cta'] || '') + '</a>' +
+          '<button type="button" class="btn btn-outline" id="unitsReset">' + (d['cat.reset'] || '') + '</button></div></div>';
+        var rb = document.getElementById('unitsReset');
+        if (rb) rb.addEventListener('click', function () {
+          st.q = 'all'; st.fmt = 'all';
+          if (filters) filters.querySelectorAll('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.v === 'all' ? 'true' : 'false'); });
+          renderUnits();
+        });
+        return;
+      }
       uWrap.innerHTML = list.map(function (u) { return window.__uscUnitCard(u, 'units/'); }).join('');
     }
     if (filters) filters.addEventListener('click', function (e) {
