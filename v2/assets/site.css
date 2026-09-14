@@ -49,7 +49,6 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .t-h2{font-weight:500;letter-spacing:-.025em;line-height:var(--lh-title);font-size:var(--fs-title);max-width:24ch}
 .t-h3{font-weight:500;letter-spacing:-.01em;line-height:var(--lh-sub);font-size:var(--fs-sub)}
 .t-lead{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:52ch}
-.t-label{font-size:var(--fs-cap);font-weight:500;line-height:1.4;opacity:var(--dim)}
 .t-small{font-size:var(--fs-cap);line-height:1.45}
 .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
@@ -163,10 +162,29 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .consent-bar .btn{flex:none}
 @media (prefers-reduced-motion: reduce){ .consent-bar,.hero__card{transition:none} }
 
+/* ---------- карточка — бренд-элемент: заливка, r10, без рамок/теней ---------- */
+.card{background:var(--white);border-radius:var(--r);padding:var(--s3);display:grid;gap:var(--s1);align-content:start}
+.sect--alt .card{background:var(--paper)}
+.card > b{font-size:var(--fs-body);font-weight:500;line-height:var(--lh-sub)}
+.card > p{font-size:var(--fs-body);line-height:var(--lh-body);opacity:var(--dim)}
+.card--dark{background:var(--ink);color:#fff}
+.sect--alt .card--dark{background:var(--ink)}
+.card__value{font-size:var(--fs-title);font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);color:var(--blue);margin-block:var(--s1)}
+.card--dark .card__value{color:#fff}
+.pill{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;justify-self:start;margin-bottom:var(--s1)}
+.card-grid{display:grid;gap:var(--s2)}
+.card-grid--2{grid-template-columns:1fr 1fr}
+.card-grid--3{grid-template-columns:repeat(3,1fr)}
+.card-grid--4{grid-template-columns:repeat(4,1fr)}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
+.bento .span-2{grid-column:span 2}
+@media (max-width:820px){ .card-grid--3,.card-grid--4,.bento{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .card-grid--2,.card-grid--3,.card-grid--4,.bento{grid-template-columns:1fr} .bento .span-2{grid-column:auto} }
+
 /* ================================================================
    STAT-CARD — apollo.io: заливка, подпись сверху мелко, число внизу, без линий
    ================================================================ */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:clamp(32px,4vw,48px)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:var(--s2)}
 .stat-grid--3{grid-template-columns:repeat(3,1fr)}
 .stat-card--blue .stat-card__value{color:var(--blue)}
 .stat-card{background:var(--white);border-radius:var(--r);padding:var(--s3);min-height:clamp(168px,17vw,232px);display:flex;flex-direction:column}
@@ -201,7 +219,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex[data-state="next"]{transform:translateX(100%);opacity:0;pointer-events:none}
 .complex[data-state="active"]{transform:none;opacity:1}
 .complex:not([data-state="active"]){visibility:hidden;transition:transform .6s var(--ease),opacity .6s var(--ease),visibility 0s .6s}
-.complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:var(--blue);background:var(--blue-050);border-radius:999px;padding:4px var(--s2);font-size:var(--fs-cap)}
+.complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:999px;padding:4px var(--s2);font-size:var(--fs-cap)}
 .complex__title{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .complex__head{display:grid;gap:var(--s2);justify-items:start;margin-bottom:clamp(24px,3vw,40px)}
 .complex__intro{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:56ch;margin-top:var(--s1)}
@@ -241,7 +259,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card__name b{color:var(--blue);font-weight:500}
 a.product-card:hover .product-card__name{color:var(--blue)}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
-.product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);background:var(--ink);color:#fff;font-size:var(--fs-cap);font-weight:500;white-space:nowrap}
+.product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;white-space:nowrap}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 @media (max-width:460px){ .product-grid,.product-grid--3{grid-template-columns:1fr} }
 
@@ -253,37 +271,8 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .catalog-filters .cnt{margin-left:auto;font-size:var(--fs-cap)}
 .catalog-filters .cnt b{font-weight:500}
 
-/* ================================================================
-   YIELD — таблица Samara: критерии × сценарии, рекомендуемая колонка тёмной
-   карточкой; в ячейках первая строка — суть, вторая строка мельче и тусклее
-   ================================================================ */
-.cmp{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cmp table{width:100%;min-width:640px;font-size:var(--fs-body);line-height:1.4;table-layout:fixed}
-.cmp th,.cmp td{text-align:left;vertical-align:top;padding:var(--s2) var(--s3)}
-.cmp th:first-child,.cmp td:first-child{padding-left:0}
-.cmp thead th{font-weight:500;font-size:var(--fs-body);padding-bottom:var(--s3)}
-.cmp thead th:first-child{width:33.333%}
-.cmp tbody th{font-weight:500}
-.cmp td small,.cmp th small{display:block;font-size:var(--fs-cap);line-height:1.4;margin-top:4px;opacity:var(--dim);font-weight:400}
-.cmp .is-hi{background:var(--ink);color:#fff}
-.cmp thead .is-hi{border-radius:var(--r) var(--r) 0 0}
-.cmp tbody tr:last-child .is-hi{border-radius:0 0 var(--r) var(--r)}
-.cmp__hint{display:none;margin-top:var(--s1);font-size:var(--fs-cap)}
-@media (max-width:700px){
-  .cmp table{min-width:0;display:block}
-  .cmp thead{display:none}
-  .cmp tbody,.cmp tr,.cmp th,.cmp td{display:block}
-  .cmp tr{padding-block:var(--s2) var(--s3)}
-  .cmp tr + tr{border-top:1px solid var(--line)}
-  .cmp tbody th{padding:0 0 var(--s2);font-size:var(--fs-sub);line-height:var(--lh-sub)}
-  .cmp td{padding:var(--s2);border-radius:var(--r);background:var(--white)}
-  .cmp td + td{margin-top:var(--s1)}
-  .cmp td::before{content:attr(data-col);display:block;font-size:var(--fs-cap);opacity:var(--dim);margin-bottom:4px}
-  .cmp td.is-hi{border-radius:var(--r)}
-  .cmp td.is-hi::before{opacity:.7}
-}
-
-.calc{margin-top:clamp(32px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
+/* ---------- yield: три сценария карточками + калькулятор ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
 .calc .field{display:grid;gap:var(--s1)}
@@ -304,12 +293,15 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 /* ---------- location ---------- */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
 .sect--alt .location-map{background:var(--paper)}
+.row > .card{align-self:stretch}
 .ph{background:var(--wash);border-radius:var(--r)}
 .ph--map{aspect-ratio:16/10}
 .ph--plan{aspect-ratio:4/3;max-width:520px}
 .location-map figcaption{padding:var(--s1) var(--s2);font-size:var(--fs-cap)}
 .tag-row{display:flex;flex-wrap:wrap;gap:var(--s1)}
 .tag-row span{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
+.card .tag-row span{border-color:transparent;background:var(--white)}
+.sect--alt .card .tag-row span{background:var(--white)}
 
 /* ---------- «подпись + текст» сетка ---------- */
 .kv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s4)}
@@ -323,7 +315,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 
 /* ---------- team (Titan): имя и роль над фото ---------- */
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
-.team-card{display:grid;gap:var(--s2);align-content:start}
+.team-card{gap:var(--s2)}
 .team-card__name{font-size:var(--fs-body);font-weight:500;line-height:var(--lh-sub)}
 .team-card__role{font-size:var(--fs-cap);line-height:1.4;margin-top:4px;opacity:var(--dim)}
 .team-card__photo{aspect-ratio:4/5;border-radius:var(--r);background:linear-gradient(135deg,#EEF1FF,#E4E4E1);display:grid;place-items:center;color:var(--blue);font-weight:500;font-size:var(--fs-display);letter-spacing:-.03em}
@@ -333,9 +325,9 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 
 /* ---------- how to buy ---------- */
 .step-list{display:grid;margin-top:clamp(24px,3.6vw,40px)}
-.step-row{display:grid;grid-template-columns:56px 1fr;gap:var(--s2);padding-block:var(--s3)}
+.step-row{display:grid;grid-template-columns:96px 1fr;gap:var(--s2);padding-block:var(--s3);align-items:start}
 .step-row + .step-row{border-top:1px solid var(--line)}
-.step-row .num{font-weight:500;color:var(--blue);font-size:var(--fs-body);line-height:var(--lh-sub);font-variant-numeric:tabular-nums}
+.step-row .num{font-weight:500;color:var(--blue);font-size:var(--fs-title);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .step-row b{display:block;font-weight:500;font-size:var(--fs-sub);line-height:var(--lh-sub);margin-bottom:4px}
 .step-row p{font-size:var(--fs-body);max-width:52ch}
 @media (max-width:620px){ .step-row{grid-template-columns:1fr;gap:4px} }
@@ -397,7 +389,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .unit-head h1{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .unit-head h1 b{color:var(--blue);font-weight:500}
 .unit-head .t-lead{margin-top:var(--s1)}
-.unit-price{display:inline-flex;align-items:center;height:48px;padding:0 var(--s3);border-radius:var(--r);background:var(--ink);color:#fff;font-size:var(--fs-body);font-weight:500;white-space:nowrap}
+.unit-price{display:inline-flex;align-items:center;height:48px;padding:0 var(--s3);border-radius:var(--r);background:var(--blue);color:#fff;font-size:var(--fs-body);font-weight:500;white-space:nowrap}
 .unit-gallery{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:1.42fr 1fr;grid-template-rows:1fr 1fr;gap:var(--s2);height:clamp(360px,42vw,600px)}
 .unit-gallery figure{overflow:hidden;border-radius:var(--r);background:var(--wash)}
 .unit-gallery figure:first-child{grid-row:1 / span 2}
