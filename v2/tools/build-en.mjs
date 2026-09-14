@@ -21,7 +21,7 @@ const ruOut = ru.replace('<link rel="stylesheet"', langHead('ru', '') + '\n<link
 fs.writeFileSync(path.join(root, 'index.html'), stamp(ruOut));
 
 // EN index
-let en = translateAttrs(applyDict(ru, EN)).replaceAll(' м²</b>', ' m²</b>');
+let en = translateAttrs(applyDict(ru, EN)).replaceAll(' м²</b>', ' m²</b>').replaceAll(' м²</span>', ' m²</span>');
 en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../photos/">');
 en = en.replace(/<title>[^<]*<\/title>/, `<title>${EN['meta.title']}</title>`);
 en = en.replace(/(<meta name="description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
@@ -31,7 +31,7 @@ en = en.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/but
   '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');
 // EN: Анну Орлову не показываем — карточка Стивена становится широкой (фото + био рядом)
 en = en.replace(/<article class="team-card card">\s*<div><div class="team-card__name" data-i18n="co\.p2n">[\s\S]*?<\/article>\s*/, '');
-en = en.replace('<article class="team-card card">', '<article class="team-card team-card--wide card">').replace('aria-hidden="true">СФ<', 'aria-hidden="true">SF<');
+en = en.replace('<article class="team-card card">', '<article class="team-card team-card--wide card">');
 en = en.replace('<link rel="stylesheet"', langHead('en', '') + '\n<link rel="stylesheet"');
 fs.mkdirSync(path.join(root, 'en'), { recursive: true });
 fs.writeFileSync(path.join(root, 'en', 'index.html'), stamp(en));

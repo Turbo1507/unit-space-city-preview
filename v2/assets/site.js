@@ -117,8 +117,9 @@
     var CX = window.USC_COMPLEX, lang = L(), ph = u.photos[0];
     return '<a class="product-card" href="' + hrefBase + u.slug + '.html">' +
       '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
-      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture></div>' +
-      '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + ' <b>' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</b></div>' +
+      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
+      '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
+      '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ', ' + u.floor[lang] + '</div></div>' +
       '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div></a>';
   };
@@ -314,6 +315,34 @@
     band.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { show(bi + (+b.getAttribute('data-dir'))); arm(); }); });
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     arm();
+  });
+
+  /* ---------- лента фото комплекса: стрелки листают на ширину видимой области, счётчик — по первому видимому кадру ---------- */
+  document.querySelectorAll('.strip[data-strip]').forEach(function (strip) {
+    var track = strip.querySelector('.strip__track'), figs = track.querySelectorAll('figure'), cnt = strip.querySelector('.ugal__count b');
+    strip.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: (+b.getAttribute('data-dir')) * track.clientWidth * .8, behavior: 'smooth' }); }); });
+    var t; track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(function () {
+      var x = track.scrollLeft + 8, i = 0; figs.forEach(function (f, k) { if (f.offsetLeft <= x) i = k; }); if (cnt) cnt.textContent = i + 1;
+    }, 80); }, { passive: true });
+  });
+
+  /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */
+  var faqList = document.getElementById('faqList');
+  if (faqList) faqList.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faq-q'); if (!btn) return;
+    var item = btn.parentElement, open = item.classList.contains('is-open');
+    faqList.querySelectorAll('.faq-item.is-open').forEach(function (it) { it.classList.remove('is-open'); it.querySelector('.faq-q').setAttribute('aria-expanded', 'false'); });
+    if (!open) { item.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); }
+  });
+
+  /* ---------- email в кругляшах: mailto может ничего не открыть — копируем адрес и показываем подсказку ---------- */
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var mail = a.getAttribute('href').replace('mailto:', '');
+      try { navigator.clipboard.writeText(mail); } catch (e) {}
+      var tip = document.createElement('span'); tip.className = 'copied'; tip.textContent = mail + ' — ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано');
+      document.body.appendChild(tip); setTimeout(function () { tip.classList.add('in'); }, 10); setTimeout(function () { tip.remove(); }, 2600);
+    });
   });
 
   /* ---------- калькулятор ---------- */
