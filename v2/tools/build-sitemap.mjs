@@ -2,10 +2,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 import { BASE } from './i18n-static.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const rel = ['', 'privacy.html', ...fs.readdirSync(path.join(root, 'units')).map(f => 'units/' + f)];
+const ctx = { window: {} }; vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
+const rel = ['', 'privacy.html', ...ctx.window.USC_UNITS.map(u => 'units/' + u.slug + '.html')]; // из данных, не из листинга папки
 const today = new Date().toISOString().slice(0, 10);
 const entry = (loc, ru, en) => `  <url>
     <loc>${loc}</loc>

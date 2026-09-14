@@ -33,7 +33,7 @@ for (const lang of ['ru', 'en']) {
       ? `${u.name.ru} ${u.area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
       : `${u.name.en} ${u.area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, Unit Space.`;
     let html = tpl
-      .replace('<p data-unit-field="desc">{{DESC}}</p>', `<p data-unit-field="desc">${USC_FMT[u.fmt].desc[lang]}</p>`)
+      .replace(/(<p [^>]*data-unit-field="desc">)\{\{DESC\}\}(<\/p>)/, `$1${USC_FMT[u.fmt].desc[lang]}$2`)
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
       .replaceAll('{{NAME}}', u.name[lang]).replaceAll('{{AREA}}', String(u.area)).replaceAll('{{CODE}}', cx.code).replaceAll('{{CXNAME}}', cx.name)
       .replaceAll('{{FLOOR}}', u.floor[lang]).replaceAll('{{PRICE}}', USC_PRICE[lang][u.fmt]).replaceAll('{{WHERE}}', cx.where[lang]).replaceAll('{{STATUS}}', cx.status[lang])
