@@ -25,6 +25,10 @@ let en = translateAttrs(applyDict(ru, EN)).replaceAll(' м²</b>', ' m²</b>').r
 en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../photos/">');
 en = en.replace(/<title>[^<]*<\/title>/, `<title>${EN['meta.title']}</title>`);
 en = en.replace(/(<meta name="description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
+en = en.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${EN['meta.title']}$2`).replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
+en = en.replace('<meta property="og:locale" content="ru_RU">', '<meta property="og:locale" content="en_US">').replace(/(<meta property="og:url" content="[^"]*v2\/)(")/, '$1en/$2');
+en = en.replace('"inLanguage":"ru"', '"inLanguage":"en"').replace(/"@id":"([^"]*v2\/)#site","url":"[^"]*"/, '"@id":"$1en/#site","url":"$1en/"');
+en = en.replace('"description":"Три жилых комплекса U1 Space Village, U2 Nuanu Village и U3 Nyanyi Village рядом с Nuanu Creative City, Бали"', '"description":"Three residential complexes — U1 Space Village, U2 Nuanu Village and U3 Nyanyi Village — next to Nuanu Creative City, Bali"');
 en = en.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
 en = en.replaceAll('="photos/', '="../photos/');
 en = en.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
