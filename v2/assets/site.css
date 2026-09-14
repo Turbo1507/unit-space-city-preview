@@ -336,6 +336,9 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .team-card--wide > div:first-child{grid-area:head}
 .team-card--wide .team-card__photo{grid-area:photo;aspect-ratio:4/5}
 .team-card--wide .team-card__bio{grid-area:bio;align-self:start;font-size:var(--fs-sub);line-height:var(--lh-sub)}
+/* широкая карточка (EN, один основатель): био поднято до sub — значит имя ступенью выше (h3), роль — body */
+.team-card--wide .team-card__name{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.02em}
+.team-card--wide .team-card__role{font-size:var(--fs-body);line-height:var(--lh-body);margin-top:var(--s1)}
 @media (max-width:520px){ .team-card--wide{grid-column:auto;grid-template-columns:1fr;grid-template-areas:"head" "photo" "bio"} }
 @media (max-width:800px){ .team-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .team-grid{grid-template-columns:1fr} }
