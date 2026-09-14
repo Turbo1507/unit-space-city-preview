@@ -46,6 +46,7 @@ for (const lang of ['ru', 'en']) {
       html = html.replace('data-assets="../../prototype-2026-09/assets/"', 'data-assets="../../../prototype-2026-09/assets/"');
       html = html.replaceAll('href="../assets/', 'href="../../assets/').replaceAll('src="../assets/', 'src="../../assets/');
     }
+    html = html.replaceAll('href="privacy.html"', 'href="../privacy.html"'); // ссылки из словаря — на уровень выше
     html = html.replace('<html lang="ru"', `<html lang="${lang}"`);
     html = html.replace('<link rel="stylesheet"', langHead(lang, `units/${u.slug}.html`) + '\n<link rel="stylesheet"');
     fs.writeFileSync(path.join(outDir, `${u.slug}.html`), stamp(html));

@@ -6,7 +6,7 @@ window.USC_UNITS = [
   {slug:'u1-2bd',      q:'u1',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2',en:'floor 2'},      photos:['u1-06','u1-07','u1-08','u1-09','u1-01']},
   {slug:'u2-studio',   q:'u2',fmt:'studio',name:{ru:'Студия',ru_en:'Studio'},                    area:32, floor:{ru:'этаж 1–2',en:'floors 1–2'}, photos:['u2s-01','u2s-02','u2s-03','u2s-04','u2s-05']},
   {slug:'u2-1bd',      q:'u2',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–4',en:'floors 1–4'}, photos:['u2-1bd-01','u2-1bd-02','u2-1bd-03','u2-1bd-04','u2-1bd-05','u2-1bd-06']},
-  {slug:'u2-2bd',      q:'u2',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2–3',en:'floors 2–3'}, photos:['u2-2bd-01','u2-2bd-02','u2-2bd-03','u2-2bd-04','u2-2bd-05','u2-2bd-06']},
+  {slug:'u2-2bd',      q:'u2',fmt:'2bd',   name:{ru:'2+1 спальни',ru_en:'2+1 bedrooms'},          area:89, floor:{ru:'этаж 2–3',en:'floors 2–3'}, photos:['u2-2bd-05','u2-2bd-02','u2-2bd-03','u2-2bd-04','u2-2bd-01','u2-2bd-06']},
   {slug:'u2-villa',    q:'u2',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u2v-01','u2v-02','u2v-03','u2v-04','u2v-05','u2v-06','u2v-07']},
   {slug:'u3-1bd',      q:'u3',fmt:'1bd',   name:{ru:'1+1 спальня',ru_en:'1+1 bedroom'},           area:60, floor:{ru:'этаж 1–3',en:'floors 1–3'}, photos:['u3-01','u3-02','u3-03','u3-04'], render:true},
   {slug:'u3-1bd-pool', q:'u3',fmt:'1bd',   name:{ru:'1+1 с бассейном',ru_en:'1+1 with pool'},     area:100,floor:{ru:'этаж 1',en:'floor 1'},      photos:['u3-02','u3-03','u3-04','u3-01'], render:true},
