@@ -13,7 +13,7 @@ const tpl = fs.readFileSync(path.join(here, 'privacy-template.html'), 'utf8');
 
 fs.writeFileSync(path.join(root, 'privacy.html'), stamp(tpl.replace('<link rel="stylesheet"', langHead('ru', 'privacy.html') + '\n<link rel="stylesheet"')));
 let en = translateAttrs(applyDict(tpl, ctx.window.I18N.en));
-en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../../prototype-2026-09/assets/">');
+en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="../photos/">');
 en = en.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
 en = en.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
   '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');

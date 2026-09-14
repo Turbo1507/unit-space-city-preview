@@ -296,6 +296,15 @@
       .catch(function () { baliWrap.hidden = true; });
   }
 
+  /* ---------- хиро: кроссфейд кадров каждые 6 с (без reduced-motion) ---------- */
+  var heroMedia = document.getElementById('heroMedia');
+  if (heroMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var slides = heroMedia.querySelectorAll('.hero__slide'), hi = 0;
+    if (slides.length > 1) setInterval(function () {
+      slides[hi].classList.remove('is-in'); hi = (hi + 1) % slides.length; slides[hi].classList.add('is-in');
+    }, 6000);
+  }
+
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
   if (document.getElementById('c-price')) {
