@@ -149,6 +149,16 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__card{position:relative;flex:none;width:clamp(240px,22vw,320px);aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;
   background:var(--wash);color:var(--ink);display:block;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .hero__card.in{opacity:1;transform:none}
+/* карта Бали в карточке: контур острова (OSM), точки U1/U2/U3 у Nuanu с пульсом, Denpasar и Ubud для ориентира */
+.hero__map{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__map path{fill:#E2E2DE}
+.hero__map-ref circle{fill:var(--ink-2)}
+.hero__map-ref text,.hero__map-sub{font-size:9px;fill:var(--ink-2);font-family:var(--font)}
+.hero__map-dots circle{fill:var(--blue);stroke:var(--wash);stroke-width:1.2}
+.hero__map-lbl{font-size:9.5px;font-weight:500;fill:var(--blue);font-family:var(--font);letter-spacing:.04em}
+.hero__map-pulse{fill:var(--blue);opacity:.25;transform-origin:center;transform-box:fill-box;animation:mapPulse 2.4s var(--ease) infinite}
+@keyframes mapPulse{0%{transform:scale(.6);opacity:.35}100%{transform:scale(2.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){ .hero__map-pulse{animation:none;opacity:.18} }
 .hero__card-text{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:grid;gap:4px;max-width:calc(100% - 72px)}
 .hero__card-kicker{font-size:var(--fs-micro);font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:var(--dim)}
 .hero__card-title{font-size:var(--fs-body);font-weight:500;line-height:1.25}
