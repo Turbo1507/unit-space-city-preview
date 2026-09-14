@@ -305,6 +305,17 @@
     }, 6000);
   }
 
+  /* ---------- фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении ---------- */
+  document.querySelectorAll('.photo-band[data-band]').forEach(function (band) {
+    var bs = band.querySelectorAll('.photo-band__slide'), cnt = band.querySelector('.ugal__count b'), bi = 0, timer;
+    if (bs.length < 2) return;
+    function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); if (cnt) cnt.textContent = bi + 1; }
+    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
+    band.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { show(bi + (+b.getAttribute('data-dir'))); arm(); }); });
+    band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
+    arm();
+  });
+
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
   if (document.getElementById('c-price')) {

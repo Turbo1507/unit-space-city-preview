@@ -30,6 +30,14 @@ export function langHead(lang, rel) {
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
 const ATTR = {
+  'Терраса виллы U2': 'U2 villa terrace',
+  'Виллы U1 в рисовых полях': 'U1 villas in the rice fields',
+  'Общий двор U2': 'U2 shared courtyard',
+  'Закат на террасе U1': 'Sunset on a U1 terrace',
+  'Приватная купель': 'Private plunge pool',
+  'Гостиная виллы U2': 'U2 villa living room',
+  'Предыдущее фото': 'Previous photo',
+  'Следующее фото': 'Next photo',
   'U1 — вилла в рисовом поле': 'U1 — villa in a rice field',
   'U1 — терраса виллы с видом на рисовые поля': 'U1 — villa terrace overlooking the rice fields',
   'U1 — кухня': 'U1 — kitchen',
