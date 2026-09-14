@@ -298,7 +298,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
 .calc__rows{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.calc__rows div{display:flex;justify-content:space-between;gap:var(--s2)}
 .calc__rows b{font-weight:500;font-variant-numeric:tabular-nums}
 @media (max-width:800px){ .calc{grid-template-columns:1fr} }
 @media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
@@ -333,6 +332,11 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .team-card__role{font-size:var(--fs-cap);line-height:1.4;margin-top:4px;opacity:var(--dim)}
 .team-card__photo{aspect-ratio:4/5;border-radius:var(--r);background:linear-gradient(135deg,#EEF1FF,#E4E4E1);display:grid;place-items:center;color:var(--blue);font-weight:500;font-size:var(--fs-display);letter-spacing:-.03em}
 .team-card__bio{font-size:var(--fs-body);line-height:var(--lh-body)}
+.team-card--wide{grid-column:span 2;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;grid-template-areas:"photo head" "photo bio";gap:var(--s2) var(--s3)}
+.team-card--wide > div:first-child{grid-area:head}
+.team-card--wide .team-card__photo{grid-area:photo;aspect-ratio:4/5}
+.team-card--wide .team-card__bio{grid-area:bio;align-self:start;font-size:var(--fs-sub);line-height:var(--lh-sub)}
+@media (max-width:520px){ .team-card--wide{grid-column:auto;grid-template-columns:1fr;grid-template-areas:"head" "photo" "bio"} }
 @media (max-width:800px){ .team-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .team-grid{grid-template-columns:1fr} }
 
@@ -403,17 +407,48 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .unit-head h1 b{color:var(--blue);font-weight:500}
 .unit-head .t-lead{margin-top:var(--s1)}
 .unit-price{display:inline-flex;align-items:center;height:48px;padding:0 var(--s3);border-radius:var(--r);background:var(--blue);color:#fff;font-size:var(--fs-body);font-weight:500;white-space:nowrap}
-.unit-gallery{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:1.42fr 1fr;grid-template-rows:1fr 1fr;gap:var(--s2);height:clamp(360px,42vw,600px)}
-.unit-gallery figure{overflow:hidden;border-radius:var(--r);background:var(--wash)}
-.unit-gallery figure:first-child{grid-row:1 / span 2}
-.unit-gallery img{width:100%;height:100%;object-fit:cover}
-.unit-gallery--2{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
-.unit-gallery--2 figure:first-child{grid-row:auto}
-@media (max-width:800px){
-  .unit-gallery,.unit-gallery--2{grid-template-columns:1fr 1fr;grid-template-rows:none;height:auto}
-  .unit-gallery figure:first-child{grid-column:1/-1;aspect-ratio:16/10}
-  .unit-gallery figure{aspect-ratio:4/3}
+/* галерея юнита — барабан: слева вертикальная лента превью (активное по центру, 100%,
+   остальные 50%), справа большой кадр с кроссфейдом; колесо/свайп/стрелки/клик */
+.ugal{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:120px 1fr;gap:var(--s2);height:clamp(400px,50vw,640px)}
+.ugal__drum{position:relative;overflow:hidden;border-radius:var(--r);outline:none;touch-action:none;user-select:none;cursor:grab}
+.ugal__drum:active{cursor:grabbing}
+.ugal__drum:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.ugal__drum::before,.ugal__drum::after{content:"";position:absolute;left:0;right:0;height:56px;z-index:1;pointer-events:none}
+.ugal__drum::before{top:0;background:linear-gradient(var(--paper),transparent)}
+.ugal__drum::after{bottom:0;background:linear-gradient(transparent,var(--paper))}
+.ugal__track{position:absolute;left:0;right:0;top:50%;display:grid;gap:var(--s1);transform:translateY(-50%);will-change:transform}
+.ugal__track.is-anim{transition:transform .45s var(--ease)}
+.ugal__thumb{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;border-radius:var(--r-s);overflow:hidden;background:var(--wash);opacity:.5;cursor:pointer;transition:opacity .3s}
+.ugal__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ugal__thumb.is-active{opacity:1}
+.ugal__thumb:hover{opacity:.8}
+.ugal__stage{position:relative;border-radius:var(--r);overflow:hidden;background:var(--wash)}
+.ugal__stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s var(--ease)}
+.ugal__stage img.is-in{opacity:1}
+.ugal__nav{position:absolute;right:var(--s2);bottom:var(--s2);z-index:1;display:flex;align-items:center;gap:var(--s1);
+  padding:4px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px)}
+.ugal__btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
+.ugal__btn:hover{background:var(--wash)}
+.ugal__count{font-size:var(--fs-cap);padding:0 4px;opacity:var(--dim)}
+.ugal__count b{font-weight:500}
+.ic--flip{transform:scaleX(-1)}
+@media (max-width:760px){
+  .ugal{grid-template-columns:1fr;grid-template-rows:auto 88px;height:auto}
+  .ugal__stage{aspect-ratio:4/3;order:-1}
+  .ugal__drum{height:88px}
+  .ugal__drum::before,.ugal__drum::after{top:0;bottom:0;height:auto;width:40px}
+  .ugal__drum::before{left:0;right:auto;background:linear-gradient(90deg,var(--paper),transparent)}
+  .ugal__drum::after{right:0;left:auto;background:linear-gradient(270deg,var(--paper),transparent)}
+  .ugal__track{top:0;bottom:0;left:50%;right:auto;display:flex;transform:translateX(-50%)}
+  .ugal__thumb{width:112px;flex:none;height:100%;aspect-ratio:auto}
 }
+
+/* строки «подпись … значение» с точечным лидером (калькулятор, факты юнита) */
+.leaders{display:grid;gap:var(--s1);font-size:var(--fs-body)}
+.leaders > div,.calc__rows > div{display:flex;align-items:baseline;gap:var(--s1)}
+.leaders > div::after,.calc__rows > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
+.leaders > div > :first-child,.calc__rows > div > :first-child{order:1}
+.leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
 
 /* ---------- 1600px+ ---------- */
 @media (min-width:1600px){

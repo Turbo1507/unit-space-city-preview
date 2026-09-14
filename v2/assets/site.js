@@ -118,8 +118,8 @@
     return '<a class="product-card" href="' + hrefBase + u.slug + '.html">' +
       '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture></div>' +
-      '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + ' · <b>' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</b></div>' +
-      '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ' · ' + u.floor[lang] + '</div></div>' +
+      '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + ' <b>' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</b></div>' +
+      '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ', ' + u.floor[lang] + '</div></div>' +
       '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div></a>';
   };
   if (uWrap && window.USC_UNITS) {
@@ -176,6 +176,55 @@
     window.__uscRerender = function (lang) { if (prev2) prev2(lang); renderUnit(lang); };
   }
 
+
+
+  /* ---------- галерея-барабан на странице юнита: окно из 7 превью вокруг активного, шаг = сдвиг ленты ---------- */
+  var ugal = document.getElementById('ugal');
+  if (ugal) (function () {
+    var photos = ugal.getAttribute('data-photos').split(','), n = photos.length, alt = ugal.getAttribute('data-alt') || '';
+    var base = ASSETS, drum = ugal.querySelector('.ugal__drum'), track = ugal.querySelector('.ugal__track'), stage = ugal.querySelector('.ugal__stage');
+    var count = ugal.querySelector('.ugal__count b'), cur = 0, busy = false, HALF = 3;
+    function horizontal() { return matchMedia('(max-width:760px)').matches; }
+    function slot(k) { return ((k % n) + n) % n; }
+    function renderTrack() {
+      var html = '';
+      for (var o = -HALF; o <= HALF; o++) {
+        var i = slot(cur + o);
+        html += '<button type="button" class="ugal__thumb' + (o === 0 ? ' is-active' : '') + '" data-o="' + o + '" aria-label="' + (i + 1) + '/' + n + '"><img src="' + base + photos[i] + '.webp" alt="" width="160" height="120"></button>';
+      }
+      track.classList.remove('is-anim'); track.style.transform = ''; track.innerHTML = html;
+    }
+    function swapStage(i) {
+      var old = stage.querySelector('img.is-in'), img = document.createElement('img');
+      img.src = base + photos[i] + '.jpg'; img.alt = alt; img.width = 1200; img.height = 900;
+      stage.insertBefore(img, stage.querySelector('.ugal__nav'));
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        img.classList.add('is-in');
+        if (old) { old.classList.remove('is-in'); setTimeout(function () { old.remove(); }, 600); }
+      }); });
+      if (count) count.textContent = i + 1;
+    }
+    function go(delta) {
+      if (busy || !delta) return; busy = true;
+      var th = track.querySelector('.ugal__thumb'), gap = 8, step = (horizontal() ? th.offsetWidth : th.offsetHeight) + gap;
+      track.classList.add('is-anim');
+      track.style.transform = horizontal() ? 'translateX(calc(-50% - ' + (delta * step) + 'px))' : 'translateY(calc(-50% - ' + (delta * step) + 'px))';
+      cur = slot(cur + delta); swapStage(cur);
+      var done = false; function fin() { if (done) return; done = true; renderTrack(); busy = false; }
+      track.addEventListener('transitionend', fin, { once: true }); setTimeout(fin, 520);
+    }
+    renderTrack(); if (count) count.textContent = 1;
+    track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
+    ugal.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { go(+b.getAttribute('data-dir')); }); });
+    stage.addEventListener('click', function (e) { if (!e.target.closest('.ugal__nav')) go(1); });
+    var wheelT = 0;
+    drum.addEventListener('wheel', function (e) { e.preventDefault(); var now = Date.now(); if (now - wheelT < 350) return; wheelT = now; var d = horizontal() ? (e.deltaX || e.deltaY) : e.deltaY; go(d > 0 ? 1 : -1); }, { passive: false });
+    var p0 = null;
+    drum.addEventListener('pointerdown', function (e) { p0 = { x: e.clientX, y: e.clientY }; });
+    addEventListener('pointerup', function (e) { if (!p0) return; var d = horizontal() ? e.clientX - p0.x : e.clientY - p0.y; p0 = null; if (Math.abs(d) > 24) go(d < 0 ? 1 : -1); });
+    drum.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
+    addEventListener('resize', renderTrack);
+  })();
 
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
