@@ -17,7 +17,7 @@ window.USC_UNITS.forEach(function (u) { u.name.en = u.name.ru_en; delete u.name.
 window.USC_COMPLEX = {
   u1:{code:'U1',name:'Space Village', status:{ru:'сдан в 2024, заселён',en:'completed 2024, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}},
   u2:{code:'U2',name:'Nuanu Village', status:{ru:'сдан в 2025, заселён',en:'completed 2025, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}},
-  u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача 2026',en:'under construction, due 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}}
+  u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача осенью 2026',en:'under construction, handover autumn 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}}
 };
 window.USC_PRICE = {ru:{studio:'от $100 000','1bd':'от $118 000','2bd':'от $190 000',villa:'от $278 000'},
                     en:{studio:'from $100,000','1bd':'from $118,000','2bd':'from $190,000',villa:'from $278,000'}};

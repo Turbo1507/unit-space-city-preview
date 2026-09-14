@@ -135,7 +135,9 @@ window.I18N = {
  "co.pr4": "Сообщество",
  "co.pr4p": "Соседи с&nbsp;общими ценностями: коворкинг, кафе и&nbsp;события внутри квартала",
  "co.trust": "Кому доверяют",
+ "co.t1n": "Сергей Солонин",
  "co.t1": "Якорный инвестор Unit Space. Топ-200 Forbes, сооснователь Qiwi, создатель Nuanu City",
+ "co.t2n": "Михаил Дашкиев",
  "co.t2": "Сооснователь «Бизнес Молодости». Строит комплекс 5&nbsp;Elements в&nbsp;Убуде вместе с&nbsp;UNIT.BUILD",
  "co.t3n": "Владельцы из&nbsp;11 стран",
  "co.t3": "Сингапур, США, Канада, Франция, Швейцария, Казахстан и&nbsp;другие — виллы уже куплены",
@@ -352,7 +354,9 @@ window.I18N = {
  "co.pr4": "Community",
  "co.pr4p": "Neighbours with shared values: coworking, cafés and events inside the block",
  "co.trust": "Who trusts us",
+ "co.t1n": "Sergey Solonin",
  "co.t1": "Anchor investor of Unit Space. Forbes top-200, co-founder of Qiwi, creator of Nuanu City",
+ "co.t2n": "Mikhail Dashkiev",
  "co.t2": "Co-founder of Business Youth. Building the 5 Elements complex in Ubud together with UNIT.BUILD",
  "co.t3n": "Owners from 11 countries",
  "co.t3": "Singapore, the United States, Canada, France, Switzerland, Kazakhstan and more — units already bought",
@@ -435,5 +439,4 @@ window.I18N = {
   document.querySelectorAll('[data-lang]').forEach(function (b) { b.classList.toggle('is-active', b.dataset.lang === lang); });
   window.__uscLang = lang;
   if (window.__uscRerender) window.__uscRerender(lang);
-  try { localStorage.setItem('usc_lang', lang); } catch (e) {}
 };

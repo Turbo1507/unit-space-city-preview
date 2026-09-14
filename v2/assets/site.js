@@ -24,15 +24,19 @@
   if (menuClose) menuClose.addEventListener('click', function () { setMenuOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setMenuOpen(false); });
 
-  /* ---------- язык: RU / EN через data-lang + window.setLang (i18n.js), localStorage ---------- */
+  /* ---------- язык (паттерн БСО): у каждого языка свой URL (/ и /en/), кнопка ведёт на
+     hreflang-альтернативу; словарь применяется к JS-частям по <html lang> ---------- */
+  var pageLang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+  function altHref(lang) { var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]'); return l ? l.getAttribute('href') : null; }
+  var wanted = /[?&]lang=(ru|en)/.exec(location.search);
+  if (wanted && wanted[1] !== pageLang && altHref(wanted[1])) { location.replace(altHref(wanted[1]) + location.hash); }
   document.querySelectorAll('[data-lang]').forEach(function (b) {
-    b.addEventListener('click', function () { if (window.setLang) window.setLang(b.dataset.lang); });
+    b.addEventListener('click', function () {
+      var l = b.dataset.lang; if (l === pageLang) return;
+      var href = altHref(l); if (href) location.href = href + location.hash; else if (window.setLang) window.setLang(l);
+    });
   });
-  (function () {
-    var lang = 'ru', q = /[?&]lang=(ru|en)/.exec(location.search);
-    if (q) lang = q[1]; else { try { lang = localStorage.getItem('usc_lang') || 'ru'; } catch (e) {} }
-    if (window.setLang) window.setLang(lang);
-  })();
+  if (window.setLang) window.setLang(pageLang);
 
   /* ---------- scrollspy: активный пункт меню ---------- */
   var navLinks = [].slice.call(document.querySelectorAll('.site-nav a[href^="#"]'));
