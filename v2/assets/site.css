@@ -80,7 +80,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .lbl{display:inline-flex;align-items:center;gap:var(--s1)}
 .lbl .ic{width:16px;height:16px;opacity:.8}
 .card > b.lbl,.kv-grid b.lbl{display:flex}
-.hero__card-kicker{display:inline-flex;align-items:center;gap:6px}
+.hero__card-kicker{display:inline-flex;align-items:center;gap:var(--s1)}
 .hero__card-kicker .ic{width:12px;height:12px}
 .crumb .ic{width:14px;height:14px}
 .cta-row--after{margin-top:clamp(24px,3vw,40px)}
@@ -100,17 +100,17 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .site-nav a{opacity:.7;transition:opacity .2s}
 .site-nav a:hover,.site-nav a.is-active{opacity:1}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
-.lang{display:flex;align-items:center;gap:6px;font-size:var(--fs-cap);font-weight:500}
-.lang button{background:none;border:0;padding:2px;cursor:pointer;opacity:.55;transition:opacity .2s}
+.lang{display:flex;align-items:center;gap:var(--s1);font-size:var(--fs-cap);font-weight:500}
+.lang button{background:none;border:0;padding:4px;cursor:pointer;opacity:.55;transition:opacity .2s}
 .lang button.is-active,.lang button:hover{opacity:1}
 .lang span{opacity:.3;font-size:var(--fs-micro)}
 .burger{display:none;width:40px;height:40px;border:0;background:none;cursor:pointer;flex-direction:column;
-  justify-content:center;align-items:center;gap:5px;position:relative;z-index:101;color:inherit}
+  justify-content:center;align-items:center;gap:4px;position:relative;z-index:101;color:inherit}
 .burger span{display:block;width:22px;height:2px;background:currentColor;transition:transform .25s var(--ease),opacity .2s}
 body.menu-open .burger{color:var(--ink)}
-body.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open .burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 body.menu-open .burger span:nth-child(2){opacity:0}
-body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 @media (max-width:1000px){ .site-nav{display:none} .burger{display:flex} .site-header .header-right .btn{display:none} }
 
 /* мобильное меню — полноэкранный оверлей (паттерн БСО/unit-wp) */
