@@ -30,6 +30,13 @@ export function langHead(lang, rel) {
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
 const ATTR = {
+  'Степан Федосеев': 'Stepan Fedoseev',
+  'Анна Орлова': 'Anna Orlova',
+  'Сергей Солонин': 'Sergey Solonin',
+  'Михаил Дашкиев': 'Mikhail Dashkiev',
+  'Стройплощадка UNIT.BUILD': 'UNIT.BUILD construction site',
+  'Производство стальных каркасов UNIT.FRAMES': 'UNIT.FRAMES steel frame production',
+  'Цех UNIT.FURNITURE': 'UNIT.FURNITURE workshop',
   'Терраса виллы U2': 'U2 villa terrace',
   'Виллы U1 в рисовых полях': 'U1 villas in the rice fields',
   'Общий двор U2': 'U2 shared courtyard',
@@ -93,6 +100,7 @@ const ATTR = {
 };
 export function translateAttrs(html) {
   for (const [ruV, enV] of Object.entries(ATTR)) html = html.replaceAll(`="${ruV}"`, `="${enV}"`);
+  html = html.replace(/ — фото (\d+)"/g, ' — photo $1"');
   return html.replace(/<!--[\s\S]*?-->/g, m => m.replace(/[А-Яа-яЁё]+/g, '').replace(/\s{2,}/g, ' '));
 }
 
