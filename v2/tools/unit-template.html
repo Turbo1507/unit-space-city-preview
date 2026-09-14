@@ -71,11 +71,11 @@
     {{RENDER_NOTE}}
 
     <div class="rows" style="margin-top:var(--sy)">
-      <div class="row">
-        <div class="t-label" data-i18n="unit.about">О&nbsp;формате</div>
-        <div>
-          <p data-unit-field="desc">{{DESC}}</p>
-          <div class="kv-grid kv-grid--2" style="margin-top:var(--s3)">
+      <div>
+        <h3 class="t-h3" data-i18n="unit.about">О&nbsp;формате</h3>
+        <p class="t-lead" style="margin-top:var(--s2)" data-unit-field="desc">{{DESC}}</p>
+        <div class="card" style="margin-top:var(--s3)">
+          <div class="kv-grid kv-grid--2">
             <div><b data-i18n="unit.complex">Комплекс</b><span>{{CODE}} — {{CXNAME}}, <span data-unit-field="where">{{WHERE}}</span></span></div>
             <div><b data-i18n="unit.status">Статус</b><span data-unit-field="status">{{STATUS}}</span></div>
             <div><b data-i18n="unit.area">Площадь</b><span>{{AREA}} <span data-unit-field="m2">м²</span></span></div>
@@ -83,9 +83,9 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="t-label" data-i18n="unit.plan">Планировка</div>
-        <div class="unit-plan">{{PLAN}}</div>
+      <div>
+        <h3 class="t-h3" data-i18n="unit.plan">Планировка</h3>
+        <div class="unit-plan" style="margin-top:var(--s2)">{{PLAN}}</div>
       </div>
     </div>
   </section>
