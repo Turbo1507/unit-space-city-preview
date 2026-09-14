@@ -311,9 +311,19 @@
   var heroMedia = document.getElementById('heroMedia');
   if (heroMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var heroSlides = heroMedia.querySelectorAll('.hero__slide'), hi = 0; // не «slides» — var общий со слайдером комплексов
-    if (heroSlides.length > 1) setInterval(function () {
-      heroSlides[hi].classList.remove('is-in'); hi = (hi + 1) % heroSlides.length; heroSlides[hi].classList.add('is-in');
-    }, 6000);
+    /* кадры 2–4 отложены (data-src): грузим после load, следующий — за 1.5 с до смены, чтобы старт не тянул ~900 KB */
+    function loadSlide(k) {
+      var pic = heroSlides[k]; if (!pic || pic.dataset.ready) return; pic.dataset.ready = '1';
+      pic.querySelectorAll('source[data-srcset]').forEach(function (s) { s.srcset = s.dataset.srcset; });
+      var img = pic.querySelector('img[data-src]'); if (img) img.src = img.dataset.src;
+    }
+    if (heroSlides.length > 1) {
+      addEventListener('load', function () { setTimeout(function () { loadSlide(1); }, 1500); }, { once: true });
+      setInterval(function () {
+        loadSlide((hi + 2) % heroSlides.length);
+        heroSlides[hi].classList.remove('is-in'); hi = (hi + 1) % heroSlides.length; loadSlide(hi); heroSlides[hi].classList.add('is-in');
+      }, 6000);
+    }
   }
 
   /* ---------- фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении ---------- */
