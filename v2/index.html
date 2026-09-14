@@ -26,7 +26,7 @@
       <div class="lang" role="group" aria-label="Язык">
         <button type="button" data-lang="ru" class="is-active">RU</button><span>/</span><button type="button" data-lang="en">EN</button>
       </div>
-      <a href="#lead" class="btn btn-primary btn-sm"><span data-i18n="nav.cta">Оставить заявку</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#lead" class="btn btn-primary btn-sm" data-i18n="nav.cta">Оставить заявку</a>
       <button class="burger" id="burger" type="button" aria-label="Меню" aria-controls="menuOverlay" data-i18n-aria="menu.title"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -79,9 +79,9 @@
     </div>
     <div class="hero__strip">
       <div class="container">
-        <div><span class="hero__strip-name">U1 Space Village</span><span data-i18n="hero.s1"><b>22</b> юнита, сдан в&nbsp;<b>2024</b></span></div>
-        <div><span class="hero__strip-name">U2 Nuanu Village</span><span data-i18n="hero.s2"><b>55</b> юнитов, сдан в&nbsp;<b>2025</b></span></div>
-        <div><span class="hero__strip-name">U3 Nyanyi Village</span><span data-i18n="hero.s3"><b>28</b> юнитов, сдача в&nbsp;<b>2026</b></span></div>
+        <div>U1 Space Village<span data-i18n="hero.s1">22 юнита, сдан в&nbsp;2024</span></div>
+        <div>U2 Nuanu Village<span data-i18n="hero.s2">55 юнитов, сдан в&nbsp;2025</span></div>
+        <div>U3 Nyanyi Village<span data-i18n="hero.s3">28 юнитов, сдача в&nbsp;2026</span></div>
       </div>
     </div>
   </section>
@@ -116,9 +116,9 @@
   <!-- 03 · КОМПЛЕКСЫ -->
   <div class="complex-nav" id="complexes" role="tablist" aria-label="Комплексы">
     <div class="container">
-      <button type="button" role="tab" aria-selected="true" aria-controls="cx-u1" data-cx="cx-u1"><b>U1</b> Space Village</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u2" data-cx="cx-u2"><b>U2</b> Nuanu Village</button>
-      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u3" data-cx="cx-u3"><b>U3</b> Nyanyi Village</button>
+      <button type="button" role="tab" aria-selected="true" aria-controls="cx-u1" data-cx="cx-u1"><b>U1</b> <span>Space Village</span></button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u2" data-cx="cx-u2"><b>U2</b> <span>Nuanu Village</span></button>
+      <button type="button" role="tab" aria-selected="false" aria-controls="cx-u3" data-cx="cx-u3"><b>U3</b> <span>Nyanyi Village</span></button>
       <span class="ink" id="cxInk"></span>
     </div>
   </div>
@@ -128,18 +128,17 @@
 
     <article class="complex" id="cx-u1" role="tabpanel" data-state="active">
      <div class="container">
-      <div class="row">
-        <div><div class="complex__badge">U1</div><h2 class="complex__title">Space Village</h2></div>
-        <div class="complex__body">
-          <p class="complex__intro" data-i18n="u1.intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под управлением UNIT SPACE MANAGEMENT</p>
-          <div class="complex__facts tnum">
-            <div><b>22</b><span class="dim" data-i18n="u1.f1">юнита</span></div>
-            <div><b>2024</b><span class="dim" data-i18n="u1.f2">сдан и&nbsp;заселён</span></div>
-            <div><b>32–89</b><span class="dim" data-i18n="u1.f3">м² форматы</span></div>
-          </div>
-          <p class="complex__formats dim" data-i18n="u1.formats"><b>Форматы:</b> студия 32&nbsp;м² · 2+1 спальни 89&nbsp;м². Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge внутри квартала</p>
-        </div>
+      <div class="complex__head">
+        <div class="complex__badge">U1</div>
+        <h2 class="complex__title">Space Village</h2>
+        <p class="complex__intro" data-i18n="u1.intro">Первый hi-tech комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под управлением UNIT SPACE MANAGEMENT</p>
       </div>
+      <div class="stat-grid stat-grid--3 tnum">
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u1.f1">юнита</div><div class="stat-card__value tnum">22</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u1.f2">сдан и&nbsp;заселён</div><div class="stat-card__value tnum">2024</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u1.f3">м² форматы</div><div class="stat-card__value tnum">32–89</div></div>
+      </div>
+      <p class="complex__formats dim" data-i18n="u1.formats"><b>Форматы:</b> студия 32&nbsp;м² · 2+1 спальни 89&nbsp;м². Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold&nbsp;plunge внутри квартала</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-09.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-09.jpg" alt="U1 — приватный бассейн и сауна вечером"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u1-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u1-01.jpg" alt="U1 — спальня в минималистичном стиле"></picture></figure>
@@ -150,18 +149,17 @@
 
     <article class="complex" id="cx-u2" role="tabpanel" data-state="next">
      <div class="container">
-      <div class="row">
-        <div><div class="complex__badge">U2</div><h2 class="complex__title">Nuanu Village</h2></div>
-        <div class="complex__body">
-          <p class="complex__intro" data-i18n="u2.intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор — от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;бассейном и&nbsp;садом</p>
-          <div class="complex__facts tnum">
-            <div><b>55</b><span class="dim" data-i18n="u2.f1">юнитов</span></div>
-            <div><b>2025</b><span class="dim" data-i18n="u2.f2">сдан и&nbsp;заселён</span></div>
-            <div><b>32–200</b><span class="dim" data-i18n="u2.f3">м² форматы</span></div>
-          </div>
-          <p class="complex__formats dim" data-i18n="u2.formats"><b>Форматы:</b> студия 32 · 1+1&nbsp;— 60 · 2+1&nbsp;— 89 · вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м². Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии</p>
-        </div>
+      <div class="complex__head">
+        <div class="complex__badge">U2</div>
+        <h2 class="complex__title">Nuanu Village</h2>
+        <p class="complex__intro" data-i18n="u2.intro">Второй комплекс в&nbsp;сердце Nuanu. Сдан в&nbsp;2025, заселён. Самый широкий выбор — от&nbsp;студии до&nbsp;виллы 200&nbsp;м² с&nbsp;бассейном и&nbsp;садом</p>
       </div>
+      <div class="stat-grid stat-grid--3 tnum">
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u2.f1">юнитов</div><div class="stat-card__value tnum">55</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u2.f2">сдан и&nbsp;заселён</div><div class="stat-card__value tnum">2025</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u2.f3">м² форматы</div><div class="stat-card__value tnum">32–200</div></div>
+      </div>
+      <p class="complex__formats dim" data-i18n="u2.formats"><b>Форматы:</b> студия 32 · 1+1&nbsp;— 60 · 2+1&nbsp;— 89 · вилла 3+1 с&nbsp;бассейном&nbsp;— 200&nbsp;м². Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u2-2bd-01.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2-2bd-01.jpg" alt="U2 — фасад виллы, палисадник"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u2s-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u2s-03.jpg" alt="U2 — кухня с видом на рисовые поля"></picture></figure>
@@ -172,18 +170,17 @@
 
     <article class="complex" id="cx-u3" role="tabpanel" data-state="next">
      <div class="container">
-      <div class="row">
-        <div><div class="complex__badge">U3</div><h2 class="complex__title">Nyanyi Village</h2></div>
-        <div class="complex__body">
-          <p class="complex__intro" data-i18n="u3.intro">Третий комплекс в&nbsp;посёлке Nyanyi, ближе к&nbsp;океану. Строится, сдача в&nbsp;2026. Вход по&nbsp;стартовой цене; появляются форматы с&nbsp;приватным бассейном</p>
-          <div class="complex__facts tnum">
-            <div><b>28</b><span class="dim" data-i18n="u3.f1">юнитов</span></div>
-            <div><b>2026</b><span class="dim" data-i18n="u3.f2">плановая сдача</span></div>
-            <div><b>60–200</b><span class="dim" data-i18n="u3.f3">м² форматы</span></div>
-          </div>
-          <p class="complex__formats dim" data-i18n="u3.formats"><b>Форматы:</b> 1+1&nbsp;— 60 · 1+1 с&nbsp;бассейном&nbsp;— 100 · 2+1&nbsp;— 89 · 2+1 с&nbsp;бассейном&nbsp;— 109 · вилла 3+1&nbsp;— 200&nbsp;м². Прогресс стройки — фото по&nbsp;датам, по&nbsp;запросу</p>
-        </div>
+      <div class="complex__head">
+        <div class="complex__badge">U3</div>
+        <h2 class="complex__title">Nyanyi Village</h2>
+        <p class="complex__intro" data-i18n="u3.intro">Третий комплекс в&nbsp;посёлке Nyanyi, ближе к&nbsp;океану. Строится, сдача в&nbsp;2026. Вход по&nbsp;стартовой цене; появляются форматы с&nbsp;приватным бассейном</p>
       </div>
+      <div class="stat-grid stat-grid--3 tnum">
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u3.f1">юнитов</div><div class="stat-card__value tnum">28</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u3.f2">плановая сдача</div><div class="stat-card__value tnum">2026</div></div>
+          <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="u3.f3">м² форматы</div><div class="stat-card__value tnum">60–200</div></div>
+      </div>
+      <p class="complex__formats dim" data-i18n="u3.formats"><b>Форматы:</b> 1+1&nbsp;— 60 · 1+1 с&nbsp;бассейном&nbsp;— 100 · 2+1&nbsp;— 89 · 2+1 с&nbsp;бассейном&nbsp;— 109 · вилла 3+1&nbsp;— 200&nbsp;м². Прогресс стройки — фото по&nbsp;датам, по&nbsp;запросу</p>
       <div class="complex__gallery">
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-03.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-03.jpg" alt="U3 — зона у приватного бассейна, рендер"></picture></figure>
         <figure><picture><source srcset="../prototype-2026-09/assets/u3-04.webp" type="image/webp"><img src="../prototype-2026-09/assets/u3-04.jpg" alt="U3 — вилла с деревянным фасадом, рендер"></picture></figure>
@@ -335,7 +332,7 @@
       </div>
       <div class="row rv">
         <div class="kv-grid kv-grid--1">
-          <div><b data-i18n="loc.addr_l">Адрес</b><span>Jl Pantai Nyanyi 88, Beraban, Tabanan, <span data-i18n="loc.bali">Бали</span></span></div>
+          <div><b data-i18n="loc.addr_l">Адрес</b><span data-i18n="loc.addr">Jl Pantai Nyanyi 88, Beraban, Tabanan, Бали</span></div>
           <div><b data-i18n="loc.beach_l">Пляж</b><span data-i18n="loc.beach">Pantai Nyanyi — 3 минуты пешком от&nbsp;U1 и&nbsp;U2</span></div>
           <div><b data-i18n="loc.infra_l">Инфраструктура Nuanu</b><span data-i18n="loc.infra">35+ объектов, открыты круглый год</span></div>
         </div>
