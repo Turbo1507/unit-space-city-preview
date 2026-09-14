@@ -39,7 +39,11 @@ for (const lang of ['ru', 'en']) {
       .replaceAll('{{FLOOR}}', u.floor[lang]).replaceAll('{{PRICE}}', USC_PRICE[lang][u.fmt]).replaceAll('{{WHERE}}', cx.where[lang]).replaceAll('{{STATUS}}', cx.status[lang])
       .replaceAll('{{THUMBS}}', thumbs).replaceAll('{{PHOTOS}}', u.photos.join(',')).replaceAll('{{PB}}', photoBase).replaceAll('{{P0}}', u.photos[0]).replaceAll('{{N}}', String(u.photos.length)).replaceAll('{{ALT}}', esc(cx.code + ' — ' + u.name[lang]))
       .replaceAll('{{RENDER_NOTE}}', u.render ? `<p class="t-small dim" style="margin-top:var(--s2)" data-i18n="unit.render_note">${dict['unit.render_note']}</p>` : '')
-      .replaceAll('{{PLAN}}', '<div class="ph ph--plan" aria-hidden="true"></div>');
+      .replaceAll('{{PLAN}}', '<div class="ph ph--plan" aria-hidden="true"></div>')
+      .replaceAll('{{URL}}', `https://turbo1507.github.io/unit-space-city-preview/v2/${lang === 'en' ? 'en/' : ''}units/${u.slug}.html`)
+      .replaceAll('{{OGIMG}}', `https://turbo1507.github.io/unit-space-city-preview/v2/photos/${u.photos[0]}.jpg`)
+      .replaceAll('{{OGLOCALE}}', lang === 'en' ? 'en_US' : 'ru_RU')
+      .replaceAll('{{PRICENUM}}', String(({ studio: 100000, '1bd': 118000, '2bd': 190000, villa: 278000 })[u.fmt]));
     if (lang === 'en') {
       html = translateAttrs(applyDict(html, dict));
       html = html.replaceAll('data-unit-field="m2">м²<', 'data-unit-field="m2">m²<');

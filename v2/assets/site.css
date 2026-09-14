@@ -630,3 +630,11 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* подсказка «скопировано» для mailto */
 .copied{position:fixed;left:50%;bottom:var(--s4);transform:translate(-50%,8px);z-index:200;padding:8px 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:var(--fs-cap);opacity:0;transition:opacity .25s,transform .25s}
 .copied.in{opacity:1;transform:translate(-50%,0)}
+/* seo-technical / тач: цели ≥44px на устройствах без hover — табы комплексов, кнопки галерей, ссылки футера, язык */
+@media (hover:none){
+  .complex-nav button{min-width:44px;min-height:44px}
+  .ugal__btn{width:44px;height:44px}
+  .site-footer ul a{display:inline-block;padding-block:6px}
+  .footer-bottom a{display:inline-block;padding-block:8px}
+  .lang button{min-width:44px;min-height:44px;padding:4px 8px}
+}
