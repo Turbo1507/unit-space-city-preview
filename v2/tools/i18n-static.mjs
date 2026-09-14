@@ -30,6 +30,18 @@ export function langHead(lang, rel) {
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
 const ATTR = {
+  'U1 — вилла в рисовом поле': 'U1 — villa in a rice field',
+  'U1 — терраса виллы с видом на рисовые поля': 'U1 — villa terrace overlooking the rice fields',
+  'U1 — кухня': 'U1 — kitchen',
+  'U1 — ванная с круглым зеркалом': 'U1 — bathroom with a round mirror',
+  'U2 — гостиная виллы с выходом к бассейну': 'U2 — villa living room opening onto the pool',
+  'U2 — общий двор с зонтами и лаунжем': 'U2 — shared courtyard with umbrellas and a lounge',
+  'U2 — двор с бассейном на закате': 'U2 — courtyard with a pool at sunset',
+  'U3 — терраса с бассейном, рендер': 'U3 — terrace with a pool, render',
+  '1+1 — кухня-гостиная': '1+1 — kitchen and living room',
+  'Вилла 3+1 — приватный бассейн': '3+1 villa — private pool',
+  'Кафе, коворкинг и кинотеатр внутри квартала U1': 'Café, coworking and cinema inside the U1 quarter',
+  'Карта: Nuanu, Бали': 'Map: Nuanu, Bali',
   'Виллы U1 Space Village среди рисовых полей': 'U1 Space Village villas among the rice fields',
   'Фасады вилл U1 с деревянными террасами': 'U1 villa façades with timber terraces',
   'Терраса виллы Unit Space на закате': 'Unit Space villa terrace at sunset',
