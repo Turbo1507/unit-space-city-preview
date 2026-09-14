@@ -21,7 +21,7 @@
   --hdr:64px;
   /* типографическая шкала (Smashing: body / subhead / title + осознанные «go big») */
   --fs-micro:12px; --fs-cap:14px; --fs-body:16px; --fs-sub:20px;
-  --fs-title:clamp(28px,3.4vw,44px); --fs-display:clamp(36px,4.2vw,64px);
+  --fs-h3:clamp(24px,2.4vw,32px); --fs-title:clamp(28px,3.4vw,44px); --fs-display:clamp(36px,4.2vw,64px);
   --lh-body:1.55; --lh-sub:1.35; --lh-title:1.05;
   --font:"Helvetica Neue","Helvetica Neue LT","Helvetica","Arial Nova",Arial,sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
@@ -47,7 +47,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 
 /* ---------- typography ---------- */
 .t-h2{font-weight:500;letter-spacing:-.025em;line-height:var(--lh-title);font-size:var(--fs-title);max-width:24ch}
-.t-h3{font-weight:500;letter-spacing:-.01em;line-height:var(--lh-sub);font-size:var(--fs-sub)}
+.t-h3{font-weight:500;letter-spacing:-.02em;line-height:1.2;font-size:var(--fs-h3)}
 .t-lead{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:52ch}
 .t-small{font-size:var(--fs-cap);line-height:1.45}
 .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
@@ -174,7 +174,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* ---------- карточка — бренд-элемент: заливка, r10, без рамок/теней ---------- */
 .card{background:var(--white);border-radius:var(--r);padding:var(--s3);display:grid;gap:var(--s1);align-content:start}
 .sect--alt .card{background:var(--paper)}
-.card > b{font-size:var(--fs-body);font-weight:500;line-height:var(--lh-sub)}
+.card > b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
 .card > p{font-size:var(--fs-body);line-height:var(--lh-body);opacity:var(--dim)}
 .card__ph{height:clamp(120px,12vw,176px);margin:calc(-1 * var(--s3)) calc(-1 * var(--s3)) var(--s1);border-radius:var(--r) var(--r) 0 0}
 .card--dark{background:var(--ink);color:#fff}
@@ -328,7 +328,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 /* ---------- team (Titan): имя и роль над фото ---------- */
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
 .team-card{gap:var(--s2)}
-.team-card__name{font-size:var(--fs-body);font-weight:500;line-height:var(--lh-sub)}
+.team-card__name{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
 .team-card__role{font-size:var(--fs-cap);line-height:1.4;margin-top:4px;opacity:var(--dim)}
 .team-card__photo{aspect-ratio:4/5;border-radius:var(--r);background:linear-gradient(135deg,#EEF1FF,#E4E4E1);display:grid;place-items:center;color:var(--blue);font-weight:500;font-size:var(--fs-display);letter-spacing:-.03em}
 .team-card__bio{font-size:var(--fs-body);line-height:var(--lh-body)}
@@ -452,7 +452,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 
 /* ---------- 1600px+ ---------- */
 @media (min-width:1600px){
-  :root{ --col:1680px; --gut:64px; --fs-cap:15px; --fs-body:17px; --fs-sub:21px; --fs-title:clamp(44px,3vw,52px); --fs-display:clamp(64px,4vw,72px); }
+  :root{ --col:1680px; --gut:64px; --fs-cap:15px; --fs-body:17px; --fs-sub:21px; --fs-h3:clamp(32px,2vw,36px); --fs-title:clamp(44px,3vw,52px); --fs-display:clamp(64px,4vw,72px); }
   .stat-card--blue .stat-card__value{font-size:112px}
   .chip{height:44px} .tag-row span{min-height:44px}
 }
