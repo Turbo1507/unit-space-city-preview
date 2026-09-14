@@ -272,6 +272,9 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 @media (max-width:460px){ .product-grid,.product-grid--3{grid-template-columns:1fr} }
 
+.empty{grid-column:1/-1;justify-items:center;text-align:center;padding:var(--s6) var(--s3);gap:var(--s2)}
+.empty p{max-width:44ch}
+.empty .cta-row{justify-content:center;margin-top:var(--s1)}
 .catalog-filters{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;margin-bottom:var(--s3)}
 .chip{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
 .chip:hover{border-color:var(--ink-2)}
