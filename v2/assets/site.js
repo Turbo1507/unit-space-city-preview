@@ -158,6 +158,17 @@
     window.__uscRerender = function (lang) { if (prev2) prev2(lang); renderUnit(lang); };
   }
 
+
+  /* таблица-сравнение: подписи колонок для мобильной раскладки (обновляются при смене языка) */
+  function syncCmpCols() {
+    var t = document.querySelector('.cmp table'); if (!t) return;
+    var heads = [].slice.call(t.querySelectorAll('thead th')).map(function (th) { var c = th.cloneNode(true); var sm = c.querySelector('small'); if (sm) sm.remove(); return c.textContent.trim(); });
+    t.querySelectorAll('tbody tr').forEach(function (tr) { [].slice.call(tr.querySelectorAll('td')).forEach(function (td, i) { td.setAttribute('data-col', heads[i + 1] || ''); }); });
+  }
+  syncCmpCols();
+  var prev3 = window.__uscRerender;
+  window.__uscRerender = function (lang) { if (prev3) prev3(lang); syncCmpCols(); };
+
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
   if (document.getElementById('c-price')) {
