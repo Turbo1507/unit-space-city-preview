@@ -29,8 +29,8 @@
     b.addEventListener('click', function () { if (window.setLang) window.setLang(b.dataset.lang); });
   });
   (function () {
-    var lang = 'ru';
-    try { lang = localStorage.getItem('usc_lang') || 'ru'; } catch (e) {}
+    var lang = 'ru', q = /[?&]lang=(ru|en)/.exec(location.search);
+    if (q) lang = q[1]; else { try { lang = localStorage.getItem('usc_lang') || 'ru'; } catch (e) {} }
     if (window.setLang) window.setLang(lang);
   })();
 
@@ -147,6 +147,7 @@
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.USC_PRICE[lang][unit.fmt], where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
+      document.title = f.name + ' ' + unit.area + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — Unit Space City';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);
