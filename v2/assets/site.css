@@ -563,16 +563,17 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .csel-pop{position:absolute;left:0;min-width:100%;width:max-content;max-width:min(360px,calc(100vw - 2 * var(--gut)));top:calc(100% + 4px);z-index:5;margin:0;padding:4px;
   display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .csel-pop[hidden]{display:none}
-.csel-search{flex:none;margin:0 0 4px;height:40px;width:100%;padding:0 12px;border:1px solid var(--line-2);border-radius:4px;background:var(--paper);font:inherit;font-size:16px}
+/* поиск — той же высоты, что инпуты формы (48px), а не мелкий (Босс 15.09) */
+.csel-search{flex:none;margin:0 0 6px;height:48px;width:100%;padding:0 14px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
 .csel-search:focus{outline:none;border-color:var(--blue)}
 .csel-list{margin:0;padding:0 8px 0 0;list-style:none;white-space:nowrap;max-height:260px;overflow:auto;scrollbar-width:none}
 .csel-list::-webkit-scrollbar{display:none}
-.csel-opt{padding:8px 12px;border-radius:4px;font-size:var(--fs-body);line-height:var(--lh-body);cursor:pointer}
+.csel-opt{padding:10px 14px;border-radius:4px;font-size:var(--fs-body);line-height:var(--lh-body);cursor:pointer}
 .csel-opt[hidden]{display:none}
 .csel-opt:hover,.csel-opt.is-active{background:var(--wash)}
 .csel-opt.is-sel{color:var(--blue)}
 .csel-sb{position:absolute;right:4px;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--line);opacity:0;transition:opacity .2s var(--ease);pointer-events:none}
-.csel-pop:has(.csel-search) .csel-sb{top:52px}
+.csel-pop:has(.csel-search) .csel-sb{top:62px}
 .csel-sb.on{opacity:1}
 .csel-sb-thumb{position:absolute;left:0;right:0;top:0;min-height:20px;border-radius:3px;background:var(--blue)}
 .lead-form__pair > .field:last-child .csel-pop{left:auto;right:0}
