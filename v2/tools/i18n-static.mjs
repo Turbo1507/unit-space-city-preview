@@ -16,16 +16,20 @@ export function applyDict(html, dict) {
   return html;
 }
 
-// rel — путь страницы относительно корня v2 ('' для index, 'units/x.html')
+// rel — путь страницы относительно корня v2 ('' для index, 'units/x.html'). EN — корень, RU — /ru/ (Босс 15.09: основной язык EN)
 export function langHead(lang, rel) {
-  const ru = BASE + rel, en = BASE + 'en/' + rel;
+  const en = BASE + rel, ru = BASE + 'ru/' + rel;
   return [
     `<script>try{localStorage.setItem('usc_lang','${lang}')}catch(e){}</script>`,
     `<link rel="canonical" href="${lang === 'ru' ? ru : en}">`,
-    `<link rel="alternate" hreflang="ru" href="${ru}">`,
     `<link rel="alternate" hreflang="en" href="${en}">`,
-    `<link rel="alternate" hreflang="x-default" href="${ru}">`
+    `<link rel="alternate" hreflang="ru" href="${ru}">`,
+    `<link rel="alternate" hreflang="x-default" href="${en}">`
   ].join('\n');
+}
+// старые адреса /en/... → корень: GitHub Pages без серверных редиректов, поэтому meta refresh + canonical на новый URL
+export function redirectStub(to) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Unit Space City</title><meta name="robots" content="noindex"><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script></head><body><a href="${to}">${to}</a></body></html>\n`;
 }
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
@@ -112,10 +116,10 @@ import { fileURLToPath } from 'node:url';
 const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function assetVersion() {
   const h = createHash('md5');
-  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
+  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'countries.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
   return h.digest('hex').slice(0, 8);
 }
 export function stamp(html) {
   const v = assetVersion();
-  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
+  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
 }

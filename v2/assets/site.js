@@ -24,15 +24,15 @@
   if (menuClose) menuClose.addEventListener('click', function () { setMenuOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setMenuOpen(false); });
 
-  /* ---------- язык (паттерн БСО): у каждого языка свой URL (/ и /en/), кнопка ведёт на
-     hreflang-альтернативу; словарь применяется к JS-частям по <html lang> ---------- */
-  var pageLang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+  /* ---------- язык (паттерн БСО): у каждого языка свой URL (EN — корень /, RU — /ru/; Босс 15.09: основной язык EN),
+     кнопка ведёт на hreflang-альтернативу; словарь применяется к JS-частям по <html lang> ---------- */
+  var pageLang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
   /* альтернатива берётся из hreflang, но переводится на текущий origin/путь — с превью или своего домена не уводит на GitHub Pages */
   function altHref(lang) {
     var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]'); if (!l) return null;
     var me = document.querySelector('link[rel="canonical"]'), href = l.getAttribute('href');
     if (!me) return href;
-    var tail = /(?:en\/)?(?:units\/[^/]*\.html|privacy\.html|index\.html)?$/;
+    var tail = /(?:ru\/)?(?:units\/[^/]*\.html|privacy\.html|index\.html)?$/;
     var base = me.getAttribute('href').replace(tail, '');
     if (href.indexOf(base) !== 0) return href;
     return location.pathname.replace(tail, '') + href.slice(base.length);
@@ -122,7 +122,26 @@
 
   /* ---------- каталог: карточки-товары, ссылки на units/<slug>.html; перерисовка при смене языка ---------- */
   var uWrap = document.getElementById('units'), uCnt = document.getElementById('unitCount'), filters = document.getElementById('filters');
-  var L = function () { return window.__uscLang || 'ru'; };
+  var L = function () { return window.__uscLang || pageLang; };
+  var D = function () { return (window.I18N && window.I18N[L()]) || {}; };
+  /* карточка формата (как в блоке «Форматы вилл» на главной) — для «Других форматов» на странице юнита (Босс 15.09:
+     там стоял старый product-card). Строки — из словаря по ключам fmt.<fmt>_r/_w (+ f_out/villa_o у виллы) */
+  window.__uscFmtCard = function (u, hrefBase) {
+    var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0], m2 = lang === 'ru' ? 'м²' : 'm²';
+    var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + (d[v] || '') + '</b></div>'; };
+    var rows = row('fmt.f_rooms', 'fmt.' + u.fmt + '_r') + row('fmt.f_where', 'fmt.' + u.fmt + '_w') +
+      (u.fmt === 'villa' ? row('fmt.f_out', 'fmt.villa_o') : row('fmt.f_fit', 'fmt.f_full')) + row('fmt.f_yield', 'fmt.f_uk');
+    return '<a class="card fmt-card" href="' + hrefBase + u.slug + '.html">' +
+      '<div class="fmt-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
+      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
+      '<span class="product-card__area">' + u.area + ' ' + m2 + '</span></div>' +
+      '<div class="fmt-card__body"><div class="fmt-card__head"><div><div class="fmt-card__name">' + u.name[lang] + '</div>' +
+      '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ', ' + u.floor[lang] + '</div></div></div>' +
+      '<div class="leaders fmt-card__rows">' + rows + '</div>' +
+      '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
+      '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div>' +
+      '<span class="btn btn-outline fmt-card__more">' + (d['fmt.more'] || '') + '</span></div></a>';
+  };
   window.__uscUnitCard = function (u, hrefBase) {
     var CX = window.USC_COMPLEX, lang = L(), ph = u.photos[0];
     return '<a class="product-card" href="' + hrefBase + u.slug + '.html">' +
@@ -179,10 +198,10 @@
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);
-        more.innerHTML = others.slice(0, 3).map(function (u) { return window.__uscUnitCard(u, ''); }).join('');
+        more.innerHTML = others.slice(0, 3).map(function (u) { return window.__uscFmtCard(u, ''); }).join('');
       }
     }
-    renderUnit(window.__uscLang || 'ru');
+    renderUnit(window.__uscLang || pageLang);
     var prev2 = window.__uscRerender;
     window.__uscRerender = function (lang) { if (prev2) prev2(lang); renderUnit(lang); };
   }
@@ -207,20 +226,27 @@
       var html = '';
       for (var o = LO; o <= HI; o++) {
         var i = slot(cur + o);
-        html += '<button type="button" class="ugal__thumb' + (o === 0 ? ' is-active' : '') + '" data-o="' + o + '" aria-label="' + (i + 1) + '/' + n + '"><img src="' + base + photos[i] + '.webp" alt="" width="160" height="120"></button>';
+        /* превью — из photos/t/ (320×240, ~8 KB), а не полноразмерный webp 1800px (Босс 15.09: «фото плохо грузятся») */
+        html += '<button type="button" class="ugal__thumb' + (o === 0 ? ' is-active' : '') + '" data-o="' + o + '" aria-label="' + (i + 1) + '/' + n + '"><img src="' + base + 't/' + photos[i] + '.webp" alt="" width="160" height="120" decoding="async"></button>';
       }
       track.classList.remove('is-anim'); track.innerHTML = html; track.style.transform = shift(centerFix());
     }
+    /* большой кадр — webp через <picture> (jpg только как фолбэк), соседние кадры подгружаем заранее */
+    var pre = {};
+    function preload(i) { i = slot(i); if (pre[i]) return; pre[i] = true; var im = new Image(); im.src = base + photos[i] + '.webp'; }
     function swapStage(i) {
-      var old = stage.querySelector('img.is-in'), img = document.createElement('img');
-      img.src = base + photos[i] + '.jpg'; img.alt = alt; img.width = 1200; img.height = 900;
-      stage.insertBefore(img, stage.querySelector('.ugal__nav'));
+      var old = stage.querySelector('picture.is-in, img.is-in'), pic = document.createElement('picture');
+      pic.innerHTML = '<source srcset="' + base + photos[i] + '.webp" type="image/webp"><img src="' + base + photos[i] + '.jpg" alt="" width="1200" height="900" decoding="async">';
+      pic.querySelector('img').alt = alt;
+      stage.insertBefore(pic, stage.querySelector('.ugal__nav'));
       requestAnimationFrame(function () { requestAnimationFrame(function () {
-        img.classList.add('is-in');
+        pic.classList.add('is-in');
         if (old) { old.classList.remove('is-in'); setTimeout(function () { old.remove(); }, 600); }
       }); });
       if (count) count.textContent = i + 1;
+      preload(i + 1); preload(i - 1);
     }
+    addEventListener('load', function () { preload(1); preload(n - 1); }, { once: true });
     function go(delta) {
       if (busy || !delta) return; busy = true;
       track.classList.add('is-anim');
@@ -242,10 +268,30 @@
     addEventListener('resize', renderTrack);
   })();
 
-  /* ---------- кастомные выпадающие списки в форме: нативный <select> остаётся источником значения ---------- */
+  /* ---------- кастомные выпадающие списки в форме: нативный <select> остаётся источником значения.
+     Код страны (#f-cc): полный справочник USC_COUNTRIES, поиск, тонкий индикатор прокрутки, автоформат
+     номера по маске — функционально как на БСО (Босс 15.09) ---------- */
   var CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  function fillCountrySelect(select) {
+    var rows = window.USC_COUNTRIES; if (!select || !rows) return;
+    var lg = L(), prevIso = select.selectedOptions[0] && select.selectedOptions[0].getAttribute('data-iso');
+    var sorted = rows.slice().sort(function (a, b) { return (lg === 'ru' ? a[1] : a[2]).localeCompare(lg === 'ru' ? b[1] : b[2], lg); });
+    select.innerHTML = '';
+    sorted.forEach(function (r) {
+      var o = document.createElement('option');
+      o.value = r[3]; o.textContent = r[0] + ' +' + r[3];
+      o.setAttribute('data-iso', r[0]); o.setAttribute('data-format', r[4] || '');
+      o.setAttribute('data-label', (lg === 'ru' ? r[1] : r[2]) + '  +' + r[3]);
+      o.setAttribute('data-search', (r[1] + ' ' + r[2] + ' ' + r[0] + ' ' + r[3]).toLowerCase());
+      select.appendChild(o);
+    });
+    var pick = select.querySelector('option[data-iso="' + (prevIso || 'ID') + '"]') || select.options[0];
+    if (pick) pick.selected = true;
+  }
   var csels = [];
   document.querySelectorAll('.lead-form select').forEach(function (select) {
+    var searchable = select.id === 'f-cc';
+    if (searchable) fillCountrySelect(select);
     var wrap = document.createElement('div'); wrap.className = 'csel';
     select.parentNode.insertBefore(wrap, select); wrap.appendChild(select);
     select.classList.add('csel-native'); select.tabIndex = -1;
@@ -253,42 +299,105 @@
     btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false');
     var lab = select.id && document.querySelector('label[for="' + select.id + '"]');
     if (lab) { lab.id = lab.id || select.id + '-label'; btn.setAttribute('aria-labelledby', lab.id); }
+    if (select.getAttribute('aria-label')) btn.setAttribute('aria-label', select.getAttribute('aria-label'));
     btn.innerHTML = '<span class="csel-val"></span>' + CHEV;
-    var list = document.createElement('ul'); list.className = 'csel-list'; list.setAttribute('role', 'listbox'); list.hidden = true;
-    wrap.appendChild(btn); wrap.appendChild(list);
+    var pop = document.createElement('div'); pop.className = 'csel-pop'; pop.hidden = true;
+    var search = null;
+    if (searchable) {
+      search = document.createElement('input'); search.type = 'text'; search.className = 'csel-search';
+      search.autocomplete = 'off'; search.spellcheck = false; pop.appendChild(search);
+    }
+    var list = document.createElement('ul'); list.className = 'csel-list'; list.setAttribute('role', 'listbox');
+    pop.appendChild(list);
+    var sb = document.createElement('div'); sb.className = 'csel-sb'; sb.innerHTML = '<div class="csel-sb-thumb"></div>'; pop.appendChild(sb);
+    wrap.appendChild(btn); wrap.appendChild(pop);
     var active = -1;
+    function vis() { return Array.prototype.filter.call(list.children, function (li) { return !li.hidden; }); }
+    function syncSb() {
+      requestAnimationFrame(function () {
+        var over = list.scrollHeight - list.clientHeight;
+        if (over <= 2) { sb.classList.remove('on'); return; }
+        sb.classList.add('on');
+        var th = Math.max(24, sb.clientHeight * (list.clientHeight / list.scrollHeight));
+        sb.firstChild.style.height = th + 'px';
+        sb.firstChild.style.transform = 'translateY(' + ((sb.clientHeight - th) * (list.scrollTop / over)) + 'px)';
+      });
+    }
+    list.addEventListener('scroll', syncSb, { passive: true });
     function render() {
       list.innerHTML = '';
       Array.prototype.forEach.call(select.options, function (o, i) {
         var li = document.createElement('li'); li.className = 'csel-opt' + (i === select.selectedIndex ? ' is-sel' : '');
-        li.setAttribute('role', 'option'); li.setAttribute('aria-selected', String(i === select.selectedIndex)); li.dataset.i = i; li.textContent = o.textContent;
+        li.setAttribute('role', 'option'); li.setAttribute('aria-selected', String(i === select.selectedIndex)); li.dataset.i = i;
+        if (o.getAttribute('data-search')) li.dataset.search = o.getAttribute('data-search');
+        li.textContent = o.getAttribute('data-label') || o.textContent;
         list.appendChild(li);
       });
       btn.querySelector('.csel-val').textContent = select.selectedIndex >= 0 ? select.options[select.selectedIndex].textContent : '';
+      if (search) { search.placeholder = D()['form.cc_search'] || 'Search'; search.setAttribute('aria-label', search.placeholder); }
     }
     function mark(i) {
-      active = i; Array.prototype.forEach.call(list.children, function (li, k) { li.classList.toggle('is-active', k === i); });
-      if (list.children[i]) list.children[i].scrollIntoView({ block: 'nearest' });
+      active = i; var v = vis();
+      Array.prototype.forEach.call(list.children, function (li) { li.classList.remove('is-active'); });
+      if (v[i]) { v[i].classList.add('is-active'); v[i].scrollIntoView({ block: 'nearest' }); }
     }
-    function open() { if (wrap.classList.contains('is-open')) return; render(); list.hidden = false; wrap.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); mark(select.selectedIndex); }
-    function close() { if (!wrap.classList.contains('is-open')) return; list.hidden = true; wrap.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); active = -1; }
-    function pick(i) { select.selectedIndex = i; select.dispatchEvent(new Event('change', { bubbles: true })); render(); close(); btn.focus(); }
+    function applyFilter() {
+      var q = (search ? search.value : '').trim().toLowerCase().replace(/^\+/, '');
+      Array.prototype.forEach.call(list.children, function (li) { li.hidden = q ? (li.dataset.search || li.textContent.toLowerCase()).indexOf(q) === -1 : false; });
+      list.scrollTop = 0; mark(vis().length ? 0 : -1); syncSb();
+    }
+    function open() {
+      if (wrap.classList.contains('is-open')) return;
+      csels.forEach(function (c) { c.close(); });
+      render(); pop.hidden = false; wrap.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+      if (search) { search.value = ''; applyFilter(); setTimeout(function () { search.focus(); }, 0); }   // список с поиском — всегда сверху
+      else { var sel = list.querySelector('.is-sel'); mark(sel ? Array.prototype.indexOf.call(list.children, sel) : 0); }
+      syncSb();
+    }
+    function close() { if (!wrap.classList.contains('is-open')) return; pop.hidden = true; wrap.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); active = -1; }
+    function pick(li) {
+      if (!li) return;
+      select.selectedIndex = +li.dataset.i; select.dispatchEvent(new Event('change', { bubbles: true })); render(); close(); btn.focus();
+    }
     btn.addEventListener('click', function () { wrap.classList.contains('is-open') ? close() : open(); });
     btn.addEventListener('keydown', function (e) {
-      var n = select.options.length, isOpen = wrap.classList.contains('is-open');
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!isOpen) open(); else mark((active + (e.key === 'ArrowDown' ? 1 : n - 1)) % n); }
-      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isOpen) open(); else if (active >= 0) pick(active); }
-      else if (e.key === 'Escape') { close(); }
-      else if (e.key === 'Tab') { close(); }
+      var isOpen = wrap.classList.contains('is-open');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!isOpen) open(); else if (!search) { var n = vis().length; mark((active + (e.key === 'ArrowDown' ? 1 : n - 1)) % n); } }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!isOpen) open(); else if (active >= 0) pick(vis()[active]); }
+      else if (e.key === 'Escape' || e.key === 'Tab') { close(); }
     });
-    list.addEventListener('click', function (e) { var li = e.target.closest('.csel-opt'); if (li) pick(+li.dataset.i); });
-    list.addEventListener('mousemove', function (e) { var li = e.target.closest('.csel-opt'); if (li) mark(+li.dataset.i); });
-    render(); csels.push({ wrap: wrap, render: render, close: close });
+    if (search) {
+      search.addEventListener('input', applyFilter);
+      search.addEventListener('keydown', function (e) {
+        var v = vis();
+        if (e.key === 'ArrowDown') { e.preventDefault(); mark(Math.min(active + 1, v.length - 1)); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); mark(Math.max(active - 1, 0)); }
+        else if (e.key === 'Enter') { e.preventDefault(); pick(v[active]); }
+        else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); btn.focus(); }
+      });
+    }
+    list.addEventListener('click', function (e) { var li = e.target.closest('.csel-opt'); if (li) pick(li); });
+    list.addEventListener('mousemove', function (e) { var li = e.target.closest('.csel-opt'); if (li && !li.hidden) mark(vis().indexOf(li)); });
+    render();
+    csels.push({ wrap: wrap, render: render, close: close, refill: searchable ? function () { fillCountrySelect(select); render(); } : null });
+  });
+  /* автоформат номера по маске выбранной страны (как на БСО main.js formatPhoneDigits) */
+  document.querySelectorAll('.lead-form__phone').forEach(function (row) {
+    var cc = row.querySelector('select'), tel = row.querySelector('input[type="tel"]'); if (!cc || !tel) return;
+    function fmt(digits, pattern) {
+      if (!pattern) return digits;
+      var out = [], i = 0;
+      pattern.split('-').map(Number).forEach(function (g) { if (i < digits.length) { out.push(digits.slice(i, i + g)); i += g; } });
+      if (i < digits.length) out.push(digits.slice(i));
+      return out.filter(Boolean).join(' ');
+    }
+    function reformat() { var o = cc.selectedOptions[0]; tel.value = fmt(tel.value.replace(/\D+/g, ''), o && o.getAttribute('data-format')); }
+    tel.addEventListener('input', reformat); cc.addEventListener('change', reformat);
   });
   if (csels.length) {
     document.addEventListener('click', function (e) { csels.forEach(function (c) { if (!c.wrap.contains(e.target)) c.close(); }); });
     var prevCsel = window.__uscRerender;
-    window.__uscRerender = function (lang) { if (prevCsel) prevCsel(lang); csels.forEach(function (c) { c.render(); }); };
+    window.__uscRerender = function (lang) { if (prevCsel) prevCsel(lang); csels.forEach(function (c) { if (c.refill) c.refill(); else c.render(); }); };
   }
 
   /* ---------- живая строка футера: время на Бали (WITA) + температура (Open-Meteo, без ключа; если фетч не прошёл — прячем только температуру) ---------- */
