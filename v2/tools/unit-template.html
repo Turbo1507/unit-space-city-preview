@@ -81,7 +81,7 @@
 {{THUMBS}}
       </div></div>
       <div class="ugal__stage">
-        <picture><source srcset="{{PB}}{{P0}}.webp" type="image/webp"><img class="is-in" src="{{PB}}{{P0}}.jpg" alt="{{ALT}}" width="1200" height="900"></picture>
+        <picture class="is-in"><source srcset="{{PB}}{{P0}}.webp" type="image/webp"><img src="{{PB}}{{P0}}.jpg" alt="{{ALT}}" width="1200" height="900" fetchpriority="high"></picture>
         <div class="ugal__nav">
           <button type="button" class="ugal__btn" data-dir="-1" aria-label="Предыдущее фото"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
           <span class="ugal__count tnum"><b>1</b>/{{N}}</span>
@@ -128,7 +128,10 @@
             <h3 class="t-h3" data-i18n="form.title">Оставить заявку</h3>
             <p class="lead-form__consent" data-i18n="form.consent">Отправляя форму, вы соглашаетесь на&nbsp;обработку персональных данных и&nbsp;использование cookie — <a href="../privacy.html">политика конфиденциальности</a></p>
             <div class="field"><label for="f-name" class="dim" data-i18n="form.name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
-            <div class="field"><label for="f-contact" class="dim" data-i18n="form.contact">Телефон или email</label><input id="f-contact" type="text"></div>
+            <div class="field"><label for="f-phone" class="dim" data-i18n="form.phone">Телефон / WhatsApp</label>
+              <div class="lead-form__phone"><select id="f-cc" name="cc" aria-label="Код страны" data-i18n-aria="form.cc_aria"><option value="62" data-iso="ID" selected>ID +62</option></select><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national"></div>
+            </div>
+            <div class="field"><label for="f-email" class="dim" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
             <div class="field"><label for="f-goal" class="dim" data-i18n="form.goal">Цель</label>
               <select id="f-goal"><option data-i18n="form.g1">Инвестиция</option><option data-i18n="form.g2">Аренда</option><option data-i18n="form.g3">Жизнь</option></select>
             </div>
@@ -144,7 +147,7 @@
   <section class="sect">
     <div class="container">
       <h2 class="t-h2" style="margin-bottom:var(--s4)" data-i18n="unit.more">Другие форматы</h2>
-      <div class="product-grid product-grid--3" id="moreUnits" data-exclude="{{SLUG}}"></div>
+      <div class="fmt-grid fmt-grid--3" id="moreUnits" data-exclude="{{SLUG}}"></div>
     </div>
   </section>
 </main>
@@ -172,6 +175,7 @@
   </div>
 </footer>
 
+<script src="../assets/countries.js"></script>
 <script src="../assets/units.js"></script>
 <script src="../assets/i18n.js"></script>
 <script src="../assets/site.js"></script>

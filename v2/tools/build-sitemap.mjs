@@ -12,11 +12,11 @@ const today = new Date().toISOString().slice(0, 10);
 const entry = (loc, ru, en) => `  <url>
     <loc>${loc}</loc>
     <lastmod>${today}</lastmod>
-    <xhtml:link rel="alternate" hreflang="ru" href="${ru}"/>
     <xhtml:link rel="alternate" hreflang="en" href="${en}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${ru}"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="${ru}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${en}"/>
   </url>`;
-const urls = rel.flatMap(r => { const ru = BASE + r, en = BASE + 'en/' + r; return [entry(ru, ru, en), entry(en, ru, en)]; });
+const urls = rel.flatMap(r => { const en = BASE + r, ru = BASE + 'ru/' + r; return [entry(en, ru, en), entry(ru, ru, en)]; });
 fs.writeFileSync(path.join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls.join('\n')}
