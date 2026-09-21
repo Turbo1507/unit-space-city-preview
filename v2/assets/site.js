@@ -114,6 +114,21 @@
       if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
     });
     addEventListener('resize', function () { moveInk(tabs[cur]); });
+    /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов (Босс 22.09) */
+    var cxSlider = document.getElementById('complexSlider');
+    if (cxSlider) {
+      var sp0 = null;
+      /* не перехватываем свайп, начатый в собственных горизонтальных лентах (коллаж/полоса фото) — иначе он листал бы комплекс вместо фото */
+      cxSlider.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' || e.target.closest('.complex__gallery, .strip__track')) { sp0 = null; return; }
+        sp0 = { x: e.clientX, y: e.clientY };
+      });
+      cxSlider.addEventListener('pointerup', function (e) {
+        if (!sp0) return;
+        var dx = e.clientX - sp0.x, dy = e.clientY - sp0.y; sp0 = null;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1));
+      });
+    }
     var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
     go(start >= 0 ? start : 0);
     if (start >= 0) requestAnimationFrame(function () { cxNav.scrollIntoView({ block: 'start' }); });
@@ -136,7 +151,7 @@
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
       '<span class="product-card__area">' + u.area + ' ' + m2 + '</span></div>' +
       '<div class="fmt-card__body"><div class="fmt-card__head"><div><div class="fmt-card__name">' + u.name[lang] + '</div>' +
-      '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ', ' + u.floor[lang] + '</div></div></div>' +
+      '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div></div>' +
       '<div class="leaders fmt-card__rows">' + rows + '</div>' +
       '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
       '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div>' +
@@ -149,7 +164,7 @@
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
       '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
       '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
-      '<div class="product-card__meta dim">' + CX[u.q].code + ' — ' + CX[u.q].name + ', ' + u.floor[lang] + '</div></div>' +
+      '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div>' +
       '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div></a>';
   };
   if (uWrap && window.USC_UNITS) {

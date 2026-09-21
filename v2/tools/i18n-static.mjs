@@ -61,6 +61,8 @@ const ATTR = {
   'Вилла 3+1 — приватный бассейн': '3+1 villa — private pool',
   'Кафе, коворкинг и кинотеатр внутри квартала U1': 'Café, coworking and cinema inside the U1 quarter',
   'Приватный бассейн и сауна внутри квартала U1': 'Private pool and sauna inside the U1 quarter',
+  'Виллы под управлением UNIT SPACE MANAGEMENT': 'Villas managed by UNIT SPACE MANAGEMENT',
+  'Аналитика ULA.ZONE — карточка объявления и метрики загрузки/цены': 'ULA.ZONE analytics — listing card and occupancy/price metrics',
   'Карта: Nuanu, Бали': 'Map: Nuanu, Bali',
   'Виллы U1 Space Village среди рисовых полей': 'U1 Space Village villas among the rice fields',
   'Фасады вилл U1 с деревянными террасами': 'U1 villa façades with timber terraces',
