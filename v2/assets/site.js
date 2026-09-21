@@ -140,7 +140,7 @@
       '<div class="leaders fmt-card__rows">' + rows + '</div>' +
       '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
       '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div>' +
-      '<span class="btn btn-outline fmt-card__more">' + (d['fmt.more'] || '') + '</span></div></a>';
+      '<span class="btn btn-primary fmt-card__more">' + (d['fmt.more'] || '') + '</span></div></a>';
   };
   window.__uscUnitCard = function (u, hrefBase) {
     var CX = window.USC_COMPLEX, lang = L(), ph = u.photos[0];
