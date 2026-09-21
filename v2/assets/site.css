@@ -302,8 +302,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:999px;padding:4px var(--s2);font-size:var(--fs-cap)}
 /* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса (Босс 21.09) */
 .status-chip{display:inline-flex;align-items:center;height:26px;padding:0 var(--s2);border-radius:999px;font-size:var(--fs-micro);font-weight:500;letter-spacing:.02em}
-.status-chip--done{background:var(--wash);color:var(--ink-2)}
-.status-chip--build{background:var(--blue);color:#fff}
+.status-chip--done{background:var(--blue);color:#fff}
+.status-chip--build{background:var(--wash);color:var(--ink-2)}
 .complex__title{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .complex__head{display:grid;gap:var(--s2);justify-items:start;margin-bottom:clamp(24px,3vw,40px)}
 .complex__intro{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:56ch;margin-top:var(--s1)}
@@ -507,8 +507,8 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
 .tag-row span{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
 /* U3 ещё строится — выделяем отдельно от готовых U1/U2 (Босс 21.09) */
-.tag-row__build{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
-.tag-row__build b{color:var(--blue)}
+.tag-row span.tag-row__done{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
+.tag-row__done b{color:var(--blue)}
 .card .tag-row span{border-color:transparent;background:var(--white)}
 .sect--alt .card .tag-row span{background:var(--white)}
 
