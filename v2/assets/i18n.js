@@ -133,7 +133,7 @@ window.I18N = {
  "loc.beach": "Pantai Nyanyi — 3 минуты пешком от&nbsp;U1 и&nbsp;U2",
  "loc.infra_l": "Инфраструктура Nuanu",
  "loc.infra": "35+ объектов, открыты круглый год",
- "loc.map_cap": "U1 и&nbsp;U2 — внутри Nuanu Creative City, U3 — в&nbsp;посёлке Nyanyi у&nbsp;пляжа (координаты U3 ориентировочные)",
+ "loc.map_cap": "U1 и&nbsp;U2 — внутри Nuanu Creative City, U3 — в&nbsp;посёлке Nyanyi у&nbsp;пляжа, координаты U3 ориентировочные",
  "loc.map_alt": "Карта: комплексы U1, U2 и U3 у Nuanu, пляж Nyanyi и Tanah Lot",
  "loc.own_l": "Что есть в&nbsp;самом комплексе Unit Space City",
  "own.1": "Кафе",
