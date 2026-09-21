@@ -268,6 +268,32 @@
     addEventListener('resize', renderTrack);
   })();
 
+  /* ---------- «О компании»: крупное название синхронизировано со скроллом ленты (Burton-стиль, Босс 21.09) ---------- */
+  var coStrip = document.getElementById('coStrip'), coName = document.getElementById('coCarouselName');
+  if (coStrip && coName) (function () {
+    var cards = [].slice.call(coStrip.querySelectorAll('.co-card')), cur = -1, ticking = false;
+    /* «активная» карточка — первая, чей левый край дошёл до левого края ленты (ведущая видимая карточка),
+       а не геометрический центр всей прокручиваемой ширины — иначе на scrollLeft=0 подсвечивалась не первая карточка */
+    function active() {
+      var sr = coStrip.getBoundingClientRect(), best = 0, bestD = Infinity;
+      cards.forEach(function (c, i) {
+        var r = c.getBoundingClientRect(), d = r.left - sr.left;
+        if (d >= -24 && d < bestD) { bestD = d; best = i; }
+      });
+      return best;
+    }
+    function update() {
+      ticking = false;
+      var i = active();
+      if (i === cur) return; cur = i;
+      var html = cards[i].querySelector('b').innerHTML;
+      coName.classList.add('is-swap');
+      setTimeout(function () { coName.innerHTML = html; coName.classList.remove('is-swap'); }, 160);
+    }
+    coStrip.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  })();
+
   /* ---------- лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
      открывает оверлей на полный набор фото этого комплекса (Босс 21.09) ---------- */
   var lightbox = document.getElementById('lightbox');
