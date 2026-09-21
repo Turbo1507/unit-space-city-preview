@@ -487,6 +487,8 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
 .sect--alt .calc input{background:var(--white)}
 .calc input:focus{outline:none;border-color:var(--blue)}
+/* цена виллы на странице юнита — фиксирована, менять нельзя (Босс 21.09) */
+.calc input:disabled{opacity:.6;cursor:not-allowed}
 .calc__out{display:grid;align-content:start;gap:var(--s2)}
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}

@@ -302,7 +302,9 @@ window.I18N = {
  "unit.about": "О&nbsp;формате",
  "unit.cta": "Спросить про эту виллу",
  "unit.more": "Другие форматы",
- "unit.render_note": "U3 строится — это рендеры, не&nbsp;фото"
+ "unit.render_note": "U3 строится — это рендеры, не&nbsp;фото",
+ "unit.yield_title": "Доходность этой виллы",
+ "unit.yield_lead": "Цена виллы зафиксирована — посчитайте доход под свои условия аренды"
 },
   en: {
  "meta.title": "Unit Space City — high-tech homes by Nuanu, Bali",
@@ -605,7 +607,9 @@ window.I18N = {
  "unit.about": "About the format",
  "unit.cta": "Ask about this unit",
  "unit.more": "Other formats",
- "unit.render_note": "U3 is under construction — these are renders, not photos"
+ "unit.render_note": "U3 is under construction — these are renders, not photos",
+ "unit.yield_title": "Yield for this villa",
+ "unit.yield_lead": "The villa price is fixed — calculate the income for your own rental terms"
 }
 };window.setLang = function (lang) {
   var dict = window.I18N[lang] || window.I18N.ru;
