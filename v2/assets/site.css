@@ -185,14 +185,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   /* Босс 15.09: заголовок чуть крупнее (3 строки держим), подзаголовок мельче */
   .hero__title{font-size:clamp(34px,9.8vw,44px);letter-spacing:-.03em}
   .hero__sub{margin-top:var(--s2);font-size:var(--fs-body);line-height:var(--lh-card);max-width:36ch}
-  /* карта — мельче, в левый верхний угол хиро под шапкой; подпись — только кикер + стрелка */
-  .hero__card{position:absolute;top:calc(var(--hdr) + var(--s2));left:var(--gut);width:min(216px,56vw);aspect-ratio:16/10;z-index:1}
-  .hero__card-title{display:none}
-  .hero__card-text{left:12px;bottom:12px}
-  .hero__card-arrow{right:12px;bottom:12px;width:28px;height:28px}
-  .hero__card-arrow svg{width:16px;height:16px}
-  .hero__strip .container{grid-template-columns:1fr;gap:var(--s1)}
-  .hero__strip div{white-space:normal}
+  /* мобилка (Босс 21.09): мини-карта + полоса статов U1/U2/U3 убраны из хиро целиком —
+     переехали отдельным блоком в #about вместе с описанием U1/U2/U3. На десктопе
+     карточка с картой остаётся (не трогать — прямое указание Босса). */
+  .hero__card{display:none}
+  .hero__strip{display:none}
 }
 
 /* cookie */
@@ -278,8 +275,19 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex-nav button b{color:var(--blue);font-weight:500}
 .complex-nav button[aria-selected="true"]{opacity:1}
 .complex-nav .ink{position:absolute;bottom:-1px;height:2px;background:var(--blue);transition:left .32s var(--ease),width .32s var(--ease)}
-/* узко: активный таб — полным названием, остальные — только U1/U2/U3 (Босс 15.09) */
-@media (max-width:640px){ .complex-nav button{margin-right:var(--s3);white-space:nowrap} .complex-nav button:not([aria-selected="true"]) span{display:none} }
+/* мобилка (Босс 21.09): подчёркивание-«ink» на узком экране дёргалось при смене подписи
+   активного таба (короткая ↔ полная) — теряло синхронизацию с шириной кнопки во время
+   transition и давало заметный глитч. Меняем на сегментированный переключатель:
+   3 равные пилюли, заливка cvetom вместо анимации подчёркивания — тап читается сразу,
+   анимировать нечего. */
+@media (max-width:640px){
+  .complex-nav .container{gap:6px;padding-block:var(--s1)}
+  .complex-nav button{flex:1 1 0;margin-right:0;padding:12px 4px;text-align:center;border-radius:var(--r-s);background:var(--white);opacity:1;font-size:var(--fs-cap);min-height:44px;transition:background .18s var(--ease),color .18s var(--ease)}
+  .complex-nav button span{display:none}
+  .complex-nav button[aria-selected="true"]{background:var(--blue);color:#fff}
+  .complex-nav button[aria-selected="true"] b{color:#fff}
+  .complex-nav .ink{display:none}
+}
 
 .complex-slider{overflow:hidden;position:relative}
 .complex-track{display:grid}
@@ -288,7 +296,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex[data-state="next"]{transform:translateX(100%);opacity:0;pointer-events:none}
 .complex[data-state="active"]{transform:none;opacity:1}
 .complex:not([data-state="active"]){visibility:hidden;transition:transform .6s var(--ease),opacity .6s var(--ease),visibility 0s .6s}
+.complex__badge-row{display:flex;align-items:center;gap:var(--s1);flex-wrap:wrap}
 .complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:999px;padding:4px var(--s2);font-size:var(--fs-cap)}
+/* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса (Босс 21.09) */
+.status-chip{display:inline-flex;align-items:center;height:26px;padding:0 var(--s2);border-radius:999px;font-size:var(--fs-micro);font-weight:500;letter-spacing:.02em}
+.status-chip--done{background:var(--wash);color:var(--ink-2)}
+.status-chip--build{background:var(--blue);color:#fff}
 .complex__title{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .complex__head{display:grid;gap:var(--s2);justify-items:start;margin-bottom:clamp(24px,3vw,40px)}
 .complex__intro{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:56ch;margin-top:var(--s1)}
@@ -331,22 +344,36 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:760px){ .strip__track{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);gap:var(--s1)} .strip__track figure{height:240px} }
 
 /* ---------- о компании — паттерны unitdeveloper.com ---------- */
+/* карточки компаний были слишком раздутые (Босс 21.09) — горизонтальная лента вместо
+   grid 4×1: карточки мельче, свайп читается по «выглядывающей» следующей карточке
+   (тот же паттерн, что и .complex__gallery/.strip__track) */
+.co-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
+.co-strip::-webkit-scrollbar{display:none}
+.co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
+@media (max-width:760px){ .co-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .co-strip .co-card{flex:0 0 calc(78% - var(--s1))} }
 .co-card > b i{color:var(--blue);font-style:normal}
 .co-card__sub{font-size:var(--fs-body);line-height:var(--lh-card);margin-top:-4px}
-.co-card{grid-template-rows:auto auto 1fr auto}
+.co-card{grid-template-rows:auto auto 1fr auto;padding:var(--s2)}
 .co-card__photo{margin:0;padding-top:var(--s2);align-self:end}
-.co-card__photo picture{display:block;border-radius:var(--r-s);overflow:hidden;aspect-ratio:16/9;background:var(--wash)}
+.co-card__photo picture{display:block;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash)}
 .co-card__photo img{width:100%;height:100%;object-fit:cover}
 .team-card__photo picture{display:block;width:100%;height:100%}
 .team-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
 .pr-card__letter{font-size:clamp(48px,4.4vw,64px);font-weight:500;line-height:1;color:var(--blue);letter-spacing:-.04em;padding-right:var(--s2);border-right:1.5px solid var(--line-2)}
 .pr-card__head b{color:var(--blue);font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
+/* «Принципы» → «Манифест» (Босс 21.09): связный текст вместо 4 карточек-букв, акцент — синяя линия слева
+   и выделенные ключевые слова, без кавычек-клише */
+.manifesto{margin:0;position:relative;padding:0 0 0 clamp(20px,2.4vw,28px);border-left:2px solid var(--blue);max-width:68ch}
+.manifesto p{font-size:var(--fs-h3);line-height:1.4;font-weight:400;letter-spacing:-.01em}
+.manifesto p b{color:var(--blue);font-weight:500}
 .tr-card{grid-template-columns:120px 1fr;gap:var(--s2) var(--s3);align-items:start}
 .tr-card__photo{margin:0;width:120px;aspect-ratio:1;border-radius:var(--r-s);overflow:hidden;background:var(--white)}
 .tr-card__photo picture{display:block;width:100%;height:100%}
 .tr-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .tr-card__photo--flags{display:grid;place-items:center;color:var(--blue);font-size:var(--fs-title);font-weight:500;letter-spacing:-.03em}
+/* Dome Foundation / Permata Bank — своих лого-файлов нет, текстовый воркмарк вместо фото (Босс 21.09) */
+.tr-card__photo--logo{display:grid;place-items:center;text-align:center;padding:var(--s1);color:var(--ink);font-weight:500;font-size:var(--fs-cap);line-height:1.3;letter-spacing:-.01em}
 .tr-card__body{display:grid;gap:var(--s1)}
 .tr-card__body > b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
 .tr-card__role{font-size:var(--fs-body);line-height:var(--lh-card);margin-top:-4px}
@@ -461,6 +488,13 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .ph--plan{aspect-ratio:4/3;max-width:520px}
 .location-map figcaption{padding:var(--s1) var(--s2);font-size:var(--fs-cap)}
 .tag-row{display:flex;flex-wrap:wrap;gap:var(--s1)}
+/* адрес/пляж/инфраструктура — 3 отдельных чипа вместо одной карточки со списком (Босс 21.09): иконки в фирменный синий */
+.kv-chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.card.kv-chip{display:flex;flex-direction:row;align-items:flex-start;gap:var(--s2)}
+.kv-chip__ic{color:var(--blue);width:24px;height:24px;flex:none;margin-top:2px}
+.kv-chip b{display:block;font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);margin-bottom:4px}
+.kv-chip span{display:block;font-size:var(--fs-body);line-height:var(--lh-card);opacity:var(--dim)}
+@media (max-width:760px){ .kv-chip-grid{grid-template-columns:1fr} }
 /* карта — живой embed, серый под бренд; карточка инфраструктуры: фото слева, чипы справа */
 .location-map__img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 .card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s3);align-items:start}
@@ -469,7 +503,10 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .infra__body{padding:0}
 .infra__body .tag-row{margin-top:var(--s2)}
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
-.tag-row span{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
+.tag-row span{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
+/* U3 ещё строится — выделяем отдельно от готовых U1/U2 (Босс 21.09) */
+.tag-row__build{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
+.tag-row__build b{color:var(--blue)}
 .card .tag-row span{border-color:transparent;background:var(--white)}
 .sect--alt .card .tag-row span{background:var(--white)}
 
