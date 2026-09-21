@@ -244,13 +244,24 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (hover:none){ .bento--burton .card > p{opacity:1;max-height:220px;padding-bottom:var(--s3)} }
 @media (max-width:820px){ .bento--burton{grid-template-columns:1fr 1fr;grid-auto-rows:220px} }
 @media (max-width:520px){ .bento--burton{grid-template-columns:1fr} .bento--burton .card.rowspan-2{grid-row:auto} }
+
 /* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта), Босс 21.09 */
 .bento-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s2)}
+/* карточка обзора выглядела пусто рядом с картой — строки U1/U2/U3 растянуты на всю высоту,
+   каждая кликабельна (ведёт на таб комплекса), статус — тем же чипом, что и у бейджа комплекса (Босс 22.09) */
+.ov-card{display:flex;flex-direction:column}
+.ov-rows{margin-top:auto;padding-top:var(--s3);display:grid;gap:var(--s1)}
+.ov-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2);border-radius:var(--r-s);background:var(--white);color:inherit;text-decoration:none;transition:background .18s var(--ease)}
+.ov-row:hover{background:var(--blue-050)}
+.ov-row > b{flex:none;color:var(--blue);font-weight:500}
+.ov-row__name{flex:1;font-weight:500}
 @media (max-width:820px){ .card-grid--3,.card-grid--4,.bento{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .card-grid--2,.card-grid--3,.card-grid--4,.bento,.bento-2{grid-template-columns:1fr} .bento .span-2{grid-column:auto} }
 @media (max-width:760px){ .bento-2{grid-template-columns:1fr} }
 /* акцентная карточка-блок — синяя заливка, чтобы бросалась в глаза (Босс 21.09: концепция комплекса) */
-.card--accent{background:var(--blue);color:#fff;padding:clamp(32px,4vw,56px)}
+/* .sect--alt .card{background:paper} специфичнее одного класса — .card--accent проигрывал и синий
+   фон не применялся (баг найден Боссом 22.09: «испортилась карточка, текст еле виден») */
+.sect--alt .card.card--accent,.card--accent{background:var(--blue);color:#fff;padding:clamp(32px,4vw,56px)}
 .card--accent h3{color:#fff}
 .card--accent p{opacity:.88}
 /* числа в заголовках — синим (Боссово решение 21.09, отступление от общего правила:
@@ -293,8 +304,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .photo-band{height:clamp(360px,90vw,520px)}
   .photo-band figcaption{right:var(--gut);bottom:var(--s3)}
   .photo-band .photo-band__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  .photo-band .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:44px;height:44px;background:rgba(255,255,255,.45);color:var(--ink)}
-  .photo-band .ugal__btn[data-dir="-1"]{left:var(--s1)} .photo-band .ugal__btn[data-dir="1"]{right:var(--s1)}
+  /* без подложки-кружка — просто аккуратный треугольник (Босс 22.09: «убери большие стрелочки с подложками») */
+  .photo-band .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:32px;height:32px;background:none;padding:0}
+  .photo-band .ugal__btn svg{display:none}
+  .photo-band .ugal__btn::before{content:"";display:block;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+  .photo-band .ugal__btn[data-dir="-1"]{left:var(--s1)} .photo-band .ugal__btn[data-dir="-1"]::before{border-right:11px solid #fff}
+  .photo-band .ugal__btn[data-dir="1"]{right:var(--s1)} .photo-band .ugal__btn[data-dir="1"]::before{border-left:11px solid #fff}
   .photo-band .ugal__count{position:absolute;left:var(--gut);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 @media (prefers-reduced-motion:reduce){ .photo-band__slide{transition:none} }
@@ -379,6 +394,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
 .co-strip::-webkit-scrollbar{display:none}
 .co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
+/* на широком десктопе 5 карточек умещаются целиком — обычный грид на всю ширину контейнера,
+   без пустого места справа и без лишнего свайпа (Босс 22.09: «сжал зачем-то, половина контейнера пустует»).
+   Лента-свайп остаётся только там, где карточки реально не помещаются (планшет/мобилка). */
+@media (min-width:960px){
+  .co-strip{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible;padding-bottom:0}
+  .co-strip .co-card{flex:none}
+}
 @media (max-width:760px){ .co-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .co-strip .co-card{flex:0 0 calc(78% - var(--s1))} }
 .co-card > b i{color:var(--blue);font-style:normal}
 /* крупное название компании над лентой, синхронизировано со скроллом (Burton-стиль, Босс 21.09) */
@@ -391,6 +413,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-card__photo{margin:0;padding-top:var(--s2);align-self:end}
 .co-card__photo picture{display:block;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash)}
 .co-card__photo img{width:100%;height:100%;object-fit:cover}
+/* иллюстрация ULA.ZONE — не фото цеха, cover обрезал бы композицию (как на unitdeveloper.com) */
+.co-card__photo--contain picture{background:var(--white)}
+.co-card__photo--contain img{object-fit:contain;padding:var(--s2)}
 .team-card__photo picture{display:block;width:100%;height:100%}
 .team-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
@@ -505,9 +530,11 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .catalog-filters .cnt b{font-weight:500}
 
 /* ---------- yield: три сценария карточками + калькулятор ---------- */
+/* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать (Босс 22.09) */
+.calc-lead{opacity:1;color:var(--ink);font-weight:500}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
-.calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);align-content:start}
 .calc .field{display:grid;gap:var(--s1)}
 .calc label{font-size:var(--fs-cap)}
 .calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
@@ -515,14 +542,26 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc input:focus{outline:none;border-color:var(--blue)}
 /* цена виллы на странице юнита — фиксирована, менять нельзя (Босс 21.09) */
 .calc input:disabled{opacity:.6;cursor:not-allowed}
+/* кнопка «выбрать тип виллы» — подставляет цену конкретного формата в калькулятор (Босс 22.09) */
+.calc__picker{grid-column:1/-1;position:relative}
+.calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.calc__picker-panel[hidden]{display:none}
+.calc__pick-card{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);width:100%;padding:var(--s2);border:0;border-radius:var(--r-s);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .16s var(--ease)}
+.calc__pick-card:hover,.calc__pick-card.is-active{background:var(--blue-050);color:var(--blue)}
+.calc__pick-card b{font-weight:500}
+.calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:start;gap:var(--s2)}
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
-.calc__rows{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.calc__rows b{font-weight:500;font-variant-numeric:tabular-nums}
+/* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
+.calc__rows{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.calc__stat{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
+.sect--alt .calc__stat{background:var(--white)}
+.calc__stat span{font-size:var(--fs-cap)}
+.calc__stat b{font-weight:500;font-variant-numeric:tabular-nums;font-size:var(--fs-h3);letter-spacing:-.02em}
 @media (max-width:800px){ .calc{grid-template-columns:1fr} }
-@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
+@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} .calc__rows{grid-template-columns:1fr} }
 
 /* ---------- location ---------- */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
@@ -549,6 +588,14 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .infra__body .t-h3{margin-bottom:var(--s1)}
 .infra__body .tag-row{margin-top:var(--s3)}
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
+/* «Что есть в комплексе» — свайп-лента фото-карточек, подпись под фото, Burton-стиль (Босс 22.09) */
+.amenity-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
+.amenity-strip::-webkit-scrollbar{display:none}
+.amenity-card{flex:0 0 clamp(140px,18vw,200px);scroll-snap-align:start;margin:0}
+.amenity-card picture,.amenity-card .ph{display:block;aspect-ratio:1/1;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
+.amenity-card img{width:100%;height:100%;object-fit:cover}
+.amenity-card figcaption{margin-top:var(--s2);font-size:var(--fs-cap);font-weight:500;line-height:1.3}
+@media (max-width:760px){ .amenity-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .amenity-card{flex:0 0 132px} }
 .tag-row span{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
 /* U3 ещё строится — выделяем отдельно от готовых U1/U2 (Босс 21.09) */
 .tag-row span.tag-row__done{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
@@ -761,17 +808,20 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ugal__track{top:0;bottom:0;left:50%;right:auto;display:flex;transform:translateX(-50%)}
   .ugal__thumb{width:96px;flex:none;height:100%;aspect-ratio:auto}
   .ugal__stage .ugal__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  .ugal__stage .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:44px;height:44px;background:rgba(255,255,255,.45);color:var(--ink)}
-  .ugal__stage .ugal__btn[data-dir="-1"]{left:var(--s1)} .ugal__stage .ugal__btn[data-dir="1"]{right:var(--s1)}
+  .ugal__stage .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:32px;height:32px;background:none;padding:0}
+  .ugal__stage .ugal__btn svg{display:none}
+  .ugal__stage .ugal__btn::before{content:"";display:block;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+  .ugal__stage .ugal__btn[data-dir="-1"]{left:var(--s1)} .ugal__stage .ugal__btn[data-dir="-1"]::before{border-right:11px solid #fff}
+  .ugal__stage .ugal__btn[data-dir="1"]{right:var(--s1)} .ugal__stage .ugal__btn[data-dir="1"]::before{border-left:11px solid #fff}
   .ugal__stage .ugal__count{position:absolute;left:var(--s2);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 
-/* строки «подпись … значение» с точечным лидером (калькулятор, факты юнита) */
+/* строки «подпись … значение» с точечным лидером (факты юнита) */
 .leaders{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.leaders > div,.calc__rows > div{display:flex;align-items:baseline;gap:var(--s1)}
-.leaders > div::after,.calc__rows > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
-.leaders > div > :first-child,.calc__rows > div > :first-child{order:1}
-.leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
+.leaders > div{display:flex;align-items:baseline;gap:var(--s1)}
+.leaders > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
+.leaders > div > :first-child{order:1}
+.leaders > div > b{order:3;font-weight:500;white-space:nowrap}
 /* длинные значения («строится, сдача осенью 2026») переносятся, а не растягивают страницу */
 .leaders > div > b{white-space:normal;text-align:right;max-width:60%}
 
