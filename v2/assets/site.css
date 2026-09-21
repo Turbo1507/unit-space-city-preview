@@ -508,9 +508,11 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .catalog-filters .cnt b{font-weight:500}
 
 /* ---------- yield: три сценария карточками + калькулятор ---------- */
+/* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать (Босс 22.09) */
+.calc-lead{opacity:1;color:var(--ink);font-weight:500}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
-.calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);align-content:start}
 .calc .field{display:grid;gap:var(--s1)}
 .calc label{font-size:var(--fs-cap)}
 .calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
@@ -518,14 +520,26 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc input:focus{outline:none;border-color:var(--blue)}
 /* цена виллы на странице юнита — фиксирована, менять нельзя (Босс 21.09) */
 .calc input:disabled{opacity:.6;cursor:not-allowed}
+/* кнопка «выбрать тип виллы» — подставляет цену конкретного формата в калькулятор (Босс 22.09) */
+.calc__picker{grid-column:1/-1;position:relative}
+.calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.calc__picker-panel[hidden]{display:none}
+.calc__pick-card{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);width:100%;padding:var(--s2);border:0;border-radius:var(--r-s);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .16s var(--ease)}
+.calc__pick-card:hover,.calc__pick-card.is-active{background:var(--blue-050);color:var(--blue)}
+.calc__pick-card b{font-weight:500}
+.calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:start;gap:var(--s2)}
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
-.calc__rows{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.calc__rows b{font-weight:500;font-variant-numeric:tabular-nums}
+/* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
+.calc__rows{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.calc__stat{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
+.sect--alt .calc__stat{background:var(--white)}
+.calc__stat span{font-size:var(--fs-cap)}
+.calc__stat b{font-weight:500;font-variant-numeric:tabular-nums;font-size:var(--fs-h3);letter-spacing:-.02em}
 @media (max-width:800px){ .calc{grid-template-columns:1fr} }
-@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
+@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} .calc__rows{grid-template-columns:1fr} }
 
 /* ---------- location ---------- */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
@@ -780,12 +794,12 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ugal__stage .ugal__count{position:absolute;left:var(--s2);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 
-/* строки «подпись … значение» с точечным лидером (калькулятор, факты юнита) */
+/* строки «подпись … значение» с точечным лидером (факты юнита) */
 .leaders{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.leaders > div,.calc__rows > div{display:flex;align-items:baseline;gap:var(--s1)}
-.leaders > div::after,.calc__rows > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
-.leaders > div > :first-child,.calc__rows > div > :first-child{order:1}
-.leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
+.leaders > div{display:flex;align-items:baseline;gap:var(--s1)}
+.leaders > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
+.leaders > div > :first-child{order:1}
+.leaders > div > b{order:3;font-weight:500;white-space:nowrap}
 /* длинные значения («строится, сдача осенью 2026») переносятся, а не растягивают страницу */
 .leaders > div > b{white-space:normal;text-align:right;max-width:60%}
 
