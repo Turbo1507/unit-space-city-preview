@@ -268,6 +268,62 @@
     addEventListener('resize', renderTrack);
   })();
 
+  /* ---------- лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
+     открывает оверлей на полный набор фото этого комплекса (Босс 21.09) ---------- */
+  var lightbox = document.getElementById('lightbox');
+  if (lightbox) (function () {
+    var img = document.getElementById('lightboxImg'), curEl = document.getElementById('lightboxCur'), totalEl = document.getElementById('lightboxTotal');
+    var list = [], idx = 0, lastFocus = null;
+    function show(i) {
+      idx = ((i % list.length) + list.length) % list.length;
+      var p = list[idx];
+      img.src = p.jpg; img.alt = p.alt || '';
+      curEl.textContent = idx + 1; totalEl.textContent = list.length;
+    }
+    function open(items, startIdx) {
+      list = items; if (!list.length) return;
+      lastFocus = document.activeElement;
+      lightbox.hidden = false;
+      document.body.classList.add('lightbox-open');
+      requestAnimationFrame(function () { lightbox.classList.add('in'); });
+      show(startIdx);
+      lightbox.querySelector('.lightbox__close').focus();
+    }
+    function close() {
+      lightbox.classList.remove('in');
+      document.body.classList.remove('lightbox-open');
+      setTimeout(function () { lightbox.hidden = true; }, 250);
+      if (lastFocus) lastFocus.focus();
+    }
+    function collect(article) {
+      var imgs = article.querySelectorAll('.complex__gallery img, .strip__track img'), out = [], seen = {};
+      imgs.forEach(function (im) {
+        if (seen[im.src]) return; seen[im.src] = true;
+        out.push({ jpg: im.src, alt: im.alt });
+      });
+      return out;
+    }
+    document.querySelectorAll('.complex').forEach(function (article) {
+      article.querySelectorAll('.complex__gallery figure, .strip__track figure').forEach(function (fig) {
+        fig.style.cursor = 'zoom-in';
+        fig.addEventListener('click', function () {
+          var items = collect(article), im = fig.querySelector('img');
+          var start = items.findIndex(function (p) { return p.jpg === im.src; });
+          open(items, start < 0 ? 0 : start);
+        });
+      });
+    });
+    lightbox.querySelector('.lightbox__close').addEventListener('click', close);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) close(); });
+    lightbox.querySelectorAll('.lightbox__btn').forEach(function (b) { b.addEventListener('click', function () { show(idx + (+b.getAttribute('data-dir'))); }); });
+    addEventListener('keydown', function (e) {
+      if (lightbox.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') show(idx + 1);
+      if (e.key === 'ArrowLeft') show(idx - 1);
+    });
+  })();
+
   /* ---------- кастомные выпадающие списки в форме: нативный <select> остаётся источником значения.
      Код страны (#f-cc): полный справочник USC_COUNTRIES, поиск, тонкий индикатор прокрутки, автоформат
      номера по маске — функционально как на БСО (Босс 15.09) ---------- */

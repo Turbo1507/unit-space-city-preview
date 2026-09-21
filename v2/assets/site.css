@@ -30,7 +30,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);
   font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body.menu-open{overflow:hidden}
+body.menu-open,body.lightbox-open{overflow:hidden}
 h1,h2,h3,h4,p,figure{margin:0}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
@@ -793,3 +793,25 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .footer-bottom a{display:inline-block;padding-block:8px}
   .lang button{min-width:44px;min-height:44px;padding:4px 8px}
 }
+
+/* ---------- лайтбокс «галерея проекта» (Босс 21.09): клик по фото в коллаже/ленте комплекса ---------- */
+.lightbox{position:fixed;inset:0;z-index:120;background:rgba(10,11,13,.94);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s var(--ease)}
+.lightbox[hidden]{display:none}
+.lightbox.in{opacity:1}
+.lightbox__stage{width:min(1100px,86vw);height:min(760px,80vh);display:flex;align-items:center;justify-content:center}
+.lightbox__stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--r-s)}
+.lightbox__close{position:absolute;top:var(--s3);right:var(--s3);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
+.lightbox__close:hover{background:rgba(255,255,255,.22)}
+.lightbox__btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
+.lightbox__btn:hover{background:rgba(255,255,255,.22)}
+.lightbox__btn--prev{left:var(--s3)}
+.lightbox__btn--next{right:var(--s3)}
+.lightbox__count{position:absolute;left:var(--s3);bottom:var(--s3);color:rgba(255,255,255,.7);font-size:var(--fs-cap)}
+.lightbox__count b{color:#fff;font-weight:500}
+@media (max-width:640px){
+  .lightbox__stage{width:92vw;height:70vh}
+  .lightbox__btn{width:40px;height:40px}
+  .lightbox__btn--prev{left:var(--s1)} .lightbox__btn--next{right:var(--s1)}
+  .lightbox__close{top:var(--s2);right:var(--s2)}
+}
+@media (prefers-reduced-motion:reduce){ .lightbox{transition:none} }
