@@ -360,6 +360,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
 @media (max-width:760px){ .co-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .co-strip .co-card{flex:0 0 calc(78% - var(--s1))} }
 .co-card > b i{color:var(--blue);font-style:normal}
+/* крупное название компании над лентой, синхронизировано со скроллом (Burton-стиль, Босс 21.09) */
+.co-carousel-name{margin-bottom:var(--s3);overflow:hidden}
+.co-carousel-name b{display:block;font-size:clamp(32px,6vw,88px);font-weight:500;letter-spacing:-.03em;line-height:1;transition:opacity .2s var(--ease),transform .2s var(--ease)}
+.co-carousel-name b i{color:var(--blue);font-style:normal}
+.co-carousel-name b.is-swap{opacity:0;transform:translateY(6px)}
 .co-card__sub{font-size:var(--fs-body);line-height:var(--lh-card);margin-top:-4px}
 .co-card{grid-template-rows:auto auto 1fr auto;padding:var(--s2)}
 .co-card__photo{margin:0;padding-top:var(--s2);align-self:end}
