@@ -110,13 +110,15 @@
         <p class="t-lead" data-i18n="about.lead">Два комплекса сданы и&nbsp;работают, третий строится. Локация растёт в&nbsp;цене</p>
       </div>
       <div class="bento-2 rv" style="margin-bottom:clamp(32px,4vw,48px)">
-        <div class="card">
-          <h3 class="t-h3" data-i18n="about.ov_title">Три квартала Unit Space City</h3>
-          <p style="margin-top:var(--s2)" data-i18n="about.ov_lead">Unit Space City — три комплекса вилл в&nbsp;общей инфраструктуре, в&nbsp;3&nbsp;минутах пешком от&nbsp;океана</p>
-          <div class="tag-row" style="margin-top:var(--s2)">
-            <span class="tag-row__done" data-i18n="about.ov_u1"><b>U1</b>&nbsp;Space Village — построено</span>
-            <span class="tag-row__done" data-i18n="about.ov_u2"><b>U2</b>&nbsp;Nuanu Village — построено</span>
-            <span data-i18n="about.ov_u3"><b>U3</b>&nbsp;Nyanyi Village — строится</span>
+        <div class="card ov-card">
+          <div>
+            <h3 class="t-h3" data-i18n="about.ov_title">Три квартала Unit Space City</h3>
+            <p style="margin-top:var(--s2)" data-i18n="about.ov_lead">Unit Space City — три комплекса вилл в&nbsp;общей инфраструктуре, в&nbsp;3&nbsp;минутах пешком от&nbsp;океана</p>
+          </div>
+          <div class="ov-rows">
+            <a href="#cx-u1" class="ov-row"><b>U1</b><span class="ov-row__name" data-i18n="about.ov_u1n">Space Village</span><span class="status-chip status-chip--done" data-i18n="u1.status">Построено</span></a>
+            <a href="#cx-u2" class="ov-row"><b>U2</b><span class="ov-row__name" data-i18n="about.ov_u2n">Nuanu Village</span><span class="status-chip status-chip--done" data-i18n="u2.status">Построено</span></a>
+            <a href="#cx-u3" class="ov-row"><b>U3</b><span class="ov-row__name" data-i18n="about.ov_u3n">Nyanyi Village</span><span class="status-chip status-chip--build" data-i18n="u3.status">Строится</span></a>
           </div>
         </div>
         <figure class="location-map">
@@ -291,7 +293,7 @@
   </section>
 
   <!-- 05 — ПЛАНИРОВКИ -->
-  <section class="sect" id="plans">
+  <section class="sect sect--alt" id="plans">
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="plans.title">Форматы вилл</h2>
@@ -392,10 +394,19 @@
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="yield.title">Доходность от&nbsp;<span class="accent">10%</span> в&nbsp;год</h2>
-        <p class="t-lead" data-i18n="yield.lead">Ориентир по&nbsp;работающим U1 и&nbsp;U2. Прикиньте доход под свой бюджет</p>
+        <p class="t-lead calc-lead" data-i18n="yield.lead">Ориентир по&nbsp;работающим U1 и&nbsp;U2. Прикиньте доход под свой бюджет</p>
       </div>
       <div class="calc rv">
         <div class="calc__inputs">
+          <div class="calc__picker">
+            <button type="button" class="btn btn-outline btn-sm" id="calcPickerBtn" aria-expanded="false" aria-controls="calcPickerPanel"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="calc.pick">Выбрать тип виллы</span></button>
+            <div class="calc__picker-panel" id="calcPickerPanel" hidden>
+              <button type="button" class="calc__pick-card" data-price="100000"><b data-i18n="fmt.studio">Студия</b><span data-i18n="calc.pick_studio">32&nbsp;м² — от&nbsp;$100&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="118000"><b data-i18n="fmt.1bd">1+1 спальня</b><span data-i18n="calc.pick_1bd">60&nbsp;м² — от&nbsp;$118&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="190000"><b data-i18n="fmt.2bd">2+1 спальни</b><span data-i18n="calc.pick_2bd">89&nbsp;м² — от&nbsp;$190&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="278000"><b data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</b><span data-i18n="calc.pick_villa">200&nbsp;м² — от&nbsp;$278&nbsp;000</span></button>
+            </div>
+          </div>
           <div class="field"><label for="c-price" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="calc.price">Цена виллы, $</span></label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
           <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь, $</span></label><input type="number" id="c-rate" value="100" min="0" step="5"></div>
           <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка, %</span></label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
@@ -404,8 +415,8 @@
         <div class="calc__out" aria-live="polite">
           <div class="calc__roi"><b id="o-roi">—</b><span class="dim" data-i18n="calc.roi">доходность к&nbsp;цене в&nbsp;год</span></div>
           <div class="calc__rows">
-            <div><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
-            <div><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
+            <div class="calc__stat"><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
+            <div class="calc__stat"><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
           </div>
           <p class="t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту</p>
         </div>
@@ -436,15 +447,17 @@
         <div class="card kv-chip"><svg class="ic kv-chip__ic" aria-hidden="true"><use href="#i-sun"/></svg><div><b data-i18n="loc.beach_l">Пляж</b><span data-i18n="loc.beach">Pantai Nyanyi — 3 минуты пешком от&nbsp;U1 и&nbsp;U2</span></div></div>
         <div class="card kv-chip"><svg class="ic kv-chip__ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><div><b data-i18n="loc.infra_l">Инфраструктура Nuanu</b><span data-i18n="loc.infra">35+ объектов, открыты круглый год</span></div></div>
       </div>
-      <div class="card infra rv" style="margin-top:var(--s2)">
-        <figure class="infra__photo"><picture><source srcset="photos/u1-25.webp" type="image/webp"><img src="photos/u1-25.jpg" alt="Приватный бассейн и сауна внутри квартала U1" loading="lazy"></picture></figure>
-        <div class="infra__body">
-          <h3 class="t-h3" data-i18n="loc.own_l">Что есть в&nbsp;самом комплексе Unit Space City</h3>
-          <div class="tag-row">
-          <span data-i18n="own.1">Кафе</span><span data-i18n="own.2">Лаунж-бар</span><span data-i18n="own.3">Коворкинг</span>
-          <span data-i18n="own.4">Сауна</span><span data-i18n="own.5">Купель</span><span data-i18n="own.6">Зона силовых тренировок</span>
-          <span data-i18n="own.7">Общий двор с&nbsp;бассейном</span><span data-i18n="own.8">Полная меблировка вилл</span>
-          </div>
+      <div class="rv" style="margin-top:var(--s2)">
+        <h3 class="t-h3" data-i18n="loc.own_l">Что есть в&nbsp;самом комплексе Unit Space City</h3>
+        <div class="amenity-strip" style="margin-top:var(--s3)">
+          <figure class="amenity-card"><picture><source srcset="photos/u1-09.webp" type="image/webp"><img src="photos/u1-09.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.1">Кафе</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u2-1bd-07.webp" type="image/webp"><img src="photos/u2-1bd-07.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.2">Лаунж-бар</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u1-09.webp" type="image/webp"><img src="photos/u1-09.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.3">Коворкинг</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u1-25.webp" type="image/webp"><img src="photos/u1-25.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.4">Сауна</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u1-06.webp" type="image/webp"><img src="photos/u1-06.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.5">Купель</figcaption></figure>
+          <figure class="amenity-card amenity-card--ph"><div class="ph" aria-hidden="true"></div><figcaption data-i18n="own.6">Зона силовых тренировок</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u2-2bd-19.webp" type="image/webp"><img src="photos/u2-2bd-19.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.7">Общий двор с&nbsp;бассейном</figcaption></figure>
+          <figure class="amenity-card"><picture><source srcset="photos/u2-1bd-04.webp" type="image/webp"><img src="photos/u2-1bd-04.jpg" alt="" loading="lazy"></picture><figcaption data-i18n="own.8">Полная меблировка вилл</figcaption></figure>
         </div>
       </div>
     </div>
@@ -472,8 +485,10 @@
           <figure class="co-card__photo"><picture><source srcset="photos/ud-sys-frames.webp" type="image/webp"><img src="photos/ud-sys-frames.jpg" alt="Производство стальных каркасов UNIT.FRAMES" loading="lazy"></picture></figure></div>
         <div class="card co-card"><b><i>UNIT.</i>FURNITURE</b><span class="co-card__sub" data-i18n="co.k3">Мебельная фабрика</span><p data-i18n="co.k3p">Корпусная и&nbsp;мягкая мебель, двери и&nbsp;панорамные окна для домов UNIT</p>
           <figure class="co-card__photo"><picture><source srcset="photos/ud-sys-furniture.webp" type="image/webp"><img src="photos/ud-sys-furniture.jpg" alt="Цех UNIT.FURNITURE" loading="lazy"></picture></figure></div>
-        <div class="card co-card"><b><i>UNIT.</i>SPACE MANAGEMENT</b><span class="co-card__sub" data-i18n="co.k4">Управляющая компания</span><p data-i18n="co.k4p">Управление недвижимостью и&nbsp;F&amp;B на&nbsp;Бали больше 10&nbsp;лет: все процессы под ключ без участия инвестора</p></div>
-        <div class="card co-card"><b><i>ULA.</i>ZONE</b><span class="co-card__sub" data-i18n="co.k5">IT-сервис группы</span><p data-i18n="co.k5p">Аналитика по&nbsp;локациям и&nbsp;юнитам партнёров: данные рынка Бали для инвесторов и&nbsp;брокеров</p></div>
+        <div class="card co-card"><b><i>UNIT.</i>SPACE MANAGEMENT</b><span class="co-card__sub" data-i18n="co.k4">Управляющая компания</span><p data-i18n="co.k4p">Управление недвижимостью и&nbsp;F&amp;B на&nbsp;Бали больше 10&nbsp;лет: все процессы под ключ без участия инвестора</p>
+          <figure class="co-card__photo"><picture><source srcset="photos/u1-14.webp" type="image/webp"><img src="photos/u1-14.jpg" alt="Виллы под управлением UNIT SPACE MANAGEMENT" loading="lazy"></picture></figure></div>
+        <div class="card co-card"><b><i>ULA.</i>ZONE</b><span class="co-card__sub" data-i18n="co.k5">IT-сервис группы</span><p data-i18n="co.k5p">Аналитика по&nbsp;локациям и&nbsp;юнитам партнёров: данные рынка Бали для инвесторов и&nbsp;брокеров</p>
+          <figure class="co-card__photo co-card__photo--contain"><picture><source srcset="photos/ula-illustration.webp" type="image/webp"><img src="photos/ula-illustration.jpg" alt="Аналитика ULA.ZONE — карточка объявления и метрики загрузки/цены" loading="lazy"></picture></figure></div>
       </div>
 
       <h3 class="t-h3 sub-head rv" data-i18n="co.team">Основатели</h3>
@@ -578,7 +593,7 @@
     <div class="container">
       <div class="final-cta__split">
         <div class="rv">
-          <h2 class="t-h2" data-i18n="lead.title">Забронируйте виллу на&nbsp;Бали</h2>
+          <h2 class="t-h2" data-i18n="lead.title">Забронируйте виллу <span class="accent">на&nbsp;Бали</span></h2>
           <p class="t-lead" data-i18n="lead.lead">Оставьте контакты: подберём виллы под ваш бюджет и&nbsp;посчитаем доходность</p>
           <div class="final-cta__contacts">
             <a href="mailto:hello@unit.now" class="btn btn-outline btn-sm"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hello@unit.now</a>
