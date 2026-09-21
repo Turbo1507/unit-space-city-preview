@@ -193,13 +193,15 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 }
 
 /* cookie */
-.consent-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3);
-  padding:var(--s2) var(--gut);background:#fff;border-top:1px solid var(--line);transform:translateY(100%);opacity:0;
+/* обособленная карточка внизу справа, не полоса на всю ширину (Босс 21.09) */
+.consent-bar{position:fixed;right:var(--gut);bottom:var(--gut);left:auto;z-index:60;display:grid;gap:var(--s2);
+  width:min(360px, calc(100vw - 2 * var(--gut)));padding:var(--s3);border-radius:var(--r);
+  background:var(--white);box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(24px);opacity:0;
   transition:transform .5s var(--ease),opacity .5s var(--ease)}
 .consent-bar.in{transform:translateY(0);opacity:1}
-.consent-bar p{font-size:var(--fs-cap);line-height:1.45;max-width:64ch;flex:1 1 320px}
+.consent-bar p{font-size:var(--fs-cap);line-height:1.45}
 .consent-bar a{text-decoration:underline}
-.consent-bar .btn{flex:none}
+.consent-bar .btn{width:100%;justify-content:center}
 @media (prefers-reduced-motion: reduce){ .consent-bar,.hero__card{transition:none} }
 
 /* ---------- карточка — бренд-элемент: заливка, r10, без рамок/теней ---------- */
