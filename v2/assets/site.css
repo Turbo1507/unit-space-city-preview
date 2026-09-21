@@ -301,7 +301,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__badge-row{display:flex;align-items:center;gap:var(--s1);flex-wrap:wrap}
 .complex__badge{display:inline-block;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:999px;padding:4px var(--s2);font-size:var(--fs-cap)}
 /* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса (Босс 21.09) */
-.status-chip{display:inline-flex;align-items:center;height:26px;padding:0 var(--s2);border-radius:999px;font-size:var(--fs-micro);font-weight:500;letter-spacing:.02em}
+.status-chip{display:inline-flex;align-items:center;height:24px;padding:0 var(--s2);border-radius:999px;font-size:var(--fs-micro);font-weight:500;letter-spacing:.02em}
 .status-chip--done{background:var(--blue);color:#fff}
 .status-chip--build{background:var(--wash);color:var(--ink-2)}
 .complex__title{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
@@ -366,7 +366,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .pr-card__head b{color:var(--blue);font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
 /* «Принципы» → «Манифест» (Босс 21.09): связный текст вместо 4 карточек-букв, акцент — синяя линия слева
    и выделенные ключевые слова, без кавычек-клише */
-.manifesto{margin:0;position:relative;padding:0 0 0 clamp(20px,2.4vw,28px);border-left:2px solid var(--blue);max-width:68ch}
+.manifesto{margin:0;position:relative;padding:0 0 0 clamp(16px,2.4vw,32px);border-left:2px solid var(--blue);max-width:68ch}
 .manifesto p{font-size:var(--fs-h3);line-height:1.4;font-weight:400;letter-spacing:-.01em}
 .manifesto p b{color:var(--blue);font-weight:500}
 .tr-card{grid-template-columns:120px 1fr;gap:var(--s2) var(--s3);align-items:start}
