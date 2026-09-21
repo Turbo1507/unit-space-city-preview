@@ -320,7 +320,7 @@ window.I18N = {
  "nav.location": "Location",
  "nav.company": "Company",
  "nav.cta": "Request a call",
- "hero.title": "High-tech homes at apartment‑level prices",
+ "hero.title": "High-tech homes at apartment-level prices",
  "hero.sub": "Three complexes in Nuanu & Nyanyi, Bali. Three minutes to the ocean, direct from the developer",
  "hero.alt": "Unit Space villa at sunset, rice fields",
  "hero.card_aria": "See the complexes on the map",
