@@ -589,5 +589,26 @@
     }
     ids.forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
     calc();
+    /* «Выбрать тип виллы» — подставляет цену формата в калькулятор (Босс 22.09) */
+    var pickerBtn = document.getElementById('calcPickerBtn'), pickerPanel = document.getElementById('calcPickerPanel');
+    if (pickerBtn && pickerPanel) {
+      pickerBtn.addEventListener('click', function () {
+        var open = pickerPanel.hidden;
+        pickerPanel.hidden = !open;
+        pickerBtn.setAttribute('aria-expanded', String(open));
+      });
+      pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.getElementById('c-price').value = btn.getAttribute('data-price');
+          calc();
+          pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+          pickerPanel.hidden = true;
+          pickerBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!pickerPanel.hidden && !e.target.closest('.calc__picker')) { pickerPanel.hidden = true; pickerBtn.setAttribute('aria-expanded', 'false'); }
+      });
+    }
   }
 })();
