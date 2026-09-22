@@ -579,6 +579,8 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 @media (max-width:760px){ .kv-chip-grid{grid-template-columns:1fr} }
 /* карта — живой embed, серый под бренд; карточка инфраструктуры: фото слева, чипы справа */
 .location-map__img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+/* на десктопе (2 колонки бенто) карта растягивается вровень с левой карточкой, а не по своему aspect-ratio — иначе не дотягивает до низа */
+@media (min-width:761px){ .location-map{height:100%} .location-map__img{height:100%;aspect-ratio:auto} }
 .card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4);align-items:start}
 .infra__photo{margin:0;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash);align-self:stretch}
 .infra__photo img{width:100%;height:100%;object-fit:cover;display:block}
