@@ -25,8 +25,21 @@
       <a href="index.html#faq">FAQ</a>
     </nav>
     <div class="header-right">
-      <div class="lang" role="group" aria-label="Язык">
-        <button type="button" data-lang="ru" class="is-active">RU</button><span>/</span><button type="button" data-lang="en">EN</button>
+      <div class="header-selectors">
+        <div class="hd-sel" data-sel="lang">
+          <button type="button" class="hd-sel__btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Язык" data-i18n-aria="lang.aria"><span class="hd-sel__val">RU</span><svg class="hd-sel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <ul class="hd-sel__pop" role="listbox" hidden>
+            <li role="option" data-lang="ru" aria-selected="true">RU</li>
+            <li role="option" data-lang="en" aria-selected="false">EN</li>
+          </ul>
+        </div>
+        <div class="hd-sel" data-sel="ccy">
+          <button type="button" class="hd-sel__btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Валюта" data-i18n-aria="ccy.aria"><span class="hd-sel__val">USD</span><svg class="hd-sel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <ul class="hd-sel__pop" role="listbox" hidden>
+            <li role="option" data-ccy="usd" aria-selected="true">USD</li>
+            <li role="option" data-ccy="idr" aria-selected="false">IDR</li>
+          </ul>
+        </div>
       </div>
       <a href="index.html#lead" class="btn btn-primary btn-sm" data-i18n="nav.cta">Оставить заявку</a>
       <button class="burger" id="burger" type="button" aria-label="Меню" aria-controls="menuOverlay" data-i18n-aria="menu.title"><span></span><span></span><span></span></button>
@@ -49,8 +62,21 @@
     <a href="index.html#faq">FAQ</a>
   </nav>
   <div class="menu-foot">
-    <div class="lang" role="group" aria-label="Язык">
-      <button type="button" data-lang="ru" class="is-active">RU</button><span>/</span><button type="button" data-lang="en">EN</button>
+    <div class="header-selectors">
+      <div class="hd-sel" data-sel="lang">
+        <button type="button" class="hd-sel__btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Язык" data-i18n-aria="lang.aria"><span class="hd-sel__val">RU</span><svg class="hd-sel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <ul class="hd-sel__pop" role="listbox" hidden>
+          <li role="option" data-lang="ru" aria-selected="true">RU</li>
+          <li role="option" data-lang="en" aria-selected="false">EN</li>
+        </ul>
+      </div>
+      <div class="hd-sel" data-sel="ccy">
+        <button type="button" class="hd-sel__btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Валюта" data-i18n-aria="ccy.aria"><span class="hd-sel__val">USD</span><svg class="hd-sel__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <ul class="hd-sel__pop" role="listbox" hidden>
+          <li role="option" data-ccy="usd" aria-selected="true">USD</li>
+          <li role="option" data-ccy="idr" aria-selected="false">IDR</li>
+        </ul>
+      </div>
     </div>
     <a href="index.html#lead" class="btn btn-primary" data-i18n="nav.cta">Оставить заявку</a>
   </div>
