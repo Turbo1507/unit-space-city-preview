@@ -69,7 +69,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 @media (max-width:760px){ .row{grid-template-columns:1fr;gap:var(--s1)} }
 
 /* ---------- buttons ---------- */
-.btn{--h:56px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);min-height:var(--h);padding-inline:var(--s3);padding-block:10px;
+.btn{--h:56px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);min-height:var(--h);padding-inline:var(--s3);padding-block:8px;
   border-radius:var(--r);font-size:var(--fs-body);font-weight:500;letter-spacing:.01em;line-height:1.2;text-align:center;border:1.5px solid transparent;cursor:pointer;
   transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
 .btn svg{width:16px;height:16px;flex:none}
@@ -112,7 +112,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .lang span{opacity:.3;font-size:var(--fs-micro)}
 /* бокс 40px, полоски 22px: сдвигаем бокс на (40-22)/2 вправо, чтобы ВИДИМЫЙ край полосок стоял ровно на --gut,
    как вордмарк слева (Босс 15.09: «бургер слишком близко к краю, вопрос к строгости сетки») */
-.burger{display:none;width:40px;height:40px;margin-right:-9px;border:0;background:none;cursor:pointer;flex-direction:column;
+.burger{display:none;width:40px;height:40px;margin-right:-8px;border:0;background:none;cursor:pointer;flex-direction:column;
   justify-content:center;align-items:center;gap:4px;position:relative;z-index:101;color:inherit}
 .burger span{display:block;width:22px;height:2px;background:currentColor;transition:transform .25s var(--ease),opacity .2s}
 body.menu-open .burger{color:var(--ink)}
@@ -126,7 +126,7 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
   .site-header .container{gap:var(--s2)}
   .header-right{gap:var(--s1)}
   .lang{gap:0} .lang span{margin:0 2px}
-  .site-header .lang button{min-width:40px;min-height:40px;padding:4px 6px}
+  .site-header .lang button{min-width:40px;min-height:40px;padding:4px 8px}
 }
 
 /* мобильное меню — полноэкранный оверлей (паттерн БСО/unit-wp) */
@@ -698,7 +698,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .csel-search:focus{outline:none;border-color:var(--blue)}
 .csel-list{margin:0;padding:0 8px 0 0;list-style:none;white-space:nowrap;max-height:260px;overflow:auto;scrollbar-width:none}
 .csel-list::-webkit-scrollbar{display:none}
-.csel-opt{padding:10px 14px;border-radius:4px;font-size:var(--fs-body);line-height:var(--lh-body);cursor:pointer}
+.csel-opt{padding:8px 12px;border-radius:4px;font-size:var(--fs-body);line-height:var(--lh-body);cursor:pointer}
 .csel-opt[hidden]{display:none}
 .csel-opt:hover,.csel-opt.is-active{background:var(--wash)}
 .csel-opt.is-sel{color:var(--blue)}
@@ -867,7 +867,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 @media (hover:none){
   .complex-nav button{min-width:44px;min-height:44px}
   .ugal__btn{width:44px;height:44px}
-  .site-footer ul a{display:inline-block;padding-block:6px}
+  .site-footer ul a{display:inline-block;padding-block:8px}
   .footer-bottom a{display:inline-block;padding-block:8px}
   .lang button{min-width:44px;min-height:44px;padding:4px 8px}
 }
