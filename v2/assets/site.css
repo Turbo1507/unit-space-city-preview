@@ -36,6 +36,10 @@ a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 ul,ol{margin:0;padding:0;list-style:none}
 img{display:block;max-width:100%;height:auto}
+/* блик-скелет, пока фото не в кеше — снимается в site.js по load/error (по образцу BSO, Босс 22.09) */
+img.is-loading{background:linear-gradient(100deg, var(--wash) 38%, #fff 50%, var(--wash) 62%) var(--wash);background-size:220% 100%;background-repeat:no-repeat;background-position:170% 0;animation:img-shine 1.5s ease-in-out infinite}
+@keyframes img-shine{ to{ background-position:-40% 0 } }
+@media (prefers-reduced-motion: reduce){ img.is-loading{ animation:none } }
 /* <picture> — блочная и во всю высоту контейнера, иначе img height:100% не срабатывает и фото ложится с полями */
 picture{display:block;width:100%;height:100%}
 table{border-collapse:collapse}
