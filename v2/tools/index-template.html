@@ -406,16 +406,16 @@
           <div class="calc__picker">
             <button type="button" class="btn btn-outline btn-sm" id="calcPickerBtn" aria-expanded="false" aria-controls="calcPickerPanel"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="calc.pick">Выбрать тип виллы</span></button>
             <div class="calc__picker-panel" id="calcPickerPanel" hidden>
-              <button type="button" class="calc__pick-card" data-price="100000" data-rate="50"><b data-i18n="fmt.studio">Студия</b><span data-i18n="calc.pick_studio">32&nbsp;м² — от&nbsp;$100&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card" data-price="118000" data-rate="65"><b data-i18n="fmt.1bd">1+1 спальня</b><span data-i18n="calc.pick_1bd">60&nbsp;м² — от&nbsp;$118&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card is-active" data-price="190000" data-rate="100"><b data-i18n="fmt.2bd">2+1 спальни</b><span data-i18n="calc.pick_2bd">89&nbsp;м² — от&nbsp;$190&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card" data-price="278000" data-rate="145"><b data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</b><span data-i18n="calc.pick_villa">200&nbsp;м² — от&nbsp;$278&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="100000" data-rate="60" data-occ="85" data-mgmt="11"><b data-i18n="fmt.studio">Студия</b><span data-i18n="calc.pick_studio">32&nbsp;м² — от&nbsp;$100&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="118000" data-rate="95" data-occ="85" data-mgmt="18"><b data-i18n="fmt.1bd">1+1 спальня</b><span data-i18n="calc.pick_1bd">60&nbsp;м² — от&nbsp;$118&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card is-active" data-price="190000" data-rate="140" data-occ="85" data-mgmt="18"><b data-i18n="fmt.2bd">2+1 спальни</b><span data-i18n="calc.pick_2bd">89&nbsp;м² — от&nbsp;$190&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="278000" data-rate="205" data-occ="85" data-mgmt="18"><b data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</b><span data-i18n="calc.pick_villa">200&nbsp;м² — от&nbsp;$278&nbsp;000</span></button>
             </div>
           </div>
           <div class="field"><label for="c-price" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="calc.price">Цена виллы, $</span></label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
-          <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь, $</span></label><input type="number" id="c-rate" value="100" min="0" step="5"></div>
-          <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка, %</span></label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
-          <div class="field"><label for="c-mgmt" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span data-i18n="calc.mgmt">Комиссия УК, %</span></label><input type="number" id="c-mgmt" value="20" min="0" max="100"></div>
+          <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь, $</span></label><input type="number" id="c-rate" value="140" min="0" step="5" disabled></div>
+          <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка, %</span></label><input type="number" id="c-occ" value="85" min="0" max="100" disabled></div>
+          <div class="field"><label for="c-mgmt" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span data-i18n="calc.mgmt">Комиссия УК, %</span></label><input type="number" id="c-mgmt" value="18" min="0" max="100" disabled></div>
         </div>
         <div class="calc__out" aria-live="polite">
           <div class="calc__roi"><b id="o-roi">—</b><span class="dim" data-i18n="calc.roi">доходность к&nbsp;цене в&nbsp;год</span></div>

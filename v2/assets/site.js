@@ -620,6 +620,10 @@
           document.getElementById('c-price').value = btn.getAttribute('data-price');
           var rate = btn.getAttribute('data-rate');
           if (rate) document.getElementById('c-rate').value = rate;
+          var occ = btn.getAttribute('data-occ');
+          if (occ) document.getElementById('c-occ').value = occ;
+          var mgmt = btn.getAttribute('data-mgmt');
+          if (mgmt) document.getElementById('c-mgmt').value = mgmt;
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
           pickerPanel.hidden = true;
