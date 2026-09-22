@@ -4,6 +4,15 @@
   var ASSETS = document.documentElement.getAttribute('data-assets') || 'assets/';
   document.documentElement.className += ' js';
 
+  /* прогрузка фото — shine-скелет, пока фото не в кеше, снимаем по load/error (как на BSO, Босс 22.09) */
+  document.querySelectorAll('picture img').forEach(function (img) {
+    if (img.complete) return;
+    img.classList.add('is-loading');
+    var done = function () { img.classList.remove('is-loading'); };
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+  });
+
   /* ---------- header: is-solid после 40px (на внутренних страницах — всегда) ---------- */
   var header = document.getElementById('header');
   var alwaysSolid = document.body.classList.contains('page');
