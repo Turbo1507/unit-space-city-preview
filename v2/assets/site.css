@@ -231,19 +231,30 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .card-grid--4{grid-template-columns:repeat(4,1fr)}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
 .bento .span-2{grid-column:span 2}
-/* карточки Location/Returns/Production не тянуть по высоте строки — иначе после фото-фона в Location у соседей пустой хвост снизу */
-.bento > .card{align-self:start}
+/* Location (фото-фон) не тянуть по высоте строки — у неё свой min-height; Returns/Production тянутся друг под друга как обычно */
+.bento > .card--photobg{align-self:start}
 /* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта), Босс 21.09 */
 .bento-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s2)}
 /* карточка обзора выглядела пусто рядом с картой — строки U1/U2/U3 растянуты на всю высоту,
    каждая кликабельна (ведёт на таб комплекса), статус — тем же чипом, что и у бейджа комплекса (Босс 22.09) */
 .ov-card{display:flex;flex-direction:column}
+.ov-photo{display:none}
 .ov-rows{margin-top:auto;padding-top:var(--s3);display:grid;gap:var(--s1)}
 .ov-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2);border-radius:var(--r-s);background:var(--white);color:inherit;text-decoration:none;transition:background .18s var(--ease)}
 .ov-row:hover{background:var(--blue-050)}
 .ov-row > b{flex:none;color:var(--blue);font-weight:500}
 .ov-row__name{flex:1;font-weight:500}
 @media (min-width:1200px){
+  /* фото над строками U1/U2/U3 — при наведении на строку подставляется фото именно этого комплекса (Босс 22.09) */
+  .ov-photo{display:block;position:relative;aspect-ratio:16/9;border-radius:var(--r-s);overflow:hidden;margin-top:var(--s3);background:var(--wash)}
+  .ov-photo picture,.ov-photo img{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .ov-photo img{object-fit:cover;opacity:0;transition:opacity .3s var(--ease)}
+  .ov-photo img[data-u="u1"]{opacity:1}
+  .ov-card:has(.ov-row:hover) .ov-photo img{opacity:0}
+  .ov-card:has(.ov-row[data-u="u1"]:hover) .ov-photo img[data-u="u1"],
+  .ov-card:has(.ov-row[data-u="u2"]:hover) .ov-photo img[data-u="u2"],
+  .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
+  .ov-rows{margin-top:var(--s2)}
   .ov-rows{grid-template-columns:1fr 1fr}
   .ov-row:last-child{grid-column:1/-1}
 }
@@ -537,7 +548,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__pick-card:hover,.calc__pick-card.is-active{background:var(--blue-050);color:var(--blue)}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
-.calc__out{display:grid;align-content:space-between;gap:var(--s2)}
+.calc__out{display:grid;align-content:start;gap:var(--s2)}
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
