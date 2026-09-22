@@ -39,7 +39,6 @@ const ATTR = {
   'Сергей Солонин': 'Sergey Solonin',
   'Михаил Дашкиев': 'Mikhail Dashkiev',
   'Стройплощадка UNIT.BUILD': 'UNIT.BUILD construction site',
-  'Терраса виллы U1 среди зелени Nuanu': 'U1 villa terrace amid Nuanu greenery',
   'Производство стальных каркасов UNIT.FRAMES': 'UNIT.FRAMES steel frame production',
   'Цех UNIT.FURNITURE': 'UNIT.FURNITURE workshop',
   'Терраса виллы U2': 'U2 villa terrace',
