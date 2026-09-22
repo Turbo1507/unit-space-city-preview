@@ -550,7 +550,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__pick-card:hover,.calc__pick-card.is-active{background:var(--blue-050);color:var(--blue)}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
-.calc__out{display:grid;align-content:start;gap:var(--s2)}
+.calc__out{display:grid;align-content:start;gap:var(--s2);margin-top:var(--s6)}
 .calc__roi{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
 .sect--alt .calc__roi{background:var(--white)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
@@ -562,7 +562,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__stat span{font-size:var(--fs-cap)}
 .calc__stat b{font-weight:500;font-variant-numeric:tabular-nums;font-size:var(--fs-h3);letter-spacing:-.02em;color:var(--blue)}
 .calc__note{grid-column:1/-1;margin-top:0}
-@media (max-width:800px){ .calc{grid-template-columns:1fr} }
+@media (max-width:800px){ .calc{grid-template-columns:1fr} .calc__out{margin-top:0} }
 @media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} .calc__rows{grid-template-columns:1fr} }
 
 /* ---------- location ---------- */
