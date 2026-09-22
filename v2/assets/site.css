@@ -74,9 +74,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
   transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
 .btn svg{width:16px;height:16px;flex:none}
 .btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:var(--blue-press)}
 .btn-outline{border-color:currentColor}
-.btn-outline:hover{color:var(--blue)}
 .btn-sm{--h:40px;padding-inline:var(--s2);font-size:var(--fs-cap)}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .cta-row{display:flex;flex-wrap:wrap;gap:var(--s2)}
@@ -104,11 +102,11 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .site-header:not(.is-solid) .wordmark i{color:#fff}
 .site-nav{display:flex;gap:var(--s3);font-size:var(--fs-cap);font-weight:500}
 .site-nav a{opacity:.7;transition:opacity .2s}
-.site-nav a:hover,.site-nav a.is-active{opacity:1}
+.site-nav a.is-active{opacity:1;color:var(--blue)}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
 .lang{display:flex;align-items:center;gap:var(--s1);font-size:var(--fs-cap);font-weight:500}
 .lang button{background:none;border:0;padding:4px;cursor:pointer;opacity:.55;transition:opacity .2s}
-.lang button.is-active,.lang button:hover{opacity:1}
+.lang button.is-active{opacity:1;color:var(--blue)}
 .lang span{opacity:.3;font-size:var(--fs-micro)}
 /* бокс 40px, полоски 22px: сдвигаем бокс на (40-22)/2 вправо, чтобы ВИДИМЫЙ край полосок стоял ровно на --gut,
    как вордмарк слева (Босс 15.09: «бургер слишком близко к краю, вопрос к строгости сетки») */
@@ -135,7 +133,6 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
 body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transform .5s var(--ease),visibility 0s}
 .menu-head{height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
 .menu-list{display:grid;gap:var(--s2);margin-top:var(--s4);font-size:var(--fs-title);font-weight:500;letter-spacing:-.02em}
-.menu-list a:hover{color:var(--blue)}
 .menu-foot{margin-top:auto;display:grid;gap:var(--s3)}
 .menu-foot .lang{font-size:var(--fs-body)}
 .menu-foot .btn{width:100%}
@@ -178,7 +175,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__card-title{font-size:var(--fs-body);font-weight:500;line-height:1.25}
 .hero__card-arrow{position:absolute;right:var(--s2);bottom:var(--s2);z-index:1;width:32px;height:32px;border-radius:50%;background:var(--blue);
   display:flex;align-items:center;justify-content:center;transition:background .18s}
-.hero__card:hover .hero__card-arrow{background:var(--blue-press)}
 
 .hero__strip{border-top:1px solid rgba(255,255,255,.22)}
 .hero__strip .container{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);padding-block:var(--s2)}
@@ -243,7 +239,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .ov-photo{display:none}
 .ov-rows{margin-top:auto;padding-top:var(--s3);display:grid;gap:var(--s1)}
 .ov-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2);border-radius:var(--r-s);background:var(--white);color:inherit;text-decoration:none;transition:background .18s var(--ease)}
-.ov-row:hover{background:var(--blue-050)}
 .ov-row > b{flex:none;color:var(--blue);font-weight:500}
 .ov-row__name{flex:1;font-weight:500}
 @media (min-width:1200px){
@@ -252,10 +247,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .ov-photo picture,.ov-photo img{position:absolute;inset:0;width:100%;height:100%;display:block}
   .ov-photo img{object-fit:cover;opacity:0;transition:opacity .3s var(--ease)}
   .ov-photo img[data-u="u1"]{opacity:1}
-  .ov-card:has(.ov-row:hover) .ov-photo img{opacity:0}
-  .ov-card:has(.ov-row[data-u="u1"]:hover) .ov-photo img[data-u="u1"],
-  .ov-card:has(.ov-row[data-u="u2"]:hover) .ov-photo img[data-u="u2"],
-  .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
   .ov-rows{margin-top:var(--s2)}
   .ov-rows{grid-template-columns:1fr 1fr}
   .ov-row:last-child{grid-column:1/-1}
@@ -450,13 +441,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card__media{position:relative;aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .fmt-card__media picture{display:block;width:100%;height:100%}
 .fmt-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.fmt-card:hover .fmt-card__media img{transform:scale(1.02)}
 /* больше воздуха между head/rows/foot — Босс 21.09: «не нравятся отступы внутри карточек» */
 .fmt-card__body{display:grid;gap:var(--s3)}
 .fmt-card__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
 .fmt-card__head > div{display:grid;gap:4px}
 .fmt-card__name{font-size:var(--fs-h3);font-weight:500;line-height:1.2;letter-spacing:-.02em}
-.fmt-card:hover .fmt-card__name{color:var(--blue)}
 .fmt-card__rows{font-size:var(--fs-body);display:grid;gap:var(--s1)}
 .fmt-card__rows > div > span{opacity:var(--dim)}
 .fmt-card .fmt-card__rows > div > b{text-align:right;max-width:60%;white-space:normal}
@@ -491,7 +480,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
 .product-card__name{font-size:var(--fs-body);font-weight:500;line-height:1.35}
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
-a.product-card:hover .product-card__name{color:var(--blue)}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
 .product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;white-space:nowrap}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
@@ -517,7 +505,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
   .catalog-filters .cnt{margin-left:auto}
 }
 .chip{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
-.chip:hover{border-color:var(--ink-2)}
 .chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 .catalog-filters .sep{width:1px;height:24px;background:var(--line-2);margin:0 var(--s1)}
 .catalog-filters .cnt{margin-left:auto;font-size:var(--fs-cap)}
@@ -541,7 +528,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .calc__picker-panel[hidden]{display:none}
 .calc__pick-card{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);width:100%;padding:var(--s2);border:0;border-radius:var(--r-s);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .16s var(--ease)}
-.calc__pick-card:hover,.calc__pick-card.is-active{background:var(--blue-050);color:var(--blue)}
+.calc__pick-card.is-active{background:var(--blue);color:#fff}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:center;gap:var(--s2)}
@@ -645,7 +632,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);width:100%;padding:var(--s3);text-align:left;border:1px solid var(--line);border-radius:var(--r);background:var(--white);color:var(--ink);
   font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500;letter-spacing:-.01em;cursor:pointer;transition:background .2s var(--ease),border-color .2s var(--ease)}
 .sect--alt .faq-q{background:var(--paper);border-color:transparent}
-.faq-q:hover{border-color:var(--ink-2)}
 .faq-item.is-open .faq-q{border-color:var(--blue)}
 .faq-chev{flex:none;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s var(--ease)}
 .faq-item.is-open .faq-chev{transform:rotate(180deg)}
@@ -674,7 +660,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .lead-form__note,.lead-form__consent{font-size:var(--fs-cap);line-height:1.45;opacity:var(--dim)}
 .lead-form__consent{margin-top:calc(-1 * var(--s1))}
 .lead-form__consent a{text-decoration:underline;text-underline-offset:3px}
-.lead-form__consent a:hover{color:var(--blue)}
 /* кастомный выпадающий список: нативный <select> остаётся в DOM (значение, i18n на <option>),
    поверх — кнопка + listbox; клавиатура: Enter/Space/стрелки открывают, стрелки ходят, Enter выбирает, Esc закрывает */
 .csel{position:relative}
@@ -682,7 +667,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .csel-btn{width:100%;height:48px;display:flex;align-items:center;justify-content:space-between;gap:var(--s1);padding:0 var(--s2);
   border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);color:var(--ink);font:inherit;font-size:var(--fs-body);text-align:left;cursor:pointer;
   transition:border-color .18s var(--ease)}
-.csel-btn:hover,.csel-btn:focus-visible,.csel.is-open .csel-btn{outline:none;border-color:var(--blue)}
+.csel-btn:focus-visible,.csel.is-open .csel-btn{outline:none;border-color:var(--blue)}
 .csel-btn svg{width:16px;height:16px;flex:none;transition:transform .22s var(--ease)}
 .csel.is-open .csel-btn svg{transform:rotate(180deg)}
 /* попап: поиск (только у кода страны) + список + тонкий индикатор прокрутки (паттерн БСО .csel-sb) */
@@ -696,7 +681,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .csel-list::-webkit-scrollbar{display:none}
 .csel-opt{padding:8px 12px;border-radius:4px;font-size:var(--fs-body);line-height:var(--lh-body);cursor:pointer}
 .csel-opt[hidden]{display:none}
-.csel-opt:hover,.csel-opt.is-active{background:var(--wash)}
+.csel-opt.is-active{background:var(--wash)}
 .csel-opt.is-sel{color:var(--blue)}
 .csel-sb{position:absolute;right:4px;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--line);opacity:0;transition:opacity .2s var(--ease);pointer-events:none}
 .csel-pop:has(.csel-search) .csel-sb{top:62px}
@@ -722,13 +707,11 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .site-footer h5{font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500;margin:0 0 var(--s2)}
 .site-footer ul{display:grid;gap:var(--s1);font-size:var(--fs-body)}
 .site-footer ul a{opacity:.75}
-.site-footer ul a:hover{opacity:1;color:var(--blue)}
 .site-footer .disclaimer{grid-column:1/-1;padding-top:var(--s3);font-size:var(--fs-cap);max-width:70ch;opacity:var(--dim)}
 /* кругляши соцсетей под описанием бренда — как в футере БСО (44px, рамка, ховер синим) */
 .footer-social{display:flex;gap:var(--s1);margin-top:var(--s3)}
 .footer-social a{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;
   transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease)}
-.footer-social a:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 .footer-social svg{width:18px;height:18px}
 /* нижняя строка — как на БСО: подпись команды, живые часы + погода на Бали (WITA, Open-Meteo),
    копирайт и политика; разделитель — «/» как в переключателе языка, не точка */
@@ -737,7 +720,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 /* линия — по ширине контента (на самом .container она вылезла бы в поля) */
 .footer-bottom::before{content:"";flex:0 0 100%;height:1px;background:var(--line);margin-bottom:var(--s1)}
 .footer-bottom a{text-decoration:underline;text-underline-offset:3px}
-.footer-bottom a:hover{color:var(--blue)}
 .footer-bottom__sep{display:inline-block;margin:0 var(--s1);opacity:.5}
 .bali-clock{font-variant-numeric:tabular-nums}
 .bali-clock b{font-weight:500}
@@ -749,7 +731,6 @@ a.product-card:hover .product-card__name{color:var(--blue)}
    ================================================================ */
 main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .crumb{display:inline-flex;align-items:center;gap:var(--s1);font-size:var(--fs-cap);opacity:var(--dim)}
-.crumb:hover{opacity:1;color:var(--blue)}
 /* юридическая страница (privacy.html): одна колонка 64ch, ритм h3 → текст */
 .legal{padding-bottom:var(--sy)}
 .legal > *{max-width:64ch}
@@ -761,7 +742,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .legal p + p{margin-top:var(--s2)}
 .legal .t-small{margin-top:var(--s4)}
 .legal p a{text-decoration:underline;text-underline-offset:3px}
-.legal p a:hover{color:var(--blue)}
 .unit-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s2) var(--s4);margin-top:var(--s3)}
 .unit-head h1{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .unit-head h1 b{color:var(--blue);font-weight:500}
@@ -780,8 +760,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .ugal__track.is-anim{transition:transform .45s var(--ease)}
 .ugal__thumb{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;border-radius:var(--r-s);overflow:hidden;background:var(--wash);opacity:.5;cursor:pointer;transition:opacity .3s}
 .ugal__thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.ugal__thumb.is-active{opacity:1}
-.ugal__thumb:hover{opacity:.8}
+.ugal__thumb.is-active{opacity:1;box-shadow:0 0 0 2px var(--blue)}
 .ugal__stage{position:relative;border-radius:var(--r);overflow:hidden;background:var(--wash)}
 .ugal__stage picture{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
 .ugal__stage picture.is-in{opacity:1}
@@ -868,9 +847,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .lightbox__stage{width:min(1100px,86vw);height:min(760px,80vh);display:flex;align-items:center;justify-content:center}
 .lightbox__stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--r-s)}
 .lightbox__close{position:absolute;top:var(--s3);right:var(--s3);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
-.lightbox__close:hover{background:rgba(255,255,255,.22)}
 .lightbox__btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
-.lightbox__btn:hover{background:rgba(255,255,255,.22)}
 .lightbox__btn--prev{left:var(--s3)}
 .lightbox__btn--next{right:var(--s3)}
 .lightbox__count{position:absolute;left:var(--s3);bottom:var(--s3);color:rgba(255,255,255,.7);font-size:var(--fs-cap)}
@@ -882,3 +859,38 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .lightbox__close{top:var(--s2);right:var(--s2)}
 }
 @media (prefers-reduced-motion:reduce){ .lightbox{transition:none} }
+
+/* ---------- hover-эффекты — только там, где есть настоящий hover (Босс 22.09: на тач-устройствах
+   :hover «залипает» после тапа и выглядит как случайно нажатая кнопка) ---------- */
+@media (hover:hover){
+  .btn-primary:hover{background:var(--blue-press)}
+  .btn-outline:hover{color:var(--blue)}
+  .site-nav a:hover{opacity:1}
+  .lang button:hover{opacity:1}
+  .menu-list a:hover{color:var(--blue)}
+  .hero__card:hover .hero__card-arrow{background:var(--blue-press)}
+  .ov-row:hover{background:var(--blue-050)}
+  .fmt-card:hover .fmt-card__media img{transform:scale(1.02)}
+  .fmt-card:hover .fmt-card__name{color:var(--blue)}
+  a.product-card:hover .product-card__name{color:var(--blue)}
+  .chip:hover{border-color:var(--ink-2)}
+  .calc__pick-card:hover{background:var(--blue-050);color:var(--blue)}
+  .faq-q:hover{border-color:var(--ink-2)}
+  .lead-form__consent a:hover{color:var(--blue)}
+  .csel-btn:hover{outline:none;border-color:var(--blue)}
+  .csel-opt:hover{background:var(--wash)}
+  .site-footer ul a:hover{opacity:1;color:var(--blue)}
+  .footer-social a:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+  .footer-bottom a:hover{color:var(--blue)}
+  .crumb:hover{opacity:1;color:var(--blue)}
+  .legal p a:hover{color:var(--blue)}
+  .ugal__thumb:hover{opacity:.8}
+  .lightbox__close:hover{background:rgba(255,255,255,.22)}
+  .lightbox__btn:hover{background:rgba(255,255,255,.22)}
+}
+@media (hover:hover) and (min-width:1200px){
+  .ov-card:has(.ov-row:hover) .ov-photo img{opacity:0}
+  .ov-card:has(.ov-row[data-u="u1"]:hover) .ov-photo img[data-u="u1"],
+  .ov-card:has(.ov-row[data-u="u2"]:hover) .ov-photo img[data-u="u2"],
+  .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
+}
