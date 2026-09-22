@@ -70,7 +70,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 
 /* ---------- buttons ---------- */
 .btn{--h:56px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);height:var(--h);padding-inline:var(--s3);
-  border-radius:var(--r);font-size:var(--fs-body);font-weight:500;letter-spacing:.01em;border:1.5px solid transparent;cursor:pointer;
+  border-radius:var(--r);font-size:var(--fs-body);font-weight:500;letter-spacing:.01em;border:1.5px solid transparent;cursor:pointer;white-space:nowrap;
   transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
 .btn svg{width:16px;height:16px;flex:none}
 .btn-primary{background:var(--blue);color:#fff}
