@@ -309,12 +309,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .photo-band{height:clamp(360px,90vw,520px)}
   .photo-band figcaption{right:var(--gut);bottom:var(--s3)}
   .photo-band .photo-band__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  /* без подложки-кружка — просто аккуратный треугольник (Босс 22.09: «убери большие стрелочки с подложками») */
-  .photo-band .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:32px;height:32px;background:none;padding:0}
-  .photo-band .ugal__btn svg{display:none}
-  .photo-band .ugal__btn::before{content:"";display:block;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
-  .photo-band .ugal__btn[data-dir="-1"]{left:var(--s1)} .photo-band .ugal__btn[data-dir="-1"]::before{border-right:11px solid #fff}
-  .photo-band .ugal__btn[data-dir="1"]{right:var(--s1)} .photo-band .ugal__btn[data-dir="1"]::before{border-left:11px solid #fff}
   .photo-band .ugal__count{position:absolute;left:var(--gut);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 @media (prefers-reduced-motion:reduce){ .photo-band__slide{transition:none} }
@@ -794,8 +788,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .ugal__stage img{width:100%;height:100%;object-fit:cover}
 .ugal__nav{position:absolute;right:var(--s2);bottom:var(--s2);z-index:1;display:flex;align-items:center;gap:var(--s1);
   padding:4px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px)}
-.ugal__btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
-.ugal__btn:hover{background:var(--wash)}
 .ugal__count{font-size:var(--fs-cap);padding:0 4px;opacity:var(--dim)}
 .ugal__count b{font-weight:500}
 .ic--flip{transform:scaleX(-1)}
@@ -810,11 +802,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ugal__track{top:0;bottom:0;left:50%;right:auto;display:flex;transform:translateX(-50%)}
   .ugal__thumb{width:96px;flex:none;height:100%;aspect-ratio:auto}
   .ugal__stage .ugal__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  .ugal__stage .ugal__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:32px;height:32px;background:none;padding:0}
-  .ugal__stage .ugal__btn svg{display:none}
-  .ugal__stage .ugal__btn::before{content:"";display:block;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
-  .ugal__stage .ugal__btn[data-dir="-1"]{left:var(--s1)} .ugal__stage .ugal__btn[data-dir="-1"]::before{border-right:11px solid #fff}
-  .ugal__stage .ugal__btn[data-dir="1"]{right:var(--s1)} .ugal__stage .ugal__btn[data-dir="1"]::before{border-left:11px solid #fff}
   .ugal__stage .ugal__count{position:absolute;left:var(--s2);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 
@@ -868,7 +855,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* seo-technical / тач: цели ≥44px на устройствах без hover — табы комплексов, кнопки галерей, ссылки футера, язык */
 @media (hover:none){
   .complex-nav button{min-width:44px;min-height:44px}
-  .ugal__btn{width:44px;height:44px}
   .site-footer ul a{display:inline-block;padding-block:8px}
   .footer-bottom a{display:inline-block;padding-block:8px}
   .lang button{min-width:44px;min-height:44px;padding:4px 8px}
