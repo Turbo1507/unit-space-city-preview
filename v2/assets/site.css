@@ -231,8 +231,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .card-grid--4{grid-template-columns:repeat(4,1fr)}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
 .bento .span-2{grid-column:span 2}
-/* Location (фото-фон) не тянуть по высоте строки — у неё свой min-height; Returns/Production тянутся друг под друга как обычно */
-.bento > .card--photobg{align-self:start}
 /* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта), Босс 21.09 */
 .bento-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s2)}
 /* карточка обзора выглядела пусто рядом с картой — строки U1/U2/U3 растянуты на всю высоту,
@@ -549,7 +547,7 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:start;gap:var(--s2)}
-.calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
+.calc__roi{display:grid;gap:4px}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
 /* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
