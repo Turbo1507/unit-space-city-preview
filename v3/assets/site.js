@@ -69,6 +69,20 @@
     requestAnimationFrame(function () { document.querySelectorAll('.rv').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); });
   } else { document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); }); }
 
+  /* ---------- каскадный reveal карточек внутри блока, Burton-стиль (песочница v3) ---------- */
+  (function () {
+    var groups = document.querySelectorAll('.bento--burton, .bento, .bento-2, .co-strip, .team-grid, .card-grid, .amenity-strip, .tr-grid');
+    if (!groups.length) return;
+    groups.forEach(function (g) {
+      var items = Array.prototype.filter.call(g.children, function (c) { return c.nodeType === 1; });
+      items.forEach(function (c, i) { c.style.setProperty('--stg-i', Math.min(i, 6)); c.classList.add('stg-item'); });
+    });
+    if ('IntersectionObserver' in window && !rm) {
+      var sio = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('stg-in'); sio.unobserve(en.target); } }); }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+      groups.forEach(function (g) { sio.observe(g); });
+    } else { groups.forEach(function (g) { g.classList.add('stg-in'); }); }
+  })();
+
   /* ---------- cookie-баннер → после него карточка карты в хиро ---------- */
   (function () {
     var KEY = 'usc_cookie_ok', bar = document.getElementById('consentBar'), card = document.getElementById('heroCard');

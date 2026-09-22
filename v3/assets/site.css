@@ -858,6 +858,10 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){ .js .rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto} }
+/* card-stagger — каскадный reveal карточек внутри блока, Burton-стиль (песочница v3) */
+.js .stg-item{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease);transition-delay:calc(var(--stg-i,0) * 70ms)}
+.js .stg-in .stg-item{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .js .stg-item{opacity:1;transform:none;transition:none} }
 /* нав ленты — в шапке ленты, не абсолют (перебивает .ugal__nav ниже по каскаду) */
 .strip .strip__nav{position:static;background:var(--wash)}
 /* подсказка «скопировано» для mailto */
