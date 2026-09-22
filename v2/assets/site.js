@@ -293,8 +293,15 @@
     }
     renderTrack(); if (count) count.textContent = 1;
     track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
-    ugal.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { go(+b.getAttribute('data-dir')); }); });
-    stage.addEventListener('click', function (e) { if (!e.target.closest('.ugal__nav')) go(1); });
+    var swiped = false;
+    stage.addEventListener('click', function (e) { if (swiped) { swiped = false; return; } if (!e.target.closest('.ugal__nav')) go(1); });
+    var sp0 = null;
+    stage.addEventListener('pointerdown', function (e) { sp0 = { x: e.clientX, y: e.clientY }; });
+    stage.addEventListener('pointerup', function (e) {
+      if (!sp0) return;
+      var dx = e.clientX - sp0.x, dy = e.clientY - sp0.y; sp0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; go(dx < 0 ? 1 : -1); }
+    });
     var wheelT = 0;
     drum.addEventListener('wheel', function (e) { e.preventDefault(); var now = Date.now(); if (now - wheelT < 350) return; wheelT = now; var d = horizontal() ? (e.deltaX || e.deltaY) : e.deltaY; go(d > 0 ? 1 : -1); }, { passive: false });
     var p0 = null;
@@ -533,15 +540,20 @@
     if (bs.length < 2) return;
     function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); if (cnt) cnt.textContent = bi + 1; }
     function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
-    band.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { show(bi + (+b.getAttribute('data-dir'))); arm(); }); });
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
+    var bp0 = null;
+    band.addEventListener('pointerdown', function (e) { bp0 = { x: e.clientX, y: e.clientY }; });
+    band.addEventListener('pointerup', function (e) {
+      if (!bp0) return;
+      var dx = e.clientX - bp0.x, dy = e.clientY - bp0.y; bp0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { show(bi + (dx < 0 ? 1 : -1)); arm(); }
+    });
     arm();
   });
 
   /* ---------- лента фото комплекса: стрелки листают на ширину видимой области, счётчик — по первому видимому кадру ---------- */
   document.querySelectorAll('.strip[data-strip]').forEach(function (strip) {
     var track = strip.querySelector('.strip__track'), figs = track.querySelectorAll('figure'), cnt = strip.querySelector('.ugal__count b');
-    strip.querySelectorAll('.ugal__btn').forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: (+b.getAttribute('data-dir')) * track.clientWidth * .8, behavior: 'smooth' }); }); });
     var t; track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(function () {
       var x = track.scrollLeft + 8, i = 0; figs.forEach(function (f, k) { if (f.offsetLeft <= x) i = k; }); if (cnt) cnt.textContent = i + 1;
     }, 80); }, { passive: true });
