@@ -551,19 +551,15 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:start;gap:var(--s2);margin-top:var(--s6)}
-.calc__roi{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
-.sect--alt .calc__roi{background:var(--white)}
+.calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
 /* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
-.calc__rows{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
-.calc__stat{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
-.sect--alt .calc__stat{background:var(--white)}
-.calc__stat span{font-size:var(--fs-cap)}
-.calc__stat b{font-weight:500;font-variant-numeric:tabular-nums;font-size:var(--fs-h3);letter-spacing:-.02em;color:var(--blue)}
+.calc__rows{display:grid;gap:var(--s1);font-size:var(--fs-body)}
+.calc__rows b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--blue)}
 .calc__note{grid-column:1/-1;margin-top:0}
 @media (max-width:800px){ .calc{grid-template-columns:1fr} .calc__out{margin-top:0} }
-@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} .calc__rows{grid-template-columns:1fr} }
+@media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
 
 /* ---------- location ---------- */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
@@ -820,10 +816,10 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 
 /* строки «подпись … значение» с точечным лидером (факты юнита) */
 .leaders{display:grid;gap:var(--s1);font-size:var(--fs-body)}
-.leaders > div{display:flex;align-items:baseline;gap:var(--s1)}
-.leaders > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
-.leaders > div > :first-child{order:1}
-.leaders > div > b{order:3;font-weight:500;white-space:nowrap}
+.leaders > div,.calc__rows > div{display:flex;align-items:baseline;gap:var(--s1)}
+.leaders > div::after,.calc__rows > div::after{content:"";flex:1;order:2;border-bottom:2px dotted currentColor;opacity:.25;margin-bottom:.35em;min-width:var(--s3)}
+.leaders > div > :first-child,.calc__rows > div > :first-child{order:1}
+.leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
 /* длинные значения («строится, сдача осенью 2026») переносятся, а не растягивают страницу */
 .leaders > div > b{white-space:normal;text-align:right;max-width:60%}
 
