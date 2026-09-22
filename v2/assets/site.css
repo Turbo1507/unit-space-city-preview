@@ -104,10 +104,18 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .site-nav a{opacity:.7;transition:opacity .2s}
 .site-nav a.is-active{opacity:1;color:var(--blue)}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
-.lang{display:flex;align-items:center;gap:var(--s1);font-size:var(--fs-cap);font-weight:500}
-.lang button{background:none;border:0;padding:4px;cursor:pointer;opacity:.55;transition:opacity .2s}
-.lang button.is-active{opacity:1;color:var(--blue)}
-.lang span{opacity:.3;font-size:var(--fs-micro)}
+/* дропдауны языка/валюты в шапке (Босс 23.09: инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
+.header-selectors{display:flex;align-items:center;gap:4px;font-size:var(--fs-cap);font-weight:500}
+.hd-sel{position:relative}
+.hd-sel__btn{display:flex;align-items:center;gap:2px;height:32px;padding:0 6px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:.7;transition:opacity .2s}
+.hd-sel.is-open .hd-sel__btn{opacity:1}
+.hd-sel__chev{width:14px;height:14px;flex:none;transition:transform .2s var(--ease)}
+.hd-sel.is-open .hd-sel__chev{transform:rotate(180deg)}
+.hd-sel__pop{position:absolute;right:0;top:calc(100% + 4px);z-index:10;margin:0;padding:4px;list-style:none;min-width:72px;
+  background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08);color:var(--ink)}
+.hd-sel__pop[hidden]{display:none}
+.hd-sel__pop li{padding:8px 10px;border-radius:4px;cursor:pointer;font-size:var(--fs-body)}
+.hd-sel__pop li[aria-selected="true"]{background:var(--blue);color:#fff}
 /* бокс 40px, полоски 22px: сдвигаем бокс на (40-22)/2 вправо, чтобы ВИДИМЫЙ край полосок стоял ровно на --gut,
    как вордмарк слева (Босс 15.09: «бургер слишком близко к краю, вопрос к строгости сетки») */
 .burger{display:none;width:40px;height:40px;margin-right:-8px;border:0;background:none;cursor:pointer;flex-direction:column;
@@ -123,8 +131,7 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
 @media (max-width:480px){
   .site-header .container{gap:var(--s2)}
   .header-right{gap:var(--s1)}
-  .lang{gap:0} .lang span{margin:0 2px}
-  .site-header .lang button{min-width:40px;min-height:40px;padding:4px 8px}
+  .site-header .hd-sel__btn{min-width:40px;min-height:40px}
 }
 
 /* мобильное меню — полноэкранный оверлей (паттерн БСО/unit-wp) */
@@ -134,7 +141,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .menu-head{height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
 .menu-list{display:grid;gap:var(--s2);margin-top:var(--s4);font-size:var(--fs-title);font-weight:500;letter-spacing:-.02em}
 .menu-foot{margin-top:auto;display:grid;gap:var(--s3)}
-.menu-foot .lang{font-size:var(--fs-body)}
+.menu-foot .header-selectors{font-size:var(--fs-body)}
 .menu-foot .btn{width:100%}
 
 /* ================================================================
@@ -837,7 +844,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .complex-nav button{min-width:44px;min-height:44px}
   .site-footer ul a{display:inline-block;padding-block:8px}
   .footer-bottom a{display:inline-block;padding-block:8px}
-  .lang button{min-width:44px;min-height:44px;padding:4px 8px}
+  .hd-sel__btn{min-width:44px;min-height:44px}
 }
 
 /* ---------- лайтбокс «галерея проекта» (Босс 21.09): клик по фото в коллаже/ленте комплекса ---------- */
@@ -866,7 +873,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .btn-primary:hover{background:var(--blue-press)}
   .btn-outline:hover{color:var(--blue)}
   .site-nav a:hover{opacity:1}
-  .lang button:hover{opacity:1}
+  .hd-sel__btn:hover{opacity:1}
   .menu-list a:hover{color:var(--blue)}
   .hero__card:hover .hero__card-arrow{background:var(--blue-press)}
   .ov-row:hover{background:var(--blue-050)}

@@ -56,6 +56,85 @@
   });
   if (window.setLang) window.setLang(pageLang);
 
+  /* ---------- дропдауны языка/валюты в шапке (Босс 23.09: 4 инлайн-кнопки в ряд — глупо, свели к 2 выпадающим) ---------- */
+  document.querySelectorAll('.hd-sel').forEach(function (sel) {
+    var btn = sel.querySelector('.hd-sel__btn'), pop = sel.querySelector('.hd-sel__pop');
+    function setOpen(open) { sel.classList.toggle('is-open', open); pop.hidden = !open; btn.setAttribute('aria-expanded', String(open)); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(pop.hidden); });
+    pop.querySelectorAll('li').forEach(function (li) { li.addEventListener('click', function () { setOpen(false); }); });
+    sel._close = function () { setOpen(false); };
+    sel._setVal = function (text) { var v = sel.querySelector('.hd-sel__val'); if (v) v.textContent = text; };
+  });
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.hd-sel.is-open').forEach(function (sel) { if (!sel.contains(e.target)) sel._close(); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.hd-sel.is-open').forEach(function (sel) { sel._close(); });
+  });
+  function syncSel(attr, value) {
+    document.querySelectorAll('.hd-sel[data-sel="' + attr + '"]').forEach(function (sel) {
+      sel.querySelectorAll('li').forEach(function (li) { li.setAttribute('aria-selected', String(li.getAttribute('data-' + attr) === value)); });
+      sel._setVal(value.toUpperCase());
+    });
+  }
+  syncSel('lang', pageLang);
+
+  /* ---------- валюта USD/IDR: закон Индонезии (PBI 17/3/PBI/2015) требует показывать цену в рупиях, не только в $
+     (Босс 23.09). Живой курс через open.er-api.com (без ключа, CORS открыт), кэш 12ч в localStorage, фолбэк — константа */
+  var CCY_KEY = 'usc_ccy', FX_KEY = 'usc_fx', FX_FALLBACK = 16300;
+  function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'idr' ? 'idr' : 'usd'; } catch (e) { return 'usd'; } }
+  function saveCcy(c) { try { localStorage.setItem(CCY_KEY, c); } catch (e) { } }
+  window.__uscCcy = getCcy();
+  window.__uscFx = FX_FALLBACK;
+  (function loadFx() {
+    try {
+      var cached = JSON.parse(localStorage.getItem(FX_KEY) || 'null');
+      if (cached && Date.now() - cached.t < 12 * 3600 * 1000) { window.__uscFx = cached.v; return; }
+    } catch (e) { }
+    fetch('https://open.er-api.com/v6/latest/USD').then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.rates && j.rates.IDR) {
+        window.__uscFx = j.rates.IDR;
+        try { localStorage.setItem(FX_KEY, JSON.stringify({ v: j.rates.IDR, t: Date.now() })); } catch (e) { }
+        if (window.__uscCcy === 'idr') refreshMoney();
+      }
+    }).catch(function () { });
+  })();
+  var PRICE_ELS = [
+    { sel: '[data-i18n="calc.pick_studio"]', fmt: 'studio' }, { sel: '[data-i18n="calc.pick_1bd"]', fmt: '1bd' },
+    { sel: '[data-i18n="calc.pick_2bd"]', fmt: '2bd' }, { sel: '[data-i18n="calc.pick_villa"]', fmt: 'villa' },
+    { sel: '[data-i18n="price.studio"]', fmt: 'studio' }, { sel: '[data-i18n="price.1bd"]', fmt: '1bd' },
+    { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' }
+  ];
+  function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
+  function fmtIdr(n) { return 'Rp' + (Math.round(n * window.__uscFx / 1000) * 1000).toLocaleString('id-ID'); }
+  window.__uscMoney = function (usd, lang) {
+    return (lang === 'ru' ? 'от ' : 'from ') + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
+  };
+  function refreshMoney() {
+    var lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
+    if (window.__uscCcy === 'idr') {
+      PRICE_ELS.forEach(function (p) {
+        document.querySelectorAll(p.sel).forEach(function (el) {
+          var usd = window.USC_PRICE_USD && window.USC_PRICE_USD[p.fmt]; if (usd == null) return;
+          el.textContent = el.textContent.replace(/\$[\d.,  ]+|Rp[\d.,  ]+/, fmtIdr(usd));
+        });
+      });
+    }
+    if (window.__uscRerender) window.__uscRerender(lang);
+    if (window.__uscCalcRefresh) window.__uscCalcRefresh();
+  }
+  syncSel('ccy', window.__uscCcy);
+  document.querySelectorAll('.hd-sel[data-sel="ccy"] li').forEach(function (li) {
+    li.addEventListener('click', function () {
+      var c = li.getAttribute('data-ccy'); if (!c || c === window.__uscCcy) return;
+      window.__uscCcy = c; saveCcy(c); syncSel('ccy', c);
+      window.setLang(document.documentElement.lang === 'ru' ? 'ru' : 'en');
+    });
+  });
+  var prevSetLang = window.setLang;
+  window.setLang = function (lang) { if (prevSetLang) prevSetLang(lang); refreshMoney(); };
+  refreshMoney();
+
   /* ---------- scrollspy: активный пункт меню ---------- */
   var navLinks = [].slice.call(document.querySelectorAll('.site-nav a[href^="#"]'));
   if (navLinks.length && 'IntersectionObserver' in window) {
@@ -168,7 +247,7 @@
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div></div>' +
       '<div class="leaders fmt-card__rows">' + rows + '</div>' +
       '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
-      '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div>' +
+      '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<span class="btn btn-primary fmt-card__more">' + (d['fmt.more'] || '') + '</span></div></a>';
   };
   window.__uscUnitCard = function (u, hrefBase) {
@@ -179,7 +258,7 @@
       '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
       '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div>' +
-      '<span class="product-card__price">' + (window.USC_PRICE[lang][u.fmt] || '') + '</span></div></a>';
+      '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div></a>';
   };
   if (uWrap && window.USC_UNITS) {
     var st = { q: 'all', fmt: 'all' };
@@ -228,7 +307,7 @@
     function renderUnit(lang) {
       if (!unit) return;
       var cx = window.USC_COMPLEX[unit.q];
-      var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.USC_PRICE[lang][unit.fmt], where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
+      var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
       document.title = f.name + ' ' + unit.area + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — Unit Space City';
       if (more) {
@@ -596,7 +675,10 @@
   /* ---------- калькулятор ---------- */
   var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
   if (document.getElementById('c-price')) {
-    function money(n) { return '$' + Math.round(n).toLocaleString('ru-RU'); }
+    function money(n) {
+      if (window.__uscCcy === 'idr') return 'Rp' + (Math.round(n * window.__uscFx / 1000) * 1000).toLocaleString('id-ID');
+      return '$' + Math.round(n).toLocaleString('ru-RU');
+    }
     function val(id) { return document.getElementById(id).value || 0; }
     function calc() {
       var price = +val('c-price'), rate = +val('c-rate'), occ = (+val('c-occ')) / 100, mgmt = (+val('c-mgmt')) / 100;
@@ -606,6 +688,7 @@
       document.getElementById('o-roi').textContent = price > 0 ? (net / price * 100).toFixed(1) + '%' : '—';
     }
     ids.forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
+    window.__uscCalcRefresh = calc;
     calc();
     /* «Выбрать тип виллы» — подставляет цену формата в калькулятор (Босс 22.09) */
     var pickerBtn = document.getElementById('calcPickerBtn'), pickerPanel = document.getElementById('calcPickerPanel');
