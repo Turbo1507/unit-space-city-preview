@@ -551,7 +551,8 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:start;gap:var(--s2)}
-.calc__roi{display:grid;gap:4px}
+.calc__roi{display:grid;gap:4px;padding:var(--s2);border-radius:var(--r-s);background:var(--paper)}
+.sect--alt .calc__roi{background:var(--white)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
 /* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
