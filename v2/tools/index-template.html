@@ -132,9 +132,9 @@
         <div class="stat-card"><div class="stat-card__label dim" data-i18n="about.st4">Управляющая компания UNIT на&nbsp;Бали</div><div class="stat-card__value tnum"><em data-count="10">10</em><em>+</em>&nbsp;<span data-i18n="about.years">лет</span></div></div>
       </div>
       <div class="bento rv">
-        <div class="card span-2"><div class="card__ph ph" aria-hidden="true"></div><b data-i18n="about.r1l">Локация</b><p data-i18n="about.r1">Nuanu — город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа, арт-объекты. Всё открыто круглый год и&nbsp;в&nbsp;шаговой доступности от&nbsp;дома</p></div>
+        <div class="card span-2"><div class="card__ph"><picture><source srcset="photos/u1-08.webp" type="image/webp"><img src="photos/u1-08.jpg" alt="Терраса виллы U1 среди зелени Nuanu" loading="lazy"></picture></div><b data-i18n="about.r1l">Локация</b><p data-i18n="about.r1">Nuanu — город на&nbsp;44 га: 70% зелени, 36 кафе и&nbsp;ресторанов, школы, спа, арт-объекты. Всё открыто круглый год и&nbsp;в&nbsp;шаговой доступности от&nbsp;дома</p></div>
         <div class="card"><div class="card__ph"><picture><source srcset="photos/u2-2bd-19.webp" type="image/webp"><img src="photos/u2-2bd-19.jpg" alt="Общий двор U2 с бассейном и лаунжем" loading="lazy"></picture></div><b data-i18n="about.r2l">Доходность</b><p data-i18n="about.r2">U1 и&nbsp;U2 сданы и&nbsp;заселены, есть закрытые сделки перепродажи. Управляющая компания UNIT работает на&nbsp;Бали больше 10&nbsp;лет</p></div>
-        <div class="card"><div class="card__ph ph" aria-hidden="true"></div><b data-i18n="about.r3l">Производство</b><p data-i18n="about.r3">Свои заводы: бетон, стальной каркас, мебель. Сроки и&nbsp;цена не&nbsp;зависят от&nbsp;подрядчиков</p></div>
+        <div class="card"><div class="card__ph"><picture><source srcset="photos/ud-sys-build.webp" type="image/webp"><img src="photos/ud-sys-build.jpg" alt="Стройплощадка UNIT.BUILD" loading="lazy"></picture></div><b data-i18n="about.r3l">Производство</b><p data-i18n="about.r3">Свои заводы: бетон, стальной каркас, мебель. Сроки и&nbsp;цена не&nbsp;зависят от&nbsp;подрядчиков</p></div>
       </div>
       <div class="card card--accent rv" style="margin-top:var(--s2)">
         <h3 class="t-h2" data-i18n="about.cc_title">Концепция комплекса</h3>
@@ -401,10 +401,10 @@
           <div class="calc__picker">
             <button type="button" class="btn btn-outline btn-sm" id="calcPickerBtn" aria-expanded="false" aria-controls="calcPickerPanel"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="calc.pick">Выбрать тип виллы</span></button>
             <div class="calc__picker-panel" id="calcPickerPanel" hidden>
-              <button type="button" class="calc__pick-card" data-price="100000"><b data-i18n="fmt.studio">Студия</b><span data-i18n="calc.pick_studio">32&nbsp;м² — от&nbsp;$100&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card" data-price="118000"><b data-i18n="fmt.1bd">1+1 спальня</b><span data-i18n="calc.pick_1bd">60&nbsp;м² — от&nbsp;$118&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card" data-price="190000"><b data-i18n="fmt.2bd">2+1 спальни</b><span data-i18n="calc.pick_2bd">89&nbsp;м² — от&nbsp;$190&nbsp;000</span></button>
-              <button type="button" class="calc__pick-card" data-price="278000"><b data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</b><span data-i18n="calc.pick_villa">200&nbsp;м² — от&nbsp;$278&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="100000" data-rate="50"><b data-i18n="fmt.studio">Студия</b><span data-i18n="calc.pick_studio">32&nbsp;м² — от&nbsp;$100&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="118000" data-rate="65"><b data-i18n="fmt.1bd">1+1 спальня</b><span data-i18n="calc.pick_1bd">60&nbsp;м² — от&nbsp;$118&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card is-active" data-price="190000" data-rate="100"><b data-i18n="fmt.2bd">2+1 спальни</b><span data-i18n="calc.pick_2bd">89&nbsp;м² — от&nbsp;$190&nbsp;000</span></button>
+              <button type="button" class="calc__pick-card" data-price="278000" data-rate="145"><b data-i18n="fmt.villa">Вилла 3+1 с&nbsp;бассейном</b><span data-i18n="calc.pick_villa">200&nbsp;м² — от&nbsp;$278&nbsp;000</span></button>
             </div>
           </div>
           <div class="field"><label for="c-price" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="calc.price">Цена виллы, $</span></label><input type="number" id="c-price" value="190000" min="0" step="1000"></div>
@@ -418,8 +418,8 @@
             <div class="calc__stat"><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
             <div class="calc__stat"><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
           </div>
-          <p class="t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту</p>
         </div>
+        <p class="calc__note t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём на&nbsp;почту</p>
       </div>
       <div class="cta-row cta-row--after"><a href="#lead" class="btn btn-primary" data-i18n="yield.cta">Расчёт под мою виллу</a></div>
     </div>

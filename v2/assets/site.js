@@ -600,6 +600,8 @@
       pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.getElementById('c-price').value = btn.getAttribute('data-price');
+          var rate = btn.getAttribute('data-rate');
+          if (rate) document.getElementById('c-rate').value = rate;
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
           pickerPanel.hidden = true;
