@@ -588,7 +588,9 @@ a.product-card:hover .product-card__name{color:var(--blue)}
 .infra__body .t-h3{margin-bottom:var(--s1)}
 .infra__body .tag-row{margin-top:var(--s3)}
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
-/* «Что есть в комплексе» — свайп-лента фото-карточек, подпись под фото, Burton-стиль (Босс 22.09) */
+/* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (Босс 23.09, десктоп-версия на паузе) */
+.own-mobile{display:none}
+@media (max-width:760px){ .own-desktop{display:none} .own-mobile{display:block} }
 .amenity-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
 .amenity-strip::-webkit-scrollbar{display:none}
 .amenity-card{flex:0 0 clamp(140px,18vw,200px);scroll-snap-align:start;margin:0}
