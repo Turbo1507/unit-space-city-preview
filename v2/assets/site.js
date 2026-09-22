@@ -297,8 +297,7 @@
     stage.addEventListener('click', function (e) {
       if (swiped) { swiped = false; return; }
       if (e.target.closest('.ugal__nav')) return;
-      var r = stage.getBoundingClientRect();
-      go(e.clientX - r.left < r.width / 2 ? -1 : 1);
+      if (window.USC_LB) window.USC_LB.open(photos.map(function (p) { return { jpg: base + p + '.jpg', alt: alt }; }), cur);
     });
     var sp0 = null;
     stage.addEventListener('pointerdown', function (e) { sp0 = { x: e.clientX, y: e.clientY }; });
@@ -351,6 +350,7 @@
       });
       return out;
     }
+    window.USC_LB = { open: open, show: show };
     document.querySelectorAll('.complex').forEach(function (article) {
       article.querySelectorAll('.complex__gallery figure, .strip__track figure').forEach(function (fig) {
         fig.style.cursor = 'zoom-in';
