@@ -294,7 +294,12 @@
     renderTrack(); if (count) count.textContent = 1;
     track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
     var swiped = false;
-    stage.addEventListener('click', function (e) { if (swiped) { swiped = false; return; } if (!e.target.closest('.ugal__nav')) go(1); });
+    stage.addEventListener('click', function (e) {
+      if (swiped) { swiped = false; return; }
+      if (e.target.closest('.ugal__nav')) return;
+      var r = stage.getBoundingClientRect();
+      go(e.clientX - r.left < r.width / 2 ? -1 : 1);
+    });
     var sp0 = null;
     stage.addEventListener('pointerdown', function (e) { sp0 = { x: e.clientX, y: e.clientY }; });
     stage.addEventListener('pointerup', function (e) {
@@ -541,12 +546,18 @@
     function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); if (cnt) cnt.textContent = bi + 1; }
     function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
-    var bp0 = null;
+    var bp0 = null, bSwiped = false;
     band.addEventListener('pointerdown', function (e) { bp0 = { x: e.clientX, y: e.clientY }; });
     band.addEventListener('pointerup', function (e) {
       if (!bp0) return;
       var dx = e.clientX - bp0.x, dy = e.clientY - bp0.y; bp0 = null;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { show(bi + (dx < 0 ? 1 : -1)); arm(); }
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { bSwiped = true; show(bi + (dx < 0 ? 1 : -1)); arm(); }
+    });
+    band.addEventListener('click', function (e) {
+      if (bSwiped) { bSwiped = false; return; }
+      if (e.target.closest('.photo-band__nav')) return;
+      var r = band.getBoundingClientRect();
+      show(bi + (e.clientX - r.left < r.width / 2 ? -1 : 1)); arm();
     });
     arm();
   });
