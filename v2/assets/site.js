@@ -110,6 +110,8 @@
       tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       moveInk(tabs[i]);
       if (focusTab) tabs[i].focus();
+      /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже (Босс 22.09) */
+      if (window.__uscSyncCatalog) window.__uscSyncCatalog(slides[i].id);
     }
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
     cxNav.addEventListener('keydown', function (e) {
@@ -199,6 +201,13 @@
     renderUnits();
     var prevHook = window.__uscRerender;
     window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); renderUnits(); };
+    /* синхронизация с выбором комплекса в блоке «Комплексы» выше по странице (Босс 22.09) */
+    window.__uscSyncCatalog = function (cxId) {
+      var v = cxId.replace('cx-', '');
+      st.q = v;
+      if (filters) filters.querySelectorAll('.chip[data-f="q"]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.v === v)); });
+      renderUnits();
+    };
   }
 
 
