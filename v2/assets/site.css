@@ -823,6 +823,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .sub-head{margin-block:var(--s5) var(--s2)}
   .cta-row--after{margin-top:var(--s3)}
   .card{padding:var(--s2)}
+  .card--photobg{padding:0}
   .stat-card{padding:var(--s2)}
   .complex__head{margin-bottom:var(--s3)}
   .complex__gallery,.strip{margin-top:var(--s4)}
