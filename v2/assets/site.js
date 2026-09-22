@@ -76,9 +76,12 @@
     function showCard(d) { setTimeout(function () { if (card) card.classList.add('in'); }, d); }
     if (accepted || !bar) { showCard(400); }
     else {
-      setTimeout(function () { bar.classList.add('in'); showCard(600); }, 700);
+      setTimeout(function () { bar.classList.add('in'); }, 700);
       var ok = document.getElementById('consentOk');
-      if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('in'); });
+      /* карточка карты в углу перекрывалась баннером cookie (тоже в углу) — стрелка вела на клик по «OK» вместо перехода к карте;
+         теперь карточка появляется только после закрытия баннера, плюс страховка на 6с если баннер проигнорировали (Босс 22.09) */
+      if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('in'); showCard(200); });
+      showCard(6000);
     }
   })();
 
