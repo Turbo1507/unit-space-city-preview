@@ -115,9 +115,9 @@
       <div class="calc" style="margin-top:var(--s3)">
         <div class="calc__inputs">
           <div class="field"><label for="c-price" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="calc.price">Цена виллы, $</span></label><input type="number" id="c-price" value="{{PRICENUM}}" disabled></div>
-          <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь, $</span></label><input type="number" id="c-rate" value="{{RATENUM}}" min="0" step="5"></div>
-          <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка, %</span></label><input type="number" id="c-occ" value="70" min="0" max="100"></div>
-          <div class="field"><label for="c-mgmt" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span data-i18n="calc.mgmt">Комиссия УК, %</span></label><input type="number" id="c-mgmt" value="20" min="0" max="100"></div>
+          <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь, $</span></label><input type="number" id="c-rate" value="{{RATENUM}}" min="0" step="5" disabled></div>
+          <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка, %</span></label><input type="number" id="c-occ" value="85" min="0" max="100" disabled></div>
+          <div class="field"><label for="c-mgmt" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span data-i18n="calc.mgmt">Комиссия УК, %</span></label><input type="number" id="c-mgmt" value="{{MGMTNUM}}" min="0" max="100" disabled></div>
         </div>
         <div class="calc__out" aria-live="polite">
           <div class="calc__roi"><b id="o-roi">—</b><span class="dim" data-i18n="calc.roi">доходность к&nbsp;цене в&nbsp;год</span></div>

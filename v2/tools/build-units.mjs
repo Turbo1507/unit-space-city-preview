@@ -44,7 +44,8 @@ for (const lang of ['ru', 'en']) {
       .replaceAll('{{OGIMG}}', `https://turbo1507.github.io/unit-space-city-preview/v2/photos/${u.photos[0]}.jpg`)
       .replaceAll('{{OGLOCALE}}', lang === 'en' ? 'en_US' : 'ru_RU')
       .replaceAll('{{PRICENUM}}', String(({ studio: 100000, '1bd': 118000, '2bd': 190000, villa: 278000 })[u.fmt]))
-      .replaceAll('{{RATENUM}}', String(({ studio: 50, '1bd': 65, '2bd': 100, villa: 145 })[u.fmt]));
+      .replaceAll('{{RATENUM}}', String(({ studio: 60, '1bd': 95, '2bd': 140, villa: 205 })[u.fmt]))
+      .replaceAll('{{MGMTNUM}}', String(({ studio: 11, '1bd': 18, '2bd': 18, villa: 18 })[u.fmt]));
     if (lang === 'en') {
       html = translateAttrs(applyDict(html, dict));
       html = html.replaceAll('data-unit-field="m2">м²<', 'data-unit-field="m2">m²<');
