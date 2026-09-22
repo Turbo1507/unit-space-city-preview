@@ -760,7 +760,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .ugal__track.is-anim{transition:transform .45s var(--ease)}
 .ugal__thumb{display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;border-radius:var(--r-s);overflow:hidden;background:var(--wash);opacity:.5;cursor:pointer;transition:opacity .3s}
 .ugal__thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.ugal__thumb.is-active{opacity:1;box-shadow:0 0 0 2px var(--blue)}
+.ugal__thumb.is-active{opacity:1;box-shadow:inset 0 0 0 2px var(--blue)}
 .ugal__stage{position:relative;border-radius:var(--r);overflow:hidden;background:var(--wash)}
 .ugal__stage picture{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
 .ugal__stage picture.is-in{opacity:1}
