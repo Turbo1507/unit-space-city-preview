@@ -770,6 +770,9 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .unit-head h1 b{color:var(--blue);font-weight:500}
 .unit-head .t-lead{margin-top:var(--s1)}
 .unit-price{display:inline-flex;align-items:center;height:48px;padding:0 var(--s3);border-radius:var(--r);background:var(--blue);color:#fff;font-size:var(--fs-body);font-weight:500;white-space:nowrap}
+/* кнопка заявки рядом с ценой на странице юнита (Босс 23.09) */
+.unit-head__price{display:grid;gap:var(--s1);justify-items:end}
+.unit-head__request{white-space:nowrap}
 /* галерея юнита — барабан: слева вертикальная лента превью (активное по центру, 100%,
    остальные 50%), справа большой кадр с кроссфейдом; колесо/свайп/стрелки/клик */
 .ugal{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:120px 1fr;gap:var(--s2);height:clamp(400px,50vw,640px)}

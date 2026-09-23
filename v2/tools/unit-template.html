@@ -99,7 +99,10 @@
         <h1><span data-unit-field="name">{{NAME}}</span> <b>{{AREA}}&nbsp;<span data-unit-field="m2">м²</span></b></h1>
         <p class="t-lead">{{CODE}} — {{CXNAME}}, <span data-unit-field="floor">{{FLOOR}}</span></p>
       </div>
-      <span class="unit-price" data-unit-field="price">{{PRICE}}</span>
+      <div class="unit-head__price">
+        <span class="unit-price" data-unit-field="price">{{PRICE}}</span>
+        <a class="btn btn-primary unit-head__request" href="#lead" data-i18n="unit.request">Оставить заявку</a>
+      </div>
     </div>
 
     <div class="ugal" id="ugal" data-photos="{{PHOTOS}}" data-alt="{{ALT}}">
