@@ -395,10 +395,13 @@
     }
     renderTrack(); if (count) count.textContent = 1;
     track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
+    var arrowPrev = stage.querySelector('.ugal__arrow--prev'), arrowNext = stage.querySelector('.ugal__arrow--next');
+    if (arrowPrev) arrowPrev.addEventListener('click', function (e) { e.stopPropagation(); go(-1); });
+    if (arrowNext) arrowNext.addEventListener('click', function (e) { e.stopPropagation(); go(1); });
     var swiped = false;
     stage.addEventListener('click', function (e) {
       if (swiped) { swiped = false; return; }
-      if (e.target.closest('.ugal__nav')) return;
+      if (e.target.closest('.ugal__nav') || e.target.closest('.ugal__arrow')) return;
       if (window.USC_LB) window.USC_LB.open(photos.map(function (p) { return { jpg: base + p + '.jpg', alt: alt }; }), cur);
     });
     var sp0 = null;
@@ -465,7 +468,10 @@
     });
     lightbox.querySelector('.lightbox__close').addEventListener('click', close);
     lightbox.addEventListener('click', function (e) { if (e.target === lightbox) close(); });
-    /* свайп + клик по левой/правой половине кадра листает вперёд/назад — кнопки убраны (Босс 23.09) */
+    var lbPrev = document.getElementById('lightboxPrev'), lbNext = document.getElementById('lightboxNext');
+    if (lbPrev) lbPrev.addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
+    if (lbNext) lbNext.addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
+    /* свайп + клик по левой/правой половине кадра листает вперёд/назад, стрелки — доп. способ (Босс 23.09) */
     var stage = lightbox.querySelector('.lightbox__stage'), lp0 = null, lSwiped = false;
     stage.addEventListener('click', function (e) {
       if (lSwiped) { lSwiped = false; return; }
