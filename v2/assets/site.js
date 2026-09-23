@@ -164,8 +164,15 @@
     var secs = navLinks.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
     var spy = new IntersectionObserver(function (ents) {
       ents.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id); });
+        if (en.isIntersecting) {
+          navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id); });
+          return;
+        }
+        /* прокрутили назад выше активной секции (к хиро) — снять подсветку, иначе залипает (Босс 23.09) */
+        if (en.boundingClientRect.top > 0) {
+          var link = navLinks.filter(function (a) { return a.getAttribute('href') === '#' + en.target.id; })[0];
+          if (link && link.classList.contains('is-active')) navLinks.forEach(function (a) { a.classList.remove('is-active'); });
+        }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     secs.forEach(function (s) { spy.observe(s); });
