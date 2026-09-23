@@ -262,26 +262,31 @@
     var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + (d[v] || '') + '</b></div>'; };
     var rows = row('fmt.f_rooms', 'fmt.' + u.fmt + '_r') + row('fmt.f_where', 'fmt.' + u.fmt + '_w') +
       (u.fmt === 'villa' ? row('fmt.f_out', 'fmt.villa_o') : row('fmt.f_fit', 'fmt.f_full')) + row('fmt.f_yield', 'fmt.f_uk');
-    return '<a class="card fmt-card" href="' + hrefBase + u.slug + '.html">' +
-      '<div class="fmt-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
+    var href = hrefBase + u.slug + '.html';
+    return '<div class="card fmt-card">' +
+      '<a class="fmt-card__media" href="' + href + '" tabindex="-1" aria-hidden="true"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
-      '<span class="product-card__area">' + u.area + ' ' + m2 + '</span></div>' +
+      '<span class="product-card__area">' + u.area + ' ' + m2 + '</span></a>' +
       '<div class="fmt-card__body"><div class="fmt-card__head"><div><div class="fmt-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div></div>' +
       '<div class="leaders fmt-card__rows">' + rows + '</div>' +
       '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
-      '<span class="btn btn-primary fmt-card__more">' + (d['fmt.more'] || '') + '</span></div></a>';
+      '<div class="fmt-card__actions">' +
+      '<a class="btn btn-outline fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
+      '<a class="btn btn-primary fmt-card__request" href="#lead">' + (d['fmt.request'] || '') + '</a>' +
+      '</div></div></div>';
   };
   window.__uscUnitCard = function (u, hrefBase) {
-    var CX = window.USC_COMPLEX, lang = L(), ph = u.photos[0];
+    var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0];
     return '<a class="product-card" href="' + hrefBase + u.slug + '.html">' +
       '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
       '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
       '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div>' +
-      '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div></a>';
+      '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
+      '<span class="btn btn-outline product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
   };
   if (uWrap && window.USC_UNITS) {
     var st = { q: 'all', fmt: 'all' };
