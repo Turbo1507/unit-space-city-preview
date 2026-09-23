@@ -1,0 +1,51 @@
+/* Прототип блока 2 — только новые стили поверх v2/assets/site.css, ничего не переопределяет */
+
+.proto-tag{position:fixed;top:12px;left:12px;z-index:50;display:inline-flex;align-items:center;gap:8px;
+  padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:500;
+  letter-spacing:.02em;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.proto-tag b{color:#8ea0ff}
+
+.concept{padding-block:clamp(56px,8vw,96px)}
+.concept .container{display:grid;gap:var(--s5)}
+
+.concept-head{display:grid;gap:var(--s2);max-width:64ch}
+.concept-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-size:var(--fs-cap);font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase}
+.concept-kicker::before{content:"";width:18px;height:2px;background:var(--blue);display:inline-block}
+.concept-head h2{margin:0}
+.concept-head .t-lead{color:var(--ink);opacity:.72;margin:0}
+
+/* центральная цитата — синяя плашка, самый сильный тезис блока */
+.concept-quote{position:relative;border-radius:var(--r);background:var(--blue);color:#fff;
+  padding:clamp(28px,4vw,48px) clamp(24px,5vw,56px);overflow:hidden}
+.concept-quote::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.16), transparent 60%)}
+.concept-quote p{position:relative;margin:0;font-size:clamp(20px,2.6vw,30px);line-height:1.35;font-weight:500;letter-spacing:-.015em;max-width:44ch}
+.concept-quote p b{font-weight:700}
+
+/* диаграмма сети */
+.net-wrap{display:grid;gap:var(--s4);justify-items:center}
+.net-svg{width:100%;max-width:760px;height:auto}
+.net-node-label{font-family:var(--font);font-weight:700;fill:var(--blue)}
+.net-hub-label{font-family:var(--font);font-weight:600;fill:#fff}
+
+.net-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);width:100%;max-width:900px}
+.net-legend__item{display:flex;align-items:flex-start;gap:var(--s1);padding:var(--s2);border-radius:var(--r-s);background:var(--white)}
+.sect--alt .net-legend__item{background:var(--paper)}
+.net-legend__dot{flex:none;width:12px;height:12px;border-radius:50%;margin-top:5px;background:var(--blue)}
+.net-legend__dot--build{background:none;border:2px solid var(--blue)}
+.net-legend__body b{display:block;font-size:var(--fs-body);font-weight:500}
+.net-legend__body span{display:block;font-size:var(--fs-cap);opacity:var(--dim);margin-top:2px}
+@media (max-width:760px){ .net-legend{grid-template-columns:1fr} }
+
+/* тезисы — 2×2, часть карточек синие (Босс: «синие подложки где можно») */
+.thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.thesis-card{border-radius:var(--r);padding:var(--s3);display:grid;gap:8px;align-content:start}
+.thesis-card--light{background:var(--white)}
+.sect--alt .thesis-card--light{background:var(--paper)}
+.thesis-card--blue{background:var(--blue);color:#fff}
+.thesis-card__num{font-size:var(--fs-cap);font-weight:600;opacity:.6}
+.thesis-card--blue .thesis-card__num{opacity:.75}
+.thesis-card h3{margin:0;font-size:var(--fs-sub);font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.thesis-card p{margin:0;font-size:var(--fs-body);line-height:var(--lh-card);opacity:.8}
+.thesis-card--blue p{opacity:.92}
+@media (max-width:760px){ .thesis-grid{grid-template-columns:1fr} }
