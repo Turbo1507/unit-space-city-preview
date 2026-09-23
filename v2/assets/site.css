@@ -446,7 +446,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-grid--3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:1000px){ .fmt-grid--3{grid-template-columns:1fr 1fr} }
 .fmt-card{gap:var(--s2);color:inherit}
-.fmt-card__media{position:relative;aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
+.fmt-card__media{display:block;position:relative;aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .fmt-card__media picture{display:block;width:100%;height:100%}
 .fmt-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 /* больше воздуха между head/rows/foot — Босс 21.09: «не нравятся отступы внутри карточек» */
@@ -458,11 +458,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card__rows > div > span{opacity:var(--dim)}
 .fmt-card .fmt-card__rows > div > b{text-align:right;max-width:60%;white-space:normal}
 /* низ карточки (Босс 15.09, и десктоп): чип планировки — обычная 40px-пилюля, а не 120×80 бокс; чип цены переехал
-   сюда из шапки карточки; под ними — явная CTA-кнопка внутрь (вся карточка остаётся ссылкой) */
+   сюда из шапки карточки; ниже — 2 явные кнопки: «Подробнее» (переход на страницу юнита) и «Заявка»
+   (Босс 23.09: карточка сама больше не ссылка целиком, фото — отдельная ссылка на детали) */
 .fmt-card__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);margin-top:var(--s1)}
 .fmt-card__plan{display:inline-flex;align-items:center;height:40px;padding:0 var(--s2);border-radius:var(--r-s);border:1px solid var(--line-2);font-size:var(--fs-cap);opacity:var(--dim);background:none}
 .fmt-card .product-card__price{height:40px;font-size:var(--fs-body)}
-.fmt-card__more{width:100%;justify-content:center}
+.fmt-card__actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1)}
+.fmt-card__actions .btn{justify-content:center}
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
 /* узко: строки остаются «подпись … значение» с лидером до конца (Босс 15.09), значение переносится справа */
 @media (max-width:520px){ .fmt-card .fmt-card__rows{font-size:var(--fs-cap)} .fmt-card .fmt-card__rows > div > b{max-width:58%} }
