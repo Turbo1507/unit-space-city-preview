@@ -492,6 +492,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
 .product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;white-space:nowrap}
+/* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная (Босс 23.09: «верни кнопку») */
+.product-card__cta{width:100%;justify-content:center;margin-top:4px}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 /* мобилка: 2 в ряд (одна — слишком крупно, Босс 15.09); цена уходит под имя строкой */
 @media (max-width:520px){
