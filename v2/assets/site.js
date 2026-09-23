@@ -108,7 +108,8 @@
     { sel: '[data-i18n="calc.pick_studio"]', fmt: 'studio' }, { sel: '[data-i18n="calc.pick_1bd"]', fmt: '1bd' },
     { sel: '[data-i18n="calc.pick_2bd"]', fmt: '2bd' }, { sel: '[data-i18n="calc.pick_villa"]', fmt: 'villa' },
     { sel: '[data-i18n="price.studio"]', fmt: 'studio' }, { sel: '[data-i18n="price.1bd"]', fmt: '1bd' },
-    { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' }
+    { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' },
+    { sel: '[data-i18n="buy.2"]', usd: 1500 }
   ];
   function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
   /* компактная запись IDR (Босс 23.09: «Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
@@ -127,7 +128,7 @@
     if (window.__uscCcy === 'idr') {
       PRICE_ELS.forEach(function (p) {
         document.querySelectorAll(p.sel).forEach(function (el) {
-          var usd = window.USC_PRICE_USD && window.USC_PRICE_USD[p.fmt]; if (usd == null) return;
+          var usd = p.usd != null ? p.usd : (window.USC_PRICE_USD && window.USC_PRICE_USD[p.fmt]); if (usd == null) return;
           el.textContent = el.textContent.replace(/\$[\d.,  ]+|Rp[\d.,  BM]+/, fmtIdr(usd));
         });
       });
@@ -457,7 +458,19 @@
     });
     lightbox.querySelector('.lightbox__close').addEventListener('click', close);
     lightbox.addEventListener('click', function (e) { if (e.target === lightbox) close(); });
-    lightbox.querySelectorAll('.lightbox__btn').forEach(function (b) { b.addEventListener('click', function () { show(idx + (+b.getAttribute('data-dir'))); }); });
+    /* свайп + клик по левой/правой половине кадра листает вперёд/назад — кнопки убраны (Босс 23.09) */
+    var stage = lightbox.querySelector('.lightbox__stage'), lp0 = null, lSwiped = false;
+    stage.addEventListener('click', function (e) {
+      if (lSwiped) { lSwiped = false; return; }
+      var r = stage.getBoundingClientRect();
+      show(idx + (e.clientX - r.left < r.width / 2 ? -1 : 1));
+    });
+    stage.addEventListener('pointerdown', function (e) { lp0 = { x: e.clientX, y: e.clientY }; });
+    stage.addEventListener('pointerup', function (e) {
+      if (!lp0) return;
+      var dx = e.clientX - lp0.x, dy = e.clientY - lp0.y; lp0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { lSwiped = true; show(idx + (dx < 0 ? 1 : -1)); }
+    });
     addEventListener('keydown', function (e) {
       if (lightbox.hidden) return;
       if (e.key === 'Escape') close();
