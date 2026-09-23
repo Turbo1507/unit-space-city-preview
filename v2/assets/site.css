@@ -364,30 +364,24 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__gallery--4 .tile-b{grid-column:3;grid-row:1}
 .complex__gallery--4 .tile-c{grid-column:4;grid-row:1}
 .complex__gallery--4 .tile-d{grid-column:3 / 5;grid-row:2}
+/* «Показать ещё» — доп. фото коллажа скрыты на десктопе до клика, докладываются в ту же сетку;
+   на мобиле лента и так одна (см. ниже), скрывать нечего (Босс 23.09: убрали отдельную «Галерею проекта») */
+@media (min-width:801px){ .complex__gallery .tile-more{display:none} .complex__gallery.is-expanded .tile-more{display:block} }
 @media (max-width:800px){
   /* scroll-padding = gut: без него snap прижимал кадры к краю экрана, а не к общей левой границе (Босс 15.09);
      кадр крупнее — на ширину контента, следующий выглядывает на 32px */
   .complex__gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);gap:var(--s1);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
   .complex__gallery::-webkit-scrollbar{display:none}
   .complex__gallery figure{flex:0 0 calc(100% - 2 * var(--gut) - 32px);aspect-ratio:4/3;scroll-snap-align:start;grid-column:auto;grid-row:auto}
+  /* на мобиле лента и так одна, со всеми фото — кнопке «Показать ещё» нечего показывать (Босс 23.09) */
+  .gal-more{display:none}
 }
 @media (prefers-reduced-motion:reduce){ .complex{transition:none} }
-
-/* лента фото под коллажем: нативный scroll-snap, тайлы 300px высотой с натуральной шириной; стрелки листают на ширину окна */
-.strip{margin-top:clamp(32px,4.6vw,56px)}
-.strip__head{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);margin-bottom:var(--s3)}
-
-.strip__track{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
-.strip__track::-webkit-scrollbar{display:none}
-.strip__track figure{flex:none;height:clamp(220px,26vw,360px);margin:0;border-radius:var(--r);overflow:hidden;background:var(--wash);scroll-snap-align:start}
-.strip__track picture{width:auto}
-.strip__track img{height:100%;width:auto;display:block}
-@media (max-width:760px){ .strip__track{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);gap:var(--s1)} .strip__track figure{height:240px} }
 
 /* ---------- о компании — паттерны unitdeveloper.com ---------- */
 /* карточки компаний были слишком раздутые (Босс 21.09) — горизонтальная лента вместо
    grid 4×1: карточки мельче, свайп читается по «выглядывающей» следующей карточке
-   (тот же паттерн, что и .complex__gallery/.strip__track) */
+   (тот же паттерн, что и мобильная лента .complex__gallery) */
 .co-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
 .co-strip::-webkit-scrollbar{display:none}
 .co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
@@ -834,7 +828,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .card--photobg{padding:0}
   .stat-card{padding:var(--s2)}
   .complex__head{margin-bottom:var(--s3)}
-  .complex__gallery,.strip{margin-top:var(--s4)}
+  .complex__gallery{margin-top:var(--s4)}
   .calc{padding:var(--s2)}
   .calc__roi b{font-size:clamp(36px,11vw,44px)}
   .step-row{padding-block:var(--s2)}
@@ -856,8 +850,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .js .rv{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){ .js .rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto} }
-/* нав ленты — в шапке ленты, не абсолют (перебивает .ugal__nav ниже по каскаду) */
-.strip .strip__nav{position:static;background:var(--wash)}
 /* подсказка «скопировано» для mailto */
 .copied{position:fixed;left:50%;bottom:var(--s4);transform:translate(-50%,8px);z-index:200;padding:8px 16px;border-radius:999px;background:var(--ink);color:#fff;font-size:var(--fs-cap);opacity:0;transition:opacity .25s,transform .25s}
 .copied.in{opacity:1;transform:translate(-50%,0)}
