@@ -60,7 +60,12 @@
   document.querySelectorAll('.hd-sel').forEach(function (sel) {
     var btn = sel.querySelector('.hd-sel__btn'), pop = sel.querySelector('.hd-sel__pop');
     function setOpen(open) { sel.classList.toggle('is-open', open); pop.hidden = !open; btn.setAttribute('aria-expanded', String(open)); }
-    btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(pop.hidden); });
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var willOpen = pop.hidden;
+      if (willOpen) document.querySelectorAll('.hd-sel.is-open').forEach(function (s) { if (s !== sel) s._close(); });
+      setOpen(willOpen);
+    });
     pop.querySelectorAll('li').forEach(function (li) { li.addEventListener('click', function () { setOpen(false); }); });
     sel._close = function () { setOpen(false); };
     sel._setVal = function (text) { var v = sel.querySelector('.hd-sel__val'); if (v) v.textContent = text; };
@@ -106,18 +111,28 @@
     { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' }
   ];
   function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
-  function fmtIdr(n) { return 'Rp' + (Math.round(n * window.__uscFx / 1000) * 1000).toLocaleString('id-ID'); }
+  /* компактная запись IDR (Босс 23.09: «Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
+  window.__uscFmtIdrNum = function (n) {
+    if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+    return Math.round(n).toLocaleString('id-ID');
+  };
+  function fmtIdr(n) { return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx); }
   window.__uscMoney = function (usd, lang) {
     return (lang === 'ru' ? 'от ' : 'from ') + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
   };
+  var CALC_LABELS = [{ sel: '[data-i18n="calc.price"]' }, { sel: '[data-i18n="calc.rate"]' }];
   function refreshMoney() {
     var lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
     if (window.__uscCcy === 'idr') {
       PRICE_ELS.forEach(function (p) {
         document.querySelectorAll(p.sel).forEach(function (el) {
           var usd = window.USC_PRICE_USD && window.USC_PRICE_USD[p.fmt]; if (usd == null) return;
-          el.textContent = el.textContent.replace(/\$[\d.,  ]+|Rp[\d.,  ]+/, fmtIdr(usd));
+          el.textContent = el.textContent.replace(/\$[\d.,  ]+|Rp[\d.,  BM]+/, fmtIdr(usd));
         });
+      });
+      CALC_LABELS.forEach(function (p) {
+        document.querySelectorAll(p.sel).forEach(function (el) { el.textContent = el.textContent.replace(/\$\s*$/, 'Rp'); });
       });
     }
     if (window.__uscRerender) window.__uscRerender(lang);
@@ -673,22 +688,42 @@
   });
 
   /* ---------- калькулятор ---------- */
-  var ids = ['c-price', 'c-rate', 'c-occ', 'c-mgmt'];
   if (document.getElementById('c-price')) {
     function money(n) {
-      if (window.__uscCcy === 'idr') return 'Rp' + (Math.round(n * window.__uscFx / 1000) * 1000).toLocaleString('id-ID');
+      if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
       return '$' + Math.round(n).toLocaleString('ru-RU');
     }
-    function val(id) { return document.getElementById(id).value || 0; }
+    /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
+       текущую валюту (Босс 23.09: в IDR-режиме поля молчком оставались в $) */
+    var priceEl = document.getElementById('c-price'), rateEl = document.getElementById('c-rate');
+    priceEl.dataset.usd = priceEl.value;
+    rateEl.dataset.usd = rateEl.value;
+    function val(id) {
+      if (id === 'c-price') return +priceEl.dataset.usd || 0;
+      if (id === 'c-rate') return +rateEl.dataset.usd || 0;
+      return +document.getElementById(id).value || 0;
+    }
+    function syncCcyDisplay() {
+      var idr = window.__uscCcy === 'idr', fx = window.__uscFx;
+      var pUsd = +priceEl.dataset.usd, rUsd = +rateEl.dataset.usd;
+      priceEl.value = idr ? Math.round(pUsd * fx / 1000) * 1000 : pUsd;
+      rateEl.value = idr ? Math.round(rUsd * fx / 1000) * 1000 : rUsd;
+      priceEl.step = idr ? 1000000 : 1000;
+    }
     function calc() {
-      var price = +val('c-price'), rate = +val('c-rate'), occ = (+val('c-occ')) / 100, mgmt = (+val('c-mgmt')) / 100;
+      var price = val('c-price'), rate = val('c-rate'), occ = (+val('c-occ')) / 100, mgmt = (+val('c-mgmt')) / 100;
       var gross = rate * 365 * occ, net = gross * (1 - mgmt);
       document.getElementById('o-gross').textContent = money(gross);
       document.getElementById('o-net').textContent = money(net);
       document.getElementById('o-roi').textContent = price > 0 ? (net / price * 100).toFixed(1) + '%' : '—';
     }
-    ids.forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
-    window.__uscCalcRefresh = calc;
+    priceEl.addEventListener('input', function () {
+      priceEl.dataset.usd = window.__uscCcy === 'idr' ? (+priceEl.value / window.__uscFx) : priceEl.value;
+      calc();
+    });
+    ['c-occ', 'c-mgmt'].forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
+    window.__uscCalcRefresh = function () { syncCcyDisplay(); calc(); };
+    syncCcyDisplay();
     calc();
     /* «Выбрать тип виллы» — подставляет цену формата в калькулятор (Босс 22.09) */
     var pickerBtn = document.getElementById('calcPickerBtn'), pickerPanel = document.getElementById('calcPickerPanel');
@@ -700,13 +735,14 @@
       });
       pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          document.getElementById('c-price').value = btn.getAttribute('data-price');
+          priceEl.dataset.usd = btn.getAttribute('data-price');
           var rate = btn.getAttribute('data-rate');
-          if (rate) document.getElementById('c-rate').value = rate;
+          if (rate) rateEl.dataset.usd = rate;
           var occ = btn.getAttribute('data-occ');
           if (occ) document.getElementById('c-occ').value = occ;
           var mgmt = btn.getAttribute('data-mgmt');
           if (mgmt) document.getElementById('c-mgmt').value = mgmt;
+          syncCcyDisplay();
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
           pickerPanel.hidden = true;
