@@ -682,12 +682,11 @@
     arm();
   });
 
-  /* ---------- лента фото комплекса: стрелки листают на ширину видимой области, счётчик — по первому видимому кадру ---------- */
-  document.querySelectorAll('.strip[data-strip]').forEach(function (strip) {
-    var track = strip.querySelector('.strip__track'), figs = track.querySelectorAll('figure'), cnt = strip.querySelector('.ugal__count b');
-    var t; track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(function () {
-      var x = track.scrollLeft + 8, i = 0; figs.forEach(function (f, k) { if (f.offsetLeft <= x) i = k; }); if (cnt) cnt.textContent = i + 1;
-    }, 80); }, { passive: true });
+  /* ---------- «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку (Босс 23.09) ---------- */
+  document.querySelectorAll('.gal-more').forEach(function (btn) {
+    var gallery = btn.closest('.container').querySelector('.complex__gallery');
+    if (!gallery) return;
+    btn.addEventListener('click', function () { gallery.classList.add('is-expanded'); btn.remove(); });
   });
 
   /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */
