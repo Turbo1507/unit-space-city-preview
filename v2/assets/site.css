@@ -539,6 +539,17 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:center;gap:var(--s2)}
+/* строки правой колонки выравниваются по нижнему краю строк полей слева (Босс 23.09).
+   На unit-странице нет .calc__picker — на 1 строку полей меньше, чем на главной. */
+@media (min-width:801px){
+  .calc:has(.calc__picker){grid-template-rows:auto auto auto}
+  .calc:not(:has(.calc__picker)){grid-template-rows:auto auto}
+  .calc__inputs{grid-row:1/-1;grid-template-rows:subgrid}
+  .calc__out{grid-template-rows:subgrid;align-content:stretch}
+  .calc:has(.calc__picker) .calc__out{grid-row:2/4}
+  .calc:not(:has(.calc__picker)) .calc__out{grid-row:1/3}
+  .calc__roi,.calc__rows{align-self:end}
+}
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
