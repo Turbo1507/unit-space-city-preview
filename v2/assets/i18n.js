@@ -226,9 +226,9 @@ window.I18N = {
  "faq.7a": "Зависит от виллы и структуры сделки. Разбираем в юридическом пакете перед подписанием",
  "faq.8q": "Как проходит сделка?",
  "faq.8a": "Напрямую с Unit Space, документы подписываются онлайн в DocuSign. Полный процесс — в разделе «Как купить»",
- "lead.title": "Забронируйте виллу <span class=\"accent\">на Бали</span>",
+ "lead.title": "Получить презентацию вилл <span class='accent'>UNIT SPACE CITY</span> на Бали",
  "lead.lead": "Оставьте контакты: подберём виллы под ваш бюджет и посчитаем доходность",
- "lead.pdf": "Презентация (PDF)",
+ "lead.ig": "Instagram",
  "form.title": "Оставить заявку",
  "form.name": "Имя",
  "form.contact": "Телефон или email",
@@ -238,8 +238,7 @@ window.I18N = {
  "form.cc_search": "Поиск страны или кода",
  "price.studio": "от $122 500", "price.1bd": "от $140 000", "price.2bd": "от $191 000", "price.villa": "от $317 000",
  "form.budget": "Бюджет, $",
- "form.complex": "Комплекс",
- "form.any": "Любой",
+ "form.budget_ph": "Необязательно",
  "form.goal": "Цель",
  "form.g1": "Инвестиция",
  "form.g2": "Аренда",
@@ -543,9 +542,9 @@ window.I18N = {
  "faq.7a": "Depends on the unit and the deal structure. Covered in the legal pack before signing",
  "faq.8q": "How does the deal go?",
  "faq.8a": "Directly with Unit Space, documents signed electronically via DocuSign. The full process is in “How to buy”",
- "lead.title": "Reserve a home <span class=\"accent\">in Bali</span>",
+ "lead.title": "Get the presentation for <span class='accent'>UNIT SPACE CITY</span> villas in Bali",
  "lead.lead": "Leave your contacts: we’ll pick villas for your budget and calculate the yield",
- "lead.pdf": "Presentation (PDF)",
+ "lead.ig": "Instagram",
  "form.title": "Request a call",
  "form.name": "Name",
  "form.contact": "Phone or email",
@@ -555,8 +554,7 @@ window.I18N = {
  "form.cc_search": "Search country or code",
  "price.studio": "from $122,500", "price.1bd": "from $140,000", "price.2bd": "from $191,000", "price.villa": "from $317,000",
  "form.budget": "Budget, $",
- "form.complex": "Complex",
- "form.any": "Any",
+ "form.budget_ph": "Optional",
  "form.goal": "Goal",
  "form.g1": "Investment",
  "form.g2": "Rental",
@@ -624,6 +622,7 @@ window.I18N = {
   document.querySelectorAll('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (dict[k] != null) el.innerHTML = dict[k]; });
   document.querySelectorAll('[data-i18n-alt]').forEach(function (el) { var k = el.getAttribute('data-i18n-alt'); if (dict[k] != null) el.setAttribute('alt', dict[k]); });
   document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { var k = el.getAttribute('data-i18n-aria'); if (dict[k] != null) el.setAttribute('aria-label', dict[k]); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function (el) { var k = el.getAttribute('data-i18n-ph'); if (dict[k] != null) el.setAttribute('placeholder', dict[k]); });
   document.querySelectorAll('[data-lang]').forEach(function (b) { b.classList.toggle('is-active', b.dataset.lang === lang); });
   var priv = document.documentElement.getAttribute('data-privacy'); if (priv) document.querySelectorAll('a[href="privacy.html"]').forEach(function (a) { a.setAttribute('href', priv); });
   window.__uscLang = lang;

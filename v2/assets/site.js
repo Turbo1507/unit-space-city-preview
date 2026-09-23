@@ -123,7 +123,6 @@
     return (lang === 'ru' ? 'от ' : 'from ') + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
   };
   var CALC_LABELS = [{ sel: '[data-i18n="calc.price"]' }, { sel: '[data-i18n="calc.rate"]' }, { sel: '[data-i18n="form.budget"]' }];
-  var BUDGET_USD = [150000, 250000], BUDGET_PLACEHOLDER_USD = '150 000 – 250 000';
   function refreshMoney() {
     var lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
     if (window.__uscCcy === 'idr') {
@@ -136,12 +135,6 @@
       CALC_LABELS.forEach(function (p) {
         document.querySelectorAll(p.sel).forEach(function (el) { el.textContent = el.textContent.replace(/\$\s*$/, 'Rp'); });
       });
-    }
-    var budgetEl = document.getElementById('f-budget');
-    if (budgetEl) {
-      budgetEl.placeholder = window.__uscCcy === 'idr'
-        ? 'Rp' + window.__uscFmtIdrNum(BUDGET_USD[0] * window.__uscFx) + ' – Rp' + window.__uscFmtIdrNum(BUDGET_USD[1] * window.__uscFx)
-        : BUDGET_PLACEHOLDER_USD;
     }
     if (window.__uscRerender) window.__uscRerender(lang);
     if (window.__uscCalcRefresh) window.__uscCalcRefresh();
