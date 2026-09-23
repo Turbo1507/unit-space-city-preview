@@ -13,6 +13,10 @@ export function applyDict(html, dict) {
     if (!(key in dict)) return m; const v = dict[key].replace(/"/g, '&quot;');
     return m.replace(/\baria-label="[^"]*"/, `aria-label="${v}"`);
   });
+  html = html.replace(/<[^>]*\bdata-i18n-ph="([^"]+)"[^>]*>/g, (m, key) => {
+    if (!(key in dict)) return m; const v = dict[key].replace(/"/g, '&quot;');
+    return m.replace(/\bplaceholder="[^"]*"/, `placeholder="${v}"`);
+  });
   return html;
 }
 
