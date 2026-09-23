@@ -274,7 +274,8 @@
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<div class="fmt-card__actions">' +
       '<a class="btn btn-outline fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
-      '<a class="btn btn-primary fmt-card__request" href="#lead">' + (d['fmt.request'] || '') + '</a>' +
+      /* заявка ведёт на страницу ИМЕННО этой виллы, к её форме, а не на форму текущей страницы (Босс 23.09) */
+      '<a class="btn btn-primary fmt-card__request" href="' + href + '#lead">' + (d['fmt.request'] || '') + '</a>' +
       '</div></div></div>';
   };
   window.__uscUnitCard = function (u, hrefBase) {
