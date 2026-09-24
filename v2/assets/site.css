@@ -104,6 +104,8 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .site-nav a{opacity:.7;transition:opacity .2s}
 .site-nav a.is-active{opacity:1;color:var(--blue)}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
+/* подпись кнопки в шапке не должна переноситься на две строки (ломает высоту хедера) */
+.header-right .btn{white-space:nowrap}
 /* дропдауны языка/валюты в шапке (Босс 23.09: инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
 .header-selectors{display:flex;align-items:center;gap:4px;font-size:var(--fs-cap);font-weight:500}
 .hd-sel{position:relative}
@@ -377,6 +379,28 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .gal-more{display:none}
 }
 @media (prefers-reduced-motion:reduce){ .complex{transition:none} }
+
+/* ---------- концепция: бенто «текст + колонка карточек U» (Босс 24.09, вариант на сравнение) ---------- */
+.cc-bento{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s2);align-items:stretch}
+.cc-text{align-content:space-between;gap:var(--s4)}
+.cc-text__lead{margin:0;font-size:var(--fs-sub);line-height:1.45;letter-spacing:-.01em}
+.cc-text__lead b{color:var(--blue);font-weight:500}
+.cc-chips{display:flex;flex-wrap:wrap;gap:var(--s1)}
+/* gap, а не пробел в разметке: inline-flex обрезает пробелы между <b> и текстом */
+.cc-chip{display:inline-flex;align-items:center;gap:5px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);
+  background:var(--wash);font-size:var(--fs-cap);white-space:nowrap}
+.cc-chip b{color:var(--blue);font-weight:500;font-variant-numeric:tabular-nums}
+.cc-units{display:grid;grid-template-rows:repeat(3,1fr);gap:var(--s2)}
+.cc-unit{grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:var(--s2);
+  color:inherit;text-decoration:none;transition:background .18s var(--ease)}
+.cc-unit__code{font-size:var(--fs-h3);font-weight:500;color:var(--blue);letter-spacing:-.02em}
+.cc-unit__body{display:grid;gap:2px;min-width:0}
+.cc-unit__body b{font-size:var(--fs-body);font-weight:500}
+.cc-unit__meta{font-size:var(--fs-cap);opacity:var(--dim)}
+.cc-unit__arrow{flex:none;color:var(--ink-2);transition:transform .18s var(--ease)}
+/* ниже 1080 правая колонка становится слишком узкой — названия комплексов переносятся, карточки прыгают */
+@media (max-width:1080px){ .cc-bento{grid-template-columns:1fr} .cc-units{grid-template-rows:none} .cc-text{align-content:start} }
+@media (max-width:520px){ .cc-unit{grid-template-columns:auto minmax(0,1fr) auto} .cc-unit__arrow{display:none} }
 
 /* ---------- о компании — паттерны unitdeveloper.com ---------- */
 /* карточки компаний были слишком раздутые (Босс 21.09) — горизонтальная лента вместо
@@ -900,6 +924,8 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .menu-list a:hover{color:var(--blue)}
   .hero__card:hover .hero__card-arrow{background:var(--blue-press)}
   .ov-row:hover{background:var(--blue-050)}
+  .cc-unit:hover{background:var(--blue-050)}
+  .cc-unit:hover .cc-unit__arrow{transform:translateX(3px);color:var(--blue)}
   .fmt-card:hover .fmt-card__media img{transform:scale(1.02)}
   .fmt-card:hover .fmt-card__name{color:var(--blue)}
   a.product-card:hover .product-card__name{color:var(--blue)}
