@@ -182,7 +182,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__map-ref circle{fill:var(--ink-2)}
 .hero__map-ref text,.hero__map-sub{font-size:9px;fill:var(--ink-2);font-family:var(--font)}
 .hero__map-dots circle{fill:var(--blue);stroke:var(--wash);stroke-width:1.2}
-.hero__map-lbl{font-size:9.5px;font-weight:500;fill:var(--blue);font-family:var(--font);letter-spacing:.04em}
+.hero__map-lbl{font-size:9.5px;font-weight:400;fill:var(--blue);font-family:var(--font);letter-spacing:.04em}
 .hero__map-pulse{fill:var(--blue);opacity:.25;transform-origin:center;transform-box:fill-box;animation:mapPulse 2.4s var(--ease) infinite}
 @keyframes mapPulse{0%{transform:scale(.6);opacity:.35}100%{transform:scale(2.6);opacity:0}}
 @media (prefers-reduced-motion:reduce){ .hero__map-pulse{animation:none;opacity:.18} }
@@ -396,7 +396,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 .cc-panel{display:grid;gap:var(--s3);min-width:0;padding:var(--s4);border-radius:var(--r);background:var(--blue);color:#fff}
 .cc-panel__head{display:grid;gap:var(--s2)}
-.cc-panel__brand{font-size:var(--fs-h3);font-weight:500;letter-spacing:-.02em}
+.cc-panel__brand{font-size:var(--fs-h3);font-weight:400;letter-spacing:-.02em}
 .cc-panel__brand i{font-style:normal}
 .cc-panel__accent{margin:0;font-size:var(--fs-body);line-height:var(--lh-card);max-width:62ch}
 
@@ -996,3 +996,11 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ov-card:has(.ov-row[data-u="u2"]:hover) .ov-photo img[data-u="u2"],
   .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
 }
+
+/* Связки UNIT. (Босс 26.09): «UNIT.» medium, хвост названия regular — но UNIT. никогда не легче окружения:
+   где текст вокруг жирнее medium (вордмарк 700), вся связка наследует вес окружения */
+i.u5,i.ul{font-style:normal}
+.u5{font-weight:500}
+.ul{font-weight:400}
+.co-card > b i.ul{color:inherit}
+.wordmark .u5{font-weight:inherit}

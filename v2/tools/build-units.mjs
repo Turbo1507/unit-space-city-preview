@@ -31,7 +31,7 @@ for (const lang of ['ru', 'en']) {
     const title = `${u.name[lang]} ${u.area} ${m2[lang]}, ${cx.code} ${cx.name}`;
     const desc = lang === 'ru'
       ? `${u.name.ru} ${u.area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
-      : `${u.name.en} ${u.area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, UNIT. Space.`;
+      : `${u.name.en} ${u.area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, UNIT.SPACE.`;
     let html = tpl
       .replace(/(<p [^>]*data-unit-field="desc">)\{\{DESC\}\}(<\/p>)/, `$1${USC_FMT[u.fmt].desc[lang]}$2`)
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
