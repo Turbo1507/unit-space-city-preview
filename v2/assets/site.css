@@ -75,10 +75,10 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .btn svg{width:16px;height:16px;flex:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-outline{border-color:currentColor}
-/* вторичная кнопка в карточках: тонкая обводка рядом с синим primary выглядела тускло (Босс 25.09) —
-   заливка blue-050 + синий текст, читается как полноценное действие, контраст 8:1 */
+/* вторичная кнопка в карточках: без полутоновых заливок (Босс 25.09) —
+   белый фон, сплошная синяя обводка и синий текст в полную силу */
 .fmt-card__more,.product-card__cta,.gal-more{
-  background:var(--blue-050);border-color:transparent;color:var(--blue)}
+  background:#fff;border-color:var(--blue);color:var(--blue)}
 .btn-sm{--h:40px;padding-inline:var(--s2);font-size:var(--fs-cap)}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 .cta-row{display:flex;flex-wrap:wrap;gap:var(--s2)}
@@ -962,7 +962,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 @media (hover:hover){
   .btn-primary:hover{background:var(--blue-press)}
   .btn-outline:hover{color:var(--blue)}
-  .fmt-card__more:hover,.product-card__cta:hover,.gal-more:hover{background:#dde4ff}
+  .fmt-card__more:hover,.product-card__cta:hover,.gal-more:hover{background:var(--blue);color:#fff}
   .cc-arrow:hover{opacity:1}
   .cc-tag:hover{transform:translateY(-2px)}
   .site-nav a:hover{opacity:1}
