@@ -388,6 +388,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (prefers-reduced-motion:reduce){ .complex{transition:none} }
 
 /* ---------- концепция: вариант 2 из макета USC — колонка плиток + синяя панель с фото и рядами U ---------- */
+#concept .t-h2{max-width:none}
+#concept .sect-head .t-lead{max-width:62ch}
 .cc-bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s2);align-items:stretch;margin-top:var(--s4)}
 .cc-tiles{display:grid;grid-auto-rows:1fr;gap:var(--s2);min-width:0}
 .cc-tiles .stat-card__value{font-size:clamp(40px,4.4vw,72px);color:var(--blue)}
@@ -400,29 +402,35 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* сцена с фото: слайды кроссфейдом, стрелки — пилюли поверх кадра */
 .cc-stage{position:relative;border-radius:var(--r-s);overflow:hidden;background:rgba(255,255,255,.12);aspect-ratio:16/9}
-.cc-slide{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease)}
-.cc-slide.is-in{opacity:1}
+.cc-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s linear .45s}
+.cc-slide.is-in{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
 .cc-slide picture{display:block;width:100%;height:100%}
 .cc-slide img{width:100%;height:100%;object-fit:cover;display:block}
-/* чип с кодом комплекса на самом кадре — сразу видно, чьё фото сейчас показано */
-.cc-slide__chip{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;
-  height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
-  color:var(--blue);font-size:var(--fs-cap);font-weight:500}
+/* тег комплекса прямо на кадре, левый нижний угол: у каждого фото свой */
+.cc-tag{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:inline-flex;align-items:center;gap:var(--s1);
+  max-width:calc(100% - var(--s2)*2);padding:10px 14px;border-radius:999px;background:#fff;
+  color:var(--ink);text-decoration:none;transition:transform .18s var(--ease)}
+.cc-tag__code{flex:none;color:var(--blue);font-weight:500}
+.cc-tag__name{min-width:0;font-size:var(--fs-body);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cc-tag .status-chip{flex:none}
 /* стрелки — тот же тонкий шеврон, что в барабане юнита (.ugal__arrow), только позиции свои */
 .cc-arrow--prev{left:var(--s2)}
 .cc-arrow--next{right:var(--s2)}
 
-.cc-rows{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1)}
-.cc-row{display:flex;align-items:center;gap:var(--s2);min-width:0;padding:var(--s2);border-radius:var(--r-s);
-  background:#fff;color:var(--ink);text-decoration:none;transition:transform .18s var(--ease)}
-.cc-row:last-child{grid-column:1/-1}
-.cc-row.is-current{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
-.cc-row__code{flex:none;color:var(--blue);font-weight:500}
-.cc-row__name{flex:1;min-width:0;font-size:var(--fs-body);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cc-row .status-chip{flex:none}
+/* что общего у трёх очередей — двумя чипами под кадром */
+.cc-feats{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1);margin:0;padding:0;list-style:none}
+.cc-feat{display:flex;align-items:center;gap:var(--s1);min-width:0;padding:var(--s2);border-radius:var(--r-s);
+  background:#fff;color:var(--ink);font-size:var(--fs-body);font-weight:500}
+.cc-feat .ic{color:var(--blue)}
 
 @media (max-width:1000px){ .cc-bento{grid-template-columns:1fr} .cc-tiles{grid-auto-rows:auto;grid-template-columns:repeat(3,minmax(0,1fr))} }
-@media (max-width:640px){ .cc-tiles{grid-template-columns:1fr} .cc-rows{grid-template-columns:1fr} .cc-row:last-child{grid-column:auto} }
+@media (max-width:640px){
+  .cc-tiles{grid-template-columns:1fr} .cc-feats{grid-template-columns:1fr}
+  .cc-stage{aspect-ratio:4/3}
+  .cc-tag{padding:6px 10px;gap:10px}
+  .cc-tag__name{font-size:var(--fs-cap)}
+  .cc-tag .status-chip{height:24px;padding:0 10px}
+}
 
 /* ---------- о компании — паттерны unitdeveloper.com ---------- */
 /* карточки компаний были слишком раздутые (Босс 21.09) — горизонтальная лента вместо
@@ -956,7 +964,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .btn-outline:hover{color:var(--blue)}
   .fmt-card__more:hover,.product-card__cta:hover,.gal-more:hover{background:#dde4ff}
   .cc-arrow:hover{opacity:1}
-  .cc-row:hover{transform:translateX(3px)}
+  .cc-tag:hover{transform:translateY(-2px)}
   .site-nav a:hover{opacity:1}
   .hd-sel__btn:hover{opacity:1}
   .menu-list a:hover{color:var(--blue)}

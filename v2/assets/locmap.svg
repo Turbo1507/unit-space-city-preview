@@ -8,7 +8,7 @@ text{font-family:"Helvetica Neue","Helvetica Neue LT",Helvetica,"Arial Nova",Ari
 .locmap__r2 path{fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
 .locmap__r1 path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 .locmap__poi circle{fill:#3a3a3a}.locmap__poi text{font-size:21px;fill:#3a3a3a}
-.locmap__pins circle{fill:#0433FF;stroke:#fff;stroke-width:3}.locmap__pins text{font-size:19px;font-weight:500;fill:#fff;text-anchor:middle}
+.locmap__pin path{fill:#0433FF;stroke:#fff;stroke-width:3;stroke-linejoin:round}.locmap__pin circle{fill:#fff}.locmap__pin-lbl{font-size:24px;font-weight:500;fill:#0433FF}
 .locmap__lbl{font-size:23px;font-weight:500;fill:#3a3a3a}
 .locmap__scale line{stroke:#3a3a3a;stroke-width:2}.locmap__scale text{font-size:16px;fill:#6E6E75}
 </style>
@@ -24,11 +24,8 @@ text{font-family:"Helvetica Neue","Helvetica Neue LT",Helvetica,"Arial Nova",Ari
 <g class="locmap__poi"><circle cx="390" cy="427" r="5"/><text x="378" y="434" text-anchor="end">Pantai Nyanyi</text>
 <circle cx="319" cy="348" r="5"/><text x="307" y="355" text-anchor="end">Tanah Lot</text>
 <circle cx="470" cy="522" r="5"/><text x="458" y="544" text-anchor="end">Luna Beach Club</text></g>
-<g class="locmap__pins">
-<g><circle cx="586" cy="452" r="22"/><text x="586" y="459">U1</text></g>
-<g><circle cx="548" cy="489" r="22"/><text x="548" y="496">U2</text></g>
-<g><circle cx="445" cy="427" r="22"/><text x="445" y="434">U3</text></g>
-</g>
+<g class="locmap__pin" transform="translate(718,315)"><path d="M0,0 C0,0 -18,-24 -18,-36 A18,18 0 1,1 18,-36 C18,-24 0,0 0,0Z"/><circle cx="0" cy="-36" r="6.5"/></g>
+<text class="locmap__pin-lbl" x="744" y="287">UNIT. SPACE CITY</text>
 <text class="locmap__lbl" x="626" y="576">Nuanu Creative City</text>
 <g class="locmap__scale"><line x1="952" y1="710" x2="1140" y2="710"/><text x="1140" y="700" text-anchor="end">1 км</text></g>
 </svg>
