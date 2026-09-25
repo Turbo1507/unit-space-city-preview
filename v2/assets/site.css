@@ -656,13 +656,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    («вот это бля не нравится»). На мобиле остаётся свайп-лента, разметка одна на оба случая */
 /* align-items:start + flex-колонка: иначе строка грида считается по высоте фото (aspect-ratio),
    а подпись выпадает наружу и её перекрывает следующий ряд */
-.amenity-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3) var(--s2);align-items:start}
+.amenity-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s2);align-items:start}
 .amenity-card{margin:0;min-width:0;display:flex;flex-direction:column}
 .amenity-card picture,.amenity-card .ph{display:block;aspect-ratio:1/1;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .amenity-card--ph .ph{background:var(--blue-050)}
 .amenity-card img{width:100%;height:100%;object-fit:cover}
 .amenity-card figcaption{margin-top:var(--s2);font-size:var(--fs-cap);font-weight:500;line-height:1.3}
-@media (max-width:1000px){ .amenity-strip{grid-template-columns:repeat(3,minmax(0,1fr))} }
 @media (max-width:760px){
   .amenity-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
     overscroll-behavior-x:contain;padding-bottom:4px;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)}
