@@ -128,23 +128,38 @@
     </div>
   </section>
 
-  <!-- 02a — КОНЦЕПЦИЯ (Босс 25.09): только идея. Карточки U1/U2/U3 убраны — их полностью описывает секция «Комплексы» ниже -->
+  <!-- 02a — КОНЦЕПЦИЯ: вариант 2 из макета (страница USC), текст заказчика 25.09 -->
   <section class="sect" id="concept">
     <div class="container">
       <div class="sect-head rv">
         <h2 class="t-h2" data-i18n="cc2.title">Три комплекса. Одна экосистема</h2>
         <p class="t-lead" data-i18n="cc2.sub">UNIT. SPACE CITY — это не&nbsp;три отдельных проекта, а&nbsp;единая застройка, реализованная очередями</p>
-      </div>
-      <div class="card cc-card rv">
         <p class="cc-lead" data-i18n="cc2.lead">U1, U2 и&nbsp;U3 — один квартал, построенный в&nbsp;три этапа. Общий архитектурный стиль, общая инфраструктура, одна управляющая компания с&nbsp;опытом более 10&nbsp;лет.</p>
       </div>
-      <div class="card card--accent cc-accent rv">
-        <p data-i18n="cc2.accent">U1 и&nbsp;U2 сданы и&nbsp;уже приносят доход. U3 — возможность войти по&nbsp;стартовой цене. Очередь влияет только на&nbsp;цену и&nbsp;срок заселения. Стандарт UNIT. — неизменен.</p>
-      </div>
-<div class="stat-grid cc-tiles rv tnum">
-        <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="cc2.t2">Вилл и&nbsp;студий</div><div class="stat-card__value tnum" data-count="105">105</div></div>
-        <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="cc2.t3">Доходность в&nbsp;год</div><div class="stat-card__value tnum"><span data-i18n="about.from">от</span>&nbsp;<em data-count="10">10</em><em class="pct">%</em></div></div>
-        <div class="stat-card stat-card--blue"><div class="stat-card__label dim" data-i18n="cc2.t4">УК на&nbsp;Бали</div><div class="stat-card__value tnum"><em data-count="10">10</em><em>+</em>&nbsp;<span data-i18n="about.years">лет</span></div></div>
+      <div class="cc-bento rv">
+        <div class="cc-tiles tnum">
+          <div class="stat-card"><div class="stat-card__label dim" data-i18n="cc2.t2">Вилл и&nbsp;студий</div><div class="stat-card__value tnum" data-count="105">105</div></div>
+          <div class="stat-card"><div class="stat-card__label dim" data-i18n="cc2.t3">Доходность в&nbsp;год</div><div class="stat-card__value tnum"><span data-i18n="about.from">от</span>&nbsp;<em data-count="10">10</em><em class="pct">%</em></div></div>
+          <div class="stat-card"><div class="stat-card__label dim" data-i18n="cc2.t4">УК на&nbsp;Бали</div><div class="stat-card__value tnum"><em data-count="10">10</em><em>+</em>&nbsp;<span data-i18n="about.years">лет</span></div></div>
+        </div>
+        <div class="cc-panel" id="ccPanel">
+          <div class="cc-panel__head">
+            <span class="cc-panel__brand">UNIT.<i>SPACE CITY</i></span>
+            <p class="cc-panel__accent" data-i18n="cc2.accent">U1 и&nbsp;U2 сданы и&nbsp;уже приносят доход. U3 — возможность войти по&nbsp;стартовой цене. Очередь влияет только на&nbsp;цену и&nbsp;срок заселения. Стандарт UNIT. — неизменен.</p>
+          </div>
+          <div class="cc-stage">
+            <picture class="cc-slide is-in"><source srcset="photos/u1-10.webp" type="image/webp"><img src="photos/u1-10.jpg" alt="U1 — вилла в рисовом поле" loading="lazy"></picture>
+            <picture class="cc-slide"><source srcset="photos/u2-villa-31.webp" type="image/webp"><img src="photos/u2-villa-31.jpg" alt="U2 — бассейн виллы во внутреннем дворе" loading="lazy"></picture>
+            <picture class="cc-slide"><source srcset="photos/u3-01.webp" type="image/webp"><img src="photos/u3-01.jpg" alt="U3 — виллы с двором, рендер" loading="lazy"></picture>
+            <button type="button" class="cc-arrow cc-arrow--prev" data-cc="-1" aria-label="Предыдущий комплекс" data-i18n-aria="lightbox.prev"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="cc-arrow cc-arrow--next" data-cc="1" aria-label="Следующий комплекс" data-i18n-aria="lightbox.next"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="cc-rows">
+          <a class="cc-row" href="#cx-u1"><b class="cc-row__code">U1</b><span class="cc-row__name" data-i18n="about.ov_u1n">Space Village</span><span class="status-chip status-chip--done" data-i18n="u1.status">Построено</span></a>
+          <a class="cc-row" href="#cx-u2"><b class="cc-row__code">U2</b><span class="cc-row__name" data-i18n="about.ov_u2n">Nuanu Village</span><span class="status-chip status-chip--done" data-i18n="u2.status">Построено</span></a>
+          <a class="cc-row" href="#cx-u3"><b class="cc-row__code">U3</b><span class="cc-row__name" data-i18n="about.ov_u3n">Nyanyi Village</span><span class="status-chip status-chip--build" data-i18n="u3.status">Строится</span></a>
+          </div>
+        </div>
       </div>
     </div>
   </section>

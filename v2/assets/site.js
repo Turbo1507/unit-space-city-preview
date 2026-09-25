@@ -688,6 +688,25 @@
     arm();
   });
 
+  /* ---------- концепция: фото U1/U2/U3 в синей панели, стрелки + клик по ряду (макет USC, вар2) ---------- */
+  var ccPanel = document.getElementById('ccPanel');
+  if (ccPanel) (function () {
+    var slides = [].slice.call(ccPanel.querySelectorAll('.cc-slide')),
+        rows = [].slice.call(ccPanel.querySelectorAll('.cc-row')), i = 0;
+    if (slides.length < 2) return;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle('is-in', k === i); });
+      rows.forEach(function (r, k) { r.classList.toggle('is-current', k === i); });
+    }
+    ccPanel.querySelectorAll('.cc-arrow').forEach(function (b) {
+      b.addEventListener('click', function () { show(i + (+b.getAttribute('data-cc'))); });
+    });
+    /* наведение на ряд показывает его комплекс — переход по клику при этом не теряется */
+    rows.forEach(function (r, k) { r.addEventListener('mouseenter', function () { show(k); }); });
+    show(0);
+  })();
+
   /* ---------- «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку (Босс 23.09) ---------- */
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
