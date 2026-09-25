@@ -388,7 +388,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (prefers-reduced-motion:reduce){ .complex{transition:none} }
 
 /* ---------- концепция: вариант 2 из макета USC — колонка плиток + синяя панель с фото и рядами U ---------- */
-.cc-lead{margin:var(--s2) 0 0;max-width:80ch;font-size:var(--fs-body);line-height:var(--lh-body);opacity:.78}
 .cc-bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s2);align-items:stretch;margin-top:var(--s4)}
 .cc-tiles{display:grid;grid-auto-rows:1fr;gap:var(--s2);min-width:0}
 .cc-tiles .stat-card__value{font-size:clamp(40px,4.4vw,72px);color:var(--blue)}
@@ -396,8 +395,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-panel{display:grid;gap:var(--s3);min-width:0;padding:clamp(20px,2.2vw,32px);border-radius:var(--r);background:var(--blue);color:#fff}
 .cc-panel__head{display:grid;gap:var(--s2)}
 .cc-panel__brand{font-size:var(--fs-h3);font-weight:500;letter-spacing:-.02em}
-.cc-panel__brand i{font-style:normal;opacity:.75}
-.cc-panel__accent{margin:0;font-size:var(--fs-body);line-height:var(--lh-card);opacity:.92;max-width:62ch}
+.cc-panel__brand i{font-style:normal}
+.cc-panel__accent{margin:0;font-size:var(--fs-body);line-height:var(--lh-card);max-width:62ch}
 
 /* сцена с фото: слайды кроссфейдом, стрелки — пилюли поверх кадра */
 .cc-stage{position:relative;border-radius:var(--r-s);overflow:hidden;background:rgba(255,255,255,.12);aspect-ratio:16/9}
