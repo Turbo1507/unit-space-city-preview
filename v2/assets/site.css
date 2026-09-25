@@ -389,10 +389,15 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* ---------- концепция (Босс 25.09): один заголовок, один текст без цветных вставок, крупные цифры ----------
    карточки U1/U2/U3 убраны — их описывает секция «Комплексы» сразу следом */
-.cc-lead{max-width:70ch}
+/* карточка по ширине текста: на всю полосу под короткий абзац она выглядела пустой справа */
+.cc-card{padding:clamp(28px,3.4vw,44px);max-width:780px}
+.cc-lead{margin:0;font-size:var(--fs-sub);line-height:1.5;font-weight:400}
+/* акцент — синяя плашка под ключевым тезисом (правки заказчика 25.09) */
+.cc-accent{margin-top:var(--s2);max-width:780px}
+.cc-accent p{margin:0;font-size:var(--fs-sub);line-height:1.5}
 /* minmax(0,1fr): при обычном 1fr крупные числа («10+ лет») распирают свою колонку и ряд разъезжается.
    Брейкпоинты повторяют .stat-grid — иначе оверрайд держал бы 4 колонки и на мобиле */
-.cc-tiles{margin-top:var(--s5);grid-template-columns:repeat(4,minmax(0,1fr))}
+.cc-tiles{margin-top:var(--s5);grid-template-columns:repeat(3,minmax(0,1fr))}
 .cc-tiles .stat-card__value{font-size:clamp(40px,4.4vw,68px)}
 @media (max-width:820px){ .cc-tiles{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:520px){ .cc-tiles{grid-template-columns:minmax(0,1fr)} }
