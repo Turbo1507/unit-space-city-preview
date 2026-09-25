@@ -27,6 +27,8 @@ en = en.replace(/<title>[^<]*<\/title>/, `<title>${EN['meta.title']}</title>`);
 en = en.replace(/(<meta name="description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
 en = en.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${EN['meta.title']}$2`).replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${EN['meta.desc'].replace(/"/g, '&quot;')}$2`);
 en = en.replace('<meta property="og:locale" content="ru_RU">', '<meta property="og:locale" content="en_US">');
+// мастерплан Nuanu — единственная картинка с текстом внутри, у неё отдельный EN-файл (словарь подменяет только alt)
+en = en.replaceAll('nuanu-plan-ru', 'nuanu-plan-en');
 en = en.replace('"inLanguage":"ru"', '"inLanguage":"en"');
 en = en.replace('"description":"Три жилых комплекса U1 Space Village, U2 Nuanu Village и U3 Nyanyi Village рядом с Nuanu Creative City, Бали"', '"description":"Three residential complexes — U1 Space Village, U2 Nuanu Village and U3 Nyanyi Village — next to Nuanu Creative City, Bali"');
 en = swapLang(en);
