@@ -394,7 +394,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-tiles{display:grid;grid-auto-rows:1fr;gap:var(--s2);min-width:0}
 .cc-tiles .stat-card__value{font-size:clamp(40px,4.4vw,72px);color:var(--blue)}
 
-.cc-panel{display:grid;gap:var(--s3);min-width:0;padding:clamp(20px,2.2vw,32px);border-radius:var(--r);background:var(--blue);color:#fff}
+.cc-panel{display:grid;gap:var(--s3);min-width:0;padding:var(--s4);border-radius:var(--r);background:var(--blue);color:#fff}
 .cc-panel__head{display:grid;gap:var(--s2)}
 .cc-panel__brand{font-size:var(--fs-h3);font-weight:500;letter-spacing:-.02em}
 .cc-panel__brand i{font-style:normal}
@@ -408,7 +408,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-slide img{width:100%;height:100%;object-fit:cover;display:block}
 /* тег комплекса прямо на кадре, левый нижний угол: у каждого фото свой */
 .cc-tag{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:inline-flex;align-items:center;gap:var(--s1);
-  max-width:calc(100% - var(--s2)*2);padding:10px 14px;border-radius:var(--r-s);background:#fff;
+  max-width:calc(100% - var(--s2)*2);padding:8px 12px;border-radius:var(--r-s);background:#fff;
   color:var(--ink);text-decoration:none;transition:transform .18s var(--ease)}
 .cc-tag__code{flex:none;color:var(--blue);font-weight:500}
 .cc-tag__name{min-width:0;font-size:var(--fs-body);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -418,7 +418,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-arrow--next{right:var(--s2)}
 
 /* что общего у трёх очередей — двумя чипами под кадром */
-.cc-feats{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1);margin:0;padding:0;list-style:none}
+.cc-feats{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);margin:0;padding:0;list-style:none}
 .cc-feat{display:flex;align-items:center;gap:var(--s1);min-width:0;padding:var(--s2);border-radius:var(--r-s);
   background:#fff;color:var(--ink);font-size:var(--fs-body);font-weight:500}
 .cc-feat .ic{color:var(--blue)}
@@ -427,9 +427,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:640px){
   .cc-tiles{grid-template-columns:1fr} .cc-feats{grid-template-columns:1fr}
   .cc-stage{aspect-ratio:4/3}
-  .cc-tag{padding:6px 10px;gap:10px}
+  .cc-panel{padding:var(--s3)}
+  .cc-tag{padding:4px 8px;gap:var(--s1)}
   .cc-tag__name{font-size:var(--fs-cap)}
-  .cc-tag .status-chip{height:24px;padding:0 10px}
+  .cc-tag .status-chip{height:24px;padding:0 12px}
 }
 
 /* ---------- о компании — паттерны unitdeveloper.com ---------- */
