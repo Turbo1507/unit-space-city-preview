@@ -33,7 +33,7 @@ export function langHead(lang, rel) {
 }
 // старые адреса /en/... → корень: GitHub Pages без серверных редиректов, поэтому meta refresh + canonical на новый URL
 export function redirectStub(to) {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>UNIT. Space City</title><meta name="robots" content="noindex"><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script></head><body><a href="${to}">${to}</a></body></html>\n`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>UNIT.SPACE CITY</title><meta name="robots" content="noindex"><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script></head><body><a href="${to}">${to}</a></body></html>\n`;
 }
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
@@ -70,9 +70,9 @@ const ATTR = {
   'Карта: Nuanu, Бали': 'Map: Nuanu, Bali',
   'Виллы U1 Space Village среди рисовых полей': 'U1 Space Village villas among the rice fields',
   'Фасады вилл U1 с деревянными террасами': 'U1 villa façades with timber terraces',
-  'Терраса виллы UNIT. Space на закате': 'UNIT. Space villa terrace at sunset',
+  'Терраса виллы UNIT.SPACE на закате': 'UNIT.SPACE villa terrace at sunset',
   'Лежаки у приватного бассейна виллы U2': 'Sun loungers by a private U2 villa pool',
-  'Виллы UNIT. Space в рисовых полях у Nuanu': 'UNIT. Space villas in the rice fields next to Nuanu',
+  'Виллы UNIT.SPACE в рисовых полях у Nuanu': 'UNIT.SPACE villas in the rice fields next to Nuanu',
   'Общий двор U2 с бассейном и лаунжем': 'U2 shared courtyard with pool and lounge',
   'Фасады U2 Nuanu Village': 'U2 Nuanu Village façades',
   'Терраса виллы U2 с видом на рисовые поля': 'U2 villa terrace overlooking the rice fields',
@@ -101,10 +101,10 @@ const ATTR = {
   'U3 — вилла с деревянным фасадом, рендер': 'U3 — villa with a timber façade, render',
   'U3 — внутренний двор с пальмами, рендер': 'U3 — courtyard with palms, render',
   'U3 — зона у приватного бассейна, рендер': 'U3 — private pool area, render',
-  'Комплекс UNIT. Space с высоты — виллы и зелёные дворы': 'UNIT. Space complex from above — villas and green courtyards',
+  'Комплекс UNIT.SPACE с высоты — виллы и зелёные дворы': 'UNIT.SPACE complex from above — villas and green courtyards',
   'Коридор виллы с панорамным видом на рисовые поля': 'Villa corridor with a panoramic view of the rice fields',
   'Кухня виллы с видом на поля': 'Villa kitchen with a view of the fields',
-  'Терраса виллы UNIT. Space': 'UNIT. Space villa terrace',
+  'Терраса виллы UNIT.SPACE': 'UNIT.SPACE villa terrace',
   'Зона отдыха у бассейна U3': 'Lounge area by the U3 pool',
   'Закрыть меню': 'Close menu', 'Комплексы': 'Complexes', 'Меню': 'Menu', 'Разделы': 'Sections', 'Язык': 'Language',
   'Уведомление об использовании cookie': 'Cookie notice'
