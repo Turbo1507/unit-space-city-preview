@@ -403,9 +403,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-stage{position:relative;border-radius:var(--r-s);overflow:hidden;background:rgba(255,255,255,.12);aspect-ratio:16/9}
 .cc-slide{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease)}
 .cc-slide.is-in{opacity:1}
+.cc-slide picture{display:block;width:100%;height:100%}
 .cc-slide img{width:100%;height:100%;object-fit:cover;display:block}
-.cc-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:1;width:40px;height:40px;border:0;border-radius:50%;
-  background:rgba(255,255,255,.9);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s var(--ease)}
+/* чип с кодом комплекса на самом кадре — сразу видно, чьё фото сейчас показано */
+.cc-slide__chip{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;
+  height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+  color:var(--blue);font-size:var(--fs-cap);font-weight:500}
+/* стрелки — тот же тонкий шеврон, что в барабане юнита (.ugal__arrow), только позиции свои */
 .cc-arrow--prev{left:var(--s2)}
 .cc-arrow--next{right:var(--s2)}
 
@@ -952,7 +956,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .btn-primary:hover{background:var(--blue-press)}
   .btn-outline:hover{color:var(--blue)}
   .fmt-card__more:hover,.product-card__cta:hover,.gal-more:hover{background:#dde4ff}
-  .cc-arrow:hover{background:#fff}
+  .cc-arrow:hover{opacity:1}
   .cc-row:hover{transform:translateX(3px)}
   .site-nav a:hover{opacity:1}
   .hd-sel__btn:hover{opacity:1}
