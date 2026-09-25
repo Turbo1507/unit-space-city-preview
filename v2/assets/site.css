@@ -632,7 +632,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .infra__body{padding:0}
 .infra__body .t-h3{margin-bottom:var(--s1)}
 .infra__body .tag-row{margin-top:var(--s3)}
-@media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
+/* мастерплан Nuanu — кадр широкий (2:1), под 4/3 его резало по краям: даём фото больше колонки и пропорцию ближе к исходной */
+.card.infra--plan{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.infra__photo--plan{aspect-ratio:16/10}
+@media (max-width:760px){ .card.infra{grid-template-columns:1fr} .infra__photo--plan{aspect-ratio:3/2} }
 /* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (Босс 23.09, десктоп-версия на паузе) */
 .own-mobile{display:none}
 @media (max-width:760px){ .own-desktop{display:none} .own-mobile{display:block} }
