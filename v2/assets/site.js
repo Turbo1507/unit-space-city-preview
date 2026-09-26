@@ -223,7 +223,16 @@
       if (focusTab) tabs[i].focus();
       /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже (Босс 22.09) */
       if (window.__uscSyncCatalog) window.__uscSyncCatalog(slides[i].id);
+      fitTrack();
+      // если с раскрытого длинного коллажа перешли на короткий комплекс и его низ оказался выше экрана — показать его начало
+      var r = slides[i].getBoundingClientRect(), navB = cxNav.getBoundingClientRect().bottom;
+      if (r.bottom < navB + 120) scrollTo({ top: scrollY + r.top - navB, behavior: 'smooth' });
     }
+    /* панели стоят друг на друге в одной ячейке сетки — высота секции = высота активной панели,
+       а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) (Босс 27.09) */
+    function fitTrack() { if (slides[cur]) cxTrack.style.height = slides[cur].offsetHeight + 'px'; }
+    if (window.ResizeObserver) { var cxRO = new ResizeObserver(fitTrack); slides.forEach(function (s) { cxRO.observe(s); }); }
+    addEventListener('resize', fitTrack);
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
     cxNav.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }

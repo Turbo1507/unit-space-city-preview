@@ -341,7 +341,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 }
 
 .complex-slider{overflow:hidden;position:relative}
-.complex-track{display:grid}
+.complex-track{display:grid;align-items:start;transition:height .6s var(--ease)}
 .complex{grid-area:1/1;padding-block:var(--sy);transition:transform .6s var(--ease),opacity .6s var(--ease)}
 .complex[data-state="prev"]{transform:translateX(-100%);opacity:0;pointer-events:none}
 .complex[data-state="next"]{transform:translateX(100%);opacity:0;pointer-events:none}
@@ -386,7 +386,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   /* на мобиле лента и так одна, со всеми фото — кнопке «Показать ещё» нечего показывать (Босс 23.09) */
   .gal-more{display:none}
 }
-@media (prefers-reduced-motion:reduce){ .complex{transition:none} }
+@media (prefers-reduced-motion:reduce){ .complex,.complex-track{transition:none} }
 
 /* ---------- концепция: вариант 2 из макета USC — колонка плиток + синяя панель с фото и рядами U ---------- */
 #concept .t-h2{max-width:none}
