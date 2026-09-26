@@ -739,37 +739,97 @@
   })();
 
   /* ---------- «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку (Босс 23.09) ---------- */
-  /* Раскрытые тайлы продолжают тот же бенто-ритм 4×2 (крупный + средние + мелкие), блоками по 2 ряда,
-     каждый следующий блок зеркально — не сетка одинаковых квадратов (Босс 27.09). [колонка, ширина, ряд, высота] */
-  var BENTO = {
-    6: [[1,1,0,2],[2,1,0,1],[2,1,1,1],[3,2,0,1],[3,1,1,1],[4,1,1,1]],
-    5: [[1,1,0,2],[2,1,0,1],[2,1,1,1],[3,2,0,1],[3,2,1,1]],
-    4: [[1,2,0,2],[3,1,0,1],[4,1,0,1],[3,2,1,1]],
-    3: [[1,2,0,2],[3,2,0,1],[3,2,1,1]],
-    2: [[1,2,0,2],[3,2,0,2]]
+  /* Бенто-ритм 4×2 (крупный + широкий + мелкие), блоками по 2 ряда, раскрытые тайлы продолжают его — не сетка
+     одинаковых квадратов (Босс 26.09). Схема каждого блока и место каждого фото подбираются по пропорциям фото
+     (data-ar) и реальным размерам плиток на текущей ширине: вертикальные — в высокие плитки, панорамы — в широкие,
+     чтобы кадр не резался до непонятного (Босс 27.09). Только десктоп: на ≤800 коллаж — лента-слайдер. */
+  var UNITS = {                                  // [сдвиг колонки, ширина, ряд, высота, тип]
+    T:   { w: 1, s: [[0,1,0,2,'T']] },
+    SS:  { w: 1, s: [[0,1,0,1,'S'],[0,1,1,1,'S']] },
+    B:   { w: 2, s: [[0,2,0,2,'B']] },
+    WW:  { w: 2, s: [[0,2,0,1,'W'],[0,2,1,1,'W']] },
+    WSS: { w: 2, s: [[0,2,0,1,'W'],[0,1,1,1,'S'],[1,1,1,1,'S']] },
+    SSW: { w: 2, s: [[0,1,0,1,'S'],[1,1,0,1,'S'],[0,2,1,1,'W']] }
   };
-  function bentoChunks(n) {
+  var COMBOS = (function () {                    // все раскладки блока 4 колонки × 2 ряда
     var out = [];
-    while (n > 0) { var k = Math.min(6, n); out.push(k); n -= k; }
-    if (out.length > 1 && out[out.length - 1] === 1) { out.pop(); out[out.length - 1] = 4; out.push(3); }
-    return out;
-  }
-  function layoutMore(gallery) {
-    var tiles = gallery.querySelectorAll('.tile-more'), i = 0, row = 3;
-    bentoChunks(tiles.length).forEach(function (k, g) {
-      var mirror = g % 2 === 0;
-      (BENTO[k] || [[1,4,0,2]]).forEach(function (s) {
-        var col = mirror ? 6 - s[0] - s[1] : s[0], t = tiles[i++];
-        t.style.gridColumn = col + ' / span ' + s[1];
-        t.style.gridRow = (row + s[2]) + ' / span ' + s[3];
-      });
-      row += 2;
+    (function rec(seq, cols) {
+      if (cols === 4) { out.push(seq); return; }
+      Object.keys(UNITS).forEach(function (u) { if (cols + UNITS[u].w <= 4) rec(seq.concat(u), cols + UNITS[u].w); });
+    })([], 0);
+    return out.map(function (seq) {
+      var slots = [], col = 1;
+      seq.forEach(function (u) { UNITS[u].s.forEach(function (s) { slots.push([col + s[0], s[1], s[2], s[3], s[4]]); }); col += UNITS[u].w; });
+      return { key: seq.join('+'), slots: slots, kinds: slots.reduce(function (a, s) { if (a.indexOf(s[4]) < 0) a.push(s[4]); return a; }, []).length };
     });
+  })();
+  // высота ряда = доля ширины колонки, чтобы форма плиток не зависела от ширины экрана
+  // (раньше clamp по vw: на 820 плитки вытягивались, на 1680+ сплющивались)
+  var ROW_K = 1;
+  function tileAr(g) {
+    var gap = parseFloat(getComputedStyle(g).columnGap) || 0;
+    // коллаж в скрытом табе имеет ширину 0 — берём ширину видимого соседа (контейнер у всех один)
+    var w = g.clientWidth || Math.max.apply(null, galleries.map(function (x) { return x.clientWidth; }));
+    var c = (w - 3 * gap) / 4, r = Math.round(c * ROW_K);
+    g.style.gridAutoRows = r + 'px';
+    return { T: c / (2 * r + gap), S: c / r, W: (2 * c + gap) / r, B: (2 * c + gap) / (2 * r + gap) };
   }
+  function figAr(f) {
+    var a = parseFloat(f.getAttribute('data-ar')), img = f.querySelector('img');
+    if (!a && img && img.naturalWidth) a = img.naturalWidth / img.naturalHeight;
+    return a || 1.5;
+  }
+  // сортированное сопоставление пропорций (оптимально для 1D): доля кадра, которая остаётся видна
+  function fitBlock(combo, ars, AR) {
+    var sl = combo.slots.map(function (s, i) { return { i: i, a: AR[s[4]] }; }).sort(function (x, y) { return x.a - y.a; });
+    var ph = ars.map(function (a, i) { return { i: i, a: a }; }).sort(function (x, y) { return x.a - y.a; });
+    var map = [], vis = [];
+    sl.forEach(function (s, k) { map[s.i] = ph[k].i; vis.push(Math.min(s.a, ph[k].a) / Math.max(s.a, ph[k].a)); });
+    var min = Math.min.apply(null, vis), mean = vis.reduce(function (a, v) { return a + v; }, 0) / vis.length;
+    return { map: map, score: min * 0.6 + mean * 0.4 };
+  }
+  function layoutGallery(g) {
+    var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE'; });
+    if (window.innerWidth <= 800) { figs.forEach(function (f) { f.style.gridColumn = f.style.gridRow = ''; }); g.style.gridAutoRows = ''; return; }
+    var AR = tileAr(g), first = figs.filter(function (f) { return !f.classList.contains('tile-more'); }).length;
+    var i = 0, row = 1, prev = '';
+    function bestFor(part) {
+      var ars = part.map(figAr), k = part.length, best = null;
+      COMBOS.forEach(function (c) {
+        if (c.slots.length !== k || c.kinds < (k > 4 ? 3 : 2)) return;
+        var fit = fitBlock(c, ars, AR), sc = fit.score - (c.key === prev ? 0.05 : 0);
+        if (!best || sc > best.sc) best = { c: c, fit: fit, sc: sc };
+      });
+      return best;
+    }
+    while (i < figs.length) {
+      // первый блок — видимые без «Показать все фото»; дальше блок берёт 3–6 фото, как лучше ложатся
+      // (хвост в 1–2 фото не оставляем)
+      var left = figs.length - i, pick = null;
+      (i === 0 ? [first] : [6, 5, 4, 3]).forEach(function (k) {
+        if (k > left || (i > 0 && left - k > 0 && left - k < 3)) return;
+        var b = bestFor(figs.slice(i, i + k));
+        if (b && (!pick || b.sc + 0.015 * k > pick.b.sc + 0.015 * pick.k)) pick = { k: k, b: b };
+      });
+      if (!pick && left <= 2) pick = { k: left, b: bestFor(figs.slice(i)) };
+      if (!pick || !pick.b) break;
+      var part = figs.slice(i, i + pick.k);
+      pick.b.c.slots.forEach(function (s, si) {
+        var f = part[pick.b.fit.map[si]];
+        f.style.gridColumn = s[0] + ' / span ' + s[1];
+        f.style.gridRow = (row + s[2]) + ' / span ' + s[3];
+      });
+      prev = pick.b.c.key; i += pick.k; row += 2;
+    }
+  }
+  var galleries = [].slice.call(document.querySelectorAll('.complex__gallery'));
+  galleries.forEach(layoutGallery);
+  var galT;
+  window.addEventListener('resize', function () { clearTimeout(galT); galT = setTimeout(function () { galleries.forEach(layoutGallery); }, 150); });
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
-    btn.addEventListener('click', function () { layoutMore(gallery); gallery.classList.add('is-expanded'); btn.remove(); });
+    btn.addEventListener('click', function () { gallery.classList.add('is-expanded'); btn.remove(); });
   });
 
   /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */
