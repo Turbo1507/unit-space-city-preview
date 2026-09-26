@@ -22,11 +22,11 @@ window.USC_COMPLEX = {
   u2:{code:'U2',name:'Nuanu Village', status:{ru:'сдан в 2025, заселён',en:'completed 2025, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}},
   u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача осенью 2026',en:'under construction, handover autumn 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}}
 };
-window.USC_PRICE = {ru:{studio:'от $122 500','1bd':'от $140 000','2bd':'от $191 000',villa:'от $317 000'},
-                    en:{studio:'from $122,500','1bd':'from $140,000','2bd':'from $191,000',villa:'from $317,000'}};
+window.USC_PRICE = {ru:{studio:'от $95 000','1bd':'от $115 000','2bd':'от $170 000',villa:'от $290 000'},
+                    en:{studio:'from $95,000','1bd':'from $115,000','2bd':'from $170,000',villa:'from $290,000'}};
 /* числовая цена в USD — источник для форматирования USD/IDR в рантайме (window.__uscMoney, site.js).
-   Средние по актуальным резейл-лотам (Google Sheets, 22.09), не прайс девелопера — Босс подтвердил 23.09 */
-window.USC_PRICE_USD = {studio:122500,'1bd':140000,'2bd':191000,villa:317000};
+   Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы Босса */
+window.USC_PRICE_USD = {studio:95000,'1bd':115000,'2bd':170000,villa:290000};
 window.USC_FMT = {
   studio:{desc:{ru:'Единое пространство: спальня, кухня и гостиная в одном объёме. Полная меблировка',en:'A single open space: bedroom, kitchen and living room in one volume. Fully furnished'}},
   '1bd':{desc:{ru:'Отдельная спальня, кухня и гостиная. Вариант с приватным бассейном — в U3',en:'A separate bedroom, kitchen and living room. A private-pool option is available in U3'}},
