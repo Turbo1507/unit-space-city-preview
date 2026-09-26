@@ -235,7 +235,12 @@
     }
     /* панели стоят друг на друге в одной ячейке сетки — высота секции = высота активной панели,
        а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) (Босс 27.09) */
-    function fitTrack() { if (slides[cur]) cxTrack.style.height = slides[cur].offsetHeight + 'px'; }
+    function fitTrack() {
+      if (slides[cur]) cxTrack.style.height = slides[cur].offsetHeight + 'px';
+      // нативный переход по якорю #cx-uN (при загрузке по ссылке) останавливается под шапкой и табами, а не за ними
+      var m = (parseFloat(getComputedStyle(cxNav).top) || 0) + cxNav.offsetHeight + 'px';
+      slides.forEach(function (s) { s.style.scrollMarginTop = m; });
+    }
     if (window.ResizeObserver) { var cxRO = new ResizeObserver(fitTrack); slides.forEach(function (s) { cxRO.observe(s); }); }
     addEventListener('resize', fitTrack);
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
@@ -261,8 +266,23 @@
     }
     var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
     go(start >= 0 ? start : 0);
-    if (start >= 0) requestAnimationFrame(function () { cxNav.scrollIntoView({ block: 'start' }); });
+    function toBlock(behavior) {
+      var stick = parseFloat(getComputedStyle(cxNav).top) || 0;
+      scrollTo({ top: scrollY + cxTrack.getBoundingClientRect().top - stick - cxNav.offsetHeight, behavior: behavior });
+    }
+    if (start >= 0) requestAnimationFrame(function () { toBlock('auto'); });
     addEventListener('hashchange', function () { var h = location.hash.replace('#', ''), i = slides.findIndex(function (s) { return s.id === h; }); if (i >= 0) go(i); });
+    /* ссылки на #cx-uN (чипы блока 2, футер): открыть комплекс и подвести страницу к началу блока сами —
+       нативный переход по якорю на сдвинутую панель прокручивал слайдер вбок, и блок был пустым (Босс 27.09) */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#cx-"]'); if (!a) return;
+      var i = slides.findIndex(function (s) { return s && '#' + s.id === a.getAttribute('href'); }); if (i < 0) return;
+      e.preventDefault();
+      go(i);
+      if (history.replaceState) history.replaceState(null, '', a.getAttribute('href'));
+      toBlock('smooth');
+    });
+    if (cxSlider) cxSlider.addEventListener('scroll', function () { cxSlider.scrollLeft = 0; });
   }
 
   /* ---------- каталог: карточки-товары, ссылки на units/<slug>.html; перерисовка при смене языка ---------- */
