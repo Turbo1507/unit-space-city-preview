@@ -1,0 +1,46 @@
+# Наличие вилл = Google-таблица Босса. Раз в час (и по кнопке Run workflow) скачиваем таблицу;
+# если лоты/цены изменились — пересобираем сайт и коммитим, Pages выкатывает сам.
+# Сломанная таблица (меньше 5 распознанных лотов) → sync-lots.mjs падает, сайт не трогаем.
+name: sync-lots
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-lots
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Скачать таблицу
+        working-directory: v2
+        run: node tools/sync-lots.mjs
+      - name: Пересобрать, если данные изменились
+        id: build
+        run: |
+          if git diff --quiet; then echo "Таблица не менялась"; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          cd v2
+          node tools/build-index.mjs
+          node tools/build-units.mjs
+          node tools/build-privacy.mjs
+          node tools/build-sitemap.mjs
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Закоммитить
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          git config user.name "sync-lots bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add v2
+          git commit -m "Наличие вилл: обновлено из таблицы"
+          git push
