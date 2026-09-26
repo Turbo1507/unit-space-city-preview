@@ -119,8 +119,8 @@
     return Math.round(n).toLocaleString('id-ID');
   };
   function fmtIdr(n) { return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx); }
-  window.__uscMoney = function (usd, lang) {
-    return (lang === 'ru' ? 'от ' : 'from ') + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
+  window.__uscMoney = function (usd, lang, exact) {
+    return (exact ? '' : (lang === 'ru' ? 'от ' : 'from ')) + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
   };
   var CALC_LABELS = [{ sel: '[data-i18n="calc.price"]' }, { sel: '[data-i18n="calc.rate"]' }, { sel: '[data-i18n="form.budget"]' }];
   function refreshMoney() {
@@ -289,10 +289,39 @@
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<span class="btn btn-outline product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
   };
+  /* карточка реального лота из таблицы Босса (assets/lots.js): поля те же, что у карточки формата,
+     но метраж и цена — этого лота (цена точная, без «от»); фото по кругу из барабана формата */
+  window.__uscLotCard = function (lot, n, hrefBase) {
+    var CX = window.USC_COMPLEX, lang = L(), d = D();
+    var page = window.USC_UNITS.filter(function (u) { return u.slug === lot.slug; })[0];
+    var named = window.USC_UNITS.filter(function (u) { return u.fmt === lot.fmt && u.q === lot.q; })[0] ||
+                window.USC_UNITS.filter(function (u) { return u.fmt === lot.fmt; })[0] || page;
+    var ph = page.photos[n % page.photos.length];
+    var area = (lang === 'ru' ? String(lot.area).replace('.', ',') : String(lot.area)) + (lang === 'ru' ? ' м²' : ' m²');
+    return '<a class="product-card" href="' + hrefBase + page.slug + '.html">' +
+      '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
+      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[lot.q].code + ' — ' + named.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
+      '<span class="product-card__area">' + area + '</span></div>' +
+      '<div class="product-card__row"><div><div class="product-card__name">' + named.name[lang] + '</div>' +
+      '<div class="product-card__meta dim">' + CX[lot.q].code + ', ' + page.floor[lang] + '</div></div>' +
+      '<span class="product-card__price">' + window.__uscMoney(lot.price, lang, true) + '</span></div>' +
+      '<span class="btn btn-outline product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
+  };
   if (uWrap && window.USC_UNITS) {
-    var st = { q: 'all', fmt: 'all' };
+    var st = { q: 'all', fmt: 'all', open: false };
+    var CAT_FIRST = 12;
+    var catMore = document.getElementById('unitsMore');
+    if (catMore) catMore.addEventListener('click', function () { st.open = true; renderUnits(); });
     function renderUnits() {
-      var list = window.USC_UNITS.filter(function (u) { return (st.q === 'all' || u.q === st.q) && (st.fmt === 'all' || u.fmt === st.fmt); });
+      var src = window.USC_LOTS && window.USC_LOTS.length ? window.USC_LOTS : window.USC_UNITS;
+      var list = src.filter(function (u) { return (st.q === 'all' || u.q === st.q) && (st.fmt === 'all' || u.fmt === st.fmt); });
+      /* «все комплексы»: чередуем U1/U2/U3, чтобы в первых карточках до «Показать все» были все три */
+      if (st.q === 'all') {
+        var byQ = ['u1', 'u2', 'u3'].map(function (q) { return list.filter(function (u) { return u.q === q; }); }), mixed = [];
+        for (var k = 0; mixed.length < list.length; k++) byQ.forEach(function (arr) { if (arr[k]) mixed.push(arr[k]); });
+        list = mixed;
+      }
+      if (catMore) catMore.parentElement.hidden = st.open || list.length <= CAT_FIRST;
       if (uCnt) uCnt.textContent = list.length;
       if (!list.length) {
         var d = (window.I18N && window.I18N[L()]) || {};
@@ -307,13 +336,19 @@
         });
         return;
       }
-      uWrap.innerHTML = list.map(function (u) { return window.__uscUnitCard(u, 'units/'); }).join('');
+      var seen = {};
+      var shown = st.open ? list : list.slice(0, CAT_FIRST);
+      uWrap.innerHTML = shown.map(function (u) {
+        if (!u.id) return window.__uscUnitCard(u, 'units/');
+        seen[u.slug] = (seen[u.slug] || 0) + 1;
+        return window.__uscLotCard(u, seen[u.slug] - 1, 'units/');
+      }).join('');
     }
     if (filters) filters.addEventListener('click', function (e) {
       var b = e.target.closest('.chip'); if (!b) return;
       var f = b.dataset.f;
       filters.querySelectorAll('.chip[data-f="' + f + '"]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      st[f] = b.dataset.v; renderUnits();
+      st[f] = b.dataset.v; st.open = false; renderUnits();
     });
     renderUnits();
     var prevHook = window.__uscRerender;
@@ -321,7 +356,7 @@
     /* синхронизация с выбором комплекса в блоке «Комплексы» выше по странице (Босс 22.09) */
     window.__uscSyncCatalog = function (cxId) {
       var v = cxId.replace('cx-', '');
-      st.q = v;
+      st.q = v; st.open = false;
       if (filters) filters.querySelectorAll('.chip[data-f="q"]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.v === v)); });
       renderUnits();
     };
@@ -704,10 +739,37 @@
   })();
 
   /* ---------- «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку (Босс 23.09) ---------- */
+  /* Раскрытые тайлы продолжают тот же бенто-ритм 4×2 (крупный + средние + мелкие), блоками по 2 ряда,
+     каждый следующий блок зеркально — не сетка одинаковых квадратов (Босс 27.09). [колонка, ширина, ряд, высота] */
+  var BENTO = {
+    6: [[1,1,0,2],[2,1,0,1],[2,1,1,1],[3,2,0,1],[3,1,1,1],[4,1,1,1]],
+    5: [[1,1,0,2],[2,1,0,1],[2,1,1,1],[3,2,0,1],[3,2,1,1]],
+    4: [[1,2,0,2],[3,1,0,1],[4,1,0,1],[3,2,1,1]],
+    3: [[1,2,0,2],[3,2,0,1],[3,2,1,1]],
+    2: [[1,2,0,2],[3,2,0,2]]
+  };
+  function bentoChunks(n) {
+    var out = [];
+    while (n > 0) { var k = Math.min(6, n); out.push(k); n -= k; }
+    if (out.length > 1 && out[out.length - 1] === 1) { out.pop(); out[out.length - 1] = 4; out.push(3); }
+    return out;
+  }
+  function layoutMore(gallery) {
+    var tiles = gallery.querySelectorAll('.tile-more'), i = 0, row = 3;
+    bentoChunks(tiles.length).forEach(function (k, g) {
+      var mirror = g % 2 === 0;
+      (BENTO[k] || [[1,4,0,2]]).forEach(function (s) {
+        var col = mirror ? 6 - s[0] - s[1] : s[0], t = tiles[i++];
+        t.style.gridColumn = col + ' / span ' + s[1];
+        t.style.gridRow = (row + s[2]) + ' / span ' + s[3];
+      });
+      row += 2;
+    });
+  }
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
-    btn.addEventListener('click', function () { gallery.classList.add('is-expanded'); btn.remove(); });
+    btn.addEventListener('click', function () { layoutMore(gallery); gallery.classList.add('is-expanded'); btn.remove(); });
   });
 
   /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */

@@ -12,7 +12,7 @@ const assetsDir = path.join(root, 'photos');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/i18n.js'), 'utf8').split('window.setLang')[0], ctx);
-const { USC_UNITS, USC_COMPLEX, USC_PRICE, USC_FMT, I18N } = ctx.window;
+const { USC_UNITS, USC_COMPLEX, USC_PRICE, USC_PRICE_USD, USC_FMT, I18N } = ctx.window;
 const tpl = fs.readFileSync(path.join(here, 'unit-template.html'), 'utf8');
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 const m2 = { ru: 'м²', en: 'm²' };
@@ -43,7 +43,7 @@ for (const lang of ['ru', 'en']) {
       .replaceAll('{{URL}}', `${BASE}${lang === 'ru' ? 'ru/' : ''}units/${u.slug}.html`)
       .replaceAll('{{OGIMG}}', `https://turbo1507.github.io/unit-space-city-preview/v2/photos/${u.photos[0]}.jpg`)
       .replaceAll('{{OGLOCALE}}', lang === 'en' ? 'en_US' : 'ru_RU')
-      .replaceAll('{{PRICENUM}}', String(({ studio: 122500, '1bd': 140000, '2bd': 191000, villa: 317000 })[u.fmt]))
+      .replaceAll('{{PRICENUM}}', String(USC_PRICE_USD[u.fmt]))
       .replaceAll('{{RATENUM}}', String(({ studio: 60, '1bd': 95, '2bd': 140, villa: 205 })[u.fmt]))
       .replaceAll('{{MGMTNUM}}', String(({ studio: 11, '1bd': 18, '2bd': 18, villa: 18 })[u.fmt]));
     if (lang === 'en') {

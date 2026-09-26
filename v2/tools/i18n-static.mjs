@@ -123,10 +123,10 @@ import { fileURLToPath } from 'node:url';
 const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function assetVersion() {
   const h = createHash('md5');
-  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'countries.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
+  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'lots.js', 'countries.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
   return h.digest('hex').slice(0, 8);
 }
 export function stamp(html) {
   const v = assetVersion();
-  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
+  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js|lots\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
 }
