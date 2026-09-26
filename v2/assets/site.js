@@ -225,8 +225,13 @@
       if (window.__uscSyncCatalog) window.__uscSyncCatalog(slides[i].id);
       fitTrack();
       // если с раскрытого длинного коллажа перешли на короткий комплекс и его низ оказался выше экрана — показать его начало
-      var r = slides[i].getBoundingClientRect(), navB = cxNav.getBoundingClientRect().bottom;
-      if (r.bottom < navB + 120) scrollTo({ top: scrollY + r.top - navB, behavior: 'smooth' });
+      toStart(slides[i], 'smooth');
+      // плавную прокрутку может сбить одновременное сжатие секции (transition height .6s) — после анимации добиваем без анимации
+      clearTimeout(go.t); go.t = setTimeout(function () { toStart(slides[cur], 'auto'); }, 700);
+    }
+    function toStart(s, behavior) {
+      var r = s.getBoundingClientRect(), navB = cxNav.getBoundingClientRect().bottom;
+      if (r.bottom < navB + 120) scrollTo({ top: scrollY + r.top - navB, behavior: behavior });
     }
     /* панели стоят друг на друге в одной ячейке сетки — высота секции = высота активной панели,
        а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) (Босс 27.09) */
