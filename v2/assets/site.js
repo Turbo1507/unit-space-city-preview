@@ -893,7 +893,7 @@
   if (document.getElementById('c-price')) {
     function money(n) {
       if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
-      return '$' + Math.round(n).toLocaleString('ru-RU');
+      return '$' + Math.round(n).toLocaleString(document.documentElement.lang === 'ru' ? 'ru-RU' : 'en-US');
     }
     /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
        текущую валюту (Босс 23.09: в IDR-режиме поля молчком оставались в $) */
@@ -956,4 +956,25 @@
       });
     }
   }
+  /* ---------- липкая кнопка заявки ≤1000px (impeccable critique 27.09) ----------
+     видна, когда хиро ушёл вверх, а форма и футер ещё не на экране; не спорит с баннером cookie */
+  (function () {
+    var btn = document.getElementById('mCta'), hero = document.querySelector('.hero'),
+        lead = document.getElementById('lead'), foot = document.querySelector('.site-footer'),
+        bar = document.getElementById('consentBar');
+    if (!btn || !hero || !('IntersectionObserver' in window)) return;
+    var seen = { hero: true, lead: false, foot: false };
+    function sync() {
+      var on = !seen.hero && !seen.lead && !seen.foot && !(bar && bar.classList.contains('in'));
+      btn.classList.toggle('in', on);
+      btn.setAttribute('aria-hidden', on ? 'false' : 'true');
+      btn.tabIndex = on ? 0 : -1;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { seen[e.target === hero ? 'hero' : e.target === lead ? 'lead' : 'foot'] = e.isIntersecting; });
+      sync();
+    });
+    [hero, lead, foot].forEach(function (el) { if (el) io.observe(el); });
+    if (bar && 'MutationObserver' in window) new MutationObserver(sync).observe(bar, { attributes: true, attributeFilter: ['class'] });
+  })();
 })();

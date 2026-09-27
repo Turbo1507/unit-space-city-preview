@@ -737,7 +737,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* ================================================================
    FINAL — GitBook contact: текст слева, форма-карточка на синей панели справа
    ================================================================ */
-.final-cta__split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,80px);align-items:center}
+.final-cta__split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,80px);align-items:start}
+/* текст стоит вровень с заголовком формы, а не по центру высокой панели (impeccable critique 27.09):
+   сдвиг = паддинг синей панели + паддинг белой карточки */
+.final-cta__split > :first-child{padding-top:calc(clamp(24px,4vw,56px) + clamp(24px,3vw,32px))}
 .final-cta__split .t-lead{margin-top:var(--s2)}
 .final-cta__contacts{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
 .lead-panel{background:var(--blue);border-radius:var(--r);padding:clamp(24px,4vw,56px)}
@@ -790,13 +793,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    на ~60px, шапка и крестик меню «уезжали» (Босс 15.09: «шапка кривая, бургер у края») */
 .final-cta__split > *,.lead-form .field,.lead-form__phone .csel{min-width:0}
 .lead-form input{width:100%;min-width:0}
-@media (max-width:760px){ .final-cta__split{grid-template-columns:minmax(0,1fr)} .lead-form__pair{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:760px){ .final-cta__split{grid-template-columns:minmax(0,1fr)} .final-cta__split > :first-child{padding-top:0} .lead-form__pair{grid-template-columns:minmax(0,1fr)} }
 
 /* ---------- footer ---------- */
 .site-footer{background:var(--paper);border-top:1px solid var(--line)}
 .site-footer .container{padding-block:clamp(48px,6vw,80px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s4)}
 .site-footer .brand p{margin-top:var(--s2);font-size:var(--fs-body);max-width:34ch;opacity:var(--dim)}
-.site-footer h5{font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500;margin:0 0 var(--s2)}
+.site-footer h3{font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500;margin:0 0 var(--s2)}
 .site-footer ul{display:grid;gap:var(--s1);font-size:var(--fs-body)}
 .site-footer ul a{opacity:.75}
 .site-footer .disclaimer{grid-column:1/-1;padding-top:var(--s3);font-size:var(--fs-cap);max-width:70ch;opacity:var(--dim)}
@@ -936,7 +939,26 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-footer ul a{display:inline-block;padding-block:8px}
   .footer-bottom a{display:inline-block;padding-block:8px}
   .hd-sel__btn{min-width:44px;min-height:44px}
+  /* impeccable critique 27.09: мелкие цели добиваем невидимой зоной нажатия, вид не меняется */
+  .chip{height:44px}
+  .btn-sm{--h:44px}
+  .ugal__arrow::after{content:"";position:absolute;inset:-6px}
+  .cc-tag::after{content:"";position:absolute;inset:-6px 0}
+  .burger,.site-header .hd-sel__btn,.site-footer ul a,.footer-bottom a{position:relative}
+  .burger::after,.site-header .hd-sel__btn::after{content:"";position:absolute;inset:-2px}
+  .site-footer ul a::after,.footer-bottom a::after{content:"";position:absolute;inset:-4px 0}
 }
+
+/* липкая кнопка заявки на мобилке и планшете: в шапке ≤1000px кнопки нет, до формы ~16 000px скролла
+   (impeccable critique 27.09). Видна после хиро; прячется у формы, у футера, при меню и баннере cookie */
+.m-cta{display:none}
+@media (max-width:1000px){
+  .m-cta{display:flex;position:fixed;left:var(--gut);right:var(--gut);bottom:calc(var(--s2) + env(safe-area-inset-bottom,0px));z-index:55;
+    transform:translateY(calc(100% + var(--s4)));visibility:hidden;transition:transform .3s var(--ease),visibility 0s .3s}
+  .m-cta.in{transform:none;visibility:visible;transition:transform .3s var(--ease),visibility 0s}
+  body.menu-open .m-cta{visibility:hidden}
+}
+@media (prefers-reduced-motion:reduce){ .m-cta,.m-cta.in{transition:none} }
 
 /* ---------- лайтбокс «галерея проекта» (Босс 21.09): клик по фото в коллаже/ленте комплекса ---------- */
 .lightbox{position:fixed;inset:0;z-index:120;background:rgba(10,11,13,.94);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s var(--ease)}
