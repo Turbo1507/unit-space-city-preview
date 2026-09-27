@@ -11,7 +11,7 @@
    ========================================================================== */
 :root{
   --paper:#F4F4F4; --ink:#3a3a3a; --ink-2:#6E6E75; --line:#e6e6e6; --line-2:#D2D2CE;
-  --white:#FFFFFF; --blue:#0433FF; --blue-press:#0327c9; --blue-050:#eef1ff; --wash:#ECECEA;
+  --white:#FFFFFF; --blue:#0433FF; --blue-press:#0327c9; --blue-050:#eef1ff; --err:#c3262e; --wash:#ECECEA;
   --dim:.62;
   --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:56px; --s7:80px;
   --sy:clamp(56px, 6.5vw, 96px);
@@ -586,7 +586,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);align-content:start}
-.calc .field{display:grid;gap:var(--s1)}
+.calc .field{display:grid;gap:var(--s1);align-content:start}
 .calc label{font-size:var(--fs-cap)}
 .calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
 .sect--alt .calc input{background:var(--white)}
@@ -752,6 +752,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .lead-form input,.lead-form select{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-size:var(--fs-body)}
 .lead-form input:focus,.lead-form select:focus{outline:none;border-color:var(--blue)}
 .lead-form .btn{width:100%;justify-content:center}
+/* ошибки полей (форма, калькулятор): красная рамка + строка под полем */
+.field__err{font-size:var(--fs-cap);line-height:1.4;color:var(--err)}
+.lead-form input[aria-invalid="true"],.calc input[aria-invalid="true"]{border-color:var(--err)}
+.lead-form input[aria-invalid="true"]:focus,.calc input[aria-invalid="true"]:focus{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
 .lead-form__note,.lead-form__consent{font-size:var(--fs-cap);line-height:1.45;opacity:var(--dim)}
 .lead-form__consent{margin-top:calc(-1 * var(--s1))}
 .lead-form__consent a{text-decoration:underline;text-underline-offset:3px}
