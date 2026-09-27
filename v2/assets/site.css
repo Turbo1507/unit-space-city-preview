@@ -520,7 +520,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    (Босс 23.09: карточка сама больше не ссылка целиком, фото — отдельная ссылка на детали) */
 .fmt-card__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);margin-top:var(--s1)}
 .fmt-card__plan{display:inline-flex;align-items:center;height:40px;padding:0 var(--s2);border-radius:var(--r-s);border:1px solid var(--line-2);font-size:var(--fs-cap);opacity:var(--dim);background:none}
-.fmt-card .product-card__price{height:40px;font-size:var(--fs-body)}
+.fmt-card .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
 .fmt-card__actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1)}
 .fmt-card__actions .btn{justify-content:center}
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
@@ -549,7 +549,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card__name{font-size:var(--fs-body);font-weight:500;line-height:1.35}
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
-.product-card__price{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:var(--r-s);background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;white-space:nowrap}
+/* цена — текст, а не синий чип: чип читался как кнопка (Босс 27.09 «вредно») */
+.product-card__price{flex:none;display:inline-flex;align-items:baseline;color:var(--ink);font-size:var(--fs-body);font-weight:500;line-height:1.35;white-space:nowrap;font-variant-numeric:tabular-nums}
 /* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная (Босс 23.09: «верни кнопку») */
 .product-card__cta{width:100%;justify-content:center;margin-top:4px}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
@@ -559,7 +560,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .product-card__row{flex-wrap:wrap;gap:var(--s1)}
   .product-card__row > div{flex-basis:100%}
   .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 10px;font-size:var(--fs-micro)}
-  .product-card__price{height:28px;font-size:var(--fs-micro)}
 }
 
 .empty{grid-column:1/-1;justify-items:center;text-align:center;padding:var(--s6) var(--s3);gap:var(--s2)}
