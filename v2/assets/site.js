@@ -693,6 +693,37 @@
     function reformat() { var o = cc.selectedOptions[0]; tel.value = fmt(tel.value.replace(/\D+/g, ''), o && o.getAttribute('data-format')); }
     tel.addEventListener('input', reformat); cc.addEventListener('change', reformat);
   });
+
+  /* проверка формы заявки (Босс 27.09: отправку пока не подключать, ошибки ловить можно).
+     Имя обязательно, из телефона и email хватит одного; ошибка под полем, фокус на первое неверное */
+  var leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    var fName = document.getElementById('f-name'), fPhone = document.getElementById('f-phone'), fEmail = document.getElementById('f-email');
+    var tried = false;
+    function setErr(input, key) {
+      var field = input.closest('.field'), id = input.id + '-err', p = document.getElementById(id);
+      if (!key) { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); if (p) p.remove(); return; }
+      if (!p) { p = document.createElement('p'); p.id = id; p.className = 'field__err'; p.setAttribute('aria-live', 'polite'); field.appendChild(p); }
+      p.setAttribute('data-i18n', key); p.textContent = D()[key] || '';
+      input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id);
+    }
+    function check() {
+      var name = fName.value.trim(), digits = fPhone.value.replace(/\D+/g, ''), mail = fEmail.value.trim(), bad = [];
+      var eName = name.length < 2 ? 'form.err_name' : '';
+      var ePhone = digits && digits.length < 6 ? 'form.err_phone' : '';
+      var eMail = mail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail) ? 'form.err_email' : '';
+      if (!digits && !mail) ePhone = 'form.err_contact';
+      setErr(fName, eName); setErr(fPhone, ePhone); setErr(fEmail, eMail);
+      if (eName) bad.push(fName); if (ePhone) bad.push(fPhone); if (eMail) bad.push(fEmail);
+      return bad;
+    }
+    leadForm.addEventListener('submit', function (e) {
+      e.preventDefault(); tried = true;
+      var bad = check(); if (bad.length) bad[0].focus();
+    });
+    /* до первой попытки не ругаемся; после — ошибка снимается сразу, как только поле исправлено */
+    [fName, fPhone, fEmail].forEach(function (el) { el.addEventListener('input', function () { if (tried) check(); }); });
+  }
   if (csels.length) {
     document.addEventListener('click', function (e) { csels.forEach(function (c) { if (!c.wrap.contains(e.target)) c.close(); }); });
     var prevCsel = window.__uscRerender;
@@ -898,6 +929,7 @@
     /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
        текущую валюту (Босс 23.09: в IDR-режиме поля молчком оставались в $) */
     var priceEl = document.getElementById('c-price'), rateEl = document.getElementById('c-rate');
+    var MIN_PRICE = 50000; /* USD; самый дешёвый лот в таблице сейчас $95 000 */
     priceEl.dataset.usd = priceEl.value;
     rateEl.dataset.usd = rateEl.value;
     function val(id) {
@@ -917,7 +949,12 @@
       var gross = rate * 365 * occ, net = gross * (1 - mgmt);
       document.getElementById('o-gross').textContent = money(gross);
       document.getElementById('o-net').textContent = money(net);
-      document.getElementById('o-roi').textContent = price > 0 ? (net / price * 100).toFixed(1) + '%' : '—';
+      /* цена ниже порога даёт бессмысленные тысячи процентов: показываем подсказку, доходность не считаем */
+      var low = price < MIN_PRICE, err = document.getElementById('c-price-err');
+      if (low && !err) { err = document.createElement('p'); err.id = 'c-price-err'; err.className = 'field__err'; err.setAttribute('aria-live', 'polite'); priceEl.closest('.field').appendChild(err); }
+      if (low) { err.textContent = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err'); }
+      else if (err) { err.remove(); priceEl.removeAttribute('aria-invalid'); priceEl.removeAttribute('aria-describedby'); }
+      document.getElementById('o-roi').textContent = !low ? (net / price * 100).toFixed(1) + '%' : '—';
     }
     priceEl.addEventListener('input', function () {
       priceEl.dataset.usd = window.__uscCcy === 'idr' ? (+priceEl.value / window.__uscFx) : priceEl.value;
