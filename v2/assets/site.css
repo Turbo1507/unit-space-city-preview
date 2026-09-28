@@ -58,7 +58,8 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 /* ---------- typography ---------- */
 .t-h2{font-weight:500;letter-spacing:-.025em;line-height:var(--lh-title);font-size:var(--fs-title);max-width:24ch}
 .t-h3{font-weight:500;letter-spacing:-.02em;line-height:1.2;font-size:var(--fs-h3)}
-.t-lead{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:52ch}
+/* подзаголовок ≤2 строк, в идеале 1 (Босс 28.09): при 52ch многие вставали в 3 строки */
+.t-lead{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:80ch}
 .t-small{font-size:var(--fs-cap);line-height:1.45}
 .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
@@ -118,14 +119,14 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 /* дропдауны языка/валюты в шапке (Босс 23.09: инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
 .header-selectors{display:flex;align-items:center;gap:4px;font-size:var(--fs-cap);font-weight:500}
 .hd-sel{position:relative}
-.hd-sel__btn{display:flex;align-items:center;gap:2px;height:32px;padding:0 6px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:.7;transition:opacity .2s}
+.hd-sel__btn{display:flex;align-items:center;gap:4px;height:32px;padding:0 8px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:.7;transition:opacity .2s}
 .hd-sel.is-open .hd-sel__btn{opacity:1}
 .hd-sel__chev{width:14px;height:14px;flex:none;transition:transform .2s var(--ease)}
 .hd-sel.is-open .hd-sel__chev{transform:rotate(180deg)}
 .hd-sel__pop{position:absolute;right:0;top:calc(100% + 4px);z-index:10;margin:0;padding:4px;list-style:none;min-width:72px;
   background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08);color:var(--ink)}
 .hd-sel__pop[hidden]{display:none}
-.hd-sel__pop li{padding:8px 10px;border-radius:4px;cursor:pointer;font-size:var(--fs-body)}
+.hd-sel__pop li{padding:8px 12px;border-radius:4px;cursor:pointer;font-size:var(--fs-body)}
 .hd-sel__pop li[aria-selected="true"]{background:var(--blue);color:#fff}
 /* бокс 40px, полоски 22px: сдвигаем бокс на (40-22)/2 вправо, чтобы ВИДИМЫЙ край полосок стоял ровно на --gut,
    как вордмарк слева (Босс 15.09: «бургер слишком близко к краю, вопрос к строгости сетки») */
@@ -152,9 +153,11 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
 .menu-overlay{position:fixed;inset:0;z-index:90;background:var(--white);color:var(--ink);display:flex;flex-direction:column;
   padding:0 var(--gut) var(--gut);transform:translateY(-100%);visibility:hidden;transition:transform .5s var(--ease),visibility 0s .5s}
 body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transform .5s var(--ease),visibility 0s}
-.menu-head{height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
-.menu-list{display:grid;gap:var(--s2);margin-top:var(--s4);font-size:var(--fs-title);font-weight:500;letter-spacing:-.02em}
-.menu-foot{margin-top:auto;display:grid;gap:var(--s3)}
+.menu-head{flex:none;height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
+/* меню целиком в один экран на любой высоте телефона (Босс 28.09): размер пунктов и зазоры от высоты экрана */
+.menu-list{display:grid;gap:clamp(8px,1.8svh,16px);margin-top:clamp(16px,3svh,32px);font-size:clamp(22px,4.4svh,var(--fs-title));line-height:1.15;font-weight:500;letter-spacing:-.02em}
+.menu-foot{flex:none;margin-top:auto;padding-top:clamp(16px,3svh,32px);display:grid;gap:clamp(16px,2.4svh,24px)}
+.menu-overlay{overflow-y:auto}
 .menu-foot .header-selectors{font-size:var(--fs-body)}
 .menu-foot .btn{width:100%}
 
@@ -339,8 +342,18 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex-nav button[aria-selected="true"]{background:var(--blue);color:#fff}
 .complex-nav button[aria-selected="true"] b{color:#fff}
 .complex-nav .ink{display:none}
+/* шайн на неактивных U2/U3 до первого переключения — тот же, что у загрузки фото (img-shine), только синий;
+   рябь кольцами вышла слишком сильной (Босс 28.09) */
+.complex-nav button{position:relative;overflow:hidden}
+.complex-nav:not(.is-touched) button[aria-selected="false"]::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent 40%,rgba(4,51,255,.08) 50%,transparent 60%);background-size:220% 100%;background-repeat:no-repeat;background-position:170% 0;
+  animation:cx-shine 5s ease-in-out infinite}
+/* по очереди, не одновременно (Босс 28.09): проход 1.8 с = 36% от 5 с («чуть почаще»); второй таб стартует, когда первый закончил; дальше пауза */
+.complex-nav:not(.is-touched) button[aria-selected="false"] ~ button[aria-selected="false"]::before{animation-delay:1.8s}
+@keyframes cx-shine{0%{background-position:170% 0}36%,100%{background-position:-40% 0}}
+@media (prefers-reduced-motion:reduce){ .complex-nav button::before{animation:none!important} }
 @media (max-width:640px){
-  .complex-nav .container{gap:6px;padding-block:var(--s1)}
+  .complex-nav .container{gap:8px;padding-block:var(--s1)}
   .complex-nav button{flex:1 1 0;padding:12px 4px;text-align:center;font-size:var(--fs-cap);min-height:44px}
   .complex-nav button span{display:none}
 }
@@ -362,7 +375,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .status-chip--build{background:var(--wash);color:var(--ink-2)}
 .complex__title{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .complex__head{display:grid;gap:var(--s2);justify-items:start;margin-bottom:clamp(24px,3vw,40px)}
-.complex__intro{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:56ch;margin-top:var(--s1)}
+.complex__intro{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:80ch;margin-top:var(--s1)}
 .complex .stat-grid{margin-bottom:var(--s3)}
 .complex__formats{font-size:var(--fs-body);line-height:var(--lh-card);max-width:60ch}
 .complex__formats b{font-weight:500}
@@ -389,7 +402,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
      кадр крупнее — на ширину контента, следующий выглядывает на 32px */
   .complex__gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);gap:var(--s1);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
   .complex__gallery::-webkit-scrollbar{display:none}
-  .complex__gallery figure{flex:0 0 calc(100% - 2 * var(--gut) - 32px);aspect-ratio:4/3;scroll-snap-align:start;grid-column:auto;grid-row:auto}
+  .complex__gallery figure{flex:0 0 calc(100% - 2 * var(--gut) - 32px);aspect-ratio:1/1;scroll-snap-align:start;grid-column:auto;grid-row:auto}
   /* на мобиле лента и так одна, со всеми фото — кнопке «Показать ещё» нечего показывать (Босс 23.09) */
   .gal-more{display:none}
 }
@@ -397,7 +410,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* ---------- концепция: вариант 2 из макета USC — колонка плиток + синяя панель с фото и рядами U ---------- */
 #concept .t-h2{max-width:none}
-#concept .sect-head .t-lead{max-width:62ch}
 .cc-bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s2);align-items:stretch;margin-top:var(--s4)}
 .cc-tiles{display:grid;grid-auto-rows:1fr;gap:var(--s2);min-width:0}
 .cc-tiles .stat-card__value{font-size:clamp(40px,4.4vw,72px);color:var(--blue)}
@@ -415,8 +427,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .cc-slide picture{display:block;width:100%;height:100%}
 .cc-slide img{width:100%;height:100%;object-fit:cover;display:block}
 /* тег комплекса прямо на кадре, левый нижний угол: у каждого фото свой */
-.cc-tag{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:inline-flex;align-items:center;gap:var(--s1);
-  max-width:calc(100% - var(--s2)*2);padding:8px 12px;border-radius:var(--r-s);background:#fff;
+.cc-tag{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:inline-flex;align-items:center;gap:12px;
+  max-width:calc(100% - var(--s2)*2);padding:12px 16px;border-radius:var(--r-s);background:#fff;
   color:var(--ink);text-decoration:none;transition:transform .18s var(--ease)}
 .cc-tag__code{flex:none;color:var(--blue);font-weight:500}
 .cc-tag__name{min-width:0;font-size:var(--fs-body);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -436,7 +448,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .cc-tiles{grid-template-columns:1fr} .cc-feats{grid-template-columns:1fr}
   .cc-stage{aspect-ratio:4/3}
   .cc-panel{padding:var(--s3)}
-  .cc-tag{padding:4px 8px;gap:var(--s1)}
+  /* было 4px 8px — «совсем нет воздуха» (Босс 28.09) */
+  .cc-tag{padding:8px 12px;gap:var(--s1)}
   .cc-tag__name{font-size:var(--fs-cap)}
   .cc-tag .status-chip{height:24px;padding:0 12px}
 }
@@ -578,8 +591,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .product-grid,.product-grid--3{gap:var(--s3) var(--s2)}
   .product-card__row{flex-wrap:wrap;gap:var(--s1)}
   .product-card__row > div{flex-basis:100%}
-  .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 10px;font-size:var(--fs-micro)}
+  .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 12px;font-size:var(--fs-micro)}
   .product-card.card{padding:var(--s1);gap:var(--s1)}
+  /* кадр квадратный: при 16:10 фото было 147×92, «побольше хочется» (Босс 28.09) */
+  .product-card__media{aspect-ratio:1/1}
   .product-card__name,.product-card__row .product-card__price{font-size:var(--fs-body);line-height:1.35}
   .product-card__cta{--h:40px;padding-inline:var(--s1);font-size:var(--fs-cap)}
 }
@@ -590,13 +605,23 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .catalog-filters{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;margin-bottom:var(--s3)}
 /* две группы (комплексы / форматы): на десктопе в одну строку через разделитель, на мобиле — две строки (Босс 15.09) */
 .catalog-filters__row{display:contents}
+/* на десктопе кнопки «Фильтры» нет, счётчик в конце строки; на мобиле фильтры свёрнуты под кнопку,
+   счётчик рядом с ней (Босс 28.09: «не показывать сразу все фильтры», «Найдено криво стоит») */
+.catalog-filters__bar{display:contents}
+.catalog-filters .cat-ft{display:none}
+.catalog-filters .cnt{order:9}
 @media (max-width:640px){
   .catalog-filters{flex-direction:column;align-items:stretch}
-  .catalog-filters__row{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center}
+  .catalog-filters__bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
+  .catalog-filters .cat-ft{display:inline-flex;gap:var(--s1)}
+  .cat-ft .ic{width:16px;height:16px}
+  .cat-ft[aria-expanded="true"]{border-color:var(--ink)}
+  .catalog-filters__row{display:none;flex-wrap:wrap;gap:var(--s1);align-items:center}
+  .catalog-filters.is-open .catalog-filters__row{display:flex}
   .catalog-filters .sep{display:none}
-  .catalog-filters .cnt{margin-left:auto}
+  .catalog-filters .cnt{margin-left:0}
 }
-.chip{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
+.chip,.cat-ft{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
 .chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
 .catalog-filters .sep{width:1px;height:24px;background:var(--line-2);margin:0 var(--s1)}
 .catalog-filters .cnt{margin-left:auto;font-size:var(--fs-cap)}
@@ -604,7 +629,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* ---------- yield: три сценария карточками + калькулятор ---------- */
 /* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать (Босс 22.09) */
-.calc-lead{opacity:1;color:var(--ink);font-weight:500}
+/* вес как у остальных подзаголовков — 500 выглядел «непонятно жирнее» (Босс 28.09) */
+.calc-lead{opacity:1;color:var(--ink)}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);align-content:start}
@@ -676,12 +702,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-pin__dot{width:20px;height:20px;border-radius:50%;background:var(--blue);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);flex:none}
 .map-pin__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap}
 /* второстепенные точки (Nuanu, пляж, Tanah Lot, Canggu): белый чип и тёмная точка, тише основного пина */
-.map-poi{display:flex;align-items:center;gap:6px;pointer-events:none}
+.map-poi{display:flex;align-items:center;gap:8px;pointer-events:none}
 .map-poi--l{flex-direction:row-reverse}
 .map-poi__dot{width:10px;height:10px;border-radius:50%;background:var(--ink);border:2px solid var(--white);flex:none}
-.map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:6px var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
+.map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
 @media (max-width:760px){ .location-map__box{aspect-ratio:4/5} }
-@media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-micro);padding:4px 6px} .map-pin__lbl{font-size:var(--fs-micro)} }
+@media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-micro);padding:4px 8px} .map-pin__lbl{font-size:var(--fs-micro)} }
 .card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4);align-items:start}
 .infra__photo{margin:0;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash);align-self:stretch}
 .infra__photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -813,7 +839,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .csel-pop[hidden]{display:none}
 /* поиск — той же высоты, что инпуты формы (48px), а не мелкий (Босс 15.09) */
-.csel-search{flex:none;margin:0 0 6px;height:48px;width:100%;padding:0 14px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
+.csel-search{flex:none;margin:0 0 8px;height:48px;width:100%;padding:0 16px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
 .csel-search:focus{outline:none;border-color:var(--blue)}
 .csel-list{margin:0;padding:0 8px 0 0;list-style:none;white-space:nowrap;max-height:260px;overflow:auto;scrollbar-width:none}
 .csel-list::-webkit-scrollbar{display:none}
@@ -822,14 +848,14 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .csel-opt.is-active{background:var(--wash)}
 .csel-opt.is-sel{color:var(--blue)}
 .csel-sb{position:absolute;right:4px;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--line);opacity:0;transition:opacity .2s var(--ease);pointer-events:none}
-.csel-pop:has(.csel-search) .csel-sb{top:62px}
+.csel-pop:has(.csel-search) .csel-sb{top:64px}
 .csel-sb.on{opacity:1}
 .csel-sb-thumb{position:absolute;left:0;right:0;top:0;min-height:20px;border-radius:3px;background:var(--blue)}
 .lead-form__pair > .field:last-child .csel-pop{left:auto;right:0}
 /* телефон: код страны (кнопка csel, узкая) + номер; на всех вьюпортах 16px — без iOS-зума */
 .lead-form__phone{display:flex;gap:var(--s1)}
 .lead-form__phone .csel{flex:0 0 118px}
-.lead-form__phone .csel-btn{padding:0 10px 0 12px}
+.lead-form__phone .csel-btn{padding:0 12px}
 .lead-form__phone input{flex:1;min-width:0}
 .lead-form input,.csel-btn,.csel-opt{font-size:16px}
 /* minmax(0,…) + min-width:0: иначе min-content инпутов/кнопок раздувал колонку → документ на мобиле был шире экрана
@@ -938,12 +964,14 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
 /* длинные значения («строится, сдача осенью 2026») переносятся, а не растягивают страницу */
 .leaders > div > b{white-space:normal;text-align:right;max-width:60%}
+/* перенесённое значение JS ужимает до ширины самой длинной строки — точки тянутся до текста (site.js, Босс 28.09) */
 
 /* ---------- ≤760: мобильная типографическая шкала (Босс 15.09: подзаголовки слишком крупные) ----------
    h2 30 → h3 22 → lead/sub 18 (было 20 — вплотную к h3 24) → body 16 → cap 14; ритм секций 48, заголовок→контент 24 */
 @media (max-width:760px){
   :root{ --fs-sub:18px; --fs-h3:22px; --fs-title:30px; --sy:48px; --lh-sub:1.4 }
-  .t-lead{font-size:18px;line-height:1.4}
+  /* подзаголовки на мобиле 16px (Босс 28.09; было 18) */
+  .t-lead,.complex__intro{font-size:16px;line-height:1.45}
   .sect-head{gap:var(--s2);margin-bottom:var(--s3)}
   .sub-head{margin-block:var(--s5) var(--s2)}
   .cta-row--after{margin-top:var(--s3)}
@@ -1072,3 +1100,6 @@ i.u5,i.ul{font-style:normal}
 .u5{font-weight:500}
 .ul{font-weight:400}
 .co-card > b i.ul{color:inherit}
+/* ловушка для ботов в форме заявки — людям не видна */
+.lead-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.lead-form--done p{margin-top:var(--s2)}

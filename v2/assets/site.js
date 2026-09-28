@@ -226,6 +226,7 @@
       fitTrack();
       // при загрузке страницу не трогаем: иначе через 700 мс её утаскивало к комплексам, если уже пролистали ниже (восстановление позиции, быстрый скролл)
       if (init) return;
+      cxNav.classList.add('is-touched');
       // если с раскрытого длинного коллажа перешли на короткий комплекс и его низ оказался выше экрана — показать его начало
       toStart(slides[i], 'smooth');
       // плавную прокрутку может сбить одновременное сжатие секции (transition height .6s) — после анимации добиваем без анимации
@@ -379,6 +380,8 @@
         return window.__uscLotCard(u, seen[u.slug] - 1, 'units/');
       }).join('');
     }
+    var ft = filters && filters.querySelector('.cat-ft');
+    if (ft) ft.addEventListener('click', function () { var o = filters.classList.toggle('is-open'); ft.setAttribute('aria-expanded', String(o)); });
     if (filters) filters.addEventListener('click', function (e) {
       var b = e.target.closest('.chip'); if (!b) return;
       var f = b.dataset.f;
@@ -695,8 +698,8 @@
     tel.addEventListener('input', reformat); cc.addEventListener('change', reformat);
   });
 
-  /* проверка формы заявки (Босс 27.09: отправку пока не подключать, ошибки ловить можно).
-     Имя обязательно, из телефона и email хватит одного; ошибка под полем, фокус на первое неверное */
+  /* форма заявки: проверка полей, затем отправка в @leadunit_bot через unitdeveloper.com/wp-json/unit/v1/space-lead
+     (токен бота на сервере; Босс 28.09). Имя обязательно, из телефона и email хватит одного; ошибка под полем, фокус на первое неверное */
   var leadForm = document.getElementById('leadForm');
   if (leadForm) {
     var fName = document.getElementById('f-name'), fPhone = document.getElementById('f-phone'), fEmail = document.getElementById('f-email');
@@ -718,9 +721,38 @@
       if (eName) bad.push(fName); if (ePhone) bad.push(fPhone); if (eMail) bad.push(fEmail);
       return bad;
     }
+    var LEAD_URL = 'https://unitdeveloper.com/wp-json/unit/v1/space-lead', sending = false;
+    var lfBtn = leadForm.querySelector('[type="submit"]');
+    function lfFail() {
+      sending = false; lfBtn.disabled = false; lfBtn.removeAttribute('aria-busy'); lfBtn.textContent = D()['form.submit'] || lfBtn.textContent;
+      var p = document.getElementById('lf-fail');
+      if (!p) { p = document.createElement('p'); p.id = 'lf-fail'; p.className = 'field__err'; p.setAttribute('aria-live', 'polite'); lfBtn.insertAdjacentElement('afterend', p); }
+      p.setAttribute('data-i18n', 'form.fail'); p.textContent = D()['form.fail'] || '';
+    }
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault(); tried = true;
-      var bad = check(); if (bad.length) bad[0].focus();
+      var bad = check(); if (bad.length) { bad[0].focus(); return; }
+      if (sending) return; sending = true;
+      var cc = document.getElementById('f-cc'), goal = document.getElementById('f-goal'), budget = document.getElementById('f-budget'), hp = leadForm.querySelector('[name="website"]');
+      var fd = new FormData(), ph = fPhone.value.trim();
+      fd.append('name', fName.value.trim());
+      fd.append('phone', ph.replace(/\D+/g, '') ? '+' + (cc ? cc.value : '') + ' ' + ph : '');
+      fd.append('email', fEmail.value.trim());
+      fd.append('goal', goal ? goal.options[goal.selectedIndex].text : '');
+      fd.append('budget', budget ? budget.value.trim() : '');
+      fd.append('page', location.pathname);
+      fd.append('lang', document.documentElement.lang || 'ru');
+      fd.append('website', hp ? hp.value : '');
+      lfBtn.disabled = true; lfBtn.setAttribute('aria-busy', 'true'); lfBtn.textContent = D()['form.sending'] || '…';
+      var old = document.getElementById('lf-fail'); if (old) old.remove();
+      fetch(LEAD_URL, { method: 'POST', body: fd })
+        .then(function (r) { return r.json().then(function (j) { if (!r.ok || !j || !j.ok) throw new Error('lead ' + r.status); }); })
+        .then(function () {
+          leadForm.classList.add('lead-form--done');
+          leadForm.innerHTML = '<h3 class="t-h3" data-i18n="form.done_t"></h3><p data-i18n="form.done_p"></p>';
+          leadForm.querySelector('h3').innerHTML = D()['form.done_t']; leadForm.querySelector('p').innerHTML = D()['form.done_p'];
+        })
+        .catch(lfFail);
     });
     /* до первой попытки не ругаемся; после — ошибка снимается сразу, как только поле исправлено */
     [fName, fPhone, fEmail].forEach(function (el) { el.addEventListener('input', function () { if (tried) check(); }); });
@@ -1083,4 +1115,23 @@
     var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
     io.observe(box);
   })();
+})();
+
+/* точки-лидеры тянутся до текста: перенесённое значение (text-align:right) ужимаем до ширины самой длинной
+   строки — иначе между точками и короткой строкой оставалась пустота (Босс 28.09) */
+(function () {
+  function fit() {
+    [].forEach.call(document.querySelectorAll('.leaders > div > b'), function (b) {
+      b.style.width = ''; b.style.textAlign = '';
+      var r = document.createRange(); r.selectNodeContents(b);
+      var rs = r.getClientRects(), l = Infinity, rt = -Infinity, tops = {};
+      for (var i = 0; i < rs.length; i++) if (rs[i].width) { l = Math.min(l, rs[i].left); rt = Math.max(rt, rs[i].right); tops[Math.round(rs[i].top)] = 1; }
+      // блок = ширина самой длинной строки (она у правого края), строки от левого края блока — первая строка встаёт вплотную к точкам
+      if (Object.keys(tops).length > 1) { b.style.width = Math.ceil(rt - l + 1) + 'px'; b.style.textAlign = 'left'; }
+    });
+  }
+  var t; function later() { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }
+  fit(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('resize', later);
+  var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); later(); };
 })();

@@ -105,6 +105,7 @@ window.I18N = {
  "cat.details": "Смотреть виллу",
  "cat.more": "Показать все виллы",
  "cat.found": "Найдено",
+ "cat.filters": "Фильтры",
  "cat.empty_t": "Таких вилл сейчас нет в продаже",
  "cat.empty_p": "Оставьте заявку с форматом и бюджетом. Подберём варианты и ответим в рабочие часы Бали",
  "cat.empty_cta": "Подобрать виллу",
@@ -241,6 +242,10 @@ window.I18N = {
  "form.err_contact": "Оставьте телефон или email, иначе нам некуда ответить",
  "form.err_phone": "В номере не хватает цифр",
  "form.err_email": "Проверьте email, в адресе похоже опечатка",
+ "form.sending": "Отправляем…",
+ "form.done_t": "Заявка отправлена",
+ "form.done_p": "Пришлём презентацию и ответим в рабочие часы Бали (UTC+8)",
+ "form.fail": "Не получилось отправить. Попробуйте ещё раз через минуту",
  "calc.err_price": "Цена виллы от %s, иначе расчёт не имеет смысла",
  "foot.brand": "Три жилых комплекса в одной локации рядом с Nuanu Creative City, Бали",
  "foot.sections": "Разделы",
@@ -306,7 +311,7 @@ window.I18N = {
  "unit.more": "Другие форматы",
  "unit.render_note": "U3 строится — это рендеры, не фото",
  "unit.yield_title": "Доходность этой виллы",
- "unit.yield_lead": "Цена виллы зафиксирована — посчитайте доход под свои условия аренды"
+ "unit.yield_lead": "Пример расчёта по цене этой виллы, ставке за ночь и прогнозируемой загрузке"
 },
   en: {
  "meta.title": "UNIT.SPACE CITY — high-tech homes by Nuanu, Bali",
@@ -424,6 +429,7 @@ window.I18N = {
  "cat.details": "View villa",
  "cat.more": "Show all villas",
  "cat.found": "Found",
+ "cat.filters": "Filters",
  "cat.empty_t": "No units like this on sale right now",
  "cat.empty_p": "Send your format and budget. We’ll find options and reply during Bali working hours",
  "cat.empty_cta": "Find my villa",
@@ -560,6 +566,10 @@ window.I18N = {
  "form.err_contact": "Leave a phone or email so we can reply",
  "form.err_phone": "The number is missing some digits",
  "form.err_email": "Check the email, the address looks mistyped",
+ "form.sending": "Sending…",
+ "form.done_t": "Request sent",
+ "form.done_p": "We will send the presentation and reply during Bali business hours (UTC+8)",
+ "form.fail": "Could not send. Please try again in a minute",
  "calc.err_price": "Enter a unit price of %s or more for a meaningful estimate",
  "foot.brand": "Three residential complexes in one location next to Nuanu Creative City, Bali",
  "foot.sections": "Sections",
@@ -613,7 +623,7 @@ window.I18N = {
  "unit.more": "Other formats",
  "unit.render_note": "U3 is under construction — these are renders, not photos",
  "unit.yield_title": "Yield for this villa",
- "unit.yield_lead": "The villa price is fixed — calculate the income for your own rental terms"
+ "unit.yield_lead": "Sample calculation based on this villa's price, nightly rate and projected occupancy"
 }
 };window.setLang = function (lang) {
   var dict = window.I18N[lang] || window.I18N.ru;
