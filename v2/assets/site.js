@@ -215,7 +215,7 @@
     var slides = tabs.map(function (t) { return document.getElementById(t.dataset.cx); });
     var cur = 0;
     function moveInk(t) { if (ink) { ink.style.left = t.offsetLeft + 'px'; ink.style.width = t.offsetWidth + 'px'; } }
-    function go(i, focusTab) {
+    function go(i, focusTab, init) {
       i = Math.max(0, Math.min(slides.length - 1, i)); cur = i;
       slides.forEach(function (s, k) { s.setAttribute('data-state', k === i ? 'active' : (k < i ? 'prev' : 'next')); });
       tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
@@ -224,6 +224,8 @@
       /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже (Босс 22.09) */
       if (window.__uscSyncCatalog) window.__uscSyncCatalog(slides[i].id);
       fitTrack();
+      // при загрузке страницу не трогаем: иначе через 700 мс её утаскивало к комплексам, если уже пролистали ниже (восстановление позиции, быстрый скролл)
+      if (init) return;
       // если с раскрытого длинного коллажа перешли на короткий комплекс и его низ оказался выше экрана — показать его начало
       toStart(slides[i], 'smooth');
       // плавную прокрутку может сбить одновременное сжатие секции (transition height .6s) — после анимации добиваем без анимации
@@ -265,7 +267,7 @@
       });
     }
     var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
-    go(start >= 0 ? start : 0);
+    go(start >= 0 ? start : 0, false, true);
     function toBlock(behavior) {
       var stick = parseFloat(getComputedStyle(cxNav).top) || 0;
       scrollTo({ top: scrollY + cxTrack.getBoundingClientRect().top - stick - cxNav.offsetHeight, behavior: behavior });
@@ -1013,5 +1015,49 @@
     });
     [hero, lead, foot].forEach(function (el) { if (el) io.observe(el); });
     if (bar && 'MutationObserver' in window) new MutationObserver(sync).observe(bar, { attributes: true, attributeFilter: ['class'] });
+  })();
+
+  /* ---------- карта локации: OpenFreeMap + MapLibre, грузится у экрана (Босс 28.09: чистая карта, одна точка) ---------- */
+  (function () {
+    var box = document.getElementById('locMap');
+    if (!box || !('IntersectionObserver' in window)) return;
+    var LIB = 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.';
+    var HIDE = /poi|building|housenumber|aeroway|airport|railway|boundary|shield|label_other|highway_path|highway-name-(path|minor)|waterway_line_label|park|landcover|landuse/;
+    function start() {
+      var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = LIB + 'css'; document.head.appendChild(css);
+      var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; document.head.appendChild(js);
+    }
+    function build() {
+      if (!window.maplibregl) return;
+      var ll = [parseFloat(box.dataset.lng), parseFloat(box.dataset.lat)];
+      var live = document.createElement('div'); live.className = 'location-map__live'; live.setAttribute('aria-hidden', 'true');
+      box.appendChild(live);
+      var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+      var map = new maplibregl.Map({
+        container: live, style: 'https://tiles.openfreemap.org/styles/positron',
+        bounds: [[ll[0] - 0.035, ll[1] - 0.022], [ll[0] + 0.02, ll[1] + 0.018]],
+        interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
+        dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
+        attributionControl: false, fadeDuration: 0
+      });
+      map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+      map.on('load', function () {
+        map.getStyle().layers.forEach(function (l) { if (HIDE.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
+        map.setPaintProperty('background', 'background-color', '#ECECEA');
+        map.setPaintProperty('water', 'fill-color', '#D6E0EA');
+        var pin = document.createElement('div'); pin.className = 'map-pin';
+        pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">SPACE CITY</i></span>';
+        new maplibregl.Marker({ element: pin, anchor: 'left', offset: [-10, 0] }).setLngLat(ll).addTo(map);
+        /* подпись не должна уходить за правый край (узкий экран): сдвигаем карту */
+        var over = map.project(ll).x - 10 + pin.offsetWidth + 16 - live.clientWidth;
+        if (over > 0) map.panBy([over, 0], { animate: false });
+        map.setMaxBounds(map.getBounds());
+        var at = live.querySelector('.maplibregl-ctrl-attrib'); if (at) at.classList.remove('maplibregl-compact-show');
+        var shown = function () { box.classList.add('is-live'); };
+        map.once('idle', shown); setTimeout(shown, 2500);
+      });
+    }
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
+    io.observe(box);
   })();
 })();
