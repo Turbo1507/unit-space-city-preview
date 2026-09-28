@@ -448,18 +448,30 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
 .co-strip::-webkit-scrollbar{display:none}
 .co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
-/* на широком десктопе 5 карточек умещаются целиком — обычный грид на всю ширину контейнера,
-   без пустого места справа и без лишнего свайпа (Босс 22.09: «сжал зачем-то, половина контейнера пустует»).
-   Лента-свайп остаётся только там, где карточки реально не помещаются (планшет/мобилка). */
-/* с 1200: колонка 175px, это минимум для UNIT.DEVELOPER/FURNITURE одной строкой; уже — лента */
-@media (min-width:1200px){
-  /* minmax(0,1fr): при 1fr колонку растягивал самый длинный заголовок (SPACE MANAGEMENT), карточки и фото
-     выходили разной ширины (Босс 28.09 «на 1200 очень криво»); subgrid — заголовок/подпись/текст/фото
-     на одних линиях во всех пяти карточках */
-  .co-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto 1fr auto;overflow:visible;padding-bottom:0}
-  .co-strip .co-card{flex:none;grid-row:span 4;grid-template-rows:subgrid}
+/* UNIT.DEVELOPER — материнская компания: синяя карточка-группа, внутри четыре дочерние (Босс 28.09).
+   Внутри группы: с 1100 — 4 в ряд (колонка ≥161px под UNIT.FURNITURE), 761–1099 — 2×2, уже — свайп-лента. minmax(0,1fr) + subgrid:
+   колонки равные, заголовок/подпись/текст/фото на одних линиях */
+.co-group{background:var(--blue);color:#fff;border-radius:var(--r);padding:var(--s4);display:grid;gap:var(--s4)}
+.co-group__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:var(--s1) var(--s4);align-items:start}
+.co-group__title{font-size:var(--fs-h3);font-weight:400;line-height:1.15;letter-spacing:-.02em}
+.co-group__sub{font-size:var(--fs-body);font-weight:400;line-height:var(--lh-card)}
+.co-group__head p{grid-column:2;grid-row:1 / span 2;margin:0;font-size:var(--fs-body);line-height:var(--lh-card)}
+.co-group__head,.co-group__head p,.co-group__head i{color:#fff}
+.co-group .co-strip .card{background:var(--white);color:var(--ink)}
+@media (min-width:761px){
+  .co-group .co-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,auto auto 1fr auto);overflow:visible;padding-bottom:0}
+  .co-group .co-strip .co-card{flex:none;grid-row:span 4;grid-template-rows:subgrid}
 }
-@media (max-width:760px){ .co-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .co-strip .co-card{flex:0 0 calc(78% - var(--s1))} }
+@media (min-width:1100px){
+  .co-group .co-strip{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto 1fr auto}
+}
+@media (max-width:760px){
+  .co-group{padding:var(--s2);gap:var(--s3)}
+  .co-group__head{grid-template-columns:1fr}
+  .co-group__head p{grid-column:1;grid-row:auto;margin-top:var(--s1)}
+  .co-group .co-strip{margin-inline:calc(-1 * var(--s2));padding-inline:var(--s2);scroll-padding-inline:var(--s2)}
+  .co-group .co-strip .co-card{flex:0 0 calc(78% - var(--s1))}
+}
 .co-card > b i{color:var(--blue);font-style:normal}
 .co-card__sub{font-size:var(--fs-body);line-height:var(--lh-card);margin-top:-4px}
 .co-card{grid-template-rows:auto auto 1fr auto;padding:var(--s2)}
@@ -469,9 +481,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* иллюстрация ULA.ZONE — не фото цеха, cover обрезал бы композицию (как на unitdeveloper.com) */
 .co-card__photo--contain picture{background:var(--white)}
 .co-card__photo--contain img{object-fit:contain;padding:var(--s2)}
-/* UNIT.DEVELOPER — головная компания: синяя карточка без картинки (Босс 28.09) */
-.co-strip .card.co-card--brand{background:var(--blue);color:#fff}
-.co-card--brand > b i,.co-card--brand p,.co-card--brand p .u5{color:#fff}
 .team-card__photo picture{display:block;width:100%;height:100%}
 .team-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
