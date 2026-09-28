@@ -309,21 +309,20 @@
       '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<div class="fmt-card__actions">' +
-      '<a class="btn btn-outline fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
-      /* заявка ведёт на страницу ИМЕННО этой виллы, к её форме, а не на форму текущей страницы (Босс 23.09) */
-      '<a class="btn btn-primary fmt-card__request" href="' + href + '#lead">' + (d['fmt.request'] || '') + '</a>' +
+      /* одна синяя кнопка, без второй «Получить презентацию» — лишний CTA (Босс 28.09) */
+      '<a class="btn btn-primary fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
       '</div></div></div>';
   };
   window.__uscUnitCard = function (u, hrefBase) {
     var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0];
-    return '<a class="product-card" href="' + hrefBase + u.slug + '.html">' +
+    return '<a class="card product-card" href="' + hrefBase + u.slug + '.html">' +
       '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
       '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
       '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div>' +
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
-      '<span class="btn btn-outline product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
+      '<span class="btn btn-primary product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
   };
   /* карточка реального лота из таблицы Босса (assets/lots.js): поля те же, что у карточки формата,
      но метраж и цена — этого лота (цена точная, без «от»); фото по кругу из барабана формата */
@@ -334,14 +333,14 @@
                 window.USC_UNITS.filter(function (u) { return u.fmt === lot.fmt; })[0] || page;
     var ph = page.photos[n % page.photos.length];
     var area = (lang === 'ru' ? String(lot.area).replace('.', ',') : String(lot.area)) + (lang === 'ru' ? ' м²' : ' m²');
-    return '<a class="product-card" href="' + hrefBase + page.slug + '.html">' +
+    return '<a class="card product-card" href="' + hrefBase + page.slug + '.html">' +
       '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[lot.q].code + ' — ' + named.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
       '<span class="product-card__area">' + area + '</span></div>' +
       '<div class="product-card__row"><div><div class="product-card__name">' + named.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[lot.q].code + ', ' + page.floor[lang] + '</div></div>' +
       '<span class="product-card__price">' + window.__uscMoney(lot.price, lang, true) + '</span></div>' +
-      '<span class="btn btn-outline product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
+      '<span class="btn btn-primary product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
   };
   if (uWrap && window.USC_UNITS) {
     var st = { q: 'all', fmt: 'all', open: false };
@@ -1022,10 +1021,24 @@
     var box = document.getElementById('locMap');
     if (!box || !('IntersectionObserver' in window)) return;
     var LIB = 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.';
-    var HIDE = /poi|building|housenumber|aeroway|airport|railway|boundary|shield|label_other|highway_path|highway-name-(path|minor)|waterway_line_label|park|landcover|landuse/;
+    var HIDE = /label_village|label_town|label_city|label_state|poi|building|housenumber|aeroway|airport|railway|boundary|shield|label_other|highway_path|highway-name-(path|minor)|waterway_line_label|park|landcover|landuse/;
     function start() {
       var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = LIB + 'css'; document.head.appendChild(css);
       var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; document.head.appendChild(js);
+    }
+    /* точки из чипов расстояний + Nuanu (Босс 28.09); координаты из OSM: пляж и Tanah Lot — по привязке locmap.svg,
+       Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
+    var POI = [
+      { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
+      { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
+      { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true }
+    ];
+    // узкий экран: дальний Canggu (20 минут на машине) не влезает без каши из чипов — кадр по ближним точкам
+    var narrow = function () { return box.clientWidth < 600; };
+    function bounds() {
+      var pts = POI.filter(function (p) { return !(p.far && narrow()); });
+      var xs = pts.map(function (p) { return p.ll[0]; }).concat(+box.dataset.lng), ys = pts.map(function (p) { return p.ll[1]; }).concat(+box.dataset.lat);
+      return [[Math.min.apply(null, xs) - 0.006, Math.min.apply(null, ys) - 0.004], [Math.max.apply(null, xs) + 0.006, Math.max.apply(null, ys) + 0.004]];
     }
     function build() {
       if (!window.maplibregl) return;
@@ -1035,7 +1048,7 @@
       var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
       var map = new maplibregl.Map({
         container: live, style: 'https://tiles.openfreemap.org/styles/positron',
-        bounds: [[ll[0] - 0.035, ll[1] - 0.022], [ll[0] + 0.02, ll[1] + 0.018]],
+        bounds: bounds(), fitBoundsOptions: { padding: narrow() ? { top: 40, bottom: 40, left: 96, right: 124 } : { top: 48, bottom: 48, left: 150, right: 140 } },
         interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
         dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
         attributionControl: false, fadeDuration: 0
@@ -1048,6 +1061,16 @@
         var pin = document.createElement('div'); pin.className = 'map-pin';
         pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">SPACE CITY</i></span>';
         new maplibregl.Marker({ element: pin, anchor: 'left', offset: [-10, 0] }).setLngLat(ll).addTo(map);
+        var poiEls = POI.filter(function (p) { return !(p.far && narrow()); }).map(function (p) {
+          var el = document.createElement('div'); el.className = 'map-poi map-poi--' + p.side;
+          el.innerHTML = '<span class="map-poi__dot"></span><span class="map-poi__lbl"></span>';
+          new maplibregl.Marker({ element: el, anchor: p.side === 'l' ? 'right' : 'left', offset: [p.side === 'l' ? 6 : -6, 0] }).setLngLat(p.ll).addTo(map);
+          return { el: el.querySelector('.map-poi__lbl'), k: p.k };
+        });
+        var poiText = function () { var d = D(); poiEls.forEach(function (x) { x.el.textContent = d[x.k] || ''; }); };
+        poiText();
+        var prevHook = window.__uscRerender;
+        window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); };
         /* подпись не должна уходить за правый край (узкий экран): сдвигаем карту */
         var over = map.project(ll).x - 10 + pin.offsetWidth + 16 - live.clientWidth;
         if (over > 0) map.panBy([over, 0], { animate: false });

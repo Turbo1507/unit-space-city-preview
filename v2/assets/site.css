@@ -81,7 +81,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .btn-outline{border-color:currentColor}
 /* вторичная кнопка в карточках: без полутоновых заливок (Босс 25.09) —
    белый фон, сплошная синяя обводка и синий текст в полную силу */
-.fmt-card__more,.product-card__cta,.gal-more,.cat-more{
+.gal-more,.cat-more{
   background:#fff;border-color:var(--blue);color:var(--blue)}
 .btn-sm{--h:40px;padding-inline:var(--s2);font-size:var(--fs-cap)}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
@@ -451,9 +451,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* на широком десктопе 5 карточек умещаются целиком — обычный грид на всю ширину контейнера,
    без пустого места справа и без лишнего свайпа (Босс 22.09: «сжал зачем-то, половина контейнера пустует»).
    Лента-свайп остаётся только там, где карточки реально не помещаются (планшет/мобилка). */
-@media (min-width:960px){
-  .co-strip{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible;padding-bottom:0}
-  .co-strip .co-card{flex:none}
+/* с 1200: колонка 175px, это минимум для UNIT.DEVELOPER/FURNITURE одной строкой; уже — лента */
+@media (min-width:1200px){
+  /* minmax(0,1fr): при 1fr колонку растягивал самый длинный заголовок (SPACE MANAGEMENT), карточки и фото
+     выходили разной ширины (Босс 28.09 «на 1200 очень криво»); subgrid — заголовок/подпись/текст/фото
+     на одних линиях во всех пяти карточках */
+  .co-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto 1fr auto;overflow:visible;padding-bottom:0}
+  .co-strip .co-card{flex:none;grid-row:span 4;grid-template-rows:subgrid}
 }
 @media (max-width:760px){ .co-strip{margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)} .co-strip .co-card{flex:0 0 calc(78% - var(--s1))} }
 .co-card > b i{color:var(--blue);font-style:normal}
@@ -465,10 +469,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* иллюстрация ULA.ZONE — не фото цеха, cover обрезал бы композицию (как на unitdeveloper.com) */
 .co-card__photo--contain picture{background:var(--white)}
 .co-card__photo--contain img{object-fit:contain;padding:var(--s2)}
-/* UNIT DEVELOPER — головная компания, своего фото/лого нет, брендовый вордмарк вместо фото */
-.co-card__photo--brand{aspect-ratio:4/3;border-radius:var(--r-s);overflow:hidden;background:var(--wash);display:grid;place-items:center}
-.co-card__photo--brand .unit-wordmark{font-size:clamp(30px,3.4vw,44px);font-weight:500;letter-spacing:-.03em;color:var(--ink)}
-.co-card__photo--brand .unit-wordmark i{color:var(--blue);font-style:normal}
+/* UNIT.DEVELOPER — головная компания: синяя карточка без картинки (Босс 28.09) */
+.co-strip .card.co-card--brand{background:var(--blue);color:#fff}
+.co-card--brand > b i,.co-card--brand p,.co-card--brand p .u5{color:#fff}
 .team-card__photo picture{display:block;width:100%;height:100%}
 .team-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
@@ -526,7 +529,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);margin-top:var(--s1)}
 .fmt-card__plan{display:inline-flex;align-items:center;height:40px;padding:0 var(--s2);border-radius:var(--r-s);border:1px solid var(--line-2);font-size:var(--fs-cap);opacity:var(--dim);background:none}
 .fmt-card .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
-.fmt-card__actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--s1)}
+.fmt-card__actions{display:grid;grid-template-columns:1fr;gap:var(--s1)}
 .fmt-card__actions .btn{justify-content:center}
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
 /* узко: строки остаются «подпись … значение» с лидером до конца (Босс 15.09), значение переносится справа */
@@ -546,18 +549,21 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4) var(--s3)}
 .product-grid--3{grid-template-columns:repeat(3,1fr)}
 .product-card{display:grid;gap:var(--s1);align-content:start;color:inherit}
-.product-card__media{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:var(--wash);position:relative;display:flex;align-items:center;justify-content:center}
+/* карточка каталога в том же виде, что карточка формата (Босс 28.09): панель .card, фото с полем, 16:10, r-s, имя и цена 20px, синяя кнопка */
+.product-card.card{gap:var(--s2)}
+.product-card__media{aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash);position:relative;display:flex;align-items:center;justify-content:center}
 /* метраж — чип-пилюля на фото, слева сверху (правка Босса 15.09); в подписи остаётся только название */
 .product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
 .product-card__media img{width:100%;height:100%;object-fit:cover}
 .product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
-.product-card__name{font-size:var(--fs-body);font-weight:500;line-height:1.35}
+.product-card__name{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:-.01em}
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
 /* цена — текст, а не синий чип: чип читался как кнопка (Босс 27.09 «вредно») */
 .product-card__price{flex:none;display:inline-flex;align-items:baseline;color:var(--ink);font-size:var(--fs-body);font-weight:500;line-height:1.35;white-space:nowrap;font-variant-numeric:tabular-nums}
 /* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная (Босс 23.09: «верни кнопку») */
-.product-card__cta{width:100%;justify-content:center;margin-top:4px}
+.product-card__row .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
+.product-card__cta{width:100%;justify-content:center;margin-top:var(--s1)}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 /* мобилка: 2 в ряд (одна — слишком крупно, Босс 15.09); цена уходит под имя строкой */
 @media (max-width:520px){
@@ -565,6 +571,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .product-card__row{flex-wrap:wrap;gap:var(--s1)}
   .product-card__row > div{flex-basis:100%}
   .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 10px;font-size:var(--fs-micro)}
+  .product-card.card{padding:var(--s1);gap:var(--s1)}
+  .product-card__name,.product-card__row .product-card__price{font-size:var(--fs-body);line-height:1.35}
+  .product-card__cta{--h:40px;padding-inline:var(--s1);font-size:var(--fs-cap)}
 }
 
 .empty{grid-column:1/-1;justify-items:center;text-align:center;padding:var(--s6) var(--s3);gap:var(--s2)}
@@ -658,7 +667,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-pin{display:flex;align-items:center;gap:var(--s1);pointer-events:none}
 .map-pin__dot{width:20px;height:20px;border-radius:50%;background:var(--blue);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);flex:none}
 .map-pin__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);box-shadow:0 1px 4px rgba(0,0,0,.12);white-space:nowrap}
+/* второстепенные точки (Nuanu, пляж, Tanah Lot, Canggu): белый чип и тёмная точка, тише основного пина */
+.map-poi{display:flex;align-items:center;gap:6px;pointer-events:none}
+.map-poi--l{flex-direction:row-reverse}
+.map-poi__dot{width:10px;height:10px;border-radius:50%;background:var(--ink);border:2px solid var(--white);flex:none}
+.map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:6px var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
 @media (max-width:760px){ .location-map__box{aspect-ratio:4/5} }
+@media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-micro);padding:4px 6px} .map-pin__lbl{font-size:var(--fs-micro)} }
 .card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4);align-items:start}
 .infra__photo{margin:0;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash);align-self:stretch}
 .infra__photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -1007,7 +1022,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 @media (hover:hover){
   .btn-primary:hover{background:var(--blue-press)}
   .btn-outline:hover{color:var(--blue)}
-  .fmt-card__more:hover,.product-card__cta:hover,.gal-more:hover,.cat-more:hover{background:var(--blue);color:#fff}
+  .gal-more:hover,.cat-more:hover{background:var(--blue);color:#fff}
   .cc-arrow:hover{opacity:1}
   .cc-tag:hover{transform:translateY(-2px)}
   .site-nav a:hover{opacity:1}
