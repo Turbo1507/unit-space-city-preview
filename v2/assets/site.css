@@ -452,10 +452,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    Внутри группы: с 1100 — 4 в ряд (колонка ≥161px под UNIT.FURNITURE), 761–1099 — 2×2, уже — свайп-лента. minmax(0,1fr) + subgrid:
    колонки равные, заголовок/подпись/текст/фото на одних линиях */
 .co-group{background:var(--blue);color:#fff;border-radius:var(--r);padding:var(--s4);display:grid;gap:var(--s4)}
-.co-group__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:var(--s1) var(--s4);align-items:start}
+/* текст под заголовком, не отдельной колонкой справа — «странно висит» (Босс 28.09) */
+.co-group__head{display:grid;gap:var(--s1);justify-items:start}
 .co-group__title{font-size:var(--fs-h3);font-weight:400;line-height:1.15;letter-spacing:-.02em}
 .co-group__sub{font-size:var(--fs-body);font-weight:400;line-height:var(--lh-card)}
-.co-group__head p{grid-column:2;grid-row:1 / span 2;margin:0;font-size:var(--fs-body);line-height:var(--lh-card)}
+.co-group__head p{margin:var(--s1) 0 0;max-width:60ch;font-size:var(--fs-body);line-height:var(--lh-card)}
 .co-group__head,.co-group__head p,.co-group__head i{color:#fff}
 .co-group .co-strip .card{background:var(--white);color:var(--ink)}
 @media (min-width:761px){
@@ -467,8 +468,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 }
 @media (max-width:760px){
   .co-group{padding:var(--s2);gap:var(--s3)}
-  .co-group__head{grid-template-columns:1fr}
-  .co-group__head p{grid-column:1;grid-row:auto;margin-top:var(--s1)}
   .co-group .co-strip{margin-inline:calc(-1 * var(--s2));padding-inline:var(--s2);scroll-padding-inline:var(--s2)}
   .co-group .co-strip .co-card{flex:0 0 calc(78% - var(--s1))}
 }
