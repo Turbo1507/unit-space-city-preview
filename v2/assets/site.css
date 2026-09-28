@@ -839,7 +839,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .csel-pop[hidden]{display:none}
 /* поиск — той же высоты, что инпуты формы (48px), а не мелкий (Босс 15.09) */
-.csel-search{flex:none;margin:0 0 8px;height:48px;width:100%;padding:0 16px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
+.csel-search,.lead-form__phone .csel-search{flex:none;margin:0 0 8px;height:48px;width:100%;padding:0 16px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
 .csel-search:focus{outline:none;border-color:var(--blue)}
 .csel-list{margin:0;padding:0 8px 0 0;list-style:none;white-space:nowrap;max-height:260px;overflow:auto;scrollbar-width:none}
 .csel-list::-webkit-scrollbar{display:none}
