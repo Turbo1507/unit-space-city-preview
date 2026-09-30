@@ -31,23 +31,29 @@ const usd = (s) => Number(String(s).replace(/[^\d]/g, '')) || 0;
 function format(q, model) {
   const m = model.toUpperCase().replace(/\s+/g, ' ').trim();
   if (/VILLA/.test(m)) return { fmt: 'villa', slug: `${q}-villa` };
+  // 1+1 / 2+1 с бассейном — отдельный продукт со своей страницей (Босс 30.09)
+  if (/POOL/.test(m) && /2BD/.test(m)) return { fmt: '2bd', slug: `${q}-2bd-pool` };
+  if (/POOL/.test(m) && /1BD|2ROOMS/.test(m)) return { fmt: '1bd', slug: `${q}-1bd-pool` };
   if (/MAX 2BD|2BD/.test(m)) return { fmt: '2bd', slug: `${q}-2bd` };
   if (/1BD 1ROOM/.test(m) || /^US ?1ROOM/.test(m)) return { fmt: 'studio', slug: `${q}-studio` };
   if (/1BD|2ROOMS/.test(m)) return { fmt: '1bd', slug: q === 'u1' ? 'u1-studio' : `${q}-1bd` }; // у U1 нет отдельной страницы 1+1
   return null;
 }
 
-const lots = []; const skipped = [];
+const lots = []; const skipped = []; const areaBySlug = {};
 for (const r of parseCsv(csv)) {
   const id = (r[0] || '').trim();
   if (!/^U[123]\.\w+$/.test(id)) continue;
   const q = id.slice(0, 2).toLowerCase();
   const status = (r[2] || '').trim().toUpperCase();
-  if (status === 'SOLD') { skipped.push(`${id} SOLD`); continue; }
   const f = format(q, r[1] || '');
   const area = num(r[4]); const price = usd(r[6]);
+  // метраж страницы формата — по всем строкам таблицы, проданные тоже (Босс 01.10: верные данные — в таблице)
+  if (f && area) (areaBySlug[f.slug] = areaBySlug[f.slug] || []).push(area);
+  if (status === 'SOLD') { skipped.push(`${id} SOLD`); continue; }
   if (!f || !area || !price) { skipped.push(`${id} не распознан: ${r[1]} | ${r[4]} | ${r[6]}`); continue; }
-  lots.push({ id, q, fmt: f.fmt, slug: f.slug, area, price });
+  // BATHTUB — вариант с ванной (Босс 01.10: помечать)
+  lots.push({ id, q, fmt: f.fmt, slug: f.slug, area, price, ...(/BATHTUB/i.test(r[1] || '') ? { bath: 1 } : {}) });
 }
 
 // защита от сломанной/пустой таблицы: ничего не перезаписываем, автосинк упадёт с ошибкой
@@ -134,10 +140,16 @@ const minOf = (f) => (agg[f] ? agg[f].min : oldUsd[f]);
 const js = (lang) => FMTS.map((f) => `${/^\d/.test(f) ? `'${f}'` : f}:'${priceTxt(minOf(f), lang)}'`).join(',');
 units = units.replace(/window\.USC_PRICE = \{ru:\{[^}]*\},\s*\n\s*en:\{[^}]*\}\};/, () => `window.USC_PRICE = {ru:{${js('ru')}},\n                    en:{${js('en')}}};`)
              .replace(/window\.USC_PRICE_USD = \{[^}]*\};/, () => `window.USC_PRICE_USD = {${FMTS.map((f) => `${/^\d/.test(f) ? `'${f}'` : f}:${minOf(f)}`).join(',')}};`)
+             .replace(/(\{slug:'([\w-]+)'[^\n]*?\barea:)(\[[\d.,]+\]|[\d.]+)/g, (m, o, slug, old) => {
+               const a = areaBySlug[slug]; if (!a) return m; // нет строк в таблице — прежний метраж
+               const lo = Math.min(...a), hi = Math.max(...a);
+               return o + (lo === hi ? String(lo) : `[${lo},${hi}]`);
+             })
              .replace(/Средние по актуальным резейл-лотам \(Google Sheets, 22\.09\), не прайс девелопера — Босс подтвердил 23\.09/, 'Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы Босса');
 write('assets/units.js', units);
 
 console.log(`ok: ${lots.length} лотов (${['u1', 'u2', 'u3'].map((q) => q.toUpperCase() + ' ' + lots.filter((l) => l.q === q).length).join(', ')})`);
+console.log('метражи страниц:', Object.entries(areaBySlug).map(([s, a]) => `${s} ${Math.min(...a)}${Math.min(...a) === Math.max(...a) ? '' : '–' + Math.max(...a)}`).join(' | '));
 console.log('форматы:', Object.entries(agg).map(([f, a]) => `${f} ${priceTxt(a.min, 'ru')} [${a.where}] ${areaTxt(a, 'ru')}`).join(' | '));
 console.log(changed.length ? 'изменено: ' + changed.join(', ') : 'изменений нет');
 if (skipped.length) console.log('пропущено:', skipped.join('; '));

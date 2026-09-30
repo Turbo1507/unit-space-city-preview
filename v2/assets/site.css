@@ -80,6 +80,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .btn svg{width:16px;height:16px;flex:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-outline{border-color:currentColor}
+/* тёмная кнопка «Смотреть виллу» (Босс 29.09: свой цвет, не синий): Oxford Blue — тёмный из семейства фирменного синего */
 /* вторичная кнопка в карточках: без полутоновых заливок (Босс 25.09) —
    белый фон, сплошная синяя обводка и синий текст в полную силу */
 .gal-more,.cat-more{
@@ -94,8 +95,6 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .lbl{display:inline-flex;align-items:center;gap:var(--s1)}
 .lbl .ic{width:16px;height:16px;opacity:.8}
 .card > b.lbl,.kv-grid b.lbl{display:flex}
-.hero__card-kicker{display:inline-flex;align-items:center;gap:var(--s1)}
-.hero__card-kicker .ic{width:12px;height:12px}
 .crumb .ic{width:14px;height:14px}
 .cta-row--after{margin-top:clamp(24px,3vw,40px)}
 
@@ -180,26 +179,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__content > div:first-child{flex:1 1 auto;min-width:0}
 .hero__title{font-weight:500;letter-spacing:-.035em;line-height:1.02;font-size:var(--fs-display);max-width:19ch;text-wrap:balance}
 .hero__sub{margin-top:var(--s3);font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:44ch;opacity:.82}
+/* плашка над заголовком (Босс 29.09): белый фон, тёмный текст, шрифт не крупнее подзаголовка; прямоугольник со скруглением, не пилюля (30.09) */
+.hero__badge{display:flex;align-items:center;width:max-content;height:32px;padding:0 12px;margin-bottom:var(--s3);border-radius:var(--r-s);background:var(--white);color:var(--ink);font-size:var(--fs-body);font-weight:500;line-height:1}
+/* CTA в хиро (док правок 29.09: фото, заголовок и CTA) */
+.hero__cta{margin-top:var(--s4)}
 
-.hero__card{position:relative;flex:none;width:clamp(240px,22vw,320px);aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;
-  background:var(--wash);color:var(--ink);display:block;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.hero__card.in{opacity:1;transform:none}
-/* карта Бали в карточке: контур острова (OSM), точки U1/U2/U3 у Nuanu с пульсом, Denpasar и Ubud для ориентира */
-.hero__map{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero__map path{fill:#E2E2DE}
-.hero__map-ref circle{fill:var(--ink-2)}
-.hero__map-ref text,.hero__map-sub{font-size:9px;fill:var(--ink-2);font-family:var(--font)}
-.hero__map-dots circle{fill:var(--blue);stroke:var(--wash);stroke-width:1.2}
-.hero__map-lbl{font-size:9.5px;font-weight:400;fill:var(--blue);font-family:var(--font);letter-spacing:.04em}
-.hero__map-pulse{fill:var(--blue);opacity:.25;transform-origin:center;transform-box:fill-box;animation:mapPulse 2.4s var(--ease) infinite}
-@keyframes mapPulse{0%{transform:scale(.6);opacity:.35}100%{transform:scale(2.6);opacity:0}}
-@media (prefers-reduced-motion:reduce){ .hero__map-pulse{animation:none;opacity:.18} }
-.hero__card-text{position:absolute;left:var(--s2);bottom:var(--s2);z-index:1;display:grid;gap:4px;max-width:calc(100% - 72px)}
-/* подпись обычным текстом: мелкий капс с разрядкой и прозрачностью — ИИ-маркер (Босс 28.09) */
-.hero__card-kicker{font-size:var(--fs-cap);font-weight:400;line-height:1.3;color:var(--ink-2)}
-.hero__card-title{font-size:var(--fs-body);font-weight:500;line-height:1.25}
-.hero__card-arrow{position:absolute;right:var(--s2);bottom:var(--s2);z-index:1;width:32px;height:32px;border-radius:50%;background:var(--blue);
-  display:flex;align-items:center;justify-content:center;transition:background .18s}
 
 .hero__strip{border-top:1px solid rgba(255,255,255,.22)}
 .hero__strip .container{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);padding-block:var(--s2)}
@@ -210,10 +194,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   /* Босс 15.09: заголовок чуть крупнее (3 строки держим), подзаголовок мельче */
   .hero__title{font-size:clamp(34px,9.8vw,44px);letter-spacing:-.03em}
   .hero__sub{margin-top:var(--s2);font-size:var(--fs-body);line-height:var(--lh-card);max-width:36ch}
+  .hero__badge{height:28px;font-size:var(--fs-cap);margin-bottom:var(--s2)}
   /* мобилка (Босс 21.09): мини-карта + полоса статов U1/U2/U3 убраны из хиро целиком —
      переехали отдельным блоком в #about вместе с описанием U1/U2/U3. На десктопе
      карточка с картой остаётся (не трогать — прямое указание Босса). */
-  .hero__card{display:none}
   .hero__strip{display:none}
 }
 
@@ -227,7 +211,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .consent-bar p{font-size:var(--fs-cap);line-height:1.45}
 .consent-bar a{text-decoration:underline}
 .consent-bar .btn{width:100%;justify-content:center}
-@media (prefers-reduced-motion: reduce){ .consent-bar,.hero__card{transition:none} }
+@media (prefers-reduced-motion: reduce){ .consent-bar{transition:none} }
 
 /* ---------- карточка — бренд-элемент: заливка, r10, без рамок/теней ---------- */
 .card{background:var(--white);border-radius:var(--r);padding:var(--s3);display:grid;gap:var(--s1);align-content:start}
@@ -304,6 +288,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .stat-card__value > span{color:var(--ink)}
 .stat-card__value > span.dash{color:var(--blue)}
 .stat-card__value em{color:var(--blue);font-style:normal}
+.stat-card__value .stat-card__word{font-size:.32em;letter-spacing:-.01em;margin-right:.3em}
 .stat-card__value .pct{font-size:.62em;vertical-align:.3em;letter-spacing:0}
 @media (max-width:820px){ .stat-grid,.stat-grid--3{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .stat-grid{grid-template-columns:1fr} .stat-card{min-height:0} .stat-card__value{padding-top:var(--s2)} }
@@ -315,17 +300,20 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .photo-band__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s var(--ease)}
 .photo-band__slide.is-in{opacity:1}
 .photo-band__slide::after{content:"";position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(180deg,transparent,rgba(10,11,13,.55))}
-.photo-band figcaption{position:absolute;z-index:1;left:max(var(--gut),calc((100% - var(--col)) / 2 + var(--gut)));right:var(--gut);bottom:clamp(24px,3vw,40px);color:#fff;display:grid;gap:4px;max-width:44ch}
+.photo-band figcaption{position:absolute;z-index:1;left:max(var(--gut),calc((100% - var(--col)) / 2 + var(--gut)));right:var(--gut);bottom:calc(clamp(24px,3vw,40px) + var(--s3));color:#fff;display:grid;gap:4px;max-width:44ch}
 .photo-band figcaption b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
 .photo-band figcaption span{font-size:var(--fs-cap);line-height:1.45;opacity:.82}
-.photo-band .photo-band__nav{position:absolute;z-index:2;right:max(var(--gut),calc((100% - var(--col)) / 2 + var(--gut)));bottom:clamp(24px,3vw,40px)}
-/* мобилка (Босс 15.09): пилюля с кнопками слишком крупная → стрелки полупрозрачные по бокам кадра,
-   счётчик — аккуратная цифра в левом верхнем углу без подложки */
+.photo-band .dots{left:max(var(--gut),calc((100% - var(--col)) / 2 + var(--gut)));bottom:clamp(24px,3vw,40px);transform:none}
+.photo-band .ugal__arrow{z-index:2}
+.photo-band .ugal__arrow--prev{left:var(--s3)}
+.photo-band .ugal__arrow--next{right:var(--s3)}
+/* мобилка: подпись поднята над точками, стрелки ближе к краю */
 @media (max-width:760px){
   .photo-band{height:clamp(360px,90vw,520px)}
-  .photo-band figcaption{right:var(--gut);bottom:var(--s3)}
-  .photo-band .photo-band__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  .photo-band .ugal__count{position:absolute;left:var(--gut);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+  .photo-band figcaption{right:var(--gut);bottom:calc(var(--s3) + var(--s3))}
+  .photo-band .dots{bottom:var(--s3)}
+  .photo-band .ugal__arrow--prev{left:var(--s2)}
+  .photo-band .ugal__arrow--next{right:var(--s2)}
 }
 @media (prefers-reduced-motion:reduce){ .photo-band__slide{transition:none} }
 
@@ -469,7 +457,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-group__head{display:grid;gap:var(--s1);justify-items:start}
 .co-group__title{font-size:var(--fs-h3);font-weight:400;line-height:1.15;letter-spacing:-.02em}
 .co-group__sub{font-size:var(--fs-body);font-weight:400;line-height:var(--lh-card)}
-.co-group__head p{margin:var(--s1) 0 0;max-width:60ch;font-size:var(--fs-body);line-height:var(--lh-card)}
+.co-group__head p{margin:var(--s1) 0 0;max-width:68ch;text-wrap:balance;font-size:var(--fs-body);line-height:var(--lh-card)}
 .co-group__head,.co-group__head p,.co-group__head i{color:#fff}
 .co-group .co-strip .card{background:var(--white);color:var(--ink)}
 @media (min-width:761px){
@@ -535,7 +523,14 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card{gap:var(--s2);color:inherit}
 .fmt-card__media{display:block;position:relative;aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .fmt-card__media picture{display:block;width:100%;height:100%}
-.fmt-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.fmt-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);-webkit-user-drag:none}
+/* мини-галерея (Босс 29.09): обложка в потоке, остальные кадры поверх с кроссфейдом; стрелки и точки — как в барабане юнита */
+.fmt-card__gal{position:relative}
+.fmt-card__gal .fmt-card__media{touch-action:pan-y}
+.fmt-card__media picture + picture{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease)}
+.fmt-card__media picture.is-in{opacity:1}
+.fmt-card__gal .ugal__arrow{z-index:2}
+@media (prefers-reduced-motion:reduce){ .fmt-card__media picture + picture{transition:none} }
 /* больше воздуха между head/rows/foot — Босс 21.09: «не нравятся отступы внутри карточек» */
 .fmt-card__body{display:grid;gap:var(--s3)}
 .fmt-card__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
@@ -547,9 +542,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* низ карточки (Босс 15.09, и десктоп): чип планировки — обычная 40px-пилюля, а не 120×80 бокс; чип цены переехал
    сюда из шапки карточки; ниже — 2 явные кнопки: «Подробнее» (переход на страницу юнита) и «Заявка»
    (Босс 23.09: карточка сама больше не ссылка целиком, фото — отдельная ссылка на детали) */
-.fmt-card__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);margin-top:var(--s1)}
-.fmt-card__plan{display:inline-flex;align-items:center;height:40px;padding:0 var(--s2);border-radius:var(--r-s);border:1px solid var(--line-2);font-size:var(--fs-cap);opacity:var(--dim);background:none}
-.fmt-card .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
+.fmt-card__foot{display:flex;align-items:baseline;gap:var(--s2);margin-top:var(--s1)}
+.fmt-card .product-card__price,.avail-card__price{font-size:var(--fs-h3);line-height:1.1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
 .fmt-card__actions{display:grid;grid-template-columns:1fr;gap:var(--s1)}
 .fmt-card__actions .btn{justify-content:center}
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
@@ -585,6 +579,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная (Босс 23.09: «верни кнопку») */
 .product-card__row .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
 .product-card__cta{width:100%;justify-content:center;margin-top:var(--s1)}
+/* узкая карточка (3 в ряд на 900–1199): название и цена в одну строку не влезали, «1+1 спальня» переносилось
+   и ряды разъезжались (Босс 29.09). Порог по ширине самой карточки — весь ряд перестраивается разом */
+@media (min-width:901px){
+  .product-card{container-type:inline-size}
+  @container (max-width:340px){ .product-card__row{flex-direction:column;gap:var(--s1)} }
+}
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 /* мобилка: 2 в ряд (одна — слишком крупно, Босс 15.09); цена уходит под имя строкой */
 @media (max-width:520px){
@@ -645,6 +645,15 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc__picker{grid-column:1/-1;position:relative}
 .calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .calc__picker-panel[hidden]{display:none}
+#calcPickerBtn b{font-weight:500}
+#calcPickerBtn{justify-content:space-between;text-align:left}
+.calc__pick-t{min-width:0}
+.calc__chev{flex:none}
+.calc__pick-c{font-style:normal}
+/* мобила: подпись мелко сверху, выбранный формат под ней — длинное «Вилла 3+1 с бассейном» не рвёт строку посередине */
+@media (max-width:760px){ #calcPickerBtn{width:100%;--h:56px;padding-block:8px} .calc__pick-t{display:flex;flex-direction:column;gap:2px} .calc__pick-t > span{font-size:var(--fs-micro);font-weight:400;opacity:var(--dim)} .calc__pick-c{display:none} #calcPickerBtn b{font-size:var(--fs-body)} }
+.calc__chev{transition:transform .2s var(--ease)}
+#calcPickerBtn[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
 .calc__pick-card{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);width:100%;padding:var(--s2);border:0;border-radius:var(--r-s);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .16s var(--ease)}
 .calc__pick-card.is-active{background:var(--blue);color:#fff}
 .calc__pick-card b{font-weight:500}
@@ -673,6 +682,16 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* ---------- location ---------- */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
+/* плашки расстояний + карта целиком в экран под шапкой (Босс 29.09): карта берёт остаток высоты.
+   На телефоне не держим (Босс 30.09): карта обычной высоты 4:5 */
+@media (min-width:761px){
+.loc-fit{display:flex;flex-direction:column;gap:var(--s2);height:calc(100svh - var(--hdr) - var(--s4));min-height:480px;max-height:880px}
+.loc-fit .stat-grid{margin-bottom:0;flex:none}
+.loc-fit .location-map{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.loc-fit .location-map__box{flex:1 1 auto;min-height:0;aspect-ratio:auto}
+}
+/* ≤1000px снизу висит липкая кнопка заявки (56 + отступ 16) — карта не должна уходить под неё */
+@media (min-width:761px) and (max-width:1000px){ .loc-fit{height:calc(100svh - var(--hdr) - var(--s4) - 56px - var(--s2));min-height:440px} }
 .sect--alt .location-map{background:var(--paper)}
 .row > .card{align-self:stretch}
 .ph{background:var(--wash);border-radius:var(--r)}
@@ -708,6 +727,28 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
 @media (max-width:760px){ .location-map__box{aspect-ratio:4/5} }
 @media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-micro);padding:4px 8px} .map-pin__lbl{font-size:var(--fs-micro)} }
+/* чип места раскрывается вниз в карточку с галереей (Босс 30.09): карточка лежит поверх чипа, заголовок на том же месте,
+   clip-path разворачивает её из размера чипа. Места без фото остаются простыми чипами */
+.maplibregl-marker.has-pop{cursor:pointer}
+.has-pop .map-pin__lbl,.has-pop .map-poi__lbl{pointer-events:auto;cursor:pointer}
+.maplibregl-marker.is-open{z-index:5}
+.map-pop{position:absolute;top:0;left:0;width:280px;padding-bottom:var(--s1);background:var(--white);color:var(--ink);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.18);pointer-events:auto;cursor:default;visibility:hidden;clip-path:inset(var(--ct,0) var(--cr,0) var(--cb,0) var(--cl,0) round var(--r-s));transition:clip-path .26s cubic-bezier(.4,0,.2,1),visibility 0s linear .26s}
+.is-open > .map-pop{visibility:visible;clip-path:inset(0 0 0 0 round var(--r-s));transition:clip-path .42s cubic-bezier(.2,.8,.2,1)}
+.map-pop__gal{opacity:0;transition:opacity .2s linear}
+.is-open > .map-pop .map-pop__gal{opacity:1;transition:opacity .3s linear .08s}
+.map-pop__t{font-size:var(--fs-cap);line-height:1;white-space:nowrap}
+.map-pop--r .map-pop__t{text-align:right}
+.map-pop{will-change:clip-path}
+.map-pop--up{display:flex;flex-direction:column-reverse;padding:var(--s1) 0 0}
+.map-pop__gal{position:relative;margin:0 var(--s1);aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:var(--wash)}
+.map-pop__gal picture{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease)}
+.map-pop__gal picture.is-in{opacity:1}
+.map-pop__gal img{width:100%;height:100%;object-fit:cover;display:block}
+.map-pop__gal .ugal__arrow{z-index:2}
+.map-pop__gal .ugal__arrow--prev{left:var(--s1)}
+.map-pop__gal .ugal__arrow--next{right:var(--s1)}
+@media (max-width:520px){ .map-pop{width:224px} .map-pop__t{font-size:var(--fs-micro)} }
+@media (prefers-reduced-motion:reduce){ .map-pop,.is-open > .map-pop,.map-pop__gal,.is-open > .map-pop .map-pop__gal,.map-pop__gal picture{transition:none} }
 .card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4);align-items:start}
 .infra__photo{margin:0;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash);align-self:stretch}
 .infra__photo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -717,8 +758,38 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* мастерплан Nuanu — с выносками на объекты, в узкой колонке подписи нечитаемы:
    карточка в одну колонку, план во всю ширину. Пропорция точно по исходнику, иначе обрежет выноски */
 .card.infra--plan{grid-template-columns:1fr;gap:var(--s3)}
-.infra__photo--plan{aspect-ratio:2/1}
-@media (max-width:760px){ .card.infra{grid-template-columns:1fr} .infra__photo--plan{aspect-ratio:560/578} }
+.infra__photo--plan{aspect-ratio:2/1;position:relative}
+/* мастерплан (Босс 30.09): чистая картинка + подписи HTML поверх, координаты из Figma unitdeveloper (.mp-pin), подписи «Визуализация комплекса» нет.
+   Точка пина = низ ножки; top — верх подписи, как в Figma */
+.plan-pan,.plan-canvas{position:absolute;inset:0}
+.plan-canvas img{width:100%;height:100%;object-fit:cover;display:block}
+.plan-canvas{container-type:inline-size}
+/* затемнение как в Figma: 174:6 (multiply 20%) и 174:7 (низ кадра 20%), Босс 01.10 осветлил */
+.plan-canvas::before,.plan-canvas::after{content:"";position:absolute;inset:0;pointer-events:none}
+.plan-canvas::before{background:linear-gradient(to bottom,rgba(0,0,0,.44) 0%,rgba(0,0,0,.85) 31.4%,rgba(112,112,112,.85) 100%);opacity:.2;mix-blend-mode:multiply}
+.plan-canvas::after{background:linear-gradient(to bottom,rgba(0,0,0,0) 62%,rgba(0,0,0,.17) 100%)}
+/* пин стоит ТОЧКОЙ на координате; --h — ножка в px фрейма 1060, масштабируется с картинкой; шрифт 13px на 1060 */
+.plan-pin{position:absolute;z-index:1;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);color:#fff;font-size:clamp(11px,1.226cqw,16px);line-height:1.2;text-align:center;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.75);pointer-events:none}
+.plan-pin::after{content:"";flex:none;width:1px;height:max(6px,calc(var(--h) * 100cqw / 1060 - 7px));margin-top:4px;background:#fff}
+.plan-pin::before{content:"";position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#fff}
+.plan-pin--dn{flex-direction:column-reverse;transform:translate(-50%,0)}
+.plan-pin--dn::after{margin:0 0 4px}
+.plan-pin--dn::before{bottom:auto;top:-3px}
+.plan-canvas .plan-badge{z-index:1}
+/* чип комплекса на мастерплане (Босс 30.09): то же место, что на unitdeveloper.com (.mp-badge), точка ножки — на квартале.
+   Координаты — доля кадра: десктоп 2:1 целиком; мобильный кадр — своя сцена (досчитано по подписям), ножка справа, чтобы чип не вылез за край */
+.plan-badge{--x:75.7%;--y:19.7%;position:absolute;left:var(--x);top:var(--y);transform:translate(-20px,-100%);display:flex;flex-direction:column;align-items:flex-start;pointer-events:none}
+.plan-badge__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap}
+.plan-badge__stem{position:relative;width:1px;height:20px;margin-left:20px;background:var(--white)}
+.plan-badge__stem::after{content:"";position:absolute;left:50%;bottom:-3px;width:6px;height:6px;border-radius:50%;background:var(--white);transform:translateX(-50%)}
+@media (max-width:760px){ .plan-badge__lbl{font-size:var(--fs-micro);padding:6px 8px} .plan-badge__stem{height:14px} }
+@media (max-width:760px){
+  .infra__photo--plan{aspect-ratio:auto;height:380px}
+  .plan-pan{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .plan-pan::-webkit-scrollbar{display:none}
+  .plan-canvas{position:relative;inset:auto;width:760px;height:100%}
+}
+@media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
 /* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (Босс 23.09, десктоп-версия на паузе) */
 /* «что есть в комплексе»: на десктопе сетка фото-карточек — была строка серых тегов, Босс 25.09
    («вот это бля не нравится»). На мобиле остаётся свайп-лента, разметка одна на оба случая */
@@ -915,6 +986,16 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* кнопка заявки рядом с ценой на странице юнита: в ряд, одной высоты с ценой (Босс 25.09) */
 .unit-head__price{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:var(--s2)}
 .unit-head__request{--h:48px;white-space:nowrap}
+/* мобила (Босс 01.10): цена и кнопка — под фото-слайдером, в один ряд; цена синим, как в карточках форматов */
+@media (max-width:760px){
+  .unit-top{display:flex;flex-direction:column}
+  .unit-top > .unit-head{display:contents}
+  .unit-top > .unit-head > div:first-child{order:1;margin-top:var(--s3)}
+  .unit-top > .ugal{order:2}
+  .unit-top .unit-head__price{order:3;margin-top:var(--s2);flex-wrap:nowrap;justify-content:space-between}
+  .unit-top .unit-price{height:auto;padding:0;background:none;color:var(--blue);font-size:var(--fs-h3);letter-spacing:-.02em}
+  .unit-top .unit-head__request{padding-inline:var(--s2)}
+}
 /* галерея юнита — барабан: слева вертикальная лента превью (активное по центру, 100%,
    остальные 50%), справа большой кадр с кроссфейдом; колесо/свайп/стрелки/клик */
 .ugal{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:120px 1fr;gap:var(--s2);height:clamp(400px,50vw,640px)}
@@ -933,15 +1014,31 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .ugal__stage picture{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
 .ugal__stage picture.is-in{opacity:1}
 .ugal__stage img{width:100%;height:100%;object-fit:cover}
-.ugal__nav{position:absolute;right:var(--s2);bottom:var(--s2);z-index:1;display:flex;align-items:center;gap:var(--s1);
-  padding:4px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px)}
 /* стрелки барабана юнита — без подложки, тонкий шеврон (Босс 23.09: в отличие от лайтбокса) */
 .ugal__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:1;width:32px;height:32px;border:0;background:none;padding:0;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.85;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
 .ugal__arrow--prev{left:var(--s2)}
 .ugal__arrow--next{right:var(--s2)}
-.ugal__count{font-size:var(--fs-cap);padding:0 4px;opacity:var(--dim)}
-.ugal__count b{font-weight:500}
+/* «Наличие» на странице формата (Босс 29.09): вкладки U1/U2/U3, одна карточка на комплекс + метраж */
+.avail__tabs{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.avail__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-top:var(--s3);align-items:start}
+.avail-card{display:grid;gap:var(--s2);align-content:start}
+.avail-card .avail-card__price{margin-top:var(--s1)}
+.avail-card__more{margin-top:var(--s1)}
+.avail-card .fmt-card__rows > div > b{text-align:right;max-width:60%;white-space:normal}
+.avail-card .btn{width:100%;justify-content:center}
+@media (max-width:1000px){ .avail__grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .avail__grid{grid-template-columns:1fr} }
+.avail__none{grid-column:1/-1;margin:0;max-width:60ch}
+/* телефон: вкладки в одну строку — только U1/U2/U3, название комплекса есть в карточке */
+@media (max-width:520px){ .avail__tabs .chip span{display:none} .avail__tabs .chip{min-width:64px;justify-content:center} }
+.lead-form__pick{margin:0;font-size:var(--fs-cap)}
+.lead-form__pick b{font-weight:500}
 .ic--flip{transform:scaleX(-1)}
+/* прогресс-точки вместо счётчика «1/3» (Босс 29.09: как на БСО) — размеры 1:1 с БСО */
+.dots{position:absolute;z-index:2;left:50%;bottom:var(--s2);transform:translateX(-50%);display:flex;gap:5px;pointer-events:none}
+.dots span{width:5px;height:5px;border-radius:3px;background:rgba(255,255,255,.5);box-shadow:0 1px 2px rgba(0,0,0,.3);transition:background .25s,width .25s}
+.dots span.on{width:16px;background:#fff}
+@media (prefers-reduced-motion:reduce){ .dots span{transition:none} }
 @media (max-width:760px){
   /* Босс 15.09: кадр и превью чуть меньше; пилюля навигации → полупрозрачные стрелки по бокам + счётчик слева сверху */
   .ugal{grid-template-columns:1fr;grid-template-rows:auto 72px;height:auto;gap:var(--s1)}
@@ -952,8 +1049,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ugal__drum::after{right:0;left:auto;background:linear-gradient(270deg,var(--paper),transparent)}
   .ugal__track{top:0;bottom:0;left:50%;right:auto;display:flex;transform:translateX(-50%)}
   .ugal__thumb{width:96px;flex:none;height:100%;aspect-ratio:auto}
-  .ugal__stage .ugal__nav{position:static;padding:0;background:none;backdrop-filter:none;display:contents}
-  .ugal__stage .ugal__count{position:absolute;left:var(--s2);top:var(--s2);z-index:2;padding:0;color:#fff;opacity:1;text-shadow:0 1px 6px rgba(0,0,0,.35)}
 }
 
 /* строки «подпись … значение» с точечным лидером (факты юнита) */
@@ -969,9 +1064,12 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 /* ---------- ≤760: мобильная типографическая шкала (Босс 15.09: подзаголовки слишком крупные) ----------
    h2 30 → h3 22 → lead/sub 18 (было 20 — вплотную к h3 24) → body 16 → cap 14; ритм секций 48, заголовок→контент 24 */
 @media (max-width:760px){
-  :root{ --fs-sub:18px; --fs-h3:22px; --fs-title:30px; --sy:48px; --lh-sub:1.4 }
+  /* межстрочное на мобиле плотнее на ~12% (Босс 01.10): body 1.55→1.4, карточки 1.45→1.3, подзаголовки 1.4→1.25 */
+  :root{ --fs-sub:18px; --fs-h3:22px; --fs-title:30px; --sy:48px; --lh-body:1.4; --lh-card:1.3; --lh-sub:1.25 }
   /* подзаголовки на мобиле 16px (Босс 28.09; было 18) */
-  .t-lead,.complex__intro{font-size:16px;line-height:1.45}
+  .t-lead,.complex__intro{font-size:16px;line-height:1.3}
+  .t-small,.consent-bar p,.lead-form__note,.lead-form__consent,.photo-band figcaption span,.stat-card__label,.product-card__meta,.team-card__role,.field__err{line-height:1.3}
+  .manifesto p{line-height:1.25}
   .sect-head{gap:var(--s2);margin-bottom:var(--s3)}
   .sub-head{margin-block:var(--s5) var(--s2)}
   .cta-row--after{margin-top:var(--s3)}
@@ -1064,7 +1162,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-nav a:hover{opacity:1}
   .hd-sel__btn:hover{opacity:1}
   .menu-list a:hover{color:var(--blue)}
-  .hero__card:hover .hero__card-arrow{background:var(--blue-press)}
   .ov-row:hover{background:var(--blue-050)}
   .fmt-card:hover .fmt-card__media img{transform:scale(1.02)}
   .fmt-card:hover .fmt-card__name{color:var(--blue)}
@@ -1103,3 +1200,7 @@ i.u5,i.ul{font-style:normal}
 /* ловушка для ботов в форме заявки — людям не видна */
 .lead-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 .lead-form--done p{margin-top:var(--s2)}
+/* подсказка «адрес скопирован» (Босс 30.09: текстовые контакты в футере «некликабельны» — mailto без почтовой программы молчит) */
+.toast{position:fixed;left:50%;bottom:var(--s4);z-index:70;transform:translate(-50%,8px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px var(--s2);border-radius:var(--r-s);font-size:var(--fs-cap);line-height:1.3;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:opacity .2s,transform .2s;max-width:calc(100% - 2 * var(--gut))}
+.toast.in{opacity:1;transform:translate(-50%,0)}
+@media (max-width:1000px){ .toast{bottom:calc(56px + var(--s4))} }

@@ -1,13 +1,13 @@
 /* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы Босса (вкладка Layouts), руками не править.
    SOLD не выводятся. */
 window.USC_LOTS = [
-  {"id":"U1.2","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000},
+  {"id":"U1.2","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000,"bath":1},
   {"id":"U1.7","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000},
   {"id":"U1.11","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":105000},
   {"id":"U1.3","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":110000},
   {"id":"U1.21","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":129500},
   {"id":"U1.1","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":150000},
-  {"id":"U1.6","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":150000},
+  {"id":"U1.6","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":150000,"bath":1},
   {"id":"U1.19","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":153000},
   {"id":"U1.20","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":155000},
   {"id":"U1.14","q":"u1","fmt":"1bd","slug":"u1-studio","area":54.2,"price":140000},
