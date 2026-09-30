@@ -33,7 +33,7 @@ export function langHead(lang, rel) {
 }
 // старые адреса /en/... → корень: GitHub Pages без серверных редиректов, поэтому meta refresh + canonical на новый URL
 export function redirectStub(to) {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>UNIT.SPACE CITY</title><meta name="robots" content="noindex"><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script></head><body><a href="${to}">${to}</a></body></html>\n`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>UNIT. SPACE CITY</title><meta name="robots" content="noindex"><link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script></head><body><a href="${to}">${to}</a></body></html>\n`;
 }
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев

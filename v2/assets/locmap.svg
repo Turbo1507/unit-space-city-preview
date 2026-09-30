@@ -25,7 +25,7 @@ text{font-family:"Helvetica Neue","Helvetica Neue LT",Helvetica,"Arial Nova",Ari
 <circle cx="319" cy="348" r="5"/><text x="307" y="355" text-anchor="end">Tanah Lot</text>
 <circle cx="470" cy="522" r="5"/><text x="458" y="544" text-anchor="end">Luna Beach Club</text></g>
 <g class="locmap__pin" transform="translate(718,315)"><path d="M0,0 C0,0 -18,-24 -18,-36 A18,18 0 1,1 18,-36 C18,-24 0,0 0,0Z"/><circle cx="0" cy="-36" r="6.5"/></g>
-<text class="locmap__pin-lbl" x="744" y="287"><tspan font-weight="500">UNIT.</tspan>SPACE CITY</text>
+<text class="locmap__pin-lbl" x="744" y="287"><tspan font-weight="500">UNIT.</tspan>&#160;SPACE CITY</text>
 <text class="locmap__lbl" x="626" y="576">Nuanu Creative City</text>
 <g class="locmap__scale"><line x1="952" y1="710" x2="1140" y2="710"/><text x="1140" y="700" text-anchor="end">1 км</text></g>
 </svg>

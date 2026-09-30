@@ -109,7 +109,7 @@
     { sel: '[data-i18n="calc.pick_2bd"]', fmt: '2bd' }, { sel: '[data-i18n="calc.pick_villa"]', fmt: 'villa' },
     { sel: '[data-i18n="price.studio"]', fmt: 'studio' }, { sel: '[data-i18n="price.1bd"]', fmt: '1bd' },
     { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' },
-    { sel: '[data-i18n="buy.2"]', usd: 1500 }
+    { sel: '[data-i18n="buy.1p"]', usd: 1500 }
   ];
   function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
   /* компактная запись IDR (Босс 23.09: «Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
@@ -129,7 +129,7 @@
       PRICE_ELS.forEach(function (p) {
         document.querySelectorAll(p.sel).forEach(function (el) {
           var usd = p.usd != null ? p.usd : (window.USC_PRICE_USD && window.USC_PRICE_USD[p.fmt]); if (usd == null) return;
-          el.textContent = el.textContent.replace(/\$[\d.,  ]+|Rp[\d.,  BM]+/, fmtIdr(usd));
+          el.textContent = el.textContent.replace(/\$\d(?:[\d.,  ]*\d)?|Rp\d(?:[\d.,]*\d)?[BM]?/, fmtIdr(usd));
         });
       });
       CALC_LABELS.forEach(function (p) {
@@ -222,7 +222,6 @@
       moveInk(tabs[i]);
       if (focusTab) tabs[i].focus();
       /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже (Босс 22.09) */
-      if (window.__uscSyncCatalog) window.__uscSyncCatalog(slides[i].id);
       fitTrack();
       // при загрузке страницу не трогаем: иначе через 700 мс её утаскивало к комплексам, если уже пролистали ниже (восстановление позиции, быстрый скролл)
       if (init) return;
@@ -288,12 +287,18 @@
     if (cxSlider) cxSlider.addEventListener('scroll', function () { cxSlider.scrollLeft = 0; });
   }
 
-  /* ---------- каталог: карточки-товары, ссылки на units/<slug>.html; перерисовка при смене языка ---------- */
-  var uWrap = document.getElementById('units'), uCnt = document.getElementById('unitCount'), filters = document.getElementById('filters');
+  /* ---------- карточка формата (каталог с главной убран, Босс 29.09 — его заменил блок «Наличие» на страницах форматов) ---------- */
   var L = function () { return window.__uscLang || pageLang; };
   var D = function () { return (window.I18N && window.I18N[L()]) || {}; };
   /* карточка формата (как в блоке «Форматы вилл» на главной) — для «Других форматов» на странице юнита (Босс 15.09:
      там стоял старый product-card). Строки — из словаря по ключам fmt.<fmt>_r/_w (+ f_out/villa_o у виллы) */
+  /* прогресс-точки (Босс 29.09: вместо «1/3», как на БСО): рисует n точек, возвращает set(i) */
+  function dots(box, n) {
+    if (!box) return function () {};
+    box.innerHTML = new Array(n + 1).join('<span></span>');
+    var d = box.children;
+    return function (i) { for (var k = 0; k < d.length; k++) d[k].classList.toggle('on', k === i); };
+  }
   window.__uscFmtCard = function (u, hrefBase) {
     var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0], m2 = lang === 'ru' ? 'м²' : 'm²';
     var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + (d[v] || '') + '</b></div>'; };
@@ -303,104 +308,17 @@
     return '<div class="card fmt-card">' +
       '<a class="fmt-card__media" href="' + href + '" tabindex="-1" aria-hidden="true"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
       '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
-      '<span class="product-card__area">' + u.area + ' ' + m2 + '</span></a>' +
+      '<span class="product-card__area">' + window.USC_AREA_TXT(u, lang) + '&nbsp;' + m2 + '</span></a>' +
       '<div class="fmt-card__body"><div class="fmt-card__head"><div><div class="fmt-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div></div>' +
       '<div class="leaders fmt-card__rows">' + rows + '</div>' +
-      '<div class="fmt-card__foot"><span class="fmt-card__plan" aria-hidden="true">' + (d['fmt.plan'] || '') + '</span>' +
+      '<div class="fmt-card__foot">' +
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<div class="fmt-card__actions">' +
-      /* одна синяя кнопка, без второй «Получить презентацию» — лишний CTA (Босс 28.09) */
+      /* одна синяя кнопка (Босс 30.09 вернул синий), без второй «Получить презентацию» — лишний CTA (Босс 28.09) */
       '<a class="btn btn-primary fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
       '</div></div></div>';
   };
-  window.__uscUnitCard = function (u, hrefBase) {
-    var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0];
-    return '<a class="card product-card" href="' + hrefBase + u.slug + '.html">' +
-      '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
-      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
-      '<span class="product-card__area">' + u.area + ' m²'.replace('m', lang === 'ru' ? 'м' : 'm') + '</span></div>' +
-      '<div class="product-card__row"><div><div class="product-card__name">' + u.name[lang] + '</div>' +
-      '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div>' +
-      '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
-      '<span class="btn btn-primary product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
-  };
-  /* карточка реального лота из таблицы Босса (assets/lots.js): поля те же, что у карточки формата,
-     но метраж и цена — этого лота (цена точная, без «от»); фото по кругу из барабана формата */
-  window.__uscLotCard = function (lot, n, hrefBase) {
-    var CX = window.USC_COMPLEX, lang = L(), d = D();
-    var page = window.USC_UNITS.filter(function (u) { return u.slug === lot.slug; })[0];
-    var named = window.USC_UNITS.filter(function (u) { return u.fmt === lot.fmt && u.q === lot.q; })[0] ||
-                window.USC_UNITS.filter(function (u) { return u.fmt === lot.fmt; })[0] || page;
-    var ph = page.photos[n % page.photos.length];
-    var area = (lang === 'ru' ? String(lot.area).replace('.', ',') : String(lot.area)) + (lang === 'ru' ? ' м²' : ' m²');
-    return '<a class="card product-card" href="' + hrefBase + page.slug + '.html">' +
-      '<div class="product-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
-      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[lot.q].code + ' — ' + named.name[lang] + '" width="480" height="360" loading="lazy"></picture>' +
-      '<span class="product-card__area">' + area + '</span></div>' +
-      '<div class="product-card__row"><div><div class="product-card__name">' + named.name[lang] + '</div>' +
-      '<div class="product-card__meta dim">' + CX[lot.q].code + ', ' + page.floor[lang] + '</div></div>' +
-      '<span class="product-card__price">' + window.__uscMoney(lot.price, lang, true) + '</span></div>' +
-      '<span class="btn btn-primary product-card__cta">' + (d['cat.details'] || '') + '</span></a>';
-  };
-  if (uWrap && window.USC_UNITS) {
-    var st = { q: 'all', fmt: 'all', open: false };
-    var CAT_FIRST = 12;
-    var catMore = document.getElementById('unitsMore');
-    if (catMore) catMore.addEventListener('click', function () { st.open = true; renderUnits(); });
-    function renderUnits() {
-      var src = window.USC_LOTS && window.USC_LOTS.length ? window.USC_LOTS : window.USC_UNITS;
-      var list = src.filter(function (u) { return (st.q === 'all' || u.q === st.q) && (st.fmt === 'all' || u.fmt === st.fmt); });
-      /* «все комплексы»: чередуем U1/U2/U3, чтобы в первых карточках до «Показать все» были все три */
-      if (st.q === 'all') {
-        var byQ = ['u1', 'u2', 'u3'].map(function (q) { return list.filter(function (u) { return u.q === q; }); }), mixed = [];
-        for (var k = 0; mixed.length < list.length; k++) byQ.forEach(function (arr) { if (arr[k]) mixed.push(arr[k]); });
-        list = mixed;
-      }
-      if (catMore) catMore.parentElement.hidden = st.open || list.length <= CAT_FIRST;
-      if (uCnt) uCnt.textContent = list.length;
-      if (!list.length) {
-        var d = (window.I18N && window.I18N[L()]) || {};
-        uWrap.innerHTML = '<div class="card empty"><h3 class="t-h3">' + (d['cat.empty_t'] || '') + '</h3><p>' + (d['cat.empty_p'] || '') + '</p>' +
-          '<div class="cta-row"><a href="#lead" class="btn btn-primary">' + (d['cat.empty_cta'] || '') + '</a>' +
-          '<button type="button" class="btn btn-outline" id="unitsReset">' + (d['cat.reset'] || '') + '</button></div></div>';
-        var rb = document.getElementById('unitsReset');
-        if (rb) rb.addEventListener('click', function () {
-          st.q = 'all'; st.fmt = 'all';
-          if (filters) filters.querySelectorAll('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.v === 'all' ? 'true' : 'false'); });
-          renderUnits();
-        });
-        return;
-      }
-      var seen = {};
-      var shown = st.open ? list : list.slice(0, CAT_FIRST);
-      uWrap.innerHTML = shown.map(function (u) {
-        if (!u.id) return window.__uscUnitCard(u, 'units/');
-        seen[u.slug] = (seen[u.slug] || 0) + 1;
-        return window.__uscLotCard(u, seen[u.slug] - 1, 'units/');
-      }).join('');
-    }
-    var ft = filters && filters.querySelector('.cat-ft');
-    if (ft) ft.addEventListener('click', function () { var o = filters.classList.toggle('is-open'); ft.setAttribute('aria-expanded', String(o)); });
-    if (filters) filters.addEventListener('click', function (e) {
-      var b = e.target.closest('.chip'); if (!b) return;
-      var f = b.dataset.f;
-      filters.querySelectorAll('.chip[data-f="' + f + '"]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      st[f] = b.dataset.v; st.open = false; renderUnits();
-    });
-    renderUnits();
-    var prevHook = window.__uscRerender;
-    window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); renderUnits(); };
-    /* синхронизация с выбором комплекса в блоке «Комплексы» выше по странице (Босс 22.09) */
-    window.__uscSyncCatalog = function (cxId) {
-      var v = cxId.replace('cx-', '');
-      st.q = v; st.open = false;
-      if (filters) filters.querySelectorAll('.chip[data-f="q"]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.v === v)); });
-      renderUnits();
-    };
-  }
-
-
   /* ---------- страница юнита: поля по языку + «другие форматы» ---------- */
   var unitSlug = document.body.getAttribute('data-unit');
   if (unitSlug && window.USC_UNITS) {
@@ -411,16 +329,60 @@
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
-      document.title = f.name + ' ' + unit.area + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — UNIT.SPACE CITY';
+      document.title = f.name + ' ' + window.USC_AREA_TXT(unit, lang) + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);
         more.innerHTML = others.slice(0, 3).map(function (u) { return window.__uscFmtCard(u, ''); }).join('');
       }
     }
-    renderUnit(window.__uscLang || pageLang);
+    /* «Наличие»: лоты этого формата из таблицы Босса (assets/lots.js), вкладки — комплексы, где формат есть;
+       одна карточка на комплекс + метраж, цена «от» минимальной, чип «свободно N» (Босс 29.09) */
+    var avTabs = document.querySelector('.avail__tabs'), avGrid = document.querySelector('.avail__grid'), avQ = null, avPick = null;
+    function renderAvail(lang) {
+      if (!unit || !avTabs || !avGrid) return;
+      var d = (window.I18N && window.I18N[lang]) || {}, CX = window.USC_COMPLEX, m2 = lang === 'ru' ? 'м²' : 'm²';
+      /* 1+1 и 1+1 с бассейном — разные продукты (Босс 30.09): вариант с бассейном показывает только свои лоты */
+      var pool = function (s) { return /-pool$/.test(s); }, mine = pool(unit.slug);
+      var lots = (window.USC_LOTS || []).filter(function (l) { return l.fmt === unit.fmt && pool(l.slug) === mine; });
+      var qs = ['u1', 'u2', 'u3'].filter(function (q) { return lots.some(function (l) { return l.q === q; }) || window.USC_UNITS.some(function (u) { return u.q === q && u.fmt === unit.fmt && pool(u.slug) === mine; }); });
+      if (!avQ) avQ = lots.some(function (l) { return l.q === unit.q; }) ? unit.q : (qs.filter(function (q) { return lots.some(function (l) { return l.q === q; }); })[0] || unit.q);
+      avTabs.innerHTML = qs.map(function (q) {
+        return '<button type="button" class="chip" data-q="' + q + '" aria-pressed="' + (q === avQ) + '"><b>' + CX[q].code + '</b><span>&nbsp;' + CX[q].name + '</span></button>';
+      }).join('');
+      var groups = {};
+      lots.filter(function (l) { return l.q === avQ; }).forEach(function (l) {
+        var g = groups[l.area] || (groups[l.area] = { area: l.area, n: 0, min: Infinity, max: 0, lots: [] }); g.n++; g.min = Math.min(g.min, l.price); g.max = Math.max(g.max, l.price); g.lots.push(l);
+      });
+      var list = Object.keys(groups).map(function (k) { return groups[k]; }).sort(function (a, b) { return a.area - b.area; });
+      var num = function (a) { return lang === 'ru' ? String(a).replace('.', ',') : String(a); };
+      /* фото комплекса в этом формате; кнопка сразу к заявке с комплексом, форматом и метражом
+         (Босс 01.10: выпадающий список вилл не нужен); виллы с купелью — строкой лидеров */
+      var ph = (window.USC_UNITS.filter(function (x) { return x.q === avQ && x.fmt === unit.fmt && pool(x.slug) === mine; })[0] || window.USC_UNITS.filter(function (x) { return x.q === avQ; })[0] || unit).photos[0];
+      avGrid.innerHTML = list.length ? list.map(function (g) {
+        var pick = CX[avQ].code + ' ' + CX[avQ].name + ', ' + unit.name[lang].charAt(0).toLowerCase() + unit.name[lang].slice(1) + ' ' + num(g.area) + ' ' + m2;
+        var bath = g.lots.filter(function (l) { return l.bath; }).length;
+        var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + v + '</b></div>'; };
+        return '<div class="card avail-card">' +
+          '<div class="fmt-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp"><img src="' + ASSETS + ph + '.jpg" alt="" width="720" height="450" loading="lazy"></picture>' +
+          '<span class="product-card__area">' + num(g.area) + '&nbsp;' + m2 + '</span></div>' +
+          '<div class="fmt-card__name">' + CX[avQ].code + '&nbsp;' + CX[avQ].name + '</div>' +
+          '<div class="leaders fmt-card__rows">' + row('avail.f_st', CX[avQ].status[lang]) + row('avail.f_n', '<span class="tnum">' + g.n + '</span>') + (bath ? row('avail.f_bath', '<span class="tnum">' + bath + '</span>') : '') + '</div>' +
+          '<div class="avail-card__price tnum">' + window.__uscMoney(g.min, lang, g.min === g.max) + '</div>' +
+          '<a class="btn btn-primary avail-card__more" href="#lead" data-pick="' + pick + '">' + (d['avail.cta'] || '') + '</a></div>';
+      }).join('') : '<p class="avail__none t-lead">' + (d['avail.none'] || '').replace('{q}', CX[avQ].code) + '</p>';
+      if (window.__uscNbsp) window.__uscNbsp(avGrid);
+      if (window.__uscFit) window.__uscFit();
+    }
+    if (avTabs) avTabs.addEventListener('click', function (e) { var b = e.target.closest('[data-q]'); if (b) { avQ = b.getAttribute('data-q'); renderAvail(window.__uscLang || pageLang); } });
+    if (avGrid) avGrid.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-pick]'); if (!a) return;
+      avPick = a.getAttribute('data-pick'); window.__uscPick = avPick;
+      var p = document.getElementById('leadPick'); if (p) { p.querySelector('b').textContent = avPick; p.hidden = false; }
+    });
+    renderUnit(window.__uscLang || pageLang); renderAvail(window.__uscLang || pageLang);
     var prev2 = window.__uscRerender;
-    window.__uscRerender = function (lang) { if (prev2) prev2(lang); renderUnit(lang); };
+    window.__uscRerender = function (lang) { if (prev2) prev2(lang); renderUnit(lang); renderAvail(lang); };
   }
 
 
@@ -430,7 +392,7 @@
   if (ugal) (function () {
     var photos = ugal.getAttribute('data-photos').split(','), n = photos.length, alt = ugal.getAttribute('data-alt') || '';
     var base = ASSETS, drum = ugal.querySelector('.ugal__drum'), track = ugal.querySelector('.ugal__track'), stage = ugal.querySelector('.ugal__stage');
-    var count = ugal.querySelector('.ugal__count b'), cur = 0, busy = false, HALF = 3;
+    var setDot = dots(ugal.querySelector('.dots'), n), cur = 0, busy = false, HALF = 3;
     function horizontal() { return matchMedia('(max-width:760px)').matches; }
     function slot(k) { return ((k % n) + n) % n; }
     /* окно превью: до 7 вокруг активного, но не больше n — без дублей при коротких наборах (U3: 4 рендера);
@@ -455,12 +417,12 @@
       var old = stage.querySelector('picture.is-in, img.is-in'), pic = document.createElement('picture');
       pic.innerHTML = '<source srcset="' + base + photos[i] + '.webp" type="image/webp"><img src="' + base + photos[i] + '.jpg" alt="" width="1200" height="900" decoding="async">';
       pic.querySelector('img').alt = alt;
-      stage.insertBefore(pic, stage.querySelector('.ugal__nav'));
+      stage.insertBefore(pic, stage.querySelector('.ugal__arrow'));
       requestAnimationFrame(function () { requestAnimationFrame(function () {
         pic.classList.add('is-in');
         if (old) { old.classList.remove('is-in'); setTimeout(function () { old.remove(); }, 600); }
       }); });
-      if (count) count.textContent = i + 1;
+      setDot(i);
       preload(i + 1); preload(i - 1);
     }
     addEventListener('load', function () { preload(1); preload(n - 1); }, { once: true });
@@ -472,7 +434,7 @@
       var done = false; function fin() { if (done) return; done = true; renderTrack(); busy = false; }
       track.addEventListener('transitionend', function onEnd(e) { if (e.target !== track || e.propertyName !== 'transform') return; track.removeEventListener('transitionend', onEnd); fin(); }); setTimeout(fin, 520);
     }
-    renderTrack(); if (count) count.textContent = 1;
+    renderTrack(); setDot(0);
     track.addEventListener('click', function (e) { var t = e.target.closest('.ugal__thumb'); if (t) go(+t.getAttribute('data-o')); });
     var arrowPrev = stage.querySelector('.ugal__arrow--prev'), arrowNext = stage.querySelector('.ugal__arrow--next');
     if (arrowPrev) arrowPrev.addEventListener('click', function (e) { e.stopPropagation(); go(-1); });
@@ -480,7 +442,7 @@
     var swiped = false;
     stage.addEventListener('click', function (e) {
       if (swiped) { swiped = false; return; }
-      if (e.target.closest('.ugal__nav') || e.target.closest('.ugal__arrow')) return;
+      if (e.target.closest('.ugal__arrow')) return;
       if (window.USC_LB) window.USC_LB.open(photos.map(function (p) { return { jpg: base + p + '.jpg', alt: alt }; }), cur);
     });
     var sp0 = null;
@@ -740,7 +702,7 @@
       fd.append('email', fEmail.value.trim());
       fd.append('goal', goal ? goal.options[goal.selectedIndex].text : '');
       fd.append('budget', budget ? budget.value.trim() : '');
-      fd.append('page', location.pathname);
+      fd.append('page', (location.pathname + (window.__uscPick ? ' · ' + window.__uscPick : '')).slice(0, 200));
       fd.append('lang', document.documentElement.lang || 'ru');
       fd.append('website', hp ? hp.value : '');
       lfBtn.disabled = true; lfBtn.setAttribute('aria-busy', 'true'); lfBtn.textContent = D()['form.sending'] || '…';
@@ -800,13 +762,17 @@
 
   /* ---------- фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении ---------- */
   document.querySelectorAll('.photo-band[data-band]').forEach(function (band) {
-    var bs = band.querySelectorAll('.photo-band__slide'), cnt = band.querySelector('.ugal__count b'), bi = 0, timer;
+    var bs = band.querySelectorAll('.photo-band__slide'), bi = 0, timer;
     if (bs.length < 2) return;
-    function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); if (cnt) cnt.textContent = bi + 1; }
+    var setDot = dots(band.querySelector('.dots'), bs.length); setDot(0);
+    function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); setDot(bi); }
+    band.querySelectorAll('.ugal__arrow').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); show(bi + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); arm(); });
+    });
     function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     var bp0 = null, bSwiped = false;
-    band.addEventListener('pointerdown', function (e) { bp0 = { x: e.clientX, y: e.clientY }; });
+    band.addEventListener('pointerdown', function (e) { bp0 = e.target.closest('.ugal__arrow') ? null : { x: e.clientX, y: e.clientY }; });
     band.addEventListener('pointerup', function (e) {
       if (!bp0) return;
       var dx = e.clientX - bp0.x, dy = e.clientY - bp0.y; bp0 = null;
@@ -814,11 +780,51 @@
     });
     band.addEventListener('click', function (e) {
       if (bSwiped) { bSwiped = false; return; }
-      if (e.target.closest('.photo-band__nav')) return;
+      if (e.target.closest('.ugal__arrow')) return;
       var r = band.getBoundingClientRect();
       show(bi + (e.clientX - r.left < r.width / 2 ? -1 : 1)); arm();
     });
     arm();
+  });
+
+  /* ---------- мини-галерея в карточках «Форматы вилл» (Босс 29.09): 5 кадров формата, стрелки-эталон, точки, свайп;
+     клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее ---------- */
+  document.querySelectorAll('.fmt-card__gal[data-mg]').forEach(function (gal) {
+    var u = (window.USC_UNITS || []).filter(function (x) { return x.slug === gal.getAttribute('data-mg'); })[0];
+    var link = gal.querySelector('.fmt-card__media'), cover = link && link.querySelector('picture');
+    if (!u || !cover) return;
+    var src0 = (cover.querySelector('img').getAttribute('src').match(/([\w-]+)\.jpg$/) || [])[1];
+    var list = [src0].concat(u.photos.filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
+    var alt = cover.querySelector('img').getAttribute('alt') || '', setDot = dots(gal.querySelector('.dots'), n); setDot(0);
+    function pic(k) {
+      if (pics[k]) return pics[k];
+      var p = document.createElement('picture');
+      p.innerHTML = '<source srcset="' + ASSETS + list[k] + '.webp" type="image/webp"><img src="' + ASSETS + list[k] + '.jpg" alt="" width="720" height="450" decoding="async">';
+      p.querySelector('img').alt = alt;
+      link.insertBefore(p, link.querySelector('.product-card__area'));
+      return (pics[k] = p);
+    }
+    function show(k) {
+      i = (k + n) % n;
+      var p = pic(i); pic((i + 1) % n);
+      requestAnimationFrame(function () { pics.forEach(function (q, m) { if (q && m) q.classList.toggle('is-in', m === i); }); });
+      setDot(i);
+    }
+    gal.querySelectorAll('.ugal__arrow').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); show(i + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); });
+    });
+    var p0 = null, swiped = false;
+    link.addEventListener('pointerdown', function (e) { p0 = { x: e.clientX, y: e.clientY }; });
+    link.addEventListener('pointerup', function (e) {
+      if (!p0) return; var dx = e.clientX - p0.x, dy = e.clientY - p0.y; p0 = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; show(i + (dx < 0 ? 1 : -1)); }
+    });
+    link.addEventListener('click', function (e) { if (swiped) { swiped = false; e.preventDefault(); } });
+    /* второй кадр — заранее, когда карточка подъезжает к экрану */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { pic(1); io.disconnect(); } }, { rootMargin: '200px' });
+      io.observe(gal);
+    } else pic(1);
   });
 
   /* ---------- концепция: фото U1/U2/U3 в синей панели, стрелки + клик по ряду (макет USC, вар2) ---------- */
@@ -830,9 +836,17 @@
       i = (n + slides.length) % slides.length;
       slides.forEach(function (s, k) { s.classList.toggle('is-in', k === i); });
     }
+    /* сам листается раз в 7 с (Босс 30.09): только пока панель на экране, пауза при фокусе с клавиатуры,
+       при prefers-reduced-motion не листается; нажатие стрелки начинает отсчёт заново */
+    var timer = 0, seen = false, hold = false, calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function tick() { clearTimeout(timer); if (!calm && seen && !hold) timer = setTimeout(function () { show(i + 1); tick(); }, 7000); }
     ccPanel.querySelectorAll('.cc-arrow').forEach(function (b) {
-      b.addEventListener('click', function () { show(i + (+b.getAttribute('data-cc'))); });
+      b.addEventListener('click', function () { show(i + (+b.getAttribute('data-cc'))); tick(); });
     });
+    ccPanel.addEventListener('focusin', function () { hold = true; tick(); });
+    ccPanel.addEventListener('focusout', function () { hold = false; tick(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; tick(); }, { threshold: 0.3 }).observe(ccPanel);
+    else { seen = true; tick(); }
     show(0);
   })();
 
@@ -927,7 +941,17 @@
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
-    btn.addEventListener('click', function () { gallery.classList.add('is-expanded'); btn.remove(); });
+    /* «Показать все фото» ↔ «Свернуть фото» (Босс 29.09). data-i18n меняем вместе с текстом, чтобы смена языка не сбрасывала подпись */
+    btn.addEventListener('click', function () {
+      var open = gallery.classList.toggle('is-expanded'), k = open ? 'cx.less' : 'cx.more';
+      var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
+      btn.setAttribute('data-i18n', k); if (dict[k]) btn.textContent = dict[k];
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      /* после сворачивания начало коллажа могло уехать выше экрана — возвращаем его под шапку и табы */
+      if (!open) { var hdr = document.getElementById('header'), nav = document.querySelector('.complex-nav');
+        var off = (hdr ? hdr.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 16, top = gallery.getBoundingClientRect().top;
+        if (top < off) window.scrollBy(0, top - off); }
+    });
   });
 
   /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */
@@ -1017,6 +1041,9 @@
           syncCcyDisplay();
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+          /* кнопка показывает выбранный формат (Босс 29.09); data-i18n меняем, чтобы смена языка не вернула старое имя */
+          var cur = pickerBtn.querySelector('b'), src = btn.querySelector('b');
+          if (cur && src) { cur.setAttribute('data-i18n', src.getAttribute('data-i18n')); cur.innerHTML = src.innerHTML; }
           pickerPanel.hidden = true;
           pickerBtn.setAttribute('aria-expanded', 'false');
         });
@@ -1063,8 +1090,16 @@
     var POI = [
       { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
-      { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true }
+      { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
+    /* фото для попапа чипа (Босс 30.09: 4–5 фото места, только без АП — источники в photos/CREDITS-places.md).
+       Пусто — чип без попапа: свободных фото Nuanu нет */
+    var PLACES = {
+      pin: ['u1-11', 'u3-01', 'u2-2bd-14', 'u1-15', 'u2-villa-13'],
+      'loc.m_nuanu': [],
+      'loc.m_tanah': ['place-tanah-1', 'place-tanah-2', 'place-tanah-3', 'place-tanah-4', 'place-tanah-5'],
+      'loc.m_canggu': ['place-canggu-1', 'place-canggu-2', 'place-canggu-3', 'place-canggu-4', 'place-canggu-5']
+    };
     // узкий экран: дальний Canggu (20 минут на машине) не влезает без каши из чипов — кадр по ближним точкам
     var narrow = function () { return box.clientWidth < 600; };
     function bounds() {
@@ -1086,23 +1121,92 @@
         attributionControl: false, fadeDuration: 0
       });
       map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+      /* попап чипа: карточка поверх чипа, заголовок на месте текста чипа; edge 'l' — растёт вправо от левого края чипа,
+         'r' — влево от правого. Наведение (мышь) или тап (палец); не вылезает за края карты */
+      var openPop = null, pops = [], ARW = function (dir) { return '<button type="button" class="ugal__arrow ugal__arrow--' + dir + '" aria-label=""><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="' + (dir === 'prev' ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6') + '" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'; };
+      function popup(mk, lbl, ph, edge, up) {
+        if (!ph || !ph.length) return;
+        mk.classList.add('has-pop');
+        var card = document.createElement('div'); card.className = 'map-pop map-pop--' + edge; card.setAttribute('aria-hidden', 'true');
+        card.innerHTML = '<div class="map-pop__t"></div><div class="map-pop__gal"></div>';
+        mk.appendChild(card);
+        var gal = card.querySelector('.map-pop__gal'), k = 0, set = null, t = 0, self;
+        function fill() {
+          if (gal.children.length) return;
+          gal.innerHTML = ph.map(function (n, x) { return '<picture' + (x ? '' : ' class="is-in"') + '><source srcset="' + ASSETS + n + '.webp" type="image/webp"><img src="' + ASSETS + n + '.jpg" alt="" width="800" height="600"></picture>'; }).join('') +
+            (ph.length > 1 ? ARW('prev') + ARW('next') + '<span class="dots" aria-hidden="true"></span>' : '');
+          set = dots(gal.querySelector('.dots'), ph.length); set(0);
+          gal.addEventListener('click', function (e) {
+            var b = e.target.closest('.ugal__arrow'); if (!b) return; e.stopPropagation();
+            var pics = gal.querySelectorAll('picture'); pics[k].classList.remove('is-in');
+            k = (k + (b.classList.contains('ugal__arrow--prev') ? -1 : 1) + pics.length) % pics.length; pics[k].classList.add('is-in'); set(k);
+          });
+        }
+        /* карточка раскрывается из самого чипа: если в свою сторону не влезает в карту — растёт в другую (не сдвигаем,
+           иначе стартовый кадр не совпадает с чипом и выходит рывок); сдвиг — только если не влезает никуда */
+        function place() {
+          var t2 = card.querySelector('.map-pop__t'), cs = getComputedStyle(lbl);
+          t2.innerHTML = lbl.innerHTML; t2.style.padding = cs.padding;
+          card.style.left = card.style.top = '0px';
+          var W = card.offsetWidth, H = card.offsetHeight, lw = lbl.offsetWidth, lh = lbl.offsetHeight;
+          var bx = live.getBoundingClientRect(), mr = mk.getBoundingClientRect(), gap = 8;
+          var X = function (e) { return lbl.offsetLeft + (e === 'r' ? lw - W : 0); };
+          var fits = function (e) { var ax = mr.left + X(e); return ax >= bx.left + gap && ax + W <= bx.right - gap; };
+          var e = edge; if (!fits(e) && fits(e === 'l' ? 'r' : 'l')) e = e === 'l' ? 'r' : 'l';
+          card.classList.toggle('map-pop--r', e === 'r'); card.classList.toggle('map-pop--l', e === 'l');
+          // up (Босс 30.09 про Чангу): заголовок остаётся на месте чипа, галерея растёт вверх; не влезает — в другую сторону
+          var Y = function (u) { return u ? lbl.offsetTop + lh - H : lbl.offsetTop; };
+          var fitsY = function (u) { var ay = mr.top + Y(u); return ay >= bx.top + gap && ay + H <= bx.bottom - gap; };
+          var u = !!up; if (!fitsY(u) && fitsY(!u)) u = !u;
+          card.classList.toggle('map-pop--up', u);
+          var x = X(e), y = Y(u);
+          if (mr.left + x + W > bx.right - gap) x -= mr.left + x + W - (bx.right - gap);
+          if (mr.left + x < bx.left + gap) x += bx.left + gap - (mr.left + x);
+          if (mr.top + y + H > bx.bottom - gap) y -= mr.top + y + H - (bx.bottom - gap);
+          if (mr.top + y < bx.top + gap) y += bx.top + gap - (mr.top + y);
+          card.style.left = x + 'px'; card.style.top = y + 'px';
+          // закрытое состояние = прямоугольник чипа внутри карточки
+          var cx = lbl.offsetLeft - x, cy = lbl.offsetTop - y;
+          card.style.setProperty('--cl', cx + 'px'); card.style.setProperty('--ct', cy + 'px');
+          card.style.setProperty('--cr', (W - cx - lw) + 'px'); card.style.setProperty('--cb', (H - cy - lh) + 'px');
+        }
+        function open() {
+          clearTimeout(t); if (openPop && openPop !== self) openPop.close(); if (mk.classList.contains('is-open')) return;
+          fill(); place(); openPop = self;
+          // стартовый кадр (размер чипа) отрисовывается до раскрытия — иначе браузер склеивает оба состояния и прыгает
+          requestAnimationFrame(function () { requestAnimationFrame(function () { if (openPop === self) mk.classList.add('is-open'); }); });
+        }
+        function close() { clearTimeout(t); mk.classList.remove('is-open'); if (openPop === self) openPop = null; }
+        self = { close: close }; pops.push(fill);
+        ['mousedown', 'touchstart', 'pointerdown', 'wheel', 'dblclick'].forEach(function (ev) { card.addEventListener(ev, function (e) { e.stopPropagation(); }, { passive: true }); });
+        if (fine) {
+          mk.addEventListener('mouseover', open);
+          mk.addEventListener('mouseout', function (e) { if (!mk.contains(e.relatedTarget)) { clearTimeout(t); t = setTimeout(close, 180); } });
+        } else {
+          lbl.addEventListener('click', function (e) { e.stopPropagation(); if (mk.classList.contains('is-open')) close(); else open(); });
+          card.addEventListener('click', function (e) { e.stopPropagation(); if (!e.target.closest('.ugal__arrow')) close(); });
+        }
+      }
+      if (!fine) document.addEventListener('click', function () { if (openPop) openPop.close(); });
       map.on('load', function () {
         map.getStyle().layers.forEach(function (l) { if (HIDE.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
         map.setPaintProperty('background', 'background-color', '#ECECEA');
         map.setPaintProperty('water', 'fill-color', '#D6E0EA');
         var pin = document.createElement('div'); pin.className = 'map-pin';
-        pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">SPACE CITY</i></span>';
+        pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">&nbsp;SPACE CITY</i></span>';
         new maplibregl.Marker({ element: pin, anchor: 'left', offset: [-10, 0] }).setLngLat(ll).addTo(map);
+        popup(pin, pin.querySelector('.map-pin__lbl'), PLACES.pin, 'l');
         var poiEls = POI.filter(function (p) { return !(p.far && narrow()); }).map(function (p) {
           var el = document.createElement('div'); el.className = 'map-poi map-poi--' + p.side;
           el.innerHTML = '<span class="map-poi__dot"></span><span class="map-poi__lbl"></span>';
           new maplibregl.Marker({ element: el, anchor: p.side === 'l' ? 'right' : 'left', offset: [p.side === 'l' ? 6 : -6, 0] }).setLngLat(p.ll).addTo(map);
+          popup(el, el.querySelector('.map-poi__lbl'), PLACES[p.k], p.side === 'l' ? 'r' : 'l', p.up);
           return { el: el.querySelector('.map-poi__lbl'), k: p.k };
         });
         var poiText = function () { var d = D(); poiEls.forEach(function (x) { x.el.textContent = d[x.k] || ''; }); };
         poiText();
         var prevHook = window.__uscRerender;
-        window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); };
+        window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); if (openPop) openPop.close(); };
         /* подпись не должна уходить за правый край (узкий экран): сдвигаем карту */
         var over = map.project(ll).x - 10 + pin.offsetWidth + 16 - live.clientWidth;
         if (over > 0) map.panBy([over, 0], { animate: false });
@@ -1110,11 +1214,35 @@
         var at = live.querySelector('.maplibregl-ctrl-attrib'); if (at) at.classList.remove('maplibregl-compact-show');
         var shown = function () { box.classList.add('is-live'); };
         map.once('idle', shown); setTimeout(shown, 2500);
+        map.once('idle', function () { setTimeout(function () { pops.forEach(function (f) { f(); }); }, 800); });
       });
     }
     var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
     io.observe(box);
   })();
+})();
+
+/* мастерплан на мобиле листается вбок: стартуем так, чтобы квартал UNIT. SPACE CITY был в кадре */
+(function () {
+  var pan = document.querySelector('.plan-pan'); if (!pan) return;
+  var go = function () { var b = pan.querySelector('.plan-badge'); if (!b || pan.scrollWidth <= pan.clientWidth) return;
+    pan.scrollLeft = Math.max(0, b.offsetLeft + 80 - pan.clientWidth * 0.75); };
+  go(); window.addEventListener('load', go);
+})();
+
+/* email-ссылки: адрес ещё и копируется в буфер с подсказкой — на ПК без почтовой программы mailto ничего не делает (Босс 30.09) */
+(function () {
+  var box = null, tm = 0;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]'); if (!a || !navigator.clipboard) return;
+    var mail = a.getAttribute('href').slice(7).split('?')[0];
+    navigator.clipboard.writeText(mail).then(function () {
+      var lang = window.__uscLang || document.documentElement.lang || 'en', d = (window.I18N && window.I18N[lang]) || {};
+      if (!box) { box = document.createElement('div'); box.className = 'toast'; box.setAttribute('role', 'status'); document.body.appendChild(box); }
+      box.textContent = (d['toast.copied'] || '{e}').replace('{e}', mail);
+      box.offsetWidth; box.classList.add('in'); clearTimeout(tm); tm = setTimeout(function () { box.classList.remove('in'); }, 2600);
+    }, function () {});
+  });
 })();
 
 /* точки-лидеры тянутся до текста: перенесённое значение (text-align:right) ужимаем до ширины самой длинной
@@ -1126,12 +1254,34 @@
       var r = document.createRange(); r.selectNodeContents(b);
       var rs = r.getClientRects(), l = Infinity, rt = -Infinity, tops = {};
       for (var i = 0; i < rs.length; i++) if (rs[i].width) { l = Math.min(l, rs[i].left); rt = Math.max(rt, rs[i].right); tops[Math.round(rs[i].top)] = 1; }
-      // блок = ширина самой длинной строки (она у правого края), строки от левого края блока — первая строка встаёт вплотную к точкам
-      if (Object.keys(tops).length > 1) { b.style.width = Math.ceil(rt - l + 1) + 'px'; b.style.textAlign = 'left'; }
+      // блок = ширина самой длинной строки, строки по правому краю (Босс 01.10: по левому «смотрится плохо»)
+      if (Object.keys(tops).length > 1) { b.style.width = Math.ceil(rt - l + 1) + 'px'; b.style.textAlign = 'right'; }
     });
   }
   var t; function later() { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }
+  window.__uscFit = later;
   fit(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   window.addEventListener('resize', later);
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); later(); };
+})();
+
+/* висячие короткие слова (Босс 30.09, RU и EN): слово до 3 букв и число приклеиваем неразрывным пробелом к следующему.
+   Словарь при смене языка пишет innerHTML заново, поэтому проход повторяется последним хуком после перерисовки */
+(function () {
+  var SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|NOSCRIPT|svg)$/;
+  var RX = /(^|[\s\u00A0(«"„“])([A-Za-zА-Яа-яЁё]{1,3}|\d+) (?=\S)/g;
+  function run(root) {
+    var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+      for (var p = n.parentNode; p && p !== document.body; p = p.parentNode) if (SKIP.test(p.nodeName) || p.isContentEditable) return NodeFilter.FILTER_REJECT;
+      return / /.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    } }), n;
+    while ((n = w.nextNode())) {
+      var v = n.nodeValue, s = v;
+      for (var k = 0; k < 3; k++) { var s2 = s.replace(RX, '$1$2\u00A0'); if (s2 === s) break; s = s2; }
+      if (s !== v) n.nodeValue = s;
+    }
+  }
+  window.__uscNbsp = run;
+  run(); if (window.__uscFit) window.__uscFit();
+  var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); run(); if (window.__uscFit) window.__uscFit(); };
 })();

@@ -12,7 +12,7 @@ const assetsDir = path.join(root, 'photos');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/i18n.js'), 'utf8').split('window.setLang')[0], ctx);
-const { USC_UNITS, USC_COMPLEX, USC_PRICE, USC_PRICE_USD, USC_FMT, I18N } = ctx.window;
+const { USC_UNITS, USC_COMPLEX, USC_PRICE, USC_PRICE_USD, USC_FMT, USC_AREA_TXT, I18N } = ctx.window;
 const tpl = fs.readFileSync(path.join(here, 'unit-template.html'), 'utf8');
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 const m2 = { ru: 'м²', en: 'm²' };
@@ -28,14 +28,15 @@ for (const lang of ['ru', 'en']) {
     const photoBase = lang === 'en' ? '../photos/' : '../../photos/';
     const thumbs = u.photos.map((p, i) =>
       `        <button type="button" class="ugal__thumb${i ? '' : ' is-active'}" data-i="${i}"><img src="${photoBase}t/${p}.webp" alt="" width="160" height="120"${i > 2 ? ' loading="lazy"' : ''}></button>`).join('\n');
-    const title = `${u.name[lang]} ${u.area} ${m2[lang]}, ${cx.code} ${cx.name}`;
+    const area = USC_AREA_TXT(u, lang);
+    const title = `${u.name[lang]} ${area} ${m2[lang]}, ${cx.code} ${cx.name}`;
     const desc = lang === 'ru'
-      ? `${u.name.ru} ${u.area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
-      : `${u.name.en} ${u.area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, UNIT.SPACE.`;
+      ? `${u.name.ru} ${area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
+      : `${u.name.en} ${area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, UNIT.SPACE.`;
     let html = tpl
       .replace(/(<p [^>]*data-unit-field="desc">)\{\{DESC\}\}(<\/p>)/, `$1${USC_FMT[u.fmt].desc[lang]}$2`)
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
-      .replaceAll('{{NAME}}', u.name[lang]).replaceAll('{{AREA}}', String(u.area)).replaceAll('{{CODE}}', cx.code).replaceAll('{{CXNAME}}', cx.name)
+      .replaceAll('{{NAME}}', u.name[lang]).replaceAll('{{AREA}}', area).replaceAll('{{CODE}}', cx.code).replaceAll('{{CXNAME}}', cx.name)
       .replaceAll('{{FLOOR}}', u.floor[lang]).replaceAll('{{PRICE}}', USC_PRICE[lang][u.fmt]).replaceAll('{{WHERE}}', cx.where[lang]).replaceAll('{{STATUS}}', cx.status[lang])
       .replaceAll('{{THUMBS}}', thumbs).replaceAll('{{PHOTOS}}', u.photos.join(',')).replaceAll('{{PB}}', photoBase).replaceAll('{{P0}}', u.photos[0]).replaceAll('{{N}}', String(u.photos.length)).replaceAll('{{ALT}}', esc(cx.code + ' — ' + u.name[lang]))
       .replaceAll('{{RENDER_NOTE}}', u.render ? `<p class="t-small dim" style="margin-top:var(--s2)" data-i18n="unit.render_note">${dict['unit.render_note']}</p>` : '')
