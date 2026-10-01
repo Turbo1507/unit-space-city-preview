@@ -1228,6 +1228,18 @@
   var go = function () { var b = pan.querySelector('.plan-badge'); if (!b || pan.scrollWidth <= pan.clientWidth) return;
     pan.scrollLeft = Math.max(0, b.offsetLeft + 80 - pan.clientWidth * 0.75); };
   go(); window.addEventListener('load', go);
+  /* Босс 01.10: чипы у краёв кадра гаснут, въезжающие в кадр появляются; плашка «Листайте» уходит после первого касания */
+  var fig = pan.parentNode, hint = fig.querySelector('.plan-hint'), raf = 0,
+    items = [].slice.call(pan.querySelectorAll('.plan-pin, .plan-badge'));
+  var upd = function () { raf = 0; var on = pan.scrollWidth > pan.clientWidth + 1; fig.classList.toggle('is-pan', on);
+    var l = pan.scrollLeft, w = pan.clientWidth, m = 8;
+    /* чип виден целиком или спрятан: край подписи ближе 8px к краю кадра — прячем */
+    items.forEach(function (e) { var ew = e.offsetWidth, x0 = e.offsetLeft - l - (e.classList.contains('plan-badge') ? 20 : ew / 2);
+      e.classList.toggle('is-off', on && (x0 < m || x0 + ew > w - m)); }); };
+  var tick = function () { if (!raf) raf = requestAnimationFrame(upd); };
+  pan.addEventListener('scroll', tick, { passive: true }); window.addEventListener('resize', tick); window.addEventListener('load', tick); upd();
+  var used = function () { if (hint) hint.classList.add('is-used'); };
+  ['touchstart', 'pointerdown', 'wheel'].forEach(function (ev) { pan.addEventListener(ev, used, { passive: true, once: true }); });
 })();
 
 /* email-ссылки: адрес ещё и копируется в буфер с подсказкой — на ПК без почтовой программы mailto ничего не делает (Босс 30.09) */

@@ -763,6 +763,23 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    Точка пина = низ ножки; top — верх подписи, как в Figma */
 .plan-pan,.plan-canvas{position:absolute;inset:0}
 .plan-canvas img{width:100%;height:100%;object-fit:cover;display:block}
+/* Nuanu: бенто под мастерпланом (Босс 01.10) — 3 + 2 на десктопе, 2 колонки на планшете, 1 на мобиле */
+.nu-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s2);margin-top:var(--s2)}
+.nu-card{grid-column:span 2;gap:var(--s2)}
+.nu-card:nth-child(n+4){grid-column:span 3}
+.nu-card__ic{width:48px;height:48px;padding:12px;box-sizing:border-box;border-radius:8px;background:var(--blue-050);color:var(--blue);margin-bottom:var(--s1)}
+.nu-card h4{font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500;letter-spacing:-.01em}
+.nu-card p{max-width:60ch}
+.nw{white-space:nowrap}
+@media (max-width:1000px){ .nu-card,.nu-card:nth-child(n+4){grid-column:span 3} .nu-card:last-child{grid-column:1 / -1} }
+/* мобила — свайп, как .amenity-strip (Босс 01.10); край следующей карточки виден */
+@media (max-width:760px){
+  .nu-bento{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);padding-bottom:4px}
+  .nu-bento::-webkit-scrollbar{display:none}
+  .nu-card,.nu-card:nth-child(n+4),.nu-card:last-child{flex:0 0 min(80%,320px);scroll-snap-align:start;gap:var(--s1)}
+  .nu-card__ic{padding:10px}
+}
 .plan-canvas{container-type:inline-size}
 /* затемнение как в Figma: 174:6 (multiply 20%) и 174:7 (низ кадра 20%), Босс 01.10 осветлил */
 .plan-canvas::before,.plan-canvas::after{content:"";position:absolute;inset:0;pointer-events:none}
@@ -788,7 +805,19 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .plan-pan{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .plan-pan::-webkit-scrollbar{display:none}
   .plan-canvas{position:relative;inset:auto;width:760px;height:100%}
+  /* Босс 01.10: подсказка, что план листают; плашка как чип комплекса (белая, радиус 8), гаснет после первого касания */
+  .plan-hint{position:absolute;left:50%;bottom:var(--s2);z-index:2;display:flex;align-items:center;gap:var(--s1);transform:translateX(-50%);
+    background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);
+    box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap;pointer-events:none;transition:opacity .4s ease,visibility .4s}
+  .plan-hint .ic{width:16px;height:16px;color:var(--blue);animation:plan-nudge 1.6s ease-in-out .6s 3}
+  .plan-hint.is-used{opacity:0;visibility:hidden}
+  /* чипы у краёв кадра прячутся и появляются при свайпе */
+  .is-pan .plan-pin,.is-pan .plan-badge{transition:opacity .35s ease,translate .35s ease,scale .35s ease}
+  .is-pan .plan-pin.is-off,.is-pan .plan-badge.is-off{opacity:0;translate:0 8px;scale:.92}
 }
+@media (min-width:761px){ .plan-hint{display:none} }
+@keyframes plan-nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){ .plan-hint .ic{animation:none} .is-pan .plan-pin,.is-pan .plan-badge,.plan-hint{transition:none} }
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
 /* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (Босс 23.09, десктоп-версия на паузе) */
 /* «что есть в комплексе»: на десктопе сетка фото-карточек — была строка серых тегов, Босс 25.09
