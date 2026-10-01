@@ -24,6 +24,7 @@ export function applyDict(html, dict) {
 export function langHead(lang, rel) {
   const en = BASE + rel, ru = BASE + 'ru/' + rel;
   return [
+    `<script>/* language by region (Boss 01.10): Russia, Belarus -> RU, other countries -> EN; first visit only, saved choice (usc_lang) and bots are left alone */(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)||localStorage.getItem('usc_lang'))return;var ru=(function(){var z='';try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}var l=(navigator.languages&&navigator.languages[0])||navigator.language||'';return /^(Europe|Asia).(Moscow|Minsk|Kaliningrad|Samara|Volgograd|Saratov|Ulyanovsk|Astrakhan|Kirov|Yekaterinburg|Omsk|Novosibirsk|Barnaul|Tomsk|Novokuznetsk|Krasnoyarsk|Irkutsk|Chita|Yakutsk|Khandyga|Vladivostok|Ust-Nera|Magadan|Sakhalin|Srednekolymsk|Kamchatka|Anadyr)$/.test(z)||/-(RU|BY)$/i.test(l)})(),p=location.pathname,r=p.indexOf('/v2/ru/')>-1,t=ru&&!r?p.replace('/v2/','/v2/ru/'):!ru&&r?p.replace('/v2/ru/','/v2/'):'';if(t&&t!==p)location.replace(t+location.search+location.hash)}catch(e){}})()</script>`,
     `<script>try{localStorage.setItem('usc_lang','${lang}')}catch(e){}</script>`,
     `<link rel="canonical" href="${lang === 'ru' ? ru : en}">`,
     `<link rel="alternate" hreflang="en" href="${en}">`,
