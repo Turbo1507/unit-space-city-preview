@@ -53,7 +53,9 @@ for (const r of parseCsv(csv)) {
   if (status === 'SOLD') { skipped.push(`${id} SOLD`); continue; }
   if (!f || !area || !price) { skipped.push(`${id} не распознан: ${r[1]} | ${r[4]} | ${r[6]}`); continue; }
   // BATHTUB — вариант с ванной (Босс 01.10: помечать)
-  lots.push({ id, q, fmt: f.fmt, slug: f.slug, area, price, ...(/BATHTUB/i.test(r[1] || '') ? { bath: 1 } : {}) });
+  // этаж — из колонки VIEW («GARDEN 2 LEVEL»); без пометки N LEVEL — 1 этаж (Босс 02.10, док 29.09 п.17)
+  const lv = (r[11] || '').match(/(\d)\s*LEVEL/i);
+  lots.push({ id, q, fmt: f.fmt, slug: f.slug, area, price, ...(/BATHTUB/i.test(r[1] || '') ? { bath: 1 } : {}), lvl: lv ? +lv[1] : 1 });
 }
 
 // защита от сломанной/пустой таблицы: ничего не перезаписываем, автосинк упадёт с ошибкой
