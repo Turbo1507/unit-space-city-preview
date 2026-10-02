@@ -570,6 +570,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* метраж — чип-пилюля на фото, слева сверху (правка Босса 15.09); в подписи остаётся только название */
 .product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
 .product-card__media img{width:100%;height:100%;object-fit:cover}
+/* «Доступно: N вилл» — чип справа сверху, вид как у метража (док 29.09 п.16, Босс 02.10) */
+.product-card__area--n{left:auto;right:var(--s2)}
+/* узкий кадр (3 карточки на ~1100): чипы сходились впритык — второй уходит под метраж */
+.fmt-card__media{container-type:inline-size}
+@container (max-width:304px){ .product-card__area--n{right:auto;left:var(--s2);top:calc(var(--s2) + 36px)} }
 .product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
 .product-card__name{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:-.01em}
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
@@ -592,6 +597,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .product-card__row{flex-wrap:wrap;gap:var(--s1)}
   .product-card__row > div{flex-basis:100%}
   .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 12px;font-size:var(--fs-micro)}
+  .product-card__area--n{left:auto;right:var(--s1)}
   .product-card.card{padding:var(--s1);gap:var(--s1)}
   /* кадр квадратный: при 16:10 фото было 147×92, «побольше хочется» (Босс 28.09) */
   .product-card__media{aspect-ratio:1/1}
@@ -1024,6 +1030,8 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .unit-top .unit-head__price{order:3;margin-top:var(--s2);flex-wrap:nowrap;justify-content:space-between}
   .unit-top .unit-price{height:auto;padding:0;background:none;color:var(--blue);font-size:var(--fs-h3);letter-spacing:-.02em}
   .unit-top .unit-head__request{padding-inline:var(--s2)}
+  /* 360: «от $170 000» + «Получить презентацию» не влезали в строку (+11px вбок) — кнопка компактнее */
+  @media (max-width:380px){ .unit-top .unit-head__request{padding-inline:12px;font-size:var(--fs-cap)} }
 }
 /* галерея юнита — барабан: слева вертикальная лента превью (активное по центру, 100%,
    остальные 50%), справа большой кадр с кроссфейдом; колесо/свайп/стрелки/клик */
