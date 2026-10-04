@@ -1,7 +1,7 @@
-// Собирает index.html (EN — основной язык, корень; Босс 15.09) и ru/index.html из tools/index-template.html
+// Собирает index.html (EN — основной язык, лежит в корне) и ru/index.html из tools/index-template.html
 // (RU-мастер с data-i18n) + window.I18N.en (паттерн build-ru.mjs с БСО). Старые /en/* отдают редирект-заглушки.
 // Запуск после любой правки шаблона или словаря:
-//   node tools/build-index.mjs && node tools/build-units.mjs && node tools/build-privacy.mjs && node tools/build-sitemap.mjs
+// node tools/build-index.mjs && node tools/build-units.mjs && node tools/build-privacy.mjs && node tools/build-sitemap.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -20,7 +20,7 @@ const tpl = fs.readFileSync(path.join(here, 'index-template.html'), 'utf8').repl
 const swapLang = h => h.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
   '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');
 
-// ---- EN → index.html (корень) ----
+// EN → index.html (корень) 
 let en = translateAttrs(applyDict(tpl, EN)).replaceAll(' м²</b>', ' m²</b>').replaceAll(' м²</span>', ' m²</span>');
 en = en.replace(/<html\b[^>]*>/, '<html lang="en" data-assets="photos/">');
 en = en.replace(/<title>[^<]*<\/title>/, `<title>${EN['meta.title']}</title>`);
@@ -39,7 +39,7 @@ fs.writeFileSync(path.join(root, 'index.html'), stamp(en));
 const left = (en.match(/[А-Яа-яЁё]{3,}/g) || []).filter(w => !/UNIT/.test(w));
 console.log('ok index.html (EN); кириллица осталась:', left.length ? [...new Set(left)].slice(0, 20).join(', ') : 'нет');
 
-// ---- RU → ru/index.html ----
+// RU → ru/index.html 
 let ru = tpl.replace(/<html\b[^>]*>/, '<html lang="ru" data-assets="../photos/">');
 ru = ru.replace(/(<meta property="og:url" content="[^"]*v2\/)(")/, '$1ru/$2');
 ru = ru.replace(/"@id":"([^"]*v2\/)#site","url":"[^"]*"/, '"@id":"$1ru/#site","url":"$1ru/"');
@@ -51,7 +51,7 @@ fs.mkdirSync(path.join(root, 'ru'), { recursive: true });
 fs.writeFileSync(path.join(root, 'ru', 'index.html'), stamp(ru));
 console.log('ok ru/index.html');
 
-// ---- /en/* → редиректы на корень (старые ссылки, индекс) ----
+// /en/* → редиректы на корень (старые ссылки, индекс) 
 fs.mkdirSync(path.join(root, 'en', 'units'), { recursive: true });
 fs.writeFileSync(path.join(root, 'en', 'index.html'), redirectStub(BASE));
 fs.writeFileSync(path.join(root, 'en', 'privacy.html'), redirectStub(BASE + 'privacy.html'));

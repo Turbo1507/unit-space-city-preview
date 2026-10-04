@@ -1,6 +1,6 @@
 /* Данные свободных юнитов — один источник для каталога (index.html) и страниц units/*.html.
-   Фото — отбор Босса 14.09 (квиз), файлы в v2/photos (U3 — рендеры).
-   Порядок в барабане (Босс 23.09): общие планы (экстерьеры/shared) → общие интерьеры
+   Фото отобраны вручную, файлы в v2/photos (U3 — рендеры).
+   Порядок в барабане: общие планы (экстерьеры/shared) → общие интерьеры
    (зал, кухня, спальня) → санузлы. Действует везде: барабан в карточке юнита и его
    оверлей-лайтбокс (используют один и тот же массив).
    EN-поля — черновой перевод до утверждения RU. */
@@ -17,7 +17,7 @@ window.USC_UNITS = [
   {slug:'u3-villa',    q:'u3',fmt:'villa', name:{ru:'Вилла 3+1 с бассейном',ru_en:'3+1 villa with pool'},area:200,floor:{ru:'2 этажа',en:'2 floors'}, photos:['u3-01','u3-02','u3-04','u3-05'], render:true}
 ];
 window.USC_UNITS.forEach(function (u) { u.name.en = u.name.ru_en; delete u.name.ru_en; });
-/* area — из таблицы Босса (пишет tools/sync-lots.mjs): число или диапазон [min,max]; RU с запятой */
+/* area — из таблицы наличия (пишет tools/sync-lots.mjs): число или диапазон [min,max]; RU с запятой */
 window.USC_AREA_TXT = function (u, lang) {
   var f = function (x) { return lang === 'ru' ? String(x).replace('.', ',') : String(x); };
   return Array.isArray(u.area) ? f(u.area[0]) + '\u2013' + f(u.area[1]) : f(u.area);
@@ -30,7 +30,7 @@ window.USC_COMPLEX = {
 window.USC_PRICE = {ru:{studio:'от $95 000','1bd':'от $115 000','2bd':'от $170 000',villa:'от $290 000'},
                     en:{studio:'from $95,000','1bd':'from $115,000','2bd':'from $170,000',villa:'from $290,000'}};
 /* числовая цена в USD — источник для форматирования USD/IDR в рантайме (window.__uscMoney, site.js).
-   Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы Босса */
+   Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы наличия */
 window.USC_PRICE_USD = {studio:95000,'1bd':115000,'2bd':170000,villa:290000};
 window.USC_FMT = {
   studio:{desc:{ru:'Единое пространство: спальня, кухня и гостиная в одном объёме. Полная меблировка',en:'A single open space: bedroom, kitchen and living room in one volume. Fully furnished'}},

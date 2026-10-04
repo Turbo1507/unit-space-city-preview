@@ -1,5 +1,5 @@
 /* UNIT SPACE CITY v2 — i18n (паттерн БСО): window.I18N + setLang.
-   RU-словарь снят программно из index.html (со всеми nbsp). EN — по терминологии партнёрской страницы unitdeveloper.com/for-partners/unit-space-city (14.09.2026). */
+   RU-словарь снят программно из index.html (со всеми nbsp). EN — по терминологии партнёрской страницы unitdeveloper.com/for-partners/unit-space-city. */
 window.I18N = {
   ru: {
  "nav.about": "О проекте",

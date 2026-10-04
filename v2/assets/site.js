@@ -4,7 +4,7 @@
   var ASSETS = document.documentElement.getAttribute('data-assets') || 'assets/';
   document.documentElement.className += ' js';
 
-  /* прогрузка фото — shine-скелет, пока фото не в кеше, снимаем по load/error (как на BSO, Босс 22.09) */
+  /* прогрузка фото — shine-скелет, пока фото не в кеше, снимаем по load/error */
   document.querySelectorAll('picture img').forEach(function (img) {
     if (img.complete) return;
     img.classList.add('is-loading');
@@ -13,14 +13,14 @@
     img.addEventListener('error', done, { once: true });
   });
 
-  /* ---------- header: is-solid после 40px (на внутренних страницах — всегда) ---------- */
+  /* header: is-solid после 40px (на внутренних страницах — всегда) */
   var header = document.getElementById('header');
   var alwaysSolid = document.body.classList.contains('page');
   function syncHeader() { if (header) header.classList.toggle('is-solid', alwaysSolid || window.scrollY > 40); }
   addEventListener('scroll', syncHeader, { passive: true });
   syncHeader();
 
-  /* ---------- burger → полноэкранный оверлей (inert/aria-hidden, как БСО) ---------- */
+  /* burger → полноэкранный оверлей (inert/aria-hidden, как БСО) */
   var burger = document.getElementById('burger'), overlay = document.getElementById('menuOverlay'), menuClose = document.getElementById('menuClose');
   function setMenuOpen(open) {
     document.body.classList.toggle('menu-open', open);
@@ -33,8 +33,8 @@
   if (menuClose) menuClose.addEventListener('click', function () { setMenuOpen(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setMenuOpen(false); });
 
-  /* ---------- язык (паттерн БСО): у каждого языка свой URL (EN — корень /, RU — /ru/; Босс 15.09: основной язык EN),
-     кнопка ведёт на hreflang-альтернативу; словарь применяется к JS-частям по <html lang> ---------- */
+  /* язык (паттерн БСО): у каждого языка свой URL (EN — корень /, RU — /ru/, основной язык EN),
+     кнопка ведёт на hreflang-альтернативу; словарь применяется к JS-частям по <html lang> */
   var pageLang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
   /* альтернатива берётся из hreflang, но переводится на текущий origin/путь — с превью или своего домена не уводит на GitHub Pages */
   function altHref(lang) {
@@ -56,7 +56,7 @@
   });
   if (window.setLang) window.setLang(pageLang);
 
-  /* ---------- дропдауны языка/валюты в шапке (Босс 23.09: 4 инлайн-кнопки в ряд — глупо, свели к 2 выпадающим) ---------- */
+  /* дропдауны языка/валюты в шапке (4 инлайн-кнопки в ряд — глупо, свели к 2 выпадающим) */
   document.querySelectorAll('.hd-sel').forEach(function (sel) {
     var btn = sel.querySelector('.hd-sel__btn'), pop = sel.querySelector('.hd-sel__pop');
     function setOpen(open) { sel.classList.toggle('is-open', open); pop.hidden = !open; btn.setAttribute('aria-expanded', String(open)); }
@@ -84,8 +84,8 @@
   }
   syncSel('lang', pageLang);
 
-  /* ---------- валюта USD/IDR: закон Индонезии (PBI 17/3/PBI/2015) требует показывать цену в рупиях, не только в $
-     (Босс 23.09). Живой курс через open.er-api.com (без ключа, CORS открыт), кэш 12ч в localStorage, фолбэк — константа */
+  /* валюта USD/IDR: закон Индонезии (PBI 17/3/PBI/2015) требует показывать цену в рупиях, не только в $.
+     Живой курс через open.er-api.com (без ключа, CORS открыт), кэш 12ч в localStorage, фолбэк — константа */
   var CCY_KEY = 'usc_ccy', FX_KEY = 'usc_fx', FX_FALLBACK = 16300;
   function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'idr' ? 'idr' : 'usd'; } catch (e) { return 'usd'; } }
   function saveCcy(c) { try { localStorage.setItem(CCY_KEY, c); } catch (e) { } }
@@ -112,7 +112,7 @@
     { sel: '[data-i18n="buy.1p"]', usd: 1500 }
   ];
   function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
-  /* компактная запись IDR (Босс 23.09: «Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
+  /* компактная запись IDR («Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
   window.__uscFmtIdrNum = function (n) {
     if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
     if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
@@ -151,7 +151,7 @@
   window.setLang = function (lang) { if (prevSetLang) prevSetLang(lang); refreshMoney(); };
   refreshMoney();
 
-  /* ---------- scrollspy: активный пункт меню ---------- */
+  /* scrollspy: активный пункт меню */
   var navLinks = [].slice.call(document.querySelectorAll('.site-nav a[href^="#"]'));
   if (navLinks.length && 'IntersectionObserver' in window) {
     var secs = navLinks.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
@@ -161,7 +161,7 @@
           navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + en.target.id); });
           return;
         }
-        /* прокрутили назад выше активной секции (к хиро) — снять подсветку, иначе залипает (Босс 23.09) */
+        /* прокрутили назад выше активной секции (к хиро) — снять подсветку, иначе залипает */
         if (en.boundingClientRect.top > 0) {
           var link = navLinks.filter(function (a) { return a.getAttribute('href') === '#' + en.target.id; })[0];
           if (link && link.classList.contains('is-active')) navLinks.forEach(function (a) { a.classList.remove('is-active'); });
@@ -171,7 +171,7 @@
     secs.forEach(function (s) { spy.observe(s); });
   }
 
-  /* ---------- reveal ---------- */
+  /* reveal */
   if ('IntersectionObserver' in window && !rm) {
     /* страховка: если observer не сработал (скрытая вкладка) — видимое показываем через 4 с; ниже экрана — только по скроллу */
     setTimeout(function () { document.querySelectorAll('.rv:not(.in)').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); }, 4000);
@@ -180,7 +180,7 @@
     requestAnimationFrame(function () { document.querySelectorAll('.rv').forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in'); }); });
   } else { document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); }); }
 
-  /* ---------- cookie-баннер → после него карточка карты в хиро ---------- */
+  /* cookie-баннер → после него карточка карты в хиро */
   (function () {
     var KEY = 'usc_cookie_ok', bar = document.getElementById('consentBar'), card = document.getElementById('heroCard');
     var accepted = false; try { accepted = !!localStorage.getItem(KEY); } catch (e) {}
@@ -190,13 +190,13 @@
       setTimeout(function () { bar.classList.add('in'); }, 700);
       var ok = document.getElementById('consentOk');
       /* карточка карты в углу перекрывалась баннером cookie (тоже в углу) — стрелка вела на клик по «OK» вместо перехода к карте;
-         теперь карточка появляется только после закрытия баннера, плюс страховка на 6с если баннер проигнорировали (Босс 22.09) */
+         теперь карточка появляется только после закрытия баннера, плюс страховка на 6с если баннер проигнорировали */
       if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('in'); showCard(200); });
       showCard(6000);
     }
   })();
 
-  /* ---------- count-up ---------- */
+  /* count-up */
   function countUp(el) {
     var target = parseFloat(el.getAttribute('data-count')); if (isNaN(target)) return;
     if (rm) { el.textContent = target; return; }
@@ -208,7 +208,7 @@
     document.querySelectorAll('[data-count]').forEach(function (el) { nio.observe(el); });
   }
 
-  /* ---------- комплексы: слайдер, переключение кнопками U1/U2/U3 (+ свайп, стрелки, #cx-uN) ---------- */
+  /* комплексы: слайдер, переключение кнопками U1/U2/U3 (+ свайп, стрелки, #cx-uN) */
   var cxNav = document.querySelector('.complex-nav'), cxTrack = document.querySelector('.complex-track');
   if (cxNav && cxTrack) {
     var tabs = [].slice.call(cxNav.querySelectorAll('button[data-cx]')), ink = document.getElementById('cxInk');
@@ -221,7 +221,7 @@
       tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       moveInk(tabs[i]);
       if (focusTab) tabs[i].focus();
-      /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже (Босс 22.09) */
+      /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже */
       fitTrack();
       // при загрузке страницу не трогаем: иначе через 700 мс её утаскивало к комплексам, если уже пролистали ниже (восстановление позиции, быстрый скролл)
       if (init) return;
@@ -236,7 +236,7 @@
       if (r.bottom < navB + 120) scrollTo({ top: scrollY + r.top - navB, behavior: behavior });
     }
     /* панели стоят друг на друге в одной ячейке сетки — высота секции = высота активной панели,
-       а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) (Босс 27.09) */
+       а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) */
     function fitTrack() {
       if (slides[cur]) cxTrack.style.height = slides[cur].offsetHeight + 'px';
       // нативный переход по якорю #cx-uN (при загрузке по ссылке) останавливается под шапкой и табами, а не за ними
@@ -251,7 +251,7 @@
       if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
     });
     addEventListener('resize', function () { moveInk(tabs[cur]); });
-    /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов (Босс 22.09) */
+    /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов */
     var cxSlider = document.getElementById('complexSlider');
     if (cxSlider) {
       var sp0 = null;
@@ -275,7 +275,7 @@
     if (start >= 0) requestAnimationFrame(function () { toBlock('auto'); });
     addEventListener('hashchange', function () { var h = location.hash.replace('#', ''), i = slides.findIndex(function (s) { return s.id === h; }); if (i >= 0) go(i); });
     /* ссылки на #cx-uN (чипы блока 2, футер): открыть комплекс и подвести страницу к началу блока сами —
-       нативный переход по якорю на сдвинутую панель прокручивал слайдер вбок, и блок был пустым (Босс 27.09) */
+       нативный переход по якорю на сдвинутую панель прокручивал слайдер вбок, и блок был пустым */
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="#cx-"]'); if (!a) return;
       var i = slides.findIndex(function (s) { return s && '#' + s.id === a.getAttribute('href'); }); if (i < 0) return;
@@ -287,19 +287,19 @@
     if (cxSlider) cxSlider.addEventListener('scroll', function () { cxSlider.scrollLeft = 0; });
   }
 
-  /* ---------- карточка формата (каталог с главной убран, Босс 29.09 — его заменил блок «Наличие» на страницах форматов) ---------- */
+  /* карточка формата (каталога на главной больше нет, его заменил блок «Наличие» на страницах форматов) */
   var L = function () { return window.__uscLang || pageLang; };
   var D = function () { return (window.I18N && window.I18N[L()]) || {}; };
-  /* карточка формата (как в блоке «Форматы вилл» на главной) — для «Других форматов» на странице юнита (Босс 15.09:
-     там стоял старый product-card). Строки — из словаря по ключам fmt.<fmt>_r/_w (+ f_out/villa_o у виллы) */
-  /* прогресс-точки (Босс 29.09: вместо «1/3», как на БСО): рисует n точек, возвращает set(i) */
+  /* карточка формата (как в блоке «Форматы вилл» на главной) — для «Других форматов» на странице юнита
+     (раньше там был старый product-card). Строки — из словаря по ключам fmt.<fmt>_r/_w (+ f_out/villa_o у виллы) */
+  /* прогресс-точки (вместо «1/3», как на БСО): рисует n точек, возвращает set(i) */
   function dots(box, n) {
     if (!box) return function () {};
     box.innerHTML = new Array(n + 1).join('<span></span>');
     var d = box.children;
     return function (i) { for (var k = 0; k < d.length; k++) d[k].classList.toggle('on', k === i); };
   }
-  /* число вилл и этажи по лотам таблицы (assets/lots.js): «Доступно: N вилл», «Этаж 1, 2» (док 29.09 п.16/17) */
+  /* число вилл и этажи по лотам таблицы (assets/lots.js): «Доступно: N вилл», «Этаж 1, 2» */
   window.__uscVillas = function (n, lang) {
     var d = (window.I18N && window.I18N[lang]) || {}, k = n % 10, h = n % 100;
     var w = lang === 'ru' ? (k === 1 && h !== 11 ? d['avail.v1'] : k >= 2 && k <= 4 && (h < 12 || h > 14) ? d['avail.v2'] : d['avail.v5']) : (n === 1 ? d['avail.v1'] : d['avail.v2']);
@@ -325,11 +325,11 @@
       '<div class="fmt-card__foot">' +
       '<span class="product-card__price">' + (window.__uscMoney(window.USC_PRICE_USD[u.fmt], lang) || '') + '</span></div>' +
       '<div class="fmt-card__actions">' +
-      /* одна синяя кнопка (Босс 30.09 вернул синий), без второй «Получить презентацию» — лишний CTA (Босс 28.09) */
+      /* одна синяя кнопка, без второй «Получить презентацию»: две кнопки рядом лишние */
       '<a class="btn btn-primary fmt-card__more" href="' + href + '">' + (d['fmt.more'] || '') + '</a>' +
       '</div></div></div>';
   };
-  /* ---------- страница юнита: поля по языку + «другие форматы» ---------- */
+  /* страница юнита: поля по языку + «другие форматы» */
   var unitSlug = document.body.getAttribute('data-unit');
   if (unitSlug && window.USC_UNITS) {
     var unit = window.USC_UNITS.filter(function (u) { return u.slug === unitSlug; })[0];
@@ -346,13 +346,13 @@
         more.innerHTML = others.slice(0, 3).map(function (u) { return window.__uscFmtCard(u, ''); }).join('');
       }
     }
-    /* «Наличие»: лоты этого формата из таблицы Босса (assets/lots.js), вкладки — комплексы, где формат есть;
-       одна карточка на комплекс + метраж, цена «от» минимальной, чип «свободно N» (Босс 29.09) */
+    /* «Наличие»: лоты этого формата из таблицы наличия (assets/lots.js), вкладки — комплексы, где формат есть;
+       одна карточка на комплекс + метраж, цена «от» минимальной, чип «свободно N» */
     var avTabs = document.querySelector('.avail__tabs'), avGrid = document.querySelector('.avail__grid'), avQ = null, avPick = null;
     function renderAvail(lang) {
       if (!unit || !avTabs || !avGrid) return;
       var d = (window.I18N && window.I18N[lang]) || {}, CX = window.USC_COMPLEX, m2 = lang === 'ru' ? 'м²' : 'm²';
-      /* 1+1 и 1+1 с бассейном — разные продукты (Босс 30.09): вариант с бассейном показывает только свои лоты */
+      /* 1+1 и 1+1 с бассейном — разные продукты: вариант с бассейном показывает только свои лоты */
       var pool = function (s) { return /-pool$/.test(s); }, mine = pool(unit.slug);
       var lots = (window.USC_LOTS || []).filter(function (l) { return l.fmt === unit.fmt && pool(l.slug) === mine; });
       var qs = ['u1', 'u2', 'u3'].filter(function (q) { return lots.some(function (l) { return l.q === q; }) || window.USC_UNITS.some(function (u) { return u.q === q && u.fmt === unit.fmt && pool(u.slug) === mine; }); });
@@ -367,7 +367,7 @@
       var list = Object.keys(groups).map(function (k) { return groups[k]; }).sort(function (a, b) { return a.area - b.area; });
       var num = function (a) { return lang === 'ru' ? String(a).replace('.', ',') : String(a); };
       /* фото комплекса в этом формате; кнопка сразу к заявке с комплексом, форматом и метражом
-         (Босс 01.10: выпадающий список вилл не нужен); виллы с купелью — строкой лидеров */
+         (выпадающий список вилл не нужен); виллы с купелью — строкой лидеров */
       var ph = (window.USC_UNITS.filter(function (x) { return x.q === avQ && x.fmt === unit.fmt && pool(x.slug) === mine; })[0] || window.USC_UNITS.filter(function (x) { return x.q === avQ; })[0] || unit).photos[0];
       avGrid.innerHTML = list.length ? list.map(function (g) {
         var pick = CX[avQ].code + ' ' + CX[avQ].name + ', ' + unit.name[lang].charAt(0).toLowerCase() + unit.name[lang].slice(1) + ' ' + num(g.area) + ' ' + m2;
@@ -398,7 +398,7 @@
 
 
 
-  /* ---------- галерея-барабан на странице юнита: окно из 7 превью вокруг активного, шаг = сдвиг ленты ---------- */
+  /* галерея-барабан на странице юнита: окно из 7 превью вокруг активного, шаг = сдвиг ленты */
   var ugal = document.getElementById('ugal');
   if (ugal) (function () {
     var photos = ugal.getAttribute('data-photos').split(','), n = photos.length, alt = ugal.getAttribute('data-alt') || '';
@@ -416,7 +416,7 @@
       var html = '';
       for (var o = LO; o <= HI; o++) {
         var i = slot(cur + o);
-        /* превью — из photos/t/ (320×240, ~8 KB), а не полноразмерный webp 1800px (Босс 15.09: «фото плохо грузятся») */
+        /* превью — из photos/t/ (320×240, ~8 KB), а не полноразмерный webp 1800px, иначе фото грузятся долго */
         html += '<button type="button" class="ugal__thumb' + (o === 0 ? ' is-active' : '') + '" data-o="' + o + '" aria-label="' + (i + 1) + '/' + n + '"><img src="' + base + 't/' + photos[i] + '.webp" alt="" width="160" height="120" decoding="async"></button>';
       }
       track.classList.remove('is-anim'); track.innerHTML = html; track.style.transform = shift(centerFix());
@@ -472,8 +472,8 @@
     addEventListener('resize', renderTrack);
   })();
 
-  /* ---------- лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
-     открывает оверлей на полный набор фото этого комплекса (Босс 21.09) ---------- */
+  /* лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
+     открывает оверлей на полный набор фото этого комплекса */
   var lightbox = document.getElementById('lightbox');
   if (lightbox) (function () {
     var img = document.getElementById('lightboxImg'), curEl = document.getElementById('lightboxCur'), totalEl = document.getElementById('lightboxTotal');
@@ -523,7 +523,7 @@
     var lbPrev = document.getElementById('lightboxPrev'), lbNext = document.getElementById('lightboxNext');
     if (lbPrev) lbPrev.addEventListener('click', function (e) { e.stopPropagation(); show(idx - 1); });
     if (lbNext) lbNext.addEventListener('click', function (e) { e.stopPropagation(); show(idx + 1); });
-    /* свайп + клик по левой/правой половине кадра листает вперёд/назад, стрелки — доп. способ (Босс 23.09) */
+    /* свайп + клик по левой/правой половине кадра листает вперёд/назад, стрелки — доп. способ */
     var stage = lightbox.querySelector('.lightbox__stage'), lp0 = null, lSwiped = false;
     stage.addEventListener('click', function (e) {
       if (lSwiped) { lSwiped = false; return; }
@@ -544,9 +544,9 @@
     });
   })();
 
-  /* ---------- кастомные выпадающие списки в форме: нативный <select> остаётся источником значения.
+  /* кастомные выпадающие списки в форме: нативный <select> остаётся источником значения.
      Код страны (#f-cc): полный справочник USC_COUNTRIES, поиск, тонкий индикатор прокрутки, автоформат
-     номера по маске — функционально как на БСО (Босс 15.09) ---------- */
+     номера по маске — функционально как на БСО */
   var CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
   function fillCountrySelect(select) {
     var rows = window.USC_COUNTRIES; if (!select || !rows) return;
@@ -672,7 +672,7 @@
   });
 
   /* форма заявки: проверка полей, затем отправка в @leadunit_bot через unitdeveloper.com/wp-json/unit/v1/space-lead
-     (токен бота на сервере; Босс 28.09). Имя обязательно, из телефона и email хватит одного; ошибка под полем, фокус на первое неверное */
+     (токен бота лежит на сервере). Имя обязательно, из телефона и email хватит одного; ошибка под полем, фокус на первое неверное */
   var leadForm = document.getElementById('leadForm');
   if (leadForm) {
     var fName = document.getElementById('f-name'), fPhone = document.getElementById('f-phone'), fEmail = document.getElementById('f-email');
@@ -736,7 +736,7 @@
     window.__uscRerender = function (lang) { if (prevCsel) prevCsel(lang); csels.forEach(function (c) { if (c.refill) c.refill(); else c.render(); }); };
   }
 
-  /* ---------- живая строка футера: время на Бали (WITA) + температура (Open-Meteo, без ключа; если фетч не прошёл — прячем только температуру) ---------- */
+  /* живая строка футера: время на Бали (WITA) + температура (Open-Meteo, без ключа; если фетч не прошёл — прячем только температуру) */
   var baliTime = document.getElementById('baliTime');
   if (baliTime) {
     var tf = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Makassar', hour: '2-digit', minute: '2-digit' });
@@ -752,7 +752,7 @@
       .catch(function () { baliWrap.hidden = true; });
   }
 
-  /* ---------- хиро: кроссфейд кадров каждые 6 с (без reduced-motion) ---------- */
+  /* хиро: кроссфейд кадров каждые 6 с (без reduced-motion) */
   var heroMedia = document.getElementById('heroMedia');
   if (heroMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var heroSlides = heroMedia.querySelectorAll('.hero__slide'), hi = 0; // не «slides» — var общий со слайдером комплексов
@@ -771,7 +771,7 @@
     }
   }
 
-  /* ---------- фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении ---------- */
+  /* фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении */
   document.querySelectorAll('.photo-band[data-band]').forEach(function (band) {
     var bs = band.querySelectorAll('.photo-band__slide'), bi = 0, timer;
     if (bs.length < 2) return;
@@ -798,8 +798,8 @@
     arm();
   });
 
-  /* ---------- мини-галерея в карточках «Форматы вилл» (Босс 29.09): 5 кадров формата, стрелки-эталон, точки, свайп;
-     клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее ---------- */
+  /* мини-галерея в карточках «Форматы вилл»: 5 кадров формата, стрелки-эталон, точки, свайп;
+     клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее */
   document.querySelectorAll('.fmt-card__gal[data-mg]').forEach(function (gal) {
     var u = (window.USC_UNITS || []).filter(function (x) { return x.slug === gal.getAttribute('data-mg'); })[0];
     var link = gal.querySelector('.fmt-card__media'), cover = link && link.querySelector('picture');
@@ -838,7 +838,7 @@
     } else pic(1);
   });
 
-  /* ---------- концепция: фото U1/U2/U3 в синей панели, стрелки + клик по ряду (макет USC, вар2) ---------- */
+  /* концепция: фото U1/U2/U3 в синей панели, стрелки + клик по ряду */
   var ccPanel = document.getElementById('ccPanel');
   if (ccPanel) (function () {
     var slides = [].slice.call(ccPanel.querySelectorAll('.cc-slide')), i = 0;
@@ -847,7 +847,7 @@
       i = (n + slides.length) % slides.length;
       slides.forEach(function (s, k) { s.classList.toggle('is-in', k === i); });
     }
-    /* сам листается раз в 7 с (Босс 30.09): только пока панель на экране, пауза при фокусе с клавиатуры,
+    /* сам листается раз в 7 с: только пока панель на экране, пауза при фокусе с клавиатуры,
        при prefers-reduced-motion не листается; нажатие стрелки начинает отсчёт заново */
     var timer = 0, seen = false, hold = false, calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function tick() { clearTimeout(timer); if (!calm && seen && !hold) timer = setTimeout(function () { show(i + 1); tick(); }, 7000); }
@@ -861,11 +861,11 @@
     show(0);
   })();
 
-  /* ---------- «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку (Босс 23.09) ---------- */
+  /* «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку */
   /* Бенто-ритм 4×2 (крупный + широкий + мелкие), блоками по 2 ряда, раскрытые тайлы продолжают его — не сетка
-     одинаковых квадратов (Босс 26.09). Схема каждого блока и место каждого фото подбираются по пропорциям фото
+     одинаковых квадратов. Схема каждого блока и место каждого фото подбираются по пропорциям фото
      (data-ar) и реальным размерам плиток на текущей ширине: вертикальные — в высокие плитки, панорамы — в широкие,
-     чтобы кадр не резался до непонятного (Босс 27.09). Только десктоп: на ≤800 коллаж — лента-слайдер. */
+     чтобы кадр не резался до непонятного. Только десктоп: на ≤800 коллаж — лента-слайдер. */
   var UNITS = {                                  // [сдвиг колонки, ширина, ряд, высота, тип]
     T:   { w: 1, s: [[0,1,0,2,'T']] },
     SS:  { w: 1, s: [[0,1,0,1,'S'],[0,1,1,1,'S']] },
@@ -952,7 +952,7 @@
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
-    /* «Показать все фото» ↔ «Свернуть фото» (Босс 29.09). data-i18n меняем вместе с текстом, чтобы смена языка не сбрасывала подпись */
+    /* «Показать все фото» ↔ «Свернуть фото». data-i18n меняем вместе с текстом, чтобы смена языка не сбрасывала подпись */
     btn.addEventListener('click', function () {
       var open = gallery.classList.toggle('is-expanded'), k = open ? 'cx.less' : 'cx.more';
       var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
@@ -965,7 +965,7 @@
     });
   });
 
-  /* ---------- FAQ-аккордеон (как на БСО): один открыт, остальные закрываются ---------- */
+  /* FAQ-аккордеон (как на БСО): один открыт, остальные закрываются */
   var faqList = document.getElementById('faqList');
   if (faqList) faqList.addEventListener('click', function (e) {
     var btn = e.target.closest('.faq-q'); if (!btn) return;
@@ -974,7 +974,7 @@
     if (!open) { item.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); }
   });
 
-  /* ---------- email в кругляшах: mailto может ничего не открыть — копируем адрес и показываем подсказку ---------- */
+  /* email в кругляшах: mailto может ничего не открыть — копируем адрес и показываем подсказку */
   document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
     a.addEventListener('click', function () {
       var mail = a.getAttribute('href').replace('mailto:', '');
@@ -988,14 +988,14 @@
     });
   });
 
-  /* ---------- калькулятор ---------- */
+  /* калькулятор */
   if (document.getElementById('c-price')) {
     function money(n) {
       if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
       return '$' + Math.round(n).toLocaleString(document.documentElement.lang === 'ru' ? 'ru-RU' : 'en-US');
     }
     /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
-       текущую валюту (Босс 23.09: в IDR-режиме поля молчком оставались в $) */
+       текущую валюту (в IDR-режиме поля молчком оставались в $) */
     var priceEl = document.getElementById('c-price'), rateEl = document.getElementById('c-rate');
     var MIN_PRICE = 50000; /* USD; самый дешёвый лот в таблице сейчас $95 000 */
     priceEl.dataset.usd = priceEl.value;
@@ -1032,7 +1032,7 @@
     window.__uscCalcRefresh = function () { syncCcyDisplay(); calc(); };
     syncCcyDisplay();
     calc();
-    /* «Выбрать тип виллы» — подставляет цену формата в калькулятор (Босс 22.09) */
+    /* «Выбрать тип виллы» — подставляет цену формата в калькулятор */
     var pickerBtn = document.getElementById('calcPickerBtn'), pickerPanel = document.getElementById('calcPickerPanel');
     if (pickerBtn && pickerPanel) {
       pickerBtn.addEventListener('click', function () {
@@ -1052,7 +1052,7 @@
           syncCcyDisplay();
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
-          /* кнопка показывает выбранный формат (Босс 29.09); data-i18n меняем, чтобы смена языка не вернула старое имя */
+          /* кнопка показывает выбранный формат; data-i18n меняем, чтобы смена языка не вернула старое имя */
           var cur = pickerBtn.querySelector('b'), src = btn.querySelector('b');
           if (cur && src) { cur.setAttribute('data-i18n', src.getAttribute('data-i18n')); cur.innerHTML = src.innerHTML; }
           pickerPanel.hidden = true;
@@ -1064,7 +1064,7 @@
       });
     }
   }
-  /* ---------- липкая кнопка заявки ≤1000px (impeccable critique 27.09) ----------
+  /* липкая кнопка заявки ≤1000px 
      видна, когда хиро ушёл вверх, а форма и футер ещё не на экране; не спорит с баннером cookie */
   (function () {
     var btn = document.getElementById('mCta'), hero = document.querySelector('.hero'),
@@ -1086,7 +1086,7 @@
     if (bar && 'MutationObserver' in window) new MutationObserver(sync).observe(bar, { attributes: true, attributeFilter: ['class'] });
   })();
 
-  /* ---------- карта локации: OpenFreeMap + MapLibre, грузится у экрана (Босс 28.09: чистая карта, одна точка) ---------- */
+  /* карта локации: OpenFreeMap + MapLibre, грузится у экрана (чистая карта, одна точка) */
   (function () {
     var box = document.getElementById('locMap');
     if (!box || !('IntersectionObserver' in window)) return;
@@ -1096,14 +1096,14 @@
       var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = LIB + 'css'; document.head.appendChild(css);
       var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; document.head.appendChild(js);
     }
-    /* точки из чипов расстояний + Nuanu (Босс 28.09); координаты из OSM: пляж и Tanah Lot — по привязке locmap.svg,
+    /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж и Tanah Lot — по привязке locmap.svg,
        Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
     var POI = [
       { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
-    /* фото для попапа чипа (Босс 30.09: 4–5 фото места, только без АП — источники в photos/CREDITS-places.md).
+    /* фото для попапа чипа (4–5 фото места, только без АП — источники в photos/CREDITS-places.md).
        Пусто — чип без попапа: свободных фото Nuanu нет */
     var PLACES = {
       pin: ['u1-11', 'u3-01', 'u2-2bd-14', 'u1-15', 'u2-villa-13'],
@@ -1165,7 +1165,7 @@
           var fits = function (e) { var ax = mr.left + X(e); return ax >= bx.left + gap && ax + W <= bx.right - gap; };
           var e = edge; if (!fits(e) && fits(e === 'l' ? 'r' : 'l')) e = e === 'l' ? 'r' : 'l';
           card.classList.toggle('map-pop--r', e === 'r'); card.classList.toggle('map-pop--l', e === 'l');
-          // up (Босс 30.09 про Чангу): заголовок остаётся на месте чипа, галерея растёт вверх; не влезает — в другую сторону
+          // up (про Чангу): заголовок остаётся на месте чипа, галерея растёт вверх; не влезает — в другую сторону
           var Y = function (u) { return u ? lbl.offsetTop + lh - H : lbl.offsetTop; };
           var fitsY = function (u) { var ay = mr.top + Y(u); return ay >= bx.top + gap && ay + H <= bx.bottom - gap; };
           var u = !!up; if (!fitsY(u) && fitsY(!u)) u = !u;
@@ -1239,7 +1239,7 @@
   var go = function () { var b = pan.querySelector('.plan-badge'); if (!b || pan.scrollWidth <= pan.clientWidth) return;
     pan.scrollLeft = Math.max(0, b.offsetLeft + 80 - pan.clientWidth * 0.75); };
   go(); window.addEventListener('load', go);
-  /* Босс 01.10: чипы у краёв кадра гаснут, въезжающие в кадр появляются; плашка «Листайте» уходит после первого касания */
+  /* чипы у краёв кадра гаснут, въезжающие в кадр появляются; плашка «Листайте» уходит после первого касания */
   var fig = pan.parentNode, hint = fig.querySelector('.plan-hint'), raf = 0,
     items = [].slice.call(pan.querySelectorAll('.plan-pin, .plan-badge'));
   var upd = function () { raf = 0; var on = pan.scrollWidth > pan.clientWidth + 1; fig.classList.toggle('is-pan', on);
@@ -1253,7 +1253,7 @@
   ['touchstart', 'pointerdown', 'wheel'].forEach(function (ev) { pan.addEventListener(ev, used, { passive: true, once: true }); });
 })();
 
-/* email-ссылки: адрес ещё и копируется в буфер с подсказкой — на ПК без почтовой программы mailto ничего не делает (Босс 30.09) */
+/* email-ссылки: адрес ещё и копируется в буфер с подсказкой — на ПК без почтовой программы mailto ничего не делает */
 (function () {
   var box = null, tm = 0;
   document.addEventListener('click', function (e) {
@@ -1269,7 +1269,7 @@
 })();
 
 /* точки-лидеры тянутся до текста: перенесённое значение (text-align:right) ужимаем до ширины самой длинной
-   строки — иначе между точками и короткой строкой оставалась пустота (Босс 28.09) */
+   строки — иначе между точками и короткой строкой оставалась пустота */
 (function () {
   function fit() {
     [].forEach.call(document.querySelectorAll('.leaders > div > b'), function (b) {
@@ -1277,7 +1277,7 @@
       var r = document.createRange(); r.selectNodeContents(b);
       var rs = r.getClientRects(), l = Infinity, rt = -Infinity, tops = {};
       for (var i = 0; i < rs.length; i++) if (rs[i].width) { l = Math.min(l, rs[i].left); rt = Math.max(rt, rs[i].right); tops[Math.round(rs[i].top)] = 1; }
-      // блок = ширина самой длинной строки, строки по правому краю (Босс 01.10: по левому «смотрится плохо»)
+      // блок = ширина самой длинной строки, строки по правому краю: по левому смотрится плохо
       if (Object.keys(tops).length > 1) { b.style.width = Math.ceil(rt - l + 1) + 'px'; b.style.textAlign = 'right'; }
     });
   }
@@ -1288,7 +1288,7 @@
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); later(); };
 })();
 
-/* висячие короткие слова (Босс 30.09, RU и EN): слово до 3 букв и число приклеиваем неразрывным пробелом к следующему.
+/* висячие короткие слова (RU и EN): слово до 3 букв и число приклеиваем неразрывным пробелом к следующему.
    Словарь при смене языка пишет innerHTML заново, поэтому проход повторяется последним хуком после перерисовки */
 (function () {
   var SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|NOSCRIPT|svg)$/;
@@ -1309,7 +1309,7 @@
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); run(); if (window.__uscFit) window.__uscFit(); };
 })();
 
-/* карточки форматов: «Доступно: N вилл» чипом на фото + строки «Доступно» и «Этаж» (док 29.09 п.16/17, Босс 02.10).
+/* карточки форматов: «Доступно: N вилл» чипом на фото + строки «Доступно» и «Этаж».
    Считается по свободным лотам таблицы того же формата (1+1 и 1+1 с бассейном — разные продукты); лотов нет — ничего не добавляем */
 (function () {
   function run() {

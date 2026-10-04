@@ -1,4 +1,4 @@
-// Свободные лоты из Google-таблицы Босса (вкладка Layouts) → assets/lots.js для блока «Свободные виллы».
+// Свободные лоты из Google-таблицы наличия (вкладка Layouts) → assets/lots.js для блока «Свободные виллы».
 // Запуск: node tools/sync-lots.mjs [путь к локальному CSV], затем обычная сборка (build-index и далее).
 // SOLD не выводим; формат определяется по колонке MODEL, ссылка карточки — на страницу формата из units.js.
 import fs from 'node:fs';
@@ -31,7 +31,7 @@ const usd = (s) => Number(String(s).replace(/[^\d]/g, '')) || 0;
 function format(q, model) {
   const m = model.toUpperCase().replace(/\s+/g, ' ').trim();
   if (/VILLA/.test(m)) return { fmt: 'villa', slug: `${q}-villa` };
-  // 1+1 / 2+1 с бассейном — отдельный продукт со своей страницей (Босс 30.09)
+  // 1+1 / 2+1 с бассейном — отдельный продукт со своей страницей
   if (/POOL/.test(m) && /2BD/.test(m)) return { fmt: '2bd', slug: `${q}-2bd-pool` };
   if (/POOL/.test(m) && /1BD|2ROOMS/.test(m)) return { fmt: '1bd', slug: `${q}-1bd-pool` };
   if (/MAX 2BD|2BD/.test(m)) return { fmt: '2bd', slug: `${q}-2bd` };
@@ -48,12 +48,12 @@ for (const r of parseCsv(csv)) {
   const status = (r[2] || '').trim().toUpperCase();
   const f = format(q, r[1] || '');
   const area = num(r[4]); const price = usd(r[6]);
-  // метраж страницы формата — по всем строкам таблицы, проданные тоже (Босс 01.10: верные данные — в таблице)
+  // метраж страницы формата — по всем строкам таблицы, проданные тоже (верные данные — в таблице)
   if (f && area) (areaBySlug[f.slug] = areaBySlug[f.slug] || []).push(area);
   if (status === 'SOLD') { skipped.push(`${id} SOLD`); continue; }
   if (!f || !area || !price) { skipped.push(`${id} не распознан: ${r[1]} | ${r[4]} | ${r[6]}`); continue; }
-  // BATHTUB — вариант с ванной (Босс 01.10: помечать)
-  // этаж — из колонки VIEW («GARDEN 2 LEVEL»); без пометки N LEVEL — 1 этаж (Босс 02.10, док 29.09 п.17)
+  // BATHTUB — вариант с ванной (помечать)
+  // этаж — из колонки VIEW («GARDEN 2 LEVEL»); без пометки N LEVEL — 1 этаж
   const lv = (r[11] || '').match(/(\d)\s*LEVEL/i);
   lots.push({ id, q, fmt: f.fmt, slug: f.slug, area, price, ...(/BATHTUB/i.test(r[1] || '') ? { bath: 1 } : {}), lvl: lv ? +lv[1] : 1 });
 }
@@ -76,11 +76,11 @@ function write(rel, text) {
 }
 if (!fs.existsSync(out)) fs.writeFileSync(out, '');
 write('assets/lots.js',
-  `/* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы Босса (вкладка Layouts), руками не править.\n` +
+  `/* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы наличия (вкладка Layouts), руками не править.\n` +
   `   SOLD не выводятся. */\n` +
   `window.USC_LOTS = [\n${lots.map((l) => '  ' + JSON.stringify(l)).join(',\n')}\n];\n`);
 
-// ---- блок «Форматы вилл» и «от»-цены страниц форматов: из тех же лотов ----
+// блок «Форматы вилл» и «от»-цены страниц форматов: из тех же лотов 
 const NB = ' ';
 const FMTS = ['studio', '1bd', '2bd', 'villa'];
 const agg = {};
@@ -146,8 +146,7 @@ units = units.replace(/window\.USC_PRICE = \{ru:\{[^}]*\},\s*\n\s*en:\{[^}]*\}\}
                const a = areaBySlug[slug]; if (!a) return m; // нет строк в таблице — прежний метраж
                const lo = Math.min(...a), hi = Math.max(...a);
                return o + (lo === hi ? String(lo) : `[${lo},${hi}]`);
-             })
-             .replace(/Средние по актуальным резейл-лотам \(Google Sheets, 22\.09\), не прайс девелопера — Босс подтвердил 23\.09/, 'Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы Босса');
+             });
 write('assets/units.js', units);
 
 console.log(`ok: ${lots.length} лотов (${['u1', 'u2', 'u3'].map((q) => q.toUpperCase() + ' ' + lots.filter((l) => l.q === q).length).join(', ')})`);

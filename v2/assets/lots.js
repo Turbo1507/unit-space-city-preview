@@ -1,4 +1,4 @@
-/* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы Босса (вкладка Layouts), руками не править.
+/* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы наличия (вкладка Layouts), руками не править.
    SOLD не выводятся. */
 window.USC_LOTS = [
   {"id":"U1.2","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000,"bath":1,"lvl":1},

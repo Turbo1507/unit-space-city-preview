@@ -1,15 +1,11 @@
 /* ============================================================================
    UNIT SPACE CITY — v2. Общий CSS для index.html и страниц юнитов (units/*).
-   Референсы сняты с живых страниц: hero — aurora.tech (заголовок 90/600 внизу
-   слева, медиа-карточка 320×210 внизу справа, полоса мини-статов капсом под
-   фото); статы — apollo.io; карточки — framer.com/marketplace; команда — Titan;
-   таблица — Samara; финальная форма — GitBook contact; хедер/меню/язык —
-   логика БСО (is-solid после 40px, RU / EN через data-lang + window.setLang,
+   Шапка, меню и переключатель языка работают как на БСО (is-solid после 40px, RU / EN через data-lang + window.setLang,
    бургер → оверлей с inert).
    Дизайн-система: шкала 8px, единый ритм --sy, hover только цветом, второй план
    текста — opacity (.dim), reveal деградирует без JS.
    ========================================================================== */
-/* Helvetica Neue файлами (лицензия компании, Босс 28.09): у всех одинаково, не фолбэк на Arial */
+/* Helvetica Neue файлами (лицензия компании): у всех одинаково, не фолбэк на Arial */
 @font-face{font-family:"USC Helvetica Neue";src:url("fonts/helvetica-neue-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"USC Helvetica Neue";src:url("fonts/helvetica-neue-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"USC Helvetica Neue";src:url("fonts/helvetica-neue-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
@@ -23,7 +19,7 @@
   --col:1180px;
   --r:10px; --r-s:8px;
   --hdr:64px;
-  /* типографическая шкала (Smashing: body / subhead / title + осознанные «go big») */
+  /* шкала шрифтов: текст / подзаголовок / заголовок, плюс пара нарочно крупных */
   --fs-micro:12px; --fs-cap:14px; --fs-body:16px; --fs-sub:20px;
   --fs-h3:clamp(24px,2.4vw,32px); --fs-title:clamp(28px,3.4vw,44px); --fs-display:clamp(36px,4.2vw,64px);
   --lh-body:1.55; --lh-card:1.45; --lh-sub:1.35; --lh-title:1.05;
@@ -40,7 +36,7 @@ a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 ul,ol{margin:0;padding:0;list-style:none}
 img{display:block;max-width:100%;height:auto}
-/* блик-скелет, пока фото не в кеше — снимается в site.js по load/error (по образцу BSO, Босс 22.09) */
+/* блик-скелет, пока фото не в кеше — снимается в site.js по load/error */
 img.is-loading{background:linear-gradient(100deg, var(--wash) 38%, #fff 50%, var(--wash) 62%) var(--wash);background-size:220% 100%;background-repeat:no-repeat;background-position:170% 0;animation:img-shine 1.5s ease-in-out infinite}
 @keyframes img-shine{ to{ background-position:-40% 0 } }
 @media (prefers-reduced-motion: reduce){ img.is-loading{ animation:none } }
@@ -55,10 +51,10 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .sect--alt{background:var(--white)}
 .dim{opacity:var(--dim)}
 
-/* ---------- typography ---------- */
+/* typography */
 .t-h2{font-weight:500;letter-spacing:-.025em;line-height:var(--lh-title);font-size:var(--fs-title);max-width:24ch}
 .t-h3{font-weight:500;letter-spacing:-.02em;line-height:1.2;font-size:var(--fs-h3)}
-/* подзаголовок ≤2 строк, в идеале 1 (Босс 28.09): при 52ch многие вставали в 3 строки */
+/* подзаголовок ≤2 строк, в идеале 1: при 52ch многие вставали в 3 строки */
 .t-lead{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:80ch}
 .t-small{font-size:var(--fs-cap);line-height:1.45}
 .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
@@ -73,15 +69,15 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .row p{max-width:60ch}
 @media (max-width:760px){ .row{grid-template-columns:1fr;gap:var(--s1)} }
 
-/* ---------- buttons ---------- */
+/* buttons */
 .btn{--h:56px;display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);min-height:var(--h);padding-inline:var(--s3);padding-block:8px;
   border-radius:var(--r);font-size:var(--fs-body);font-weight:500;letter-spacing:.01em;line-height:1.2;text-align:center;border:1.5px solid transparent;cursor:pointer;
   transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease)}
 .btn svg{width:16px;height:16px;flex:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-outline{border-color:currentColor}
-/* тёмная кнопка «Смотреть виллу» (Босс 29.09: свой цвет, не синий): Oxford Blue — тёмный из семейства фирменного синего */
-/* вторичная кнопка в карточках: без полутоновых заливок (Босс 25.09) —
+/* тёмная кнопка «Смотреть виллу» (свой цвет, не синий): Oxford Blue — тёмный из семейства фирменного синего */
+/* вторичная кнопка в карточках: без полутоновых заливок —
    белый фон, сплошная синяя обводка и синий текст в полную силу */
 .gal-more,.cat-more{
   background:#fff;border-color:var(--blue);color:var(--blue)}
@@ -98,7 +94,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .crumb .ic{width:14px;height:14px}
 .cta-row--after{margin-top:clamp(24px,3vw,40px)}
 
-/* ---------- header (логика БСО) ----------
+/* header (логика БСО) 
    прозрачная над хиро, белый текст; после 40px скролла — is-solid: фон+блюр+линия,
    текст тёмный, геометрия не двигается. На внутренних страницах — сразу is-solid. */
 .site-header{position:fixed;inset:0 0 auto 0;z-index:80;height:var(--hdr);display:flex;align-items:center;color:#fff;
@@ -115,7 +111,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
 /* подпись кнопки в шапке не должна переноситься на две строки (ломает высоту хедера) */
 .header-right .btn{white-space:nowrap}
-/* дропдауны языка/валюты в шапке (Босс 23.09: инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
+/* дропдауны языка/валюты в шапке (инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
 .header-selectors{display:flex;align-items:center;gap:4px;font-size:var(--fs-cap);font-weight:500}
 .hd-sel{position:relative}
 .hd-sel__btn{display:flex;align-items:center;gap:4px;height:32px;padding:0 8px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:.7;transition:opacity .2s}
@@ -128,7 +124,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .hd-sel__pop li{padding:8px 12px;border-radius:4px;cursor:pointer;font-size:var(--fs-body)}
 .hd-sel__pop li[aria-selected="true"]{background:var(--blue);color:#fff}
 /* бокс 40px, полоски 22px: сдвигаем бокс на (40-22)/2 вправо, чтобы ВИДИМЫЙ край полосок стоял ровно на --gut,
-   как вордмарк слева (Босс 15.09: «бургер слишком близко к краю, вопрос к строгости сетки») */
+   как вордмарк слева (иначе бургер прилипает к краю) */
 .burger{display:none;width:40px;height:40px;margin-right:-8px;border:0;background:none;cursor:pointer;flex-direction:column;
   justify-content:center;align-items:center;gap:4px;position:relative;z-index:101;color:inherit}
 .burger span{display:block;width:22px;height:2px;background:currentColor;transition:transform .25s var(--ease),opacity .2s}
@@ -136,7 +132,7 @@ body.menu-open .burger{color:var(--ink)}
 body.menu-open .burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 body.menu-open .burger span:nth-child(2){opacity:0}
 body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-/* 1001-1142px: длинное RU-меню + селекторы + кнопка не влезали, кнопку срезало краем экрана (Босс 25.09).
+/* 1001-1142px: длинное RU-меню + селекторы + кнопка не влезали, кнопку срезало краем экрана.
    Меню уходит в бургер уже с 1200, кнопка-CTA остаётся видимой до мобильного брейкпоинта */
 @media (max-width:1200px){ .site-nav{display:none} .burger{display:flex} }
 @media (max-width:1000px){ .site-header .header-right .btn{display:none} }
@@ -153,7 +149,7 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
   padding:0 var(--gut) var(--gut);transform:translateY(-100%);visibility:hidden;transition:transform .5s var(--ease),visibility 0s .5s}
 body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transform .5s var(--ease),visibility 0s}
 .menu-head{flex:none;height:var(--hdr);display:flex;align-items:center;justify-content:space-between}
-/* меню целиком в один экран на любой высоте телефона (Босс 28.09): размер пунктов и зазоры от высоты экрана */
+/* меню целиком в один экран на любой высоте телефона: размер пунктов и зазоры от высоты экрана */
 .menu-list{display:grid;gap:clamp(8px,1.8svh,16px);margin-top:clamp(16px,3svh,32px);font-size:clamp(22px,4.4svh,var(--fs-title));line-height:1.15;font-weight:500;letter-spacing:-.02em}
 .menu-foot{flex:none;margin-top:auto;padding-top:clamp(16px,3svh,32px);display:grid;gap:clamp(16px,2.4svh,24px)}
 .menu-overlay{overflow-y:auto}
@@ -161,7 +157,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .menu-foot .btn{width:100%}
 
 /* ================================================================
-   HERO — aurora.tech: медиа на весь экран; заголовок 2 строки внизу слева;
+   HERO: медиа на весь экран; заголовок 2 строки внизу слева;
    медиа-карточка (у нас карта) внизу справа с подписью и круглой стрелкой;
    под фото — полоса мини-статов капсом на всю ширину. Без кнопок/абзацев.
    ================================================================ */
@@ -179,9 +175,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__content > div:first-child{flex:1 1 auto;min-width:0}
 .hero__title{font-weight:500;letter-spacing:-.035em;line-height:1.02;font-size:var(--fs-display);max-width:19ch;text-wrap:balance}
 .hero__sub{margin-top:var(--s3);font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:44ch;opacity:.82}
-/* плашка над заголовком (Босс 29.09): белый фон, тёмный текст, шрифт не крупнее подзаголовка; прямоугольник со скруглением, не пилюля (30.09) */
+/* плашка над заголовком: белый фон, тёмный текст, шрифт не крупнее подзаголовка; прямоугольник со скруглением, не пилюля */
 .hero__badge{display:flex;align-items:center;width:max-content;height:32px;padding:0 12px;margin-bottom:var(--s3);border-radius:var(--r-s);background:var(--white);color:var(--ink);font-size:var(--fs-body);font-weight:500;line-height:1}
-/* CTA в хиро (док правок 29.09: фото, заголовок и CTA) */
+/* CTA в хиро */
 .hero__cta{margin-top:var(--s4)}
 
 
@@ -191,18 +187,18 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero__strip span{font-weight:400;color:inherit;margin-left:var(--s2)}
 @media (max-width:820px){
   .hero__content{flex-direction:column;align-items:stretch;gap:var(--s3)}
-  /* Босс 15.09: заголовок чуть крупнее (3 строки держим), подзаголовок мельче */
+  /* заголовок чуть крупнее (3 строки держим), подзаголовок мельче */
   .hero__title{font-size:clamp(34px,9.8vw,44px);letter-spacing:-.03em}
   .hero__sub{margin-top:var(--s2);font-size:var(--fs-body);line-height:var(--lh-card);max-width:36ch}
   .hero__badge{height:28px;font-size:var(--fs-cap);margin-bottom:var(--s2)}
-  /* мобилка (Босс 21.09): мини-карта + полоса статов U1/U2/U3 убраны из хиро целиком —
+  /* мобилка: мини-карта + полоса статов U1/U2/U3 убраны из хиро целиком —
      переехали отдельным блоком в #about вместе с описанием U1/U2/U3. На десктопе
-     карточка с картой остаётся (не трогать — прямое указание Босса). */
+     карточка с картой остаётся (так и оставляем). */
   .hero__strip{display:none}
 }
 
 /* cookie */
-/* обособленная карточка внизу справа, не полоса на всю ширину (Босс 21.09) */
+/* обособленная карточка внизу справа, не полоса на всю ширину */
 .consent-bar{position:fixed;right:var(--gut);bottom:var(--gut);left:auto;z-index:60;display:grid;gap:var(--s2);
   width:min(360px, calc(100vw - 2 * var(--gut)));padding:var(--s3);border-radius:var(--r);
   background:var(--white);box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(24px);opacity:0;
@@ -213,17 +209,17 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .consent-bar .btn{width:100%;justify-content:center}
 @media (prefers-reduced-motion: reduce){ .consent-bar{transition:none} }
 
-/* ---------- карточка — бренд-элемент: заливка, r10, без рамок/теней ---------- */
+/* карточка — бренд-элемент: заливка, r10, без рамок/теней */
 .card{background:var(--white);border-radius:var(--r);padding:var(--s3);display:grid;gap:var(--s1);align-content:start}
 .sect--alt .card{background:var(--paper)}
 .card > b,.card > h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:0}
 .card > p{font-size:var(--fs-body);line-height:var(--lh-card);opacity:var(--dim)}
-/* фото в карточке — внутри паддинга, с полем от края (правка Босса 14.09), скругление r-s */
+/* фото в карточке — внутри паддинга, с полем от края, скругление r-s */
 .card__ph{height:clamp(160px,16vw,240px);margin:0 0 var(--s2);border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .card__ph img{width:100%;height:100%;object-fit:cover;display:block}
 .card--dark{background:var(--ink);color:#fff}
 .sect--alt .card--dark{background:var(--ink)}
-/* фото на весь фон карточки, текст поверх снизу (Burton-стиль, Босс 22.09) */
+/* фото на весь фон карточки, текст поверх снизу  */
 .card--photobg{position:relative;padding:0;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;min-height:clamp(280px,26vw,360px)}
 .card--photobg .card__ph{position:absolute;inset:0;margin:0;border-radius:0;height:100%;background:none}
 .card--photobg .card__ph picture{display:block;width:100%;height:100%}
@@ -240,10 +236,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .card-grid--4{grid-template-columns:repeat(4,1fr)}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
 .bento .span-2{grid-column:span 2}
-/* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта), Босс 21.09 */
+/* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта) */
 .bento-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s2)}
 /* карточка обзора выглядела пусто рядом с картой — строки U1/U2/U3 растянуты на всю высоту,
-   каждая кликабельна (ведёт на таб комплекса), статус — тем же чипом, что и у бейджа комплекса (Босс 22.09) */
+   каждая кликабельна (ведёт на таб комплекса), статус — тем же чипом, что и у бейджа комплекса */
 .ov-card{display:flex;flex-direction:column}
 .ov-photo{display:none}
 .ov-rows{margin-top:auto;padding-top:var(--s3);display:grid;gap:var(--s1)}
@@ -251,7 +247,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .ov-row > b{flex:none;color:var(--blue);font-weight:500}
 .ov-row__name{flex:1;font-weight:500}
 @media (min-width:1200px){
-  /* фото над строками U1/U2/U3 — при наведении на строку подставляется фото именно этого комплекса (Босс 22.09) */
+  /* фото над строками U1/U2/U3 — при наведении на строку подставляется фото именно этого комплекса */
   .ov-photo{display:block;position:relative;aspect-ratio:16/9;border-radius:var(--r-s);overflow:hidden;margin-top:var(--s3);background:var(--wash)}
   .ov-photo picture,.ov-photo img{position:absolute;inset:0;width:100%;height:100%;display:block}
   .ov-photo img{object-fit:cover;opacity:0;transition:opacity .3s var(--ease)}
@@ -263,18 +259,18 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:820px){ .card-grid--3,.card-grid--4,.bento{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .card-grid--2,.card-grid--3,.card-grid--4,.bento,.bento-2{grid-template-columns:1fr} .bento .span-2{grid-column:auto} }
 @media (max-width:760px){ .bento-2{grid-template-columns:1fr} }
-/* акцентная карточка-блок — синяя заливка, чтобы бросалась в глаза (Босс 21.09: концепция комплекса) */
+/* акцентная карточка-блок — синяя заливка, чтобы бросалась в глаза (концепция комплекса) */
 /* .sect--alt .card{background:paper} специфичнее одного класса — .card--accent проигрывал и синий
-   фон не применялся (баг найден Боссом 22.09: «испортилась карточка, текст еле виден») */
+   фон не применялся (карточка была серой, текст еле читался) */
 .sect--alt .card.card--accent,.card--accent{background:var(--blue);color:#fff;padding:clamp(32px,4vw,56px)}
 .card--accent h3{color:#fff}
 .card--accent p{opacity:.88}
-/* числа в заголовках — синим (Боссово решение 21.09, отступление от общего правила:
-   НЕ применять к тексту поверх фото — там остаётся белый) */
+/* числа в заголовках — синим (кроме
+   текста поверх фото: там остаётся белый) */
 .accent{color:var(--blue)}
 
 /* ================================================================
-   STAT-CARD — apollo.io: заливка, подпись сверху мелко, число внизу, без линий
+   STAT-CARD: заливка, подпись сверху мелко, число внизу, без линий
    ================================================================ */
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:var(--s2)}
 .stat-grid--3{grid-template-columns:repeat(3,1fr)}
@@ -283,7 +279,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .sect--alt .stat-card{background:var(--paper)}
 .stat-card__label{font-size:var(--fs-cap);line-height:1.4;max-width:20ch}
 .stat-card__value .dash{margin:0 .12em}
-/* цифры в стат-картах — всегда синие (правка Босса 15.09); слова «от / лет» — ink */
+/* цифры в стат-картах — всегда синие; слова «от / лет» — ink */
 .stat-card__value{margin-top:auto;padding-top:var(--s3);font-weight:500;letter-spacing:-.035em;line-height:.95;font-size:var(--fs-display);color:var(--blue)}
 .stat-card__value > span{color:var(--ink)}
 .stat-card__value > span.dash{color:var(--blue)}
@@ -317,12 +313,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 }
 @media (prefers-reduced-motion:reduce){ .photo-band__slide{transition:none} }
 
-/* ---------- complexes: слайдер на всю ширину, переключение кнопками U1/U2/U3 ----------
+/* complexes: слайдер на всю ширину, переключение кнопками U1/U2/U3 
    слайды лежат в одной grid-ячейке; активный — на месте, соседи уезжают за край экрана */
 .complex-nav{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:var(--hdr);z-index:20}
 .complexes{position:relative}
 .complex-nav .container{display:flex;gap:var(--s1);align-items:stretch;position:relative;padding-block:var(--s2)}
-/* сегментированный переключатель на всех брейкпоинтах (Босс 21.09: активная кнопка — синяя
+/* сегментированный переключатель на всех брейкпоинтах (активная кнопка — синяя
    заливка). Раньше на десктопе был текстовый таб с ink-подчёркиванием — убрано в пользу
    единого паттерна с мобилкой, заливка cvetom читается сразу, анимировать нечего. */
 .complex-nav button{background:var(--white);border:0;cursor:pointer;padding:12px var(--s3);border-radius:var(--r-s);font-size:var(--fs-sub);font-weight:500;letter-spacing:-.02em;opacity:1;color:inherit;transition:background .18s var(--ease),color .18s var(--ease)}
@@ -331,12 +327,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex-nav button[aria-selected="true"] b{color:#fff}
 .complex-nav .ink{display:none}
 /* шайн на неактивных U2/U3 до первого переключения — тот же, что у загрузки фото (img-shine), только синий;
-   рябь кольцами вышла слишком сильной (Босс 28.09) */
+   рябь кольцами вышла слишком сильной */
 .complex-nav button{position:relative;overflow:hidden}
 .complex-nav:not(.is-touched) button[aria-selected="false"]::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(100deg,transparent 40%,rgba(4,51,255,.08) 50%,transparent 60%);background-size:220% 100%;background-repeat:no-repeat;background-position:170% 0;
   animation:cx-shine 5s ease-in-out infinite}
-/* по очереди, не одновременно (Босс 28.09): проход 1.8 с = 36% от 5 с («чуть почаще»); второй таб стартует, когда первый закончил; дальше пауза */
+/* по очереди, не одновременно: проход 1.8 с = 36% от цикла 5 с; второй таб стартует, когда первый закончил; дальше пауза */
 .complex-nav:not(.is-touched) button[aria-selected="false"] ~ button[aria-selected="false"]::before{animation-delay:1.8s}
 @keyframes cx-shine{0%{background-position:170% 0}36%,100%{background-position:-40% 0}}
 @media (prefers-reduced-motion:reduce){ .complex-nav button::before{animation:none!important} }
@@ -347,7 +343,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 }
 
 /* clip, не hidden: overflow:hidden-контейнер браузер прокручивает сам при переходе по якорю #cx-uN на сдвинутую
-   панель — слайдер уезжал вбок на ширину экрана и блок был пустым (Босс 27.09) */
+   панель — слайдер уезжал вбок на ширину экрана и блок был пустым */
 .complex-slider{overflow:hidden;overflow:clip;position:relative}
 .complex-track{display:grid;align-items:start;transition:height .6s var(--ease)}
 .complex{grid-area:1/1;padding-block:var(--sy);transition:transform .6s var(--ease),opacity .6s var(--ease)}
@@ -357,7 +353,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex:not([data-state="active"]){visibility:hidden;transition:transform .6s var(--ease),opacity .6s var(--ease),visibility 0s .6s}
 .complex__badge-row{display:flex;align-items:center;gap:var(--s1);flex-wrap:wrap}
 .complex__badge{display:inline-flex;align-items:center;height:24px;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:999px;padding:0 var(--s2);font-size:var(--fs-cap)}
-/* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса (Босс 21.09) */
+/* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса */
 .status-chip{display:inline-flex;align-items:center;height:24px;padding:0 var(--s2);border-radius:999px;font-size:var(--fs-micro);font-weight:500;letter-spacing:.02em}
 .status-chip--done{background:var(--blue);color:#fff}
 .status-chip--build{background:var(--wash);color:var(--ink-2)}
@@ -383,20 +379,20 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__gallery--4 .tile-c{grid-column:4;grid-row:1}
 .complex__gallery--4 .tile-d{grid-column:3 / 5;grid-row:2}
 /* «Показать ещё» — доп. фото коллажа скрыты на десктопе до клика, докладываются в ту же сетку;
-   на мобиле лента и так одна (см. ниже), скрывать нечего (Босс 23.09: убрали отдельную «Галерею проекта») */
+   на мобиле лента и так одна (см. ниже), скрывать нечего (убрали отдельную «Галерею проекта») */
 @media (min-width:801px){ .complex__gallery .tile-more{display:none} .complex__gallery.is-expanded .tile-more{display:block} }
 @media (max-width:800px){
-  /* scroll-padding = gut: без него snap прижимал кадры к краю экрана, а не к общей левой границе (Босс 15.09);
+  /* scroll-padding = gut: без него snap прижимал кадры к краю экрана, а не к общей левой границе;
      кадр крупнее — на ширину контента, следующий выглядывает на 32px */
   .complex__gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);gap:var(--s1);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
   .complex__gallery::-webkit-scrollbar{display:none}
   .complex__gallery figure{flex:0 0 calc(100% - 2 * var(--gut) - 32px);aspect-ratio:1/1;scroll-snap-align:start;grid-column:auto;grid-row:auto}
-  /* на мобиле лента и так одна, со всеми фото — кнопке «Показать ещё» нечего показывать (Босс 23.09) */
+  /* на мобиле лента и так одна, со всеми фото — кнопке «Показать ещё» нечего показывать */
   .gal-more{display:none}
 }
 @media (prefers-reduced-motion:reduce){ .complex,.complex-track{transition:none} }
 
-/* ---------- концепция: вариант 2 из макета USC — колонка плиток + синяя панель с фото и рядами U ---------- */
+/* концепция: колонка плиток + синяя панель с фото и рядами U */
 #concept .t-h2{max-width:none}
 .cc-bento{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s2);align-items:stretch;margin-top:var(--s4)}
 .cc-tiles{display:grid;grid-auto-rows:1fr;gap:var(--s2);min-width:0}
@@ -436,24 +432,24 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .cc-tiles{grid-template-columns:1fr} .cc-feats{grid-template-columns:1fr}
   .cc-stage{aspect-ratio:4/3}
   .cc-panel{padding:var(--s3)}
-  /* было 4px 8px — «совсем нет воздуха» (Босс 28.09) */
+  /* было 4px 8px, совсем без воздуха */
   .cc-tag{padding:8px 12px;gap:var(--s1)}
   .cc-tag__name{font-size:var(--fs-cap)}
   .cc-tag .status-chip{height:24px;padding:0 12px}
 }
 
-/* ---------- о компании — паттерны unitdeveloper.com ---------- */
-/* карточки компаний были слишком раздутые (Босс 21.09) — горизонтальная лента вместо
+/* о компании — паттерны unitdeveloper.com */
+/* карточки компаний были слишком раздутые — горизонтальная лента вместо
    grid 4×1: карточки мельче, свайп читается по «выглядывающей» следующей карточке
    (тот же паттерн, что и мобильная лента .complex__gallery) */
 .co-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
 .co-strip::-webkit-scrollbar{display:none}
 .co-strip .co-card{flex:0 0 clamp(200px,24vw,260px);scroll-snap-align:start}
-/* UNIT.DEVELOPER — материнская компания: синяя карточка-группа, внутри четыре дочерние (Босс 28.09).
+/* UNIT.DEVELOPER — материнская компания: синяя карточка-группа, внутри четыре дочерние.
    Внутри группы: с 1100 — 4 в ряд (колонка ≥161px под UNIT.FURNITURE), 761–1099 — 2×2, уже — свайп-лента. minmax(0,1fr) + subgrid:
    колонки равные, заголовок/подпись/текст/фото на одних линиях */
 .co-group{background:var(--blue);color:#fff;border-radius:var(--r);padding:var(--s4);display:grid;gap:var(--s4)}
-/* текст под заголовком, не отдельной колонкой справа — «странно висит» (Босс 28.09) */
+/* текст под заголовком, а не колонкой справа: там он висел сам по себе */
 .co-group__head{display:grid;gap:var(--s1);justify-items:start}
 .co-group__title{font-size:var(--fs-h3);font-weight:400;line-height:1.15;letter-spacing:-.02em}
 .co-group__sub{font-size:var(--fs-body);font-weight:400;line-height:var(--lh-card)}
@@ -486,9 +482,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
 .pr-card__letter{font-size:clamp(48px,4.4vw,64px);font-weight:500;line-height:1;color:var(--blue);letter-spacing:-.04em;padding-right:var(--s2);border-right:1.5px solid var(--line-2)}
 .pr-card__head b{color:var(--blue);font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub)}
-/* «Принципы» → «Манифест» (Босс 21.09): связный текст вместо 4 карточек-букв, акцент — синяя линия слева
+/* «Принципы» → «Манифест»: связный текст вместо 4 карточек-букв, акцент — синяя линия слева
    и выделенные ключевые слова, без кавычек-клише */
-/* манифест — по центру, на фото (Босс 21.09): текст поверх фото ОСТАЁТСЯ белым, не красим
+/* манифест — по центру, на фото: текст поверх фото ОСТАЁТСЯ белым, не красим
    акцентом (см. правило внизу «не перекрашивай текст на фотографии») */
 .manifesto{margin:0;position:relative;overflow:hidden;border-radius:var(--r);padding:clamp(40px,6vw,80px) var(--gut);text-align:center;color:#fff}
 .manifesto__bg{position:absolute;inset:0;z-index:-2;margin:0}
@@ -501,7 +497,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .tr-card__photo picture{display:block;width:100%;height:100%}
 .tr-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
 .tr-card__photo--flags{display:grid;place-items:center;color:var(--blue);font-size:var(--fs-title);font-weight:500;letter-spacing:-.03em}
-/* Dome Foundation / Permata Bank — своих лого-файлов нет, текстовый воркмарк вместо фото (Босс 21.09) */
+/* Dome Foundation / Permata Bank — своих лого-файлов нет, текстовый воркмарк вместо фото */
 /* реальные лого Dome Foundation / Permata Bank (взяты с unitdeveloper.com), не текст-плейсхолдер */
 .tr-card__photo--logo{display:grid;place-items:center;background:var(--white)}
 .tr-card__photo--logo .dome-svg{width:76%;height:auto}
@@ -516,7 +512,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .tr-card--wide{grid-column:1/-1}
 @media (max-width:520px){ .tr-card{grid-template-columns:1fr} }
 
-/* ---------- форматы — карточка формата: фото с чипом метража, имя + цена, строки с лидерами, планировка + ссылка ---------- */
+/* форматы — карточка формата: фото с чипом метража, имя + цена, строки с лидерами, планировка + ссылка */
 .fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
 .fmt-grid--3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:1000px){ .fmt-grid--3{grid-template-columns:1fr 1fr} }
@@ -524,14 +520,14 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card__media{display:block;position:relative;aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .fmt-card__media picture{display:block;width:100%;height:100%}
 .fmt-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);-webkit-user-drag:none}
-/* мини-галерея (Босс 29.09): обложка в потоке, остальные кадры поверх с кроссфейдом; стрелки и точки — как в барабане юнита */
+/* мини-галерея: обложка в потоке, остальные кадры поверх с кроссфейдом; стрелки и точки — как в барабане юнита */
 .fmt-card__gal{position:relative}
 .fmt-card__gal .fmt-card__media{touch-action:pan-y}
 .fmt-card__media picture + picture{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease)}
 .fmt-card__media picture.is-in{opacity:1}
 .fmt-card__gal .ugal__arrow{z-index:2}
 @media (prefers-reduced-motion:reduce){ .fmt-card__media picture + picture{transition:none} }
-/* больше воздуха между head/rows/foot — Босс 21.09: «не нравятся отступы внутри карточек» */
+/* больше воздуха между head/rows/foot, внутри карточки было тесно */
 .fmt-card__body{display:grid;gap:var(--s3)}
 .fmt-card__head{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
 .fmt-card__head > div{display:grid;gap:4px}
@@ -539,18 +535,18 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .fmt-card__rows{font-size:var(--fs-body);display:grid;gap:var(--s1)}
 .fmt-card__rows > div > span{opacity:var(--dim)}
 .fmt-card .fmt-card__rows > div > b{text-align:right;max-width:60%;white-space:normal}
-/* низ карточки (Босс 15.09, и десктоп): чип планировки — обычная 40px-пилюля, а не 120×80 бокс; чип цены переехал
+/* низ карточки, и на десктопе тоже: чип планировки — обычная 40px-пилюля, а не 120×80 бокс; чип цены переехал
    сюда из шапки карточки; ниже — 2 явные кнопки: «Подробнее» (переход на страницу юнита) и «Заявка»
-   (Босс 23.09: карточка сама больше не ссылка целиком, фото — отдельная ссылка на детали) */
+   (карточка сама больше не ссылка целиком, фото — отдельная ссылка на детали) */
 .fmt-card__foot{display:flex;align-items:baseline;gap:var(--s2);margin-top:var(--s1)}
 .fmt-card .product-card__price,.avail-card__price{font-size:var(--fs-h3);line-height:1.1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
 .fmt-card__actions{display:grid;grid-template-columns:1fr;gap:var(--s1)}
 .fmt-card__actions .btn{justify-content:center}
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
-/* узко: строки остаются «подпись … значение» с лидером до конца (Босс 15.09), значение переносится справа */
+/* узко: строки остаются «подпись … значение» с лидером до конца, значение переносится справа */
 @media (max-width:520px){ .fmt-card .fmt-card__rows{font-size:var(--fs-cap)} .fmt-card .fmt-card__rows > div > b{max-width:58%} }
 
-/* ---------- scenarios: три карточки в ряд, фото сверху (как бенто «О проекте») ---------- */
+/* scenarios: три карточки в ряд, фото сверху (как бенто «О проекте») */
 .scenario-list{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
 .scenario figure{aspect-ratio:16/10;background:var(--wash);border-radius:var(--r-s);overflow:hidden;margin:0 0 var(--s1)}
 .scenario img{width:100%;height:100%;object-fit:cover}
@@ -559,18 +555,18 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:820px){ .scenario-list{grid-template-columns:1fr} }
 
 /* ================================================================
-   PRODUCT CARD — framer.com/marketplace: медиа 4:3 без бокса; имя+подпись; пилюля цены
+   PRODUCT CARD: медиа 4:3 без бокса; имя+подпись; пилюля цены
    ================================================================ */
 .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4) var(--s3)}
 .product-grid--3{grid-template-columns:repeat(3,1fr)}
 .product-card{display:grid;gap:var(--s1);align-content:start;color:inherit}
-/* карточка каталога в том же виде, что карточка формата (Босс 28.09): панель .card, фото с полем, 16:10, r-s, имя и цена 20px, синяя кнопка */
+/* карточка каталога в том же виде, что карточка формата: панель .card, фото с полем, 16:10, r-s, имя и цена 20px, синяя кнопка */
 .product-card.card{gap:var(--s2)}
 .product-card__media{aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash);position:relative;display:flex;align-items:center;justify-content:center}
-/* метраж — чип-пилюля на фото, слева сверху (правка Босса 15.09); в подписи остаётся только название */
+/* метраж — чип-пилюля на фото, слева сверху; в подписи остаётся только название */
 .product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
 .product-card__media img{width:100%;height:100%;object-fit:cover}
-/* «Доступно: N вилл» — чип справа сверху, вид как у метража (док 29.09 п.16, Босс 02.10) */
+/* «Доступно: N вилл» — чип справа сверху, вид как у метража */
 .product-card__area--n{left:auto;right:var(--s2)}
 /* узкий кадр (3 карточки на ~1100): чипы сходились впритык — второй уходит под метраж */
 .fmt-card__media{container-type:inline-size}
@@ -579,19 +575,19 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .product-card__name{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:-.01em}
 .product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
 .product-card__meta{font-size:var(--fs-cap);line-height:1.4}
-/* цена — текст, а не синий чип: чип читался как кнопка (Босс 27.09 «вредно») */
+/* цена — текст, а не синий чип: чип читался как кнопка */
 .product-card__price{flex:none;display:inline-flex;align-items:baseline;color:var(--ink);font-size:var(--fs-body);font-weight:500;line-height:1.35;white-space:nowrap;font-variant-numeric:tabular-nums}
-/* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная (Босс 23.09: «верни кнопку») */
+/* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная, но без неё непонятно, куда жать */
 .product-card__row .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub)}
 .product-card__cta{width:100%;justify-content:center;margin-top:var(--s1)}
 /* узкая карточка (3 в ряд на 900–1199): название и цена в одну строку не влезали, «1+1 спальня» переносилось
-   и ряды разъезжались (Босс 29.09). Порог по ширине самой карточки — весь ряд перестраивается разом */
+   и ряды разъезжались. Порог по ширине самой карточки — весь ряд перестраивается разом */
 @media (min-width:901px){
   .product-card{container-type:inline-size}
   @container (max-width:340px){ .product-card__row{flex-direction:column;gap:var(--s1)} }
 }
 @media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
-/* мобилка: 2 в ряд (одна — слишком крупно, Босс 15.09); цена уходит под имя строкой */
+/* мобилка: 2 в ряд (одна — слишком крупно); цена уходит под имя строкой */
 @media (max-width:520px){
   .product-grid,.product-grid--3{gap:var(--s3) var(--s2)}
   .product-card__row{flex-wrap:wrap;gap:var(--s1)}
@@ -599,7 +595,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 12px;font-size:var(--fs-micro)}
   .product-card__area--n{left:auto;right:var(--s1)}
   .product-card.card{padding:var(--s1);gap:var(--s1)}
-  /* кадр квадратный: при 16:10 фото было 147×92, «побольше хочется» (Босс 28.09) */
+  /* кадр квадратный: при 16:10 фото было всего 147×92 */
   .product-card__media{aspect-ratio:1/1}
   .product-card__name,.product-card__row .product-card__price{font-size:var(--fs-body);line-height:1.35}
   .product-card__cta{--h:40px;padding-inline:var(--s1);font-size:var(--fs-cap)}
@@ -609,10 +605,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .empty p{max-width:44ch}
 .empty .cta-row{justify-content:center;margin-top:var(--s1)}
 .catalog-filters{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;margin-bottom:var(--s3)}
-/* две группы (комплексы / форматы): на десктопе в одну строку через разделитель, на мобиле — две строки (Босс 15.09) */
+/* две группы (комплексы / форматы): на десктопе в одну строку через разделитель, на мобиле — две строки */
 .catalog-filters__row{display:contents}
 /* на десктопе кнопки «Фильтры» нет, счётчик в конце строки; на мобиле фильтры свёрнуты под кнопку,
-   счётчик рядом с ней (Босс 28.09: «не показывать сразу все фильтры», «Найдено криво стоит») */
+   счётчик рядом с ней («не показывать сразу все фильтры», «Найдено криво стоит») */
 .catalog-filters__bar{display:contents}
 .catalog-filters .cat-ft{display:none}
 .catalog-filters .cnt{order:9}
@@ -633,9 +629,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .catalog-filters .cnt{margin-left:auto;font-size:var(--fs-cap)}
 .catalog-filters .cnt b{font-weight:500}
 
-/* ---------- yield: три сценария карточками + калькулятор ---------- */
-/* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать (Босс 22.09) */
-/* вес как у остальных подзаголовков — 500 выглядел «непонятно жирнее» (Босс 28.09) */
+/* yield: три сценария карточками + калькулятор */
+/* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать */
+/* вес как у остальных подзаголовков — 500 выглядел жирнее без причины */
 .calc-lead{opacity:1;color:var(--ink)}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
@@ -645,9 +641,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc input{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
 .sect--alt .calc input{background:var(--white)}
 .calc input:focus{outline:none;border-color:var(--blue)}
-/* цена виллы на странице юнита — фиксирована, менять нельзя (Босс 21.09) */
+/* цена виллы на странице юнита — фиксирована, менять нельзя */
 .calc input:disabled{opacity:.6;cursor:not-allowed}
-/* кнопка «выбрать тип виллы» — подставляет цену конкретного формата в калькулятор (Босс 22.09) */
+/* кнопка «выбрать тип виллы» — подставляет цену конкретного формата в калькулятор */
 .calc__picker{grid-column:1/-1;position:relative}
 .calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .calc__picker-panel[hidden]{display:none}
@@ -665,7 +661,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc__pick-card b{font-weight:500}
 .calc__pick-card span{font-size:var(--fs-cap);opacity:var(--dim)}
 .calc__out{display:grid;align-content:center;gap:var(--s2)}
-/* строки правой колонки выравниваются по нижнему краю строк полей слева (Босс 23.09).
+/* строки правой колонки выравниваются по нижнему краю строк полей слева.
    На unit-странице нет .calc__picker — на 1 строку полей меньше, чем на главной. */
 @media (min-width:801px){
   .calc:has(.calc__picker){grid-template-rows:auto auto auto}
@@ -679,17 +675,17 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc__roi{display:flex;align-items:baseline;gap:var(--s2)}
 .calc__roi b{font-weight:500;color:var(--blue);letter-spacing:-.04em;font-size:var(--fs-display);line-height:.95}
 .calc__roi span{font-size:var(--fs-cap)}
-/* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора (Босс 22.09) */
+/* гросс-доход и доход после комиссии — крупнее, в своих карточках внутри общей карточки калькулятора */
 .calc__rows{display:grid;gap:var(--s1);font-size:var(--fs-body)}
 .calc__rows b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--blue)}
 .calc__note{grid-column:1/-1;margin-top:0}
 @media (max-width:800px){ .calc{grid-template-columns:1fr} }
 @media (max-width:460px){ .calc__inputs{grid-template-columns:1fr} }
 
-/* ---------- location ---------- */
+/* location */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
-/* плашки расстояний + карта целиком в экран под шапкой (Босс 29.09): карта берёт остаток высоты.
-   На телефоне не держим (Босс 30.09): карта обычной высоты 4:5 */
+/* плашки расстояний + карта целиком в экран под шапкой: карта берёт остаток высоты.
+   На телефоне не держим: карта обычной высоты 4:5 */
 @media (min-width:761px){
 .loc-fit{display:flex;flex-direction:column;gap:var(--s2);height:calc(100svh - var(--hdr) - var(--s4));min-height:480px;max-height:880px}
 .loc-fit .stat-grid{margin-bottom:0;flex:none}
@@ -705,7 +701,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .ph--plan{aspect-ratio:4/3;max-width:520px}
 .location-map figcaption{padding:var(--s1) var(--s2);font-size:var(--fs-cap)}
 .tag-row{display:flex;flex-wrap:wrap;gap:var(--s1)}
-/* адрес/пляж/инфраструктура — 3 отдельных чипа вместо одной карточки со списком (Босс 21.09): иконки в фирменный синий */
+/* адрес/пляж/инфраструктура — 3 отдельных чипа вместо одной карточки со списком: иконки в фирменный синий */
 .kv-chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
 .card.kv-chip{display:flex;flex-direction:row;align-items:flex-start;gap:var(--s2)}
 .kv-chip__ic{color:var(--blue);width:24px;height:24px;flex:none;margin-top:2px}
@@ -716,7 +712,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .location-map__img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 /* на десктопе (2 колонки бенто) карта растягивается вровень с левой карточкой, а не по своему aspect-ratio — иначе не дотягивает до низа */
 @media (min-width:761px){ .location-map{height:100%} .location-map__img{height:100%;aspect-ratio:auto} }
-/* живая карта OpenFreeMap поверх SVG (Босс 28.09: чистая, без кнопок, подсказок и лишних точек); SVG остаётся запасным и для alt */
+/* живая карта OpenFreeMap поверх SVG (чистая, без кнопок, подсказок и лишних точек); SVG остаётся запасным и для alt */
 .location-map__box{position:relative;aspect-ratio:16/10;background:var(--wash)}
 .location-map__box .location-map__img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
 .location-map__box .location-map__live{position:absolute;inset:0;opacity:0;transition:opacity .4s}
@@ -733,7 +729,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
 @media (max-width:760px){ .location-map__box{aspect-ratio:4/5} }
 @media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-micro);padding:4px 8px} .map-pin__lbl{font-size:var(--fs-micro)} }
-/* чип места раскрывается вниз в карточку с галереей (Босс 30.09): карточка лежит поверх чипа, заголовок на том же месте,
+/* чип места раскрывается вниз в карточку с галереей: карточка лежит поверх чипа, заголовок на том же месте,
    clip-path разворачивает её из размера чипа. Места без фото остаются простыми чипами */
 .maplibregl-marker.has-pop{cursor:pointer}
 .has-pop .map-pin__lbl,.has-pop .map-poi__lbl{pointer-events:auto;cursor:pointer}
@@ -765,11 +761,11 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    карточка в одну колонку, план во всю ширину. Пропорция точно по исходнику, иначе обрежет выноски */
 .card.infra--plan{grid-template-columns:1fr;gap:var(--s3)}
 .infra__photo--plan{aspect-ratio:2/1;position:relative}
-/* мастерплан (Босс 30.09): чистая картинка + подписи HTML поверх, координаты из Figma unitdeveloper (.mp-pin), подписи «Визуализация комплекса» нет.
+/* мастерплан: чистая картинка + подписи HTML поверх, координаты из Figma unitdeveloper (.mp-pin), подписи «Визуализация комплекса» нет.
    Точка пина = низ ножки; top — верх подписи, как в Figma */
 .plan-pan,.plan-canvas{position:absolute;inset:0}
 .plan-canvas img{width:100%;height:100%;object-fit:cover;display:block}
-/* Nuanu: бенто под мастерпланом (Босс 01.10) — 3 + 2 на десктопе, 2 колонки на планшете, 1 на мобиле */
+/* Nuanu: бенто под мастерпланом — 3 + 2 на десктопе, 2 колонки на планшете, 1 на мобиле */
 .nu-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s2);margin-top:var(--s2)}
 .nu-card{grid-column:span 2;gap:var(--s2)}
 .nu-card:nth-child(n+4){grid-column:span 3}
@@ -778,7 +774,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .nu-card p{max-width:60ch}
 .nw{white-space:nowrap}
 @media (max-width:1000px){ .nu-card,.nu-card:nth-child(n+4){grid-column:span 3} .nu-card:last-child{grid-column:1 / -1} }
-/* мобила — свайп, как .amenity-strip (Босс 01.10); край следующей карточки виден */
+/* мобила — свайп, как .amenity-strip; край следующей карточки виден */
 @media (max-width:760px){
   .nu-bento{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
     margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);padding-bottom:4px}
@@ -787,7 +783,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .nu-card__ic{padding:10px}
 }
 .plan-canvas{container-type:inline-size}
-/* затемнение как в Figma: 174:6 (multiply 20%) и 174:7 (низ кадра 20%), Босс 01.10 осветлил */
+/* затемнение как в Figma: 174:6 (multiply 20%) и 174:7 (низ кадра 20%), осветлил */
 .plan-canvas::before,.plan-canvas::after{content:"";position:absolute;inset:0;pointer-events:none}
 .plan-canvas::before{background:linear-gradient(to bottom,rgba(0,0,0,.44) 0%,rgba(0,0,0,.85) 31.4%,rgba(112,112,112,.85) 100%);opacity:.2;mix-blend-mode:multiply}
 .plan-canvas::after{background:linear-gradient(to bottom,rgba(0,0,0,0) 62%,rgba(0,0,0,.17) 100%)}
@@ -799,7 +795,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .plan-pin--dn::after{margin:0 0 4px}
 .plan-pin--dn::before{bottom:auto;top:-3px}
 .plan-canvas .plan-badge{z-index:1}
-/* чип комплекса на мастерплане (Босс 30.09): то же место, что на unitdeveloper.com (.mp-badge), точка ножки — на квартале.
+/* чип комплекса на мастерплане: то же место, что на unitdeveloper.com (.mp-badge), точка ножки — на квартале.
    Координаты — доля кадра: десктоп 2:1 целиком; мобильный кадр — своя сцена (досчитано по подписям), ножка справа, чтобы чип не вылез за край */
 .plan-badge{--x:75.7%;--y:19.7%;position:absolute;left:var(--x);top:var(--y);transform:translate(-20px,-100%);display:flex;flex-direction:column;align-items:flex-start;pointer-events:none}
 .plan-badge__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap}
@@ -811,7 +807,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .plan-pan{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .plan-pan::-webkit-scrollbar{display:none}
   .plan-canvas{position:relative;inset:auto;width:760px;height:100%}
-  /* Босс 01.10: подсказка, что план листают; плашка как чип комплекса (белая, радиус 8), гаснет после первого касания */
+  /* подсказка, что план листают; плашка как чип комплекса (белая, радиус 8), гаснет после первого касания */
   .plan-hint{position:absolute;left:50%;bottom:var(--s2);z-index:2;display:flex;align-items:center;gap:var(--s1);transform:translateX(-50%);
     background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:1;padding:var(--s1) 12px;border-radius:var(--r-s);
     box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap;pointer-events:none;transition:opacity .4s ease,visibility .4s}
@@ -825,9 +821,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @keyframes plan-nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 @media (prefers-reduced-motion:reduce){ .plan-hint .ic{animation:none} .is-pan .plan-pin,.is-pan .plan-badge,.plan-hint{transition:none} }
 @media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
-/* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (Босс 23.09, десктоп-версия на паузе) */
-/* «что есть в комплексе»: на десктопе сетка фото-карточек — была строка серых тегов, Босс 25.09
-   («вот это бля не нравится»). На мобиле остаётся свайп-лента, разметка одна на оба случая */
+/* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (десктоп-версия на паузе) */
+/* «что есть в комплексе»: на десктопе сетка фото-карточек — была строка серых тегов,
+   смотрелась бедно. На мобиле остаётся свайп-лента, разметка одна на оба случая */
 /* align-items:start + flex-колонка: иначе строка грида считается по высоте фото (aspect-ratio),
    а подпись выпадает наружу и её перекрывает следующий ряд */
 .amenity-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s2);align-items:start}
@@ -843,13 +839,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .amenity-card{flex:0 0 132px;scroll-snap-align:start}
 }
 .tag-row span{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap)}
-/* U3 ещё строится — выделяем отдельно от готовых U1/U2 (Босс 21.09) */
+/* U3 ещё строится — выделяем отдельно от готовых U1/U2 */
 .tag-row span.tag-row__done{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
 .tag-row__done b{color:var(--blue)}
 .card .tag-row span{border-color:transparent;background:var(--white)}
 .sect--alt .card .tag-row span{background:var(--white)}
 
-/* ---------- «подпись + текст» сетка ---------- */
+/* «подпись + текст» сетка */
 .kv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s4)}
 .kv-grid--1{grid-template-columns:1fr}
 .kv-grid--2{grid-template-columns:1fr 1fr}
@@ -859,7 +855,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:820px){ .kv-grid,.kv-grid--3{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .kv-grid,.kv-grid--2,.kv-grid--3{grid-template-columns:1fr} }
 
-/* ---------- team (Titan): имя и роль над фото ---------- */
+/* team: имя и роль над фото */
 .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
 /* карточка основателя: фото слева фиксированной ширины, имя/роль и био справа — сетка без пустых колонок
    (RU — две карточки в ряд, EN — одна на всю ширину через .team-card--wide) */
@@ -876,7 +872,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:900px){ .team-grid{grid-template-columns:1fr} }
 @media (max-width:520px){ .team-card,.team-card--wide{grid-template-columns:1fr;grid-template-rows:auto;grid-template-areas:"head" "photo" "bio"} }
 
-/* ---------- how to buy ---------- */
+/* how to buy */
 .step-list{display:grid}
 .step-row{display:grid;grid-template-columns:96px 1fr;gap:var(--s2);padding-block:var(--s3);align-items:start}
 .step-row + .step-row{border-top:1px solid var(--line)}
@@ -885,7 +881,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .step-row p{font-size:var(--fs-body);max-width:52ch}
 @media (max-width:620px){ .step-row{grid-template-columns:1fr;gap:4px} }
 
-/* ---------- faq ---------- */
+/* faq */
 .faq-grid{display:grid;grid-template-columns:4.5fr 7.5fr;gap:clamp(32px,6vw,80px);align-items:start}
 .faq-head{position:sticky;top:calc(var(--hdr) + var(--s4))}
 .faq-head .t-lead{margin-top:var(--s2)}
@@ -906,10 +902,10 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:820px){ .faq-grid{grid-template-columns:1fr} .faq-head{position:static} }
 
 /* ================================================================
-   FINAL — GitBook contact: текст слева, форма-карточка на синей панели справа
+   FINAL: текст слева, форма-карточка на синей панели справа
    ================================================================ */
 .final-cta__split{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,80px);align-items:start}
-/* текст стоит вровень с заголовком формы, а не по центру высокой панели (impeccable critique 27.09):
+/* текст стоит вровень с заголовком формы, а не по центру высокой панели:
    сдвиг = паддинг синей панели + паддинг белой карточки */
 .final-cta__split > :first-child{padding-top:calc(clamp(24px,4vw,56px) + clamp(24px,3vw,32px))}
 .final-cta__split .t-lead{margin-top:var(--s2)}
@@ -944,7 +940,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .csel-pop{position:absolute;left:0;min-width:100%;width:max-content;max-width:min(360px,calc(100vw - 2 * var(--gut)));top:calc(100% + 4px);z-index:5;margin:0;padding:4px;
   display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .csel-pop[hidden]{display:none}
-/* поиск — той же высоты, что инпуты формы (48px), а не мелкий (Босс 15.09) */
+/* поиск — той же высоты, что инпуты формы (48px), а не мелкий */
 .csel-search,.lead-form__phone .csel-search{flex:none;margin:0 0 8px;height:48px;width:100%;padding:0 16px;border:1px solid var(--line-2);border-radius:var(--r-s);background:var(--paper);font:inherit;font-size:16px}
 .csel-search:focus{outline:none;border-color:var(--blue)}
 .csel-list{margin:0;padding:0 8px 0 0;list-style:none;white-space:nowrap;max-height:260px;overflow:auto;scrollbar-width:none}
@@ -965,12 +961,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .lead-form__phone input{flex:1;min-width:0}
 .lead-form input,.csel-btn,.csel-opt{font-size:16px}
 /* minmax(0,…) + min-width:0: иначе min-content инпутов/кнопок раздувал колонку → документ на мобиле был шире экрана
-   на ~60px, шапка и крестик меню «уезжали» (Босс 15.09: «шапка кривая, бургер у края») */
+   на ~60px, шапка и крестик меню «уезжали»  */
 .final-cta__split > *,.lead-form .field,.lead-form__phone .csel{min-width:0}
 .lead-form input{width:100%;min-width:0}
 @media (max-width:760px){ .final-cta__split{grid-template-columns:minmax(0,1fr)} .final-cta__split > :first-child{padding-top:0} .lead-form__pair{grid-template-columns:minmax(0,1fr)} }
 
-/* ---------- footer ---------- */
+/* footer */
 .site-footer{background:var(--paper);border-top:1px solid var(--line)}
 .site-footer .container{padding-block:clamp(48px,6vw,80px);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s4)}
 .site-footer .brand p{margin-top:var(--s2);font-size:var(--fs-body);max-width:34ch;opacity:var(--dim)}
@@ -1016,12 +1012,12 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .unit-head h1{font-weight:500;letter-spacing:-.03em;line-height:var(--lh-title);font-size:var(--fs-title)}
 .unit-head h1 b{color:var(--blue);font-weight:500}
 .unit-head .t-lead{margin-top:var(--s1)}
-/* цена — не кнопка: рядом с синим CTA одинаково синяя пилюля путала, что кликабельно (Босс 25.09) */
+/* цена — не кнопка: рядом с синим CTA одинаково синяя пилюля путала, что кликабельно */
 .unit-price{display:inline-flex;align-items:center;height:48px;padding:0 var(--s3);border-radius:var(--r);background:var(--wash);color:var(--ink);font-size:var(--fs-sub);font-weight:500;white-space:nowrap}
-/* кнопка заявки рядом с ценой на странице юнита: в ряд, одной высоты с ценой (Босс 25.09) */
+/* кнопка заявки рядом с ценой на странице юнита: в ряд, одной высоты с ценой */
 .unit-head__price{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:var(--s2)}
 .unit-head__request{--h:48px;white-space:nowrap}
-/* мобила (Босс 01.10): цена и кнопка — под фото-слайдером, в один ряд; цена синим, как в карточках форматов */
+/* мобила: цена и кнопка — под фото-слайдером, в один ряд; цена синим, как в карточках форматов */
 @media (max-width:760px){
   .unit-top{display:flex;flex-direction:column}
   .unit-top > .unit-head{display:contents}
@@ -1051,11 +1047,11 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .ugal__stage picture{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
 .ugal__stage picture.is-in{opacity:1}
 .ugal__stage img{width:100%;height:100%;object-fit:cover}
-/* стрелки барабана юнита — без подложки, тонкий шеврон (Босс 23.09: в отличие от лайтбокса) */
+/* стрелки барабана юнита — без подложки, тонкий шеврон (в отличие от лайтбокса) */
 .ugal__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:1;width:32px;height:32px;border:0;background:none;padding:0;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.85;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
 .ugal__arrow--prev{left:var(--s2)}
 .ugal__arrow--next{right:var(--s2)}
-/* «Наличие» на странице формата (Босс 29.09): вкладки U1/U2/U3, одна карточка на комплекс + метраж */
+/* «Наличие» на странице формата: вкладки U1/U2/U3, одна карточка на комплекс + метраж */
 .avail__tabs{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
 .avail__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-top:var(--s3);align-items:start}
 .avail-card{display:grid;gap:var(--s2);align-content:start}
@@ -1071,13 +1067,13 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .lead-form__pick{margin:0;font-size:var(--fs-cap)}
 .lead-form__pick b{font-weight:500}
 .ic--flip{transform:scaleX(-1)}
-/* прогресс-точки вместо счётчика «1/3» (Босс 29.09: как на БСО) — размеры 1:1 с БСО */
+/* прогресс-точки вместо счётчика «1/3» (как на БСО) — размеры 1:1 с БСО */
 .dots{position:absolute;z-index:2;left:50%;bottom:var(--s2);transform:translateX(-50%);display:flex;gap:5px;pointer-events:none}
 .dots span{width:5px;height:5px;border-radius:3px;background:rgba(255,255,255,.5);box-shadow:0 1px 2px rgba(0,0,0,.3);transition:background .25s,width .25s}
 .dots span.on{width:16px;background:#fff}
 @media (prefers-reduced-motion:reduce){ .dots span{transition:none} }
 @media (max-width:760px){
-  /* Босс 15.09: кадр и превью чуть меньше; пилюля навигации → полупрозрачные стрелки по бокам + счётчик слева сверху */
+  /* кадр и превью чуть меньше; пилюля навигации → полупрозрачные стрелки по бокам + счётчик слева сверху */
   .ugal{grid-template-columns:1fr;grid-template-rows:auto 72px;height:auto;gap:var(--s1)}
   .ugal__stage{aspect-ratio:3/2;order:-1}
   .ugal__drum{height:72px}
@@ -1096,14 +1092,14 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 .leaders > div > b,.calc__rows > div > b{order:3;font-weight:500;white-space:nowrap}
 /* длинные значения («строится, сдача осенью 2026») переносятся, а не растягивают страницу */
 .leaders > div > b{white-space:normal;text-align:right;max-width:60%}
-/* перенесённое значение JS ужимает до ширины самой длинной строки — точки тянутся до текста (site.js, Босс 28.09) */
+/* перенесённое значение JS ужимает до ширины самой длинной строки — точки тянутся до текста (site.js) */
 
-/* ---------- ≤760: мобильная типографическая шкала (Босс 15.09: подзаголовки слишком крупные) ----------
+/* ≤760: мобильная типографическая шкала (подзаголовки слишком крупные) 
    h2 30 → h3 22 → lead/sub 18 (было 20 — вплотную к h3 24) → body 16 → cap 14; ритм секций 48, заголовок→контент 24 */
 @media (max-width:760px){
-  /* межстрочное на мобиле плотнее на ~12% (Босс 01.10): body 1.55→1.4, карточки 1.45→1.3, подзаголовки 1.4→1.25 */
+  /* межстрочное на мобиле плотнее на ~12%: body 1.55→1.4, карточки 1.45→1.3, подзаголовки 1.4→1.25 */
   :root{ --fs-sub:18px; --fs-h3:22px; --fs-title:30px; --sy:48px; --lh-body:1.4; --lh-card:1.3; --lh-sub:1.25 }
-  /* подзаголовки на мобиле 16px (Босс 28.09; было 18) */
+  /* подзаголовки на мобиле 16px (; было 18) */
   .t-lead,.complex__intro{font-size:16px;line-height:1.3}
   .t-small,.consent-bar p,.lead-form__note,.lead-form__consent,.photo-band figcaption span,.stat-card__label,.product-card__meta,.team-card__role,.field__err{line-height:1.3}
   .manifesto p{line-height:1.25}
@@ -1125,7 +1121,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-footer .container{padding-block:var(--s5)}
 }
 
-/* ---------- 1600px+ ---------- */
+/* 1600px+ */
 @media (min-width:1600px){
   :root{ --col:1680px; --gut:64px; --fs-cap:15px; --fs-body:17px; --fs-sub:21px; --fs-h3:clamp(32px,2vw,36px); --fs-title:clamp(44px,3vw,52px); --fs-display:clamp(64px,4vw,72px); }
   .stat-card--blue .stat-card__value{font-size:112px}
@@ -1145,7 +1141,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-footer ul a{display:inline-block;padding-block:8px}
   .footer-bottom a{display:inline-block;padding-block:8px}
   .hd-sel__btn{min-width:44px;min-height:44px}
-  /* impeccable critique 27.09: мелкие цели добиваем невидимой зоной нажатия, вид не меняется */
+  /* мелкие кнопки добиваем невидимой зоной нажатия, вид не меняется */
   .chip{height:44px}
   .btn-sm{--h:44px}
   .ugal__arrow::after{content:"";position:absolute;inset:-6px}
@@ -1155,8 +1151,8 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-footer ul a::after,.footer-bottom a::after{content:"";position:absolute;inset:-4px 0}
 }
 
-/* липкая кнопка заявки на мобилке и планшете: в шапке ≤1000px кнопки нет, до формы ~16 000px скролла
-   (impeccable critique 27.09). Видна после хиро; прячется у формы, у футера, при меню и баннере cookie */
+/* липкая кнопка заявки на мобилке и планшете: в шапке ≤1000px кнопки нет, до формы ~16 000px скролла.
+   Видна после хиро; прячется у формы, у футера, при меню и баннере cookie */
 .m-cta{display:none}
 @media (max-width:1000px){
   .m-cta{display:flex;position:fixed;left:var(--gut);right:var(--gut);bottom:calc(var(--s2) + env(safe-area-inset-bottom,0px));z-index:55;
@@ -1166,14 +1162,14 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 }
 @media (prefers-reduced-motion:reduce){ .m-cta,.m-cta.in{transition:none} }
 
-/* ---------- лайтбокс «галерея проекта» (Босс 21.09): клик по фото в коллаже/ленте комплекса ---------- */
+/* лайтбокс «галерея проекта»: клик по фото в коллаже/ленте комплекса */
 .lightbox{position:fixed;inset:0;z-index:120;background:rgba(10,11,13,.94);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s var(--ease)}
 .lightbox[hidden]{display:none}
 .lightbox.in{opacity:1}
 .lightbox__stage{width:min(1100px,86vw);height:min(760px,80vh);display:flex;align-items:center;justify-content:center;touch-action:none;cursor:pointer}
 .lightbox__stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:var(--r-s);pointer-events:none}
 .lightbox__close{position:absolute;top:var(--s3);right:var(--s3);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
-/* стрелки лайтбокса — с подложкой-пилюлей, в отличие от барабана юнита (Босс 23.09) */
+/* стрелки лайтбокса — с подложкой-пилюлей, в отличие от барабана юнита */
 .lightbox__arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:1;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .18s}
 .lightbox__arrow--prev{left:var(--s3)}
 .lightbox__arrow--next{right:var(--s3)}
@@ -1188,8 +1184,8 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 }
 @media (prefers-reduced-motion:reduce){ .lightbox{transition:none} }
 
-/* ---------- hover-эффекты — только там, где есть настоящий hover (Босс 22.09: на тач-устройствах
-   :hover «залипает» после тапа и выглядит как случайно нажатая кнопка) ---------- */
+/* hover-эффекты — только там, где есть настоящий hover (на тач-устройствах
+   :hover «залипает» после тапа и выглядит как случайно нажатая кнопка) */
 @media (hover:hover){
   .btn-primary:hover{background:var(--blue-press)}
   .btn-outline:hover{color:var(--blue)}
@@ -1227,9 +1223,9 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
 }
 
-/* Связки UNIT. (Босс 26.09): «UNIT.» medium, хвост названия regular — но UNIT. никогда не легче окружения:
+/* Связки UNIT.: «UNIT.» medium, хвост названия regular — но UNIT. никогда не легче окружения:
    где текст вокруг жирнее medium (чип/заголовок 600+), вся связка наследует вес окружения.
-   Вордмарк в шапке/меню/футере — сам логотип-связка: UNIT. 500 + SPACE CITY 400 (Босс 27.09) */
+   Вордмарк в шапке/меню/футере — сам логотип-связка: UNIT. 500 + SPACE CITY 400 */
 i.u5,i.ul{font-style:normal}
 .u5{font-weight:500}
 .ul{font-weight:400}
@@ -1237,7 +1233,7 @@ i.u5,i.ul{font-style:normal}
 /* ловушка для ботов в форме заявки — людям не видна */
 .lead-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 .lead-form--done p{margin-top:var(--s2)}
-/* подсказка «адрес скопирован» (Босс 30.09: текстовые контакты в футере «некликабельны» — mailto без почтовой программы молчит) */
+/* подсказка «адрес скопирован» (текстовые контакты в футере «некликабельны» — mailto без почтовой программы молчит) */
 .toast{position:fixed;left:50%;bottom:var(--s4);z-index:70;transform:translate(-50%,8px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px var(--s2);border-radius:var(--r-s);font-size:var(--fs-cap);line-height:1.3;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:opacity .2s,transform .2s;max-width:calc(100% - 2 * var(--gut))}
 .toast.in{opacity:1;transform:translate(-50%,0)}
 @media (max-width:1000px){ .toast{bottom:calc(56px + var(--s4))} }
