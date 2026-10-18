@@ -23,9 +23,9 @@ window.USC_AREA_TXT = function (u, lang) {
   return Array.isArray(u.area) ? f(u.area[0]) + '\u2013' + f(u.area[1]) : f(u.area);
 };
 window.USC_COMPLEX = {
-  u1:{code:'U1',name:'Space Village', status:{ru:'сдан в 2024, заселён',en:'completed 2024, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}},
-  u2:{code:'U2',name:'Nuanu Village', status:{ru:'сдан в 2026, заселён',en:'completed 2026, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}},
-  u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача зимой 2026',en:'under construction, handover winter 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}}
+  u1:{code:'U1',name:'Space Village', status:{ru:'сдан в 2024, заселён',en:'completed 2024, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}, units:22, ho:{ru:'2024',en:'2024'}, ext:['u1-10','u1-13','u1-11','u1-14','u1-19','u1-04','u1-15','u1-09']},
+  u2:{code:'U2',name:'Nuanu Village', status:{ru:'сдан в 2026, заселён',en:'completed 2026, occupied'}, where:{ru:'внутри Nuanu',en:'inside Nuanu'}, units:55, ho:{ru:'2026',en:'2026'}, ext:['u2-1bd-01','u2-2bd-21','u2-villa-02','u2-2bd-19','u2-2bd-20','u2-1bd-02','u2-villa-31','u2-2bd-14']},
+  u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача зимой 2026',en:'under construction, handover winter 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}, units:28, ho:{ru:'зима 2026',en:'winter 2026'}, ext:['u3-01','u3-02','u3-05','u3-04']}
 };
 window.USC_PRICE = {ru:{studio:'от $95 000','1bd':'от $115 000','2bd':'от $170 000',villa:'от $290 000'},
                     en:{studio:'from $95,000','1bd':'from $115,000','2bd':'from $170,000',villa:'from $290,000'}};

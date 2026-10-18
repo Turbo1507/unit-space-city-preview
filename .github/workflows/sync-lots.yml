@@ -33,6 +33,7 @@ jobs:
           cd v2
           node tools/build-index.mjs
           node tools/build-units.mjs
+          node tools/build-complexes.mjs
           node tools/build-privacy.mjs
           node tools/build-sitemap.mjs
           echo "changed=true" >> "$GITHUB_OUTPUT"

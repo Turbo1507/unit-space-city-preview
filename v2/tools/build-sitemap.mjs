@@ -7,7 +7,7 @@ import { BASE } from './i18n-static.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ctx = { window: {} }; vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
-const rel = ['', 'privacy.html', ...ctx.window.USC_UNITS.map(u => 'units/' + u.slug + '.html')]; // из данных, не из листинга папки
+const rel = ['', 'privacy.html', ...ctx.window.USC_UNITS.map(u => 'units/' + u.slug + '.html'), ...['u1', 'u2', 'u3'].map(q => 'complexes/' + q + '.html')]; // из данных, не из листинга папки
 const today = new Date().toISOString().slice(0, 10);
 const entry = (loc, ru, en) => `  <url>
     <loc>${loc}</loc>

@@ -801,11 +801,12 @@
   /* мини-галерея в карточках «Форматы вилл»: 5 кадров формата, стрелки-эталон, точки, свайп;
      клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее */
   document.querySelectorAll('.fmt-card__gal[data-mg]').forEach(function (gal) {
-    var u = (window.USC_UNITS || []).filter(function (x) { return x.slug === gal.getAttribute('data-mg'); })[0];
+    var mg = gal.getAttribute('data-mg'), cxm = /^cx-(u\d)$/.exec(mg); /* cx-u1 — экстерьеры комплекса (блок «Обзор») */
+    var u = cxm ? { photos: window.USC_COMPLEX[cxm[1]].ext } : (window.USC_UNITS || []).filter(function (x) { return x.slug === mg; })[0];
     var link = gal.querySelector('.fmt-card__media'), cover = link && link.querySelector('picture');
     if (!u || !cover) return;
     var src0 = (cover.querySelector('img').getAttribute('src').match(/([\w-]+)\.jpg$/) || [])[1];
-    var list = [src0].concat(u.photos.filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
+    var list = [src0].concat(u.photos.filter(function (p) { return p !== src0; })).slice(0, +gal.getAttribute('data-mg-n') || 5), n = list.length, i = 0, pics = [cover];
     var alt = cover.querySelector('img').getAttribute('alt') || '', setDot = dots(gal.querySelector('.dots'), n); setDot(0);
     function pic(k) {
       if (pics[k]) return pics[k];
@@ -1331,6 +1332,81 @@
     if (window.__uscNbsp) window.__uscNbsp(document.querySelector('#plans') || document.body);
     if (window.__uscFit) window.__uscFit();
   }
+  window.__uscFmtAvail = run;
   run();
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); run(); };
+})();
+
+/* блок «Обзор» на главной: табы U1/U2/U3, «Доступно» и цена «от» по лотам таблицы, «Перейти к покупке» — к форме с комплексом */
+(function () {
+  var root = document.getElementById('overview'); if (!root) return;
+  var tabs = [].slice.call(root.querySelectorAll('[data-ov]'));
+  function sel(q) {
+    tabs.forEach(function (t) { var k = t.getAttribute('data-ov'), on = k === q; t.setAttribute('aria-selected', on); document.getElementById('ov-' + k).hidden = !on; });
+    if (window.__uscFit) window.__uscFit();
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { sel(t.getAttribute('data-ov')); }); });
+  function fill() {
+    var lang = window.__uscLang || (document.documentElement.lang || 'en').slice(0, 2), lots = window.USC_LOTS || [];
+    ['u1', 'u2', 'u3'].forEach(function (q) {
+      var ls = lots.filter(function (l) { return l.q === q; }), n = root.querySelector('[data-ov-n="' + q + '"]'), p = root.querySelector('[data-ov-price="' + q + '"]');
+      if (n) { n.innerHTML = window.__uscVillas(ls.length, lang); n.parentNode.hidden = !ls.length; }
+      if (p) { var min = Math.min.apply(null, ls.map(function (l) { return l.price; })); p.innerHTML = ls.length ? window.__uscMoney(min, lang) : ''; p.parentNode.hidden = !ls.length; }
+    });
+    if (window.__uscFit) window.__uscFit();
+  }
+  root.addEventListener('click', function (e) { var a = e.target.closest('[data-pick]'); if (a) window.__uscPick = a.getAttribute('data-pick'); });
+  fill();
+  var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); fill(); };
+})();
+
+/* страница комплекса complexes/<q>.html: все свободные виллы комплекса — одна карточка на формат + метраж,
+   как «Наличие» на странице формата; ниже форматы этого комплекса */
+(function () {
+  var q = document.body.getAttribute('data-cx'); if (!q || !window.USC_COMPLEX) return;
+  var grid = document.querySelector('.avail__grid'), more = document.getElementById('moreUnits');
+  var ASSETS = document.documentElement.getAttribute('data-assets') || '';
+  var ORDER = { studio: 0, '1bd': 1, '2bd': 2, villa: 3 }, pool = function (s) { return /-pool$/.test(s); };
+  function render() {
+    var lang = window.__uscLang || (document.documentElement.lang || 'en').slice(0, 2), d = (window.I18N && window.I18N[lang]) || {};
+    var CX = window.USC_COMPLEX[q], m2 = lang === 'ru' ? 'м²' : 'm²', num = function (a) { return lang === 'ru' ? String(a).replace('.', ',') : String(a); };
+    var lots = (window.USC_LOTS || []).filter(function (l) { return l.q === q; }), groups = {};
+    lots.forEach(function (l) {
+      var k = l.fmt + (pool(l.slug) ? '-pool' : '') + '|' + l.area;
+      var g = groups[k] || (groups[k] = { fmt: l.fmt, pool: pool(l.slug), area: l.area, n: 0, min: Infinity, max: 0, lots: [] });
+      g.n++; g.min = Math.min(g.min, l.price); g.max = Math.max(g.max, l.price); g.lots.push(l);
+    });
+    var list = Object.keys(groups).map(function (k) { return groups[k]; }).sort(function (a, b) { return ORDER[a.fmt] - ORDER[b.fmt] || a.area - b.area; });
+    var unitOf = function (g) { return window.USC_UNITS.filter(function (u) { return u.q === q && u.fmt === g.fmt && pool(u.slug) === g.pool; })[0]; };
+    if (grid) {
+      grid.innerHTML = list.length ? list.map(function (g) {
+        var u = unitOf(g), name = u ? u.name[lang] : (d['fmt.' + g.fmt] || g.fmt), ph = u ? u.photos[0] : CX.ext[0];
+        var pick = CX.code + ' ' + CX.name + ', ' + name.charAt(0).toLowerCase() + name.slice(1) + ' ' + num(g.area) + ' ' + m2;
+        var bath = g.lots.filter(function (l) { return l.bath; }).length, fl = window.__uscFloors(g.lots);
+        var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + v + '</b></div>'; };
+        return '<div class="card avail-card">' +
+          '<div class="fmt-card__media"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp"><img src="' + ASSETS + ph + '.jpg" alt="" width="720" height="450" loading="lazy"></picture>' +
+          '<span class="product-card__area">' + num(g.area) + '&nbsp;' + m2 + '</span>' +
+          '<span class="product-card__area product-card__area--n">' + (d['avail.chip'] || '').replace('{n}', window.__uscVillas(g.n, lang)) + '</span></div>' +
+          '<div class="fmt-card__name">' + name + '</div>' +
+          '<div class="leaders fmt-card__rows">' + row('avail.f_n', '<span class="tnum">' + window.__uscVillas(g.n, lang) + '</span>') + (fl ? row('avail.f_fl', '<span class="tnum">' + fl + '</span>') : '') + (bath ? row('avail.f_bath', '<span class="tnum">' + bath + '</span>') : '') + '</div>' +
+          '<div class="avail-card__price tnum">' + window.__uscMoney(g.min, lang, g.min === g.max) + '</div>' +
+          '<a class="btn btn-primary avail-card__more" href="#lead" data-pick="' + pick + '">' + (d['avail.cta'] || '') + '</a></div>';
+      }).join('') : '<p class="avail__none t-lead">' + (d['avail.none'] || '').replace('{q}', CX.code) + '</p>';
+      if (window.__uscNbsp) window.__uscNbsp(grid);
+    }
+    var min = lots.length ? Math.min.apply(null, lots.map(function (l) { return l.price; })) : 0;
+    var f = { price: min ? window.__uscMoney(min, lang) : '', status: CX.status[lang], where: CX.where[lang] };
+    document.querySelectorAll('[data-cx-field]').forEach(function (el) { var k = el.getAttribute('data-cx-field'); if (f[k] != null) el.textContent = f[k]; });
+    if (more) more.innerHTML = window.USC_UNITS.filter(function (u) { return u.q === q; }).map(function (u) { return window.__uscFmtCard(u, '../units/'); }).join('');
+    if (window.__uscFmtAvail) window.__uscFmtAvail();
+    if (window.__uscFit) window.__uscFit();
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.avail__grid [data-pick]'); if (!a) return;
+    window.__uscPick = a.getAttribute('data-pick');
+    var p = document.getElementById('leadPick'); if (p) { p.querySelector('b').textContent = window.__uscPick; p.hidden = false; }
+  });
+  render();
+  var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); render(); };
 })();

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "v2/assets/site.css"
+        ],
+        "createdAt": "2026-09-30T21:01:57.003Z",
+        "reason": "Boss 29.09: progress dots 1:1 with BSO, the active dot grows 5→16px wide; a 5px element, reduced-motion turns it off"
+      }
+    ]
+  }
+}
