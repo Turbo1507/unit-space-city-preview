@@ -1,8 +1,8 @@
 /* Свободные лоты — генерируется tools/sync-lots.mjs из Google-таблицы наличия (вкладка Layouts), руками не править.
    SOLD не выводятся. */
 window.USC_LOTS = [
+  {"id":"U1.7","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":95000,"lvl":1},
   {"id":"U1.2","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000,"bath":1,"lvl":1},
-  {"id":"U1.7","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":100000,"lvl":1},
   {"id":"U1.11","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":105000,"lvl":1},
   {"id":"U1.3","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":110000,"lvl":1},
   {"id":"U1.21","q":"u1","fmt":"studio","slug":"u1-studio","area":54.2,"price":129500,"lvl":2},
