@@ -27,6 +27,7 @@ window.USC_LOTS = [
   {"id":"U2.13","q":"u2","fmt":"2bd","slug":"u2-2bd","area":101,"price":199700,"lvl":1},
   {"id":"U2.V9","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":287000,"lvl":1},
   {"id":"U2.V1","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":290000,"lvl":1},
+  {"id":"U2.V5","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":295000,"lvl":1},
   {"id":"U2.V2","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":330000,"lvl":1},
   {"id":"U2.V7","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":330000,"lvl":1},
   {"id":"U3.27","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":132000,"lvl":2},
