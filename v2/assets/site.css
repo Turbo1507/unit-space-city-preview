@@ -1422,3 +1422,7 @@ i.u5,i.ul{font-style:normal}
   .ab-cloud li{padding:8px 12px;gap:8px;font-size:var(--fs-body);line-height:var(--lh-card)}
   .ab-cloud .ab-ic{width:18px;height:18px}
 }
+
+/* комплексы на белом: табы и карточки серые */
+.complexes.sect--alt .complex-nav{background:var(--white)}
+.complexes.sect--alt .complex-nav button:not([aria-selected="true"]){background:var(--paper)}
