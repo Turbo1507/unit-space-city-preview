@@ -1315,3 +1315,46 @@ i.u5,i.ul{font-style:normal}
   .ab-card--list .ab-list{row-gap:12px}
   .ab-card--blue .ab-list{gap:var(--s2)}
 }
+
+/* блок 2: цифры проекта под шапкой */
+.ab-head{margin-bottom:var(--s5)}
+.ab-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-bottom:var(--s5)}
+.ab-fact{display:flex;flex-direction:column;gap:var(--s2);max-width:36ch}
+.ab-fact b{font-size:var(--fs-title);font-weight:500;line-height:1;letter-spacing:-.025em;color:var(--blue)}
+.ab-fact b span{font-weight:inherit}
+.ab-fact > span{font-size:var(--fs-body);line-height:var(--lh-card);color:var(--ink-2)}
+.ab-fact > span .ul{color:var(--ink);white-space:nowrap}
+/* инфраструктура комплекса плитками */
+.ab-card--list .ab-list.ab-tiles{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;flex:1;gap:var(--s1)}
+.ab-card--list .ab-tiles li:nth-child(n){display:flex;align-items:center;min-height:56px;padding:12px var(--s2);border-radius:var(--r-s);background:var(--paper);color:var(--ink)}
+/* Nuanu: каждое место отдельной плашкой, три группы */
+.ab-cloud{display:flex;flex-direction:column;gap:var(--s3)}
+.ab-cloud ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s1)}
+.ab-cloud li{padding:8px 12px;border-radius:var(--r-s);background:rgba(255,255,255,.14);color:#fff;font-size:var(--fs-body);line-height:var(--lh-card)}
+/* блок 3 начинается своим заголовком, а не впритык к бенто */
+.complexes{padding-top:var(--sy)}
+.cx-head{padding-bottom:var(--s3)}
+.cx-head .t-h2{max-width:none}
+@media (max-width:760px){
+  .ab-head{margin-bottom:var(--s3)}
+  .ab-facts{grid-template-columns:1fr;gap:var(--s1);margin-bottom:var(--s3)}
+  .ab-facts{gap:var(--s2)}
+  .ab-fact{display:grid;grid-template-columns:4.4em 1fr;column-gap:var(--s2);align-items:baseline;max-width:none}
+  .ab-fact b{font-size:var(--fs-h3)}
+  .ab-card--list .ab-list.ab-tiles{grid-template-columns:1fr;grid-auto-rows:auto}
+  .ab-card--list .ab-tiles li:nth-child(n){min-height:48px}
+  .ab-cloud{gap:var(--s2)}
+  .cx-head{padding-bottom:var(--s1)}
+}
+
+/* блок 2 на десктопе как в референсе: колонки со сдвигом, текст по содержимому, фото добирают высоту */
+.ab-col{display:contents}
+@media (min-width:1201px){
+  .ab-bento{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:none;grid-template-areas:none;align-items:stretch}
+  .ab-col{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+  .ab-col > .ab-card{flex:none}
+  .ab-col > .ab-card--photo{flex:1 1 auto;min-height:clamp(320px,24vw,460px)}
+  .ab-col > .ab-card--blue{flex:1 1 auto}
+  .ab-card--photo > div{min-height:0}
+  .ab-card--list .ab-list.ab-tiles{grid-template-columns:1fr;grid-auto-rows:auto;flex:none}
+}
