@@ -171,6 +171,10 @@
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     secs.forEach(function (s) { spy.observe(s); });
+    // вернулись к хиро рывком (логотип, Home) — наблюдатель может не успеть снять подсветку
+    addEventListener('scroll', function () { if (scrollY < innerHeight / 2) navLinks.forEach(function (a) { a.classList.remove('is-active'); }); }, { passive: true });
+    // по клику пункт синий сразу, не дожидаясь, пока доедет прокрутка
+    navLinks.forEach(function (a) { a.addEventListener('click', function () { navLinks.forEach(function (x) { x.classList.toggle('is-active', x === a); }); }); });
   }
 
   /* reveal */
@@ -287,6 +291,15 @@
       toBlock('smooth');
     });
     if (cxSlider) cxSlider.addEventListener('scroll', function () { cxSlider.scrollLeft = 0; });
+    /* фото соседних комплексов грузим заранее: иначе при переключении U1→U2 плитки догружались прямо во время сдвига */
+    var cxSec = document.getElementById('complexes');
+    if (cxSec && 'IntersectionObserver' in window) {
+      var pio = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return; pio.disconnect();
+        cxSec.querySelectorAll('.complex__gallery figure:not(.tile-more) img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; });
+      }, { rootMargin: '800px 0px' });
+      pio.observe(cxSec);
+    }
   }
 
   /* карточка формата (каталога на главной больше нет, его заменил блок «Наличие» на страницах форматов) */
@@ -754,24 +767,9 @@
       .catch(function () { baliWrap.hidden = true; });
   }
 
-  /* хиро: кроссфейд кадров каждые 6 с (без reduced-motion) */
-  var heroMedia = document.getElementById('heroMedia');
-  if (heroMedia && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var heroSlides = heroMedia.querySelectorAll('.hero__slide'), hi = 0; // не «slides» — var общий со слайдером комплексов
-    /* кадры 2–4 отложены (data-src): грузим после load, следующий — за 1.5 с до смены, чтобы старт не тянул ~900 KB */
-    function loadSlide(k) {
-      var pic = heroSlides[k]; if (!pic || pic.dataset.ready) return; pic.dataset.ready = '1';
-      pic.querySelectorAll('source[data-srcset]').forEach(function (s) { s.srcset = s.dataset.srcset; });
-      var img = pic.querySelector('img[data-src]'); if (img) img.src = img.dataset.src;
-    }
-    if (heroSlides.length > 1) {
-      addEventListener('load', function () { setTimeout(function () { loadSlide(1); }, 1500); }, { once: true });
-      setInterval(function () {
-        loadSlide((hi + 2) % heroSlides.length);
-        heroSlides[hi].classList.remove('is-in'); hi = (hi + 1) % heroSlides.length; loadSlide(hi); heroSlides[hi].classList.add('is-in');
-      }, 6000);
-    }
-  }
+  /* хиро: фоновое видео; при «меньше движения» стоит на постере */
+  var heroVideo = document.querySelector('.hero__video');
+  if (heroVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
 
   /* фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении */
   document.querySelectorAll('.photo-band[data-band]').forEach(function (band) {
@@ -839,29 +837,6 @@
       io.observe(gal);
     } else pic(1);
   });
-
-  /* концепция: фото U1/U2/U3 в синей панели, стрелки + клик по ряду */
-  var ccPanel = document.getElementById('ccPanel');
-  if (ccPanel) (function () {
-    var slides = [].slice.call(ccPanel.querySelectorAll('.cc-slide')), i = 0;
-    if (slides.length < 2) return;
-    function show(n) {
-      i = (n + slides.length) % slides.length;
-      slides.forEach(function (s, k) { s.classList.toggle('is-in', k === i); });
-    }
-    /* сам листается раз в 7 с: только пока панель на экране, пауза при фокусе с клавиатуры,
-       при prefers-reduced-motion не листается; нажатие стрелки начинает отсчёт заново */
-    var timer = 0, seen = false, hold = false, calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function tick() { clearTimeout(timer); if (!calm && seen && !hold) timer = setTimeout(function () { show(i + 1); tick(); }, 7000); }
-    ccPanel.querySelectorAll('.cc-arrow').forEach(function (b) {
-      b.addEventListener('click', function () { show(i + (+b.getAttribute('data-cc'))); tick(); });
-    });
-    ccPanel.addEventListener('focusin', function () { hold = true; tick(); });
-    ccPanel.addEventListener('focusout', function () { hold = false; tick(); });
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; tick(); }, { threshold: 0.3 }).observe(ccPanel);
-    else { seen = true; tick(); }
-    show(0);
-  })();
 
   /* «Показать ещё» под коллажем комплекса: докладывает скрытые тайлы в ту же сетку */
   /* Бенто-ритм 4×2 (крупный + широкий + мелкие), блоками по 2 ряда, раскрытые тайлы продолжают его — не сетка
