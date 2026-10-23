@@ -1412,3 +1412,13 @@ i.u5,i.ul{font-style:normal}
 /* у h2 межстрочный воздух съедает часть отступа, добираем до 40 */
 .cx-head{padding-bottom:var(--s4)}
 @media (max-width:760px){ .cx-head{padding-bottom:var(--s3)} }
+
+/* иконки в плитках инфраструктуры */
+.ab-card--list .ab-tiles li:nth-child(n){gap:12px}
+.ab-tiles .ab-ic{width:20px;height:20px;color:var(--blue)}
+/* широкие экраны: плашки Nuanu крупнее, фото не задают высоту колонок */
+@media (min-width:1600px){
+  .ab-col > .ab-card--photo{min-height:320px}
+  .ab-cloud li{padding:8px 12px;gap:8px;font-size:var(--fs-body);line-height:var(--lh-card)}
+  .ab-cloud .ab-ic{width:18px;height:18px}
+}
