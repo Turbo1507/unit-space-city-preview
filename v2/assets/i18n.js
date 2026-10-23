@@ -721,9 +721,7 @@ window.I18N = {
   var dict = window.I18N[lang] || window.I18N.ru;
   document.documentElement.lang = lang;
   var isPage = document.body.classList.contains('page');
-  if (dict['meta.title'] && !isPage) document.title = dict['meta.title'];
-  var md = document.querySelector('meta[name="description"]'); if (md && dict['meta.desc'] && !isPage) md.setAttribute('content', dict['meta.desc']);
-  document.querySelectorAll('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (dict[k] != null) el.innerHTML = dict[k]; });
+  document.querySelectorAll('body [data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (dict[k] != null) el.innerHTML = dict[k]; });
   document.querySelectorAll('[data-i18n-alt]').forEach(function (el) { var k = el.getAttribute('data-i18n-alt'); if (dict[k] != null) el.setAttribute('alt', dict[k]); });
   document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { var k = el.getAttribute('data-i18n-aria'); if (dict[k] != null) el.setAttribute('aria-label', dict[k]); });
   document.querySelectorAll('[data-i18n-ph]').forEach(function (el) { var k = el.getAttribute('data-i18n-ph'); if (dict[k] != null) el.setAttribute('placeholder', dict[k]); });

@@ -24,13 +24,26 @@ export function applyDict(html, dict) {
 export function langHead(lang, rel) {
   const en = BASE + rel, ru = BASE + 'ru/' + rel;
   return [
-    `<script>/* language by region: Russia, Belarus -> RU, other countries -> EN; first visit only, saved choice (usc_lang) and bots are left alone */(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)||localStorage.getItem('usc_lang'))return;var ru=(function(){var z='';try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}var l=(navigator.languages&&navigator.languages[0])||navigator.language||'';return /^(Europe|Asia).(Moscow|Minsk|Kaliningrad|Samara|Volgograd|Saratov|Ulyanovsk|Astrakhan|Kirov|Yekaterinburg|Omsk|Novosibirsk|Barnaul|Tomsk|Novokuznetsk|Krasnoyarsk|Irkutsk|Chita|Yakutsk|Khandyga|Vladivostok|Ust-Nera|Magadan|Sakhalin|Srednekolymsk|Kamchatka|Anadyr)$/.test(z)||/-(RU|BY)$/i.test(l)})(),p=location.pathname,r=p.indexOf('/v2/ru/')>-1,t=ru&&!r?p.replace('/v2/','/v2/ru/'):!ru&&r?p.replace('/v2/ru/','/v2/'):'';if(t&&t!==p)location.replace(t+location.search+location.hash)}catch(e){}})()</script>`,
-    `<script>try{localStorage.setItem('usc_lang','${lang}')}catch(e){}</script>`,
+    `<script>/* saved language choice (usc_lang cookie); without a choice the opened URL stays as is, bots are left alone */(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)||/[?&]lang=/.test(location.search))return;var m=/(?:^|; )usc_lang=(ru|en)/.exec(document.cookie);if(!m||m[1]==='${lang}')return;var p=location.pathname,t=m[1]==='ru'?p.replace('/v2/','/v2/ru/'):p.replace('/v2/ru/','/v2/');if(t!==p)location.replace(t+location.search+location.hash)}catch(e){}})()</script>`,
     `<link rel="canonical" href="${lang === 'ru' ? ru : en}">`,
     `<link rel="alternate" hreflang="en" href="${en}">`,
     `<link rel="alternate" hreflang="ru" href="${ru}">`,
     `<link rel="alternate" hreflang="x-default" href="${en}">`
   ].join('\n');
+}
+// title и description на любом языке английские: так их видят поиск и превью ссылок в мессенджерах
+export function enMeta(html, title, desc) {
+  const a = v => v.replace(/&(?!amp;|quot;|nbsp;)/g, '&amp;').replace(/"/g, '&quot;');
+  const set = (rx, v) => { html = html.replace(rx, (m, open, close) => open + a(v) + close); };
+  html = html.replace(/<title\b[^>]*>[^<]*<\/title>/, () => `<title>${title}</title>`);
+  set(/(<meta property="og:title" content=")[^"]*(")/, title);
+  set(/(<meta name="twitter:title" content=")[^"]*(")/, title);
+  if (desc) {
+    set(/(<meta name="description" content=")[^"]*(")/, desc);
+    set(/(<meta property="og:description" content=")[^"]*(")/, desc);
+    set(/(<meta name="twitter:description" content=")[^"]*(")/, desc);
+  }
+  return html;
 }
 // старые адреса /en/... → корень: GitHub Pages без серверных редиректов, поэтому meta refresh + canonical на новый URL
 export function redirectStub(to) {

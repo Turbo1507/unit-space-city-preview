@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { applyDict, langHead, translateAttrs, stamp, redirectStub, BASE } from './i18n-static.mjs';
+import { enMeta, applyDict, langHead, translateAttrs, stamp, redirectStub, BASE } from './i18n-static.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -18,6 +18,7 @@ const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 const m2 = { ru: 'м²', en: 'm²' };
 let missing = [];
 
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 for (const lang of ['ru', 'en']) {
   const outDir = lang === 'en' ? path.join(root, 'units') : path.join(root, 'ru', 'units');
   fs.mkdirSync(outDir, { recursive: true });
@@ -32,7 +33,7 @@ for (const lang of ['ru', 'en']) {
     const title = `${u.name[lang]} ${area} ${m2[lang]}, ${cx.code} ${cx.name}`;
     const desc = lang === 'ru'
       ? `${u.name.ru} ${area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
-      : `${u.name.en} ${area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${USC_PRICE.en[u.fmt]}. Direct from the developer, UNIT.SPACE.`;
+      : `${u.name.en} ${area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(USC_PRICE.en[u.fmt])}. Direct from the developer, UNIT.SPACE.`;
     let html = tpl
       .replace(/(<p [^>]*data-unit-field="desc">)\{\{DESC\}\}(<\/p>)/, `$1${USC_FMT[u.fmt].desc[lang]}$2`)
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
@@ -53,6 +54,8 @@ for (const lang of ['ru', 'en']) {
       html = html.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
         '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');
     } else {
+      html = enMeta(html, `${esc(`${u.name.en} ${USC_AREA_TXT(u, 'en')} ${m2.en}, ${cx.code} ${cx.name}`)} — UNIT. SPACE CITY`,
+        `${u.name.en} ${USC_AREA_TXT(u, 'en')} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(USC_PRICE.en[u.fmt])}. Direct from the developer, UNIT.SPACE.`);
       html = html.replace('data-assets="../photos/"', 'data-assets="../../photos/"');
       html = html.replaceAll('href="../assets/', 'href="../../assets/').replaceAll('src="../assets/', 'src="../../assets/');
     }

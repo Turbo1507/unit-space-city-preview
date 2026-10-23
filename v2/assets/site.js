@@ -46,11 +46,13 @@
     if (href.indexOf(base) !== 0) return href;
     return location.pathname.replace(tail, '') + href.slice(base.length);
   }
-  var wanted = /[?&]lang=(ru|en)/.exec(location.search);
+  function saveLang(l) { try { document.cookie = 'usc_lang=' + l + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {} }
+  var wanted = /[?&]lang=(ru|en)\b/.exec(location.search);
+  if (wanted) saveLang(wanted[1]);
   if (wanted && wanted[1] !== pageLang && altHref(wanted[1])) { location.replace(altHref(wanted[1]) + location.hash); }
   document.querySelectorAll('[data-lang]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var l = b.dataset.lang; if (l === pageLang) return;
+      var l = b.dataset.lang; saveLang(l); if (l === pageLang) return;
       var href = altHref(l); if (href) location.href = href + location.hash; else if (window.setLang) window.setLang(l);
     });
   });
@@ -339,7 +341,7 @@
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
-      document.title = f.name + ' ' + window.USC_AREA_TXT(unit, lang) + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
+      document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);

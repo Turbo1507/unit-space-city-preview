@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { applyDict, langHead, translateAttrs, stamp, redirectStub, BASE } from './i18n-static.mjs';
+import { applyDict, enMeta, langHead, translateAttrs, stamp, redirectStub, BASE } from './i18n-static.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -46,6 +46,7 @@ ru = ru.replace(/"@id":"([^"]*v2\/)#site","url":"[^"]*"/, '"@id":"$1ru/#site","u
 ru = ru.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
 ru = ru.replaceAll('="photos/', '="../photos/');
 ru = ru.replaceAll(', photos/', ', ../photos/'); // второй и далее кадры в srcset
+ru = enMeta(ru, EN['meta.title'], EN['meta.desc']);
 ru = ru.replace('<link rel="stylesheet"', langHead('ru', '') + '\n<link rel="stylesheet"');
 fs.mkdirSync(path.join(root, 'ru'), { recursive: true });
 fs.writeFileSync(path.join(root, 'ru', 'index.html'), stamp(ru));

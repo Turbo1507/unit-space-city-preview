@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { applyDict, langHead, translateAttrs, stamp } from './i18n-static.mjs';
+import { applyDict, enMeta, langHead, translateAttrs, stamp } from './i18n-static.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -13,6 +13,7 @@ const tpl = fs.readFileSync(path.join(here, 'privacy-template.html'), 'utf8');
 
 let ru = tpl.replace(/<html\b[^>]*>/, '<html lang="ru" data-assets="../photos/">');
 ru = ru.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
+ru = enMeta(ru, ctx.window.I18N.en['legal.title']);
 ru = ru.replace('<link rel="stylesheet"', langHead('ru', 'privacy.html') + '\n<link rel="stylesheet"');
 fs.mkdirSync(path.join(root, 'ru'), { recursive: true });
 fs.writeFileSync(path.join(root, 'ru', 'privacy.html'), stamp(ru));
