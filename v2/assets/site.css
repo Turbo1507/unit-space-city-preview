@@ -1389,3 +1389,26 @@ i.u5,i.ul{font-style:normal}
   .ab-facts{grid-template-columns:auto 1fr auto 1fr auto 1fr;column-gap:var(--s2)}
 }
 @media (min-width:1201px){ .ab-fact b{font-size:clamp(24px,1.6vw,28px)} }
+
+/* карточка под Nuanu: крупно доходность, ниже своя УК */
+.ab-facts{display:flex;flex-direction:column;gap:var(--s3)}
+.ab-fact{display:flex;flex-direction:column;gap:var(--s1)}
+.ab-fact b{font-size:var(--fs-title);line-height:1}
+.ab-fact--uk{gap:var(--s1)}
+.ab-fact--uk h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);color:var(--ink)}
+.ab-fact > span .ul{color:var(--ink-2);white-space:nowrap}
+@media (min-width:761px) and (max-width:1200px){
+  .ab-facts{display:grid;grid-template-columns:1fr 1fr;align-items:end}
+}
+@media (max-width:760px){ .ab-facts{gap:var(--s2)} }
+/* начало блока 3: заголовок секции, табы, панель с воздухом; название комплекса на ступень меньше */
+.cx-head{padding-bottom:var(--s3)}
+.complex{padding-top:var(--s5)}
+.complex__title{font-size:var(--fs-h3)}
+@media (max-width:760px){
+  .cx-head{padding-bottom:var(--s2)}
+  .complex{padding-top:var(--s3)}
+}
+/* у h2 межстрочный воздух съедает часть отступа, добираем до 40 */
+.cx-head{padding-bottom:var(--s4)}
+@media (max-width:760px){ .cx-head{padding-bottom:var(--s3)} }
