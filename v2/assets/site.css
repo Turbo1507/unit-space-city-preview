@@ -1318,12 +1318,6 @@ i.u5,i.ul{font-style:normal}
 
 /* блок 2: цифры проекта под шапкой */
 .ab-head{margin-bottom:var(--s5)}
-.ab-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-bottom:var(--s5)}
-.ab-fact{display:flex;flex-direction:column;gap:var(--s2);max-width:36ch}
-.ab-fact b{font-size:var(--fs-title);font-weight:500;line-height:1;letter-spacing:-.025em;color:var(--blue)}
-.ab-fact b span{font-weight:inherit}
-.ab-fact > span{font-size:var(--fs-body);line-height:var(--lh-card);color:var(--ink-2)}
-.ab-fact > span .ul{color:var(--ink);white-space:nowrap}
 /* инфраструктура комплекса плитками */
 .ab-card--list .ab-list.ab-tiles{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;flex:1;gap:var(--s1)}
 .ab-card--list .ab-tiles li:nth-child(n){display:flex;align-items:center;min-height:56px;padding:12px var(--s2);border-radius:var(--r-s);background:var(--paper);color:var(--ink)}
@@ -1337,10 +1331,6 @@ i.u5,i.ul{font-style:normal}
 .cx-head .t-h2{max-width:none}
 @media (max-width:760px){
   .ab-head{margin-bottom:var(--s3)}
-  .ab-facts{grid-template-columns:1fr;gap:var(--s1);margin-bottom:var(--s3)}
-  .ab-facts{gap:var(--s2)}
-  .ab-fact{display:grid;grid-template-columns:4.4em 1fr;column-gap:var(--s2);align-items:baseline;max-width:none}
-  .ab-fact b{font-size:var(--fs-h3)}
   .ab-card--list .ab-list.ab-tiles{grid-template-columns:1fr;grid-auto-rows:auto}
   .ab-card--list .ab-tiles li:nth-child(n){min-height:48px}
   .ab-cloud{gap:var(--s2)}
@@ -1363,44 +1353,10 @@ i.u5,i.ul{font-style:normal}
 .ab-cloud{list-style:none;margin:0;padding:0;display:flex;flex-direction:row;flex-wrap:wrap;gap:var(--s1)}
 .ab-cloud li{display:flex;align-items:center;gap:var(--s1);padding:8px 12px}
 .ab-ic{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-/* цифры проекта карточкой под Nuanu */
-.ab-facts{display:flex;flex-direction:column;gap:var(--s3);margin:0;grid-area:f}
-.ab-fact{display:flex;flex-direction:column;gap:var(--s1);max-width:none}
-.ab-fact b{font-size:var(--fs-h3)}
-@media (min-width:761px) and (max-width:1200px){
-  .ab-bento{grid-template-areas:"a b" "d d" "e c" "f f"}
-  .ab-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2)}
-}
-@media (max-width:760px){
-  .ab-bento{grid-template-areas:"a" "b" "d" "e" "c" "f"}
-  .ab-facts{display:flex;gap:var(--s2);padding:var(--s2)}
-  .ab-fact{display:grid;grid-template-columns:4.4em 1fr;column-gap:var(--s2);align-items:baseline}
-  .ab-fact > span .ul{white-space:normal}
-}
 
 /* плашки Nuanu компактнее, чтобы колонка не тянула фото соседей */
 .ab-cloud li{padding:6px 10px;gap:6px;font-size:var(--fs-cap);line-height:1.35}
 .ab-ic{width:16px;height:16px}
-/* цифры строками: значение слева, подпись справа */
-.ab-facts{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s2);row-gap:var(--s2);align-items:baseline}
-.ab-fact{display:contents}
-.ab-fact b{font-size:var(--fs-h3)}
-@media (min-width:761px) and (max-width:1200px){
-  .ab-facts{grid-template-columns:auto 1fr auto 1fr auto 1fr;column-gap:var(--s2)}
-}
-@media (min-width:1201px){ .ab-fact b{font-size:clamp(24px,1.6vw,28px)} }
-
-/* карточка под Nuanu: крупно доходность, ниже своя УК */
-.ab-facts{display:flex;flex-direction:column;gap:var(--s3)}
-.ab-fact{display:flex;flex-direction:column;gap:var(--s1)}
-.ab-fact b{font-size:var(--fs-title);line-height:1}
-.ab-fact--uk{gap:var(--s1)}
-.ab-fact--uk h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);color:var(--ink)}
-.ab-fact > span .ul{color:var(--ink-2);white-space:nowrap}
-@media (min-width:761px) and (max-width:1200px){
-  .ab-facts{display:grid;grid-template-columns:1fr 1fr;align-items:end}
-}
-@media (max-width:760px){ .ab-facts{gap:var(--s2)} }
 /* начало блока 3: заголовок секции, табы, панель с воздухом; название комплекса на ступень меньше */
 .cx-head{padding-bottom:var(--s3)}
 .complex{padding-top:var(--s5)}
@@ -1431,17 +1387,26 @@ i.u5,i.ul{font-style:normal}
 @media (min-width:1201px){
   .ab-bento{height:clamp(600px, calc(100svh - var(--hdr) - 48px), 920px)}
   .ab-col > .ab-card--photo{flex:1 1 0;min-height:auto}
-  .ab-col > .ab-card--blue{flex:none}
+  .ab-col > .ab-card--blue{flex:1 1 auto}
   .ab-card--list .ab-tiles li:nth-child(n){min-height:40px;padding:8px var(--s2)}
   .ab-card--list .ab-list.ab-tiles{gap:6px}
-  /* карточка цифр добирает остаток колонки: мало места — в ряд, много — 10% сверху, УК снизу */
-  .ab-col > .ab-facts{flex:1 1 0;min-height:150px;container:facts / size;display:flex;flex-flow:row wrap;align-content:flex-end;align-items:flex-end;gap:var(--s2)}
-  .ab-facts > .ab-fact{flex:1 1 0;min-width:0}
-}
-@container facts (min-height:170px){
-  .ab-facts > .ab-fact{flex-basis:100%}
-  .ab-col > .ab-facts{align-content:space-between}
 }
 @media (min-width:1201px) and (max-width:1599px){ .ab-card--photo{padding:var(--s3)} }
+
+/* цифры проекта вторым рядом под карточками комплекса */
+.complex .stat-grid:has(+ .cx-extra){margin-bottom:var(--s2)}
+.complex .cx-extra{grid-template-columns:repeat(2,minmax(0,1fr))}
+.complex .cx-extra .stat-card{min-height:clamp(128px,10vw,160px)}
+.complex .cx-extra .stat-card--blue .stat-card__value{font-size:clamp(40px,4.2vw,64px)}
+.complex .cx-extra .cx-uk{font-size:var(--fs-h3);letter-spacing:-.02em;color:var(--ink)}
+
+@media (max-width:820px){ .complex .cx-extra > :last-child{grid-column:auto} .complex .cx-extra .stat-card{min-height:0} }
+@media (max-width:520px){ .complex .cx-extra{grid-template-columns:1fr} .cx-uk .ul{white-space:normal} }
+
+/* Nuanu одна в колонке: заголовок сверху, плашки прижаты к низу, свободное место между ними */
+@media (min-width:1201px){
+  .ab-col > .ab-card--blue{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s4)}
+  .ab-card--blue h3{font-size:var(--fs-h3);line-height:1.15;letter-spacing:-.02em;max-width:16ch}
+}
 /* низкие экраны: Nuanu шире, чтобы плашки встали в меньше рядов */
 @media (min-width:1201px) and (max-height:940px){ .ab-bento{grid-template-columns:minmax(0,.8fr) minmax(0,1.1fr) minmax(0,1.4fr)} }
