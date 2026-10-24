@@ -1386,7 +1386,7 @@ i.u5,i.ul{font-style:normal}
 /* бенто блока 2 целиком в экран под шапкой */
 @media (min-width:1201px){
   .ab-bento{height:clamp(600px, calc(100svh - var(--hdr) - 48px), 920px)}
-  .ab-col > .ab-card--photo{flex:1 1 0;min-height:auto}
+  .ab-col > .ab-card--photo{flex:1 1 0;min-height:min-content}
   .ab-col > .ab-card--blue{flex:1 1 auto}
   .ab-card--list .ab-tiles li:nth-child(n){min-height:40px;padding:8px var(--s2)}
   .ab-card--list .ab-list.ab-tiles{gap:6px}
