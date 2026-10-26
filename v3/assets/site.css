@@ -1619,3 +1619,14 @@ i,em{font-style:normal}
 @media (max-width:1200px){ .ab-card--photo{gap:0} }
 .faq-item,.faq-q,.faq-a{min-width:0;overflow-wrap:break-word}
 .co-card{min-width:0}
+/* отступы одной системой: заголовок карточки → текст 12, разные блоки в секции 40/24, подсекции 56/40 */
+.card:not(.product-card):not(.stat-card):not(.fmt-card):not(.avail-card):not(.team-card):not(.tr-card),.nu-card,.value-card,.tr-card__body,.ab-card--photo > div{gap:12px}
+.ym-card{margin-bottom:clamp(24px,3vw,40px)}
+.complex__gallery{margin-top:clamp(24px,3vw,40px)}
+.quote{margin-top:clamp(40px,4vw,56px)}
+.dots{gap:4px}
+.crumb{display:flex;width:fit-content;margin-bottom:var(--s3)}
+.site-footer .brand .wordmark{display:block;width:fit-content}
+.co-card__sub,.tr-card__role{margin-top:-8px}
+.value-card__l{margin-bottom:12px}
+.ab-card:not(.ab-card--blue):not(.ab-card--photo){gap:12px}
