@@ -1558,3 +1558,64 @@ i,em{font-style:normal}
 .sect-head .t-lead{max-width:76ch}
 @media (max-width:400px){ .t-h2{font-size:26px} }
 #location .sect-head .t-lead{max-width:none}
+
+/* ===== система: одни правила для всех секций ===== */
+/* ритм секций и межстрочное: один набор на весь сайт */
+:root{--sy:clamp(56px,8.4vw,120px);--lh-body:1.5;--lh-card:1.5}
+@media (max-width:760px){ :root{--sy:56px;--lh-body:1.4;--lh-card:1.4} }
+/* шапка секции: заголовок по ширине контейнера, ровные строки, до контента 48 (телефон 24) */
+.t-h2{max-width:none;text-wrap:balance}
+.t-lead,.card p,.sect-text{text-wrap:pretty}
+.sect-head,.ab-head{margin-bottom:48px}
+.cx-head{padding-bottom:48px}
+@media (max-width:760px){ .sect-head,.ab-head{margin-bottom:var(--s3)} .cx-head{padding-bottom:var(--s3)} }
+/* отступы внутри: карточка 24, большой блок 32, панель 56; на телефоне 16 / 16 / 24 */
+.card,.stat-card,.stat-grid--6 .stat-card,.co-card,.value-card{padding:var(--s3)}
+.ab-card:not(.ab-card--photo),.ym-card__txt,.calc,.co-group,.lead-form{padding:var(--s4)}
+.lead-panel,.quote{padding:var(--s6)}
+@media (max-width:760px){
+  .card,.stat-card,.stat-grid--6 .stat-card,.co-card,.value-card,.ab-card:not(.ab-card--photo),.ym-card__txt,.calc,.co-group,.lead-form{padding:var(--s2)}
+  .lead-panel,.quote{padding:var(--s3)}
+}
+/* крупные цифры одного размера; в сетке локации на ступень меньше */
+.stat-card__value,.complex .stat-grid .stat-card__value,.value-card__l{font-size:var(--fs-display)}
+.stat-grid--6 .stat-card__value{font-size:var(--fs-title)}
+/* заголовки карточек тоже капсом */
+.card > b,.kv-chip b,.ym-card__t,.co-group__title,.photo-band figcaption b{text-transform:uppercase}
+/* плашка «От застройщика» со скруглением, как все плашки */
+.hero__badge{border-radius:var(--r-s)}
+
+/* блок 2: у Nuanu плашки сразу под заголовком */
+@media (min-width:1201px){ .ab-col > .ab-card--blue{justify-content:flex-start} }
+/* блок 2, планшет и телефон: от фото до заголовка как в остальных карточках */
+@media (min-width:761px) and (max-width:1200px){ .ab-card--photo > div{padding:var(--s3) var(--s4) var(--s4)} }
+@media (max-width:760px){ .ab-card--photo > div{padding-top:var(--s2)} }
+
+/* карточка УК: текст слева, фото справа */
+.ym-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;padding:0;overflow:hidden;align-items:stretch}
+.ym-card__txt{display:grid;gap:var(--s3);align-content:start}
+.ym-card__ph{display:block;position:relative;min-height:320px}
+.ym-card__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:760px){ .ym-card{grid-template-columns:1fr} .ym-card__ph{min-height:0;aspect-ratio:4/3} }
+
+/* ценности: перевод названия второй строкой, обычным регистром */
+.value-card__tr{display:block;margin-top:4px;text-transform:none;font-weight:400;font-size:var(--fs-body);line-height:var(--lh-card);color:var(--ink-2)}
+
+/* футер: меню сайта первой колонкой */
+.foot-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.site-footer .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s1)}
+.site-footer .foot-grid ul a{color:#fff;text-decoration:none}
+.site-footer .foot-grid ul a:hover{color:rgba(255,255,255,.7)}
+@media (max-width:1000px){ .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .foot-grid{grid-template-columns:1fr} }
+
+/* страница формата: описание шире, на 1920 в 2–3 строки */
+[data-unit-field="desc"]{max-width:110ch}
+.ym-card__txt > div{display:grid;gap:4px}
+.quote p{max-width:none}
+.tr-card__body > b,.co-card > b{text-transform:uppercase}
+/* подписи колонок футера обычным регистром: мелкий серый капс не используем */
+.site-footer h3{text-transform:none}
+@media (max-width:1200px){ .ab-card--photo{gap:0} }
+.faq-item,.faq-q,.faq-a{min-width:0;overflow-wrap:break-word}
+.co-card{min-width:0}

@@ -1113,6 +1113,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
+    var ROUTE = [[115.106284,-8.619637],[115.106189,-8.619812],[115.106049,-8.620101],[115.105954,-8.62048],[115.105898,-8.620855],[115.105862,-8.621172],[115.10579,-8.621755],[115.105756,-8.622121],[115.105745,-8.622204],[115.10578,-8.62232],[115.105855,-8.622462],[115.105892,-8.622519],[115.106147,-8.622796],[115.106261,-8.622943],[115.106364,-8.62312],[115.106404,-8.623251],[115.106411,-8.623478],[115.106398,-8.623885],[115.106388,-8.624533],[115.106347,-8.625014],[115.106308,-8.625188],[115.106274,-8.625258],[115.10619,-8.625399],[115.106085,-8.625542],[115.105899,-8.625768],[115.105596,-8.626139],[115.10542,-8.626367],[115.105231,-8.626592],[115.105014,-8.626879],[115.104919,-8.627027],[115.104839,-8.62718],[115.104702,-8.627579],[115.104627,-8.627788],[115.104556,-8.627977],[115.104488,-8.628093],[115.104269,-8.628352],[115.103827,-8.628821],[115.103427,-8.629182]];
     /* фото для попапа чипа (4–5 фото места, только без АП — источники в photos/CREDITS-places.md).
        Пусто — чип без попапа: свободных фото Nuanu нет */
     var PLACES = {
@@ -1213,6 +1214,10 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         map.getStyle().layers.forEach(function (l) { if (HIDE.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
         map.setPaintProperty('background', 'background-color', '#ECECEA');
         map.setPaintProperty('water', 'fill-color', '#D6E0EA');
+        // дорога до въезда в Nuanu (OSRM по OSM), 2 минуты на машине
+        map.addSource('route', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: ROUTE } } });
+        map.addLayer({ id: 'route-case', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#fff', 'line-width': 9 } });
+        map.addLayer({ id: 'route', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#0433FF', 'line-width': 4 } });
         var pin = document.createElement('div'); pin.className = 'map-pin';
         pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">&nbsp;SPACE CITY</i></span>';
         new maplibregl.Marker({ element: pin, anchor: 'left', offset: [-10, 0] }).setLngLat(ll).addTo(map);
