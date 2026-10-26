@@ -1,4 +1,12 @@
 /* UNIT SPACE CITY v2 — общий JS (index + units/*). Логика шапки/меню/языка — как на БСО. */
+// в Telegram и Safari resize летит при каждом сворачивании панели, пересчитываем только при смене ширины
+var lastW = innerWidth, finePtr = window.matchMedia('(pointer: fine)').matches;
+addEventListener('resize', function () { requestAnimationFrame(function () { lastW = innerWidth; }); });
+function onWidth(fn) { addEventListener('resize', function () { if (innerWidth !== lastW) fn(); }); }
+// высота экрана в px: панель Telegram при скролле не дёргает хиро и меню (на десктопе следим и за высотой окна)
+function setVh() { document.documentElement.style.setProperty('--vh', innerHeight / 100 + 'px'); }
+setVh();
+addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) setVh(); });
 (function () {
   var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ASSETS = document.documentElement.getAttribute('data-assets') || 'assets/';
@@ -46,11 +54,13 @@
     if (href.indexOf(base) !== 0) return href;
     return location.pathname.replace(tail, '') + href.slice(base.length);
   }
-  var wanted = /[?&]lang=(ru|en)/.exec(location.search);
+  function saveLang(l) { try { document.cookie = 'usc_lang=' + l + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {} }
+  var wanted = /[?&]lang=(ru|en)\b/.exec(location.search);
+  if (wanted) saveLang(wanted[1]);
   if (wanted && wanted[1] !== pageLang && altHref(wanted[1])) { location.replace(altHref(wanted[1]) + location.hash); }
   document.querySelectorAll('[data-lang]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var l = b.dataset.lang; if (l === pageLang) return;
+      var l = b.dataset.lang; saveLang(l); if (l === pageLang) return;
       var href = altHref(l); if (href) location.href = href + location.hash; else if (window.setLang) window.setLang(l);
     });
   });
@@ -219,6 +229,16 @@
     var slides = tabs.map(function (t) { return document.getElementById(t.dataset.cx); });
     var cur = 0;
     function moveInk(t) { if (ink) { ink.style.left = t.offsetLeft + 'px'; ink.style.width = t.offsetWidth + 'px'; } }
+    // прилипшие табы серые, иначе сливаются с белым фоном комплексов
+    var stuckRaf = 0;
+    function checkStuck() {
+      stuckRaf = 0;
+      var top = parseFloat(getComputedStyle(cxNav).top) || 0, r = cxNav.getBoundingClientRect();
+      cxNav.classList.toggle('is-stuck', r.top <= top + 1 && cxNav.parentElement.getBoundingClientRect().bottom > r.bottom + 1);
+    }
+    window.addEventListener('scroll', function () { if (!stuckRaf) stuckRaf = requestAnimationFrame(checkStuck); }, { passive: true });
+    window.addEventListener('resize', checkStuck);
+    checkStuck();
     function go(i, focusTab, init) {
       i = Math.max(0, Math.min(slides.length - 1, i)); cur = i;
       slides.forEach(function (s, k) { s.setAttribute('data-state', k === i ? 'active' : (k < i ? 'prev' : 'next')); });
@@ -248,13 +268,13 @@
       slides.forEach(function (s) { s.style.scrollMarginTop = m; });
     }
     if (window.ResizeObserver) { var cxRO = new ResizeObserver(fitTrack); slides.forEach(function (s) { cxRO.observe(s); }); }
-    addEventListener('resize', fitTrack);
+    onWidth(fitTrack);
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
     cxNav.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }
       if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
     });
-    addEventListener('resize', function () { moveInk(tabs[cur]); });
+    onWidth(function () { moveInk(tabs[cur]); });
     /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов */
     var cxSlider = document.getElementById('complexSlider');
     if (cxSlider) {
@@ -352,7 +372,7 @@
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
-      document.title = f.name + ' ' + window.USC_AREA_TXT(unit, lang) + ' ' + f.m2 + ', ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
+      document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);
@@ -482,7 +502,7 @@
     drum.addEventListener('pointerdown', function (e) { p0 = { x: e.clientX, y: e.clientY }; });
     addEventListener('pointerup', function (e) { if (!p0) return; var d = horizontal() ? e.clientX - p0.x : e.clientY - p0.y; p0 = null; if (Math.abs(d) > 24) go(d < 0 ? 1 : -1); });
     drum.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
-    addEventListener('resize', renderTrack);
+    onWidth(renderTrack);
   })();
 
   /* лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
@@ -923,7 +943,22 @@
   var galleries = [].slice.call(document.querySelectorAll('.complex__gallery'));
   galleries.forEach(layoutGallery);
   var galT;
-  window.addEventListener('resize', function () { clearTimeout(galT); galT = setTimeout(function () { galleries.forEach(layoutGallery); }, 150); });
+  onWidth(function () { clearTimeout(galT); galT = setTimeout(function () { galleries.forEach(layoutGallery); }, 150); });
+  // полоса под мобильной лентой: сколько пролистано
+  galleries.forEach(function (g) {
+    var bar = document.createElement('div'), th = document.createElement('i'), raf = 0;
+    bar.className = 'gal-bar'; bar.setAttribute('aria-hidden', 'true'); bar.appendChild(th); g.parentNode.insertBefore(bar, g.nextSibling);
+    function upd() {
+      raf = 0;
+      var sw = g.scrollWidth, cw = g.clientWidth, bw = bar.clientWidth;
+      if (!bw) return;
+      bar.style.visibility = sw > cw + 1 ? '' : 'hidden';
+      var w = Math.max(48, bw * cw / sw), p = sw > cw ? g.scrollLeft / (sw - cw) : 0;
+      th.style.width = w + 'px'; th.style.transform = 'translateX(' + (bw - w) * Math.min(1, Math.max(0, p)) + 'px)';
+    }
+    g.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+    onWidth(upd); upd();
+  });
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
@@ -1259,7 +1294,7 @@
   var t; function later() { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }
   window.__uscFit = later;
   fit(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  window.addEventListener('resize', later);
+  onWidth(later);
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); later(); };
 })();
 
