@@ -221,6 +221,16 @@
     var slides = tabs.map(function (t) { return document.getElementById(t.dataset.cx); });
     var cur = 0;
     function moveInk(t) { if (ink) { ink.style.left = t.offsetLeft + 'px'; ink.style.width = t.offsetWidth + 'px'; } }
+    // прилипшие табы серые, иначе сливаются с белым фоном комплексов
+    var stuckRaf = 0;
+    function checkStuck() {
+      stuckRaf = 0;
+      var top = parseFloat(getComputedStyle(cxNav).top) || 0, r = cxNav.getBoundingClientRect();
+      cxNav.classList.toggle('is-stuck', r.top <= top + 1 && cxNav.parentElement.getBoundingClientRect().bottom > r.bottom + 1);
+    }
+    window.addEventListener('scroll', function () { if (!stuckRaf) stuckRaf = requestAnimationFrame(checkStuck); }, { passive: true });
+    window.addEventListener('resize', checkStuck);
+    checkStuck();
     function go(i, focusTab, init) {
       i = Math.max(0, Math.min(slides.length - 1, i)); cur = i;
       slides.forEach(function (s, k) { s.setAttribute('data-state', k === i ? 'active' : (k < i ? 'prev' : 'next')); });

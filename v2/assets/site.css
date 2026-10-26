@@ -1385,6 +1385,10 @@ i.u5,i.ul{font-style:normal}
 /* комплексы на белом: табы и карточки серые */
 .complexes.sect--alt .complex-nav{background:var(--white)}
 .complexes.sect--alt .complex-nav button:not([aria-selected="true"]){background:var(--paper)}
+/* прилипли под шапкой: серая полоса вместе с шапкой, кнопки белые */
+.complex-nav{transition:background .2s var(--ease)}
+.complexes.sect--alt .complex-nav.is-stuck{background:var(--paper)}
+.complexes.sect--alt .complex-nav.is-stuck button:not([aria-selected="true"]){background:var(--white)}
 
 /* бенто блока 2 целиком в экран под шапкой */
 @media (min-width:1201px){
