@@ -1434,3 +1434,10 @@ i.u5,i.ul{font-style:normal}
   .ab-bento{grid-template-areas:"a" "d" "b" "e" "c"}
   .ab-a picture{aspect-ratio:1/1}
 }
+/* плашки Nuanu тянутся до края ряда, без пустых хвостов справа */
+.ab-cloud li{flex:1 1 auto}
+/* планшет и телефон: под фото белая плашка с тёмным текстом, как у остальных карточек */
+@media (max-width:1200px){
+  .ab-card--photo{background:var(--white);color:var(--ink)}
+  .ab-card--photo p{color:var(--ink-2)}
+}
