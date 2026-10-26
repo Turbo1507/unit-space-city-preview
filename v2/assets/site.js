@@ -1,4 +1,12 @@
 /* UNIT SPACE CITY v2 — общий JS (index + units/*). Логика шапки/меню/языка — как на БСО. */
+// в Telegram и Safari resize летит при каждом сворачивании панели, пересчитываем только при смене ширины
+var lastW = innerWidth, finePtr = window.matchMedia('(pointer: fine)').matches;
+addEventListener('resize', function () { requestAnimationFrame(function () { lastW = innerWidth; }); });
+function onWidth(fn) { addEventListener('resize', function () { if (innerWidth !== lastW) fn(); }); }
+// высота экрана в px: панель Telegram при скролле не дёргает хиро и меню (на десктопе следим и за высотой окна)
+function setVh() { document.documentElement.style.setProperty('--vh', innerHeight / 100 + 'px'); }
+setVh();
+addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) setVh(); });
 (function () {
   var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ASSETS = document.documentElement.getAttribute('data-assets') || 'assets/';
@@ -260,13 +268,13 @@
       slides.forEach(function (s) { s.style.scrollMarginTop = m; });
     }
     if (window.ResizeObserver) { var cxRO = new ResizeObserver(fitTrack); slides.forEach(function (s) { cxRO.observe(s); }); }
-    addEventListener('resize', fitTrack);
+    onWidth(fitTrack);
     tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
     cxNav.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }
       if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
     });
-    addEventListener('resize', function () { moveInk(tabs[cur]); });
+    onWidth(function () { moveInk(tabs[cur]); });
     /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов */
     var cxSlider = document.getElementById('complexSlider');
     if (cxSlider) {
@@ -494,7 +502,7 @@
     drum.addEventListener('pointerdown', function (e) { p0 = { x: e.clientX, y: e.clientY }; });
     addEventListener('pointerup', function (e) { if (!p0) return; var d = horizontal() ? e.clientX - p0.x : e.clientY - p0.y; p0 = null; if (Math.abs(d) > 24) go(d < 0 ? 1 : -1); });
     drum.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
-    addEventListener('resize', renderTrack);
+    onWidth(renderTrack);
   })();
 
   /* лайтбокс «галерея проекта»: клик по любому фото в коллаже или ленте комплекса
@@ -935,7 +943,22 @@
   var galleries = [].slice.call(document.querySelectorAll('.complex__gallery'));
   galleries.forEach(layoutGallery);
   var galT;
-  window.addEventListener('resize', function () { clearTimeout(galT); galT = setTimeout(function () { galleries.forEach(layoutGallery); }, 150); });
+  onWidth(function () { clearTimeout(galT); galT = setTimeout(function () { galleries.forEach(layoutGallery); }, 150); });
+  // полоса под мобильной лентой: сколько пролистано
+  galleries.forEach(function (g) {
+    var bar = document.createElement('div'), th = document.createElement('i'), raf = 0;
+    bar.className = 'gal-bar'; bar.setAttribute('aria-hidden', 'true'); bar.appendChild(th); g.parentNode.insertBefore(bar, g.nextSibling);
+    function upd() {
+      raf = 0;
+      var sw = g.scrollWidth, cw = g.clientWidth, bw = bar.clientWidth;
+      if (!bw) return;
+      bar.style.visibility = sw > cw + 1 ? '' : 'hidden';
+      var w = Math.max(48, bw * cw / sw), p = sw > cw ? g.scrollLeft / (sw - cw) : 0;
+      th.style.width = w + 'px'; th.style.transform = 'translateX(' + (bw - w) * Math.min(1, Math.max(0, p)) + 'px)';
+    }
+    g.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+    onWidth(upd); upd();
+  });
   document.querySelectorAll('.gal-more').forEach(function (btn) {
     var gallery = btn.closest('.container').querySelector('.complex__gallery');
     if (!gallery) return;
@@ -1271,7 +1294,7 @@
   var t; function later() { cancelAnimationFrame(t); t = requestAnimationFrame(fit); }
   window.__uscFit = later;
   fit(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  window.addEventListener('resize', later);
+  onWidth(later);
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); later(); };
 })();
 
