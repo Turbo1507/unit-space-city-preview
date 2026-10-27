@@ -4,7 +4,9 @@ window.I18N = {
   ru: {
  "foot.reach": "Связь",
  "foot.menu": "Меню",
- "foot.office_bali_a": "Jl Pantai Nyanyi 88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia",
+ "foot.office_bali_a": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia",
+ "foot.office_hq": "Головной офис",
+ "foot.office_hq_a": "Jl Pantai Nyanyi 88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia",
  "foot.office_bali": "Офис на&nbsp;Бали",
  "co.v4p": "Минимальный след на&nbsp;планете и&nbsp;уважение к&nbsp;экосистеме",
  "co.v4t": "Terra<i class='value-card__tr'>Экологичность</i>",
@@ -424,7 +426,9 @@ window.I18N = {
   en: {
  "foot.reach": "Get in&nbsp;touch",
  "foot.menu": "Menu",
- "foot.office_bali_a": "Jl Pantai Nyanyi 88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia",
+ "foot.office_bali_a": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia",
+ "foot.office_hq": "Head office",
+ "foot.office_hq_a": "Jl Pantai Nyanyi 88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia",
  "foot.office_bali": "Bali office",
  "co.v4p": "A&nbsp;minimal footprint on the&nbsp;planet and&nbsp;respect for the&nbsp;ecosystem",
  "co.v4t": "Terra",
