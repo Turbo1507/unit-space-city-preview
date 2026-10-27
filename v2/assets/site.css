@@ -1481,3 +1481,18 @@ i.u5,i.ul{font-style:normal}
   .complex .stat-card__value .stat-card__word{font-size:var(--fs-cap);font-weight:400;letter-spacing:0;margin-right:4px}
   .complex .stat-grid .stat-card .cx-uk{font-size:var(--fs-h3)}
 }
+
+/* хиро, блок 2, комплексы, форматы */
+.hero__badge{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);border-radius:var(--r-s)}
+.ab-l{display:block;font-style:normal}
+i,em{font-style:normal}
+@media (min-width:761px){ .complex-nav button{flex:1 1 0;justify-content:center;text-align:center} }
+.fmt-card{grid-template-rows:auto 1fr}
+.fmt-card__body{display:flex;flex-direction:column}
+.fmt-card__foot{margin-top:auto}
+@media (min-width:1201px){ .ab-col > .ab-card--blue{justify-content:flex-start} }
+@media (min-width:761px) and (max-width:1200px){ .ab-card--photo > div{padding:var(--s3) var(--s4) var(--s4)} }
+@media (max-width:760px){ .ab-card--photo > div{padding-top:var(--s2)} }
+@media (max-width:1200px){ .ab-card--photo{gap:0} }
+.ab-card--photo > div,.ab-card:not(.ab-card--blue):not(.ab-card--photo){gap:12px}
+[data-unit-field="desc"]{max-width:110ch}

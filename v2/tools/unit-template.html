@@ -103,8 +103,8 @@
     <div class="unit-top">
     <div class="unit-head">
       <div>
-        <h1><span data-unit-field="name">{{NAME}}</span> <b>{{AREA}}&nbsp;<span data-unit-field="m2">м²</span></b></h1>
-        <p class="t-lead">{{CODE}} — {{CXNAME}}, <span data-unit-field="floor">{{FLOOR}}</span></p>
+        <h1><span data-unit-field="name">{{NAME}}</span> <b>{{AREA}} <span data-unit-field="m2">м²</span></b></h1>
+        <p class="t-lead">{{CODE}}&nbsp;— {{CXNAME}}, <span data-unit-field="floor">{{FLOOR}}</span></p>
       </div>
       <div class="unit-head__price">
         <span class="unit-price" data-unit-field="price">{{PRICE}}</span>
@@ -132,7 +132,7 @@
         <p class="t-lead" style="margin-top:var(--s2)" data-unit-field="desc">{{DESC}}</p>
         <div class="card" style="margin-top:var(--s3)">
           <div class="leaders">
-            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span data-i18n="unit.complex">Комплекс</span></span><b>{{CODE}} — {{CXNAME}}</b></div>
+            <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-map-pin"/></svg><span data-i18n="unit.complex">Комплекс</span></span><b>{{CODE}}&nbsp;— {{CXNAME}}</b></div>
             <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-circle-check"/></svg><span data-i18n="unit.status">Статус</span></span><b data-unit-field="status">{{STATUS}}</b></div>
             <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layout-grid"/></svg><span data-i18n="unit.area">Площадь</span></span><b>{{AREA}} <span data-unit-field="m2">м²</span></b></div>
             <div><span class="lbl"><svg class="ic" aria-hidden="true"><use href="#i-layers-2"/></svg><span data-i18n="unit.floor">Этаж</span></span><b data-unit-field="floor">{{FLOOR}}</b></div>
@@ -148,7 +148,7 @@
 
     <div class="avail" id="avail" style="margin-top:var(--sy)">
       <h3 class="t-h3" data-i18n="avail.title">Наличие</h3>
-      <p class="t-lead" style="margin-top:var(--s2)" data-i18n="avail.lead">Свободные виллы этого формата. Наличие и цены обновляются каждый час</p>
+      <p class="t-lead" style="margin-top:var(--s2)" data-i18n="avail.lead">Свободные виллы этого формата. Наличие и&nbsp;цены обновляются каждый час</p>
       <div class="avail__tabs" aria-label="Комплексы" data-i18n-aria="avail.tabs"></div>
       <div class="avail__grid" aria-live="polite"></div>
     </div>
@@ -170,7 +170,7 @@
             <div><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
           </div>
         </div>
-        <p class="calc__note t-small dim" data-i18n="calc.note">Без учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под вашу виллу пришлём по&nbsp;запросу</p>
+        <p class="calc__note t-small dim" data-i18n="calc.note">Без&nbsp;учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под&nbsp;вашу виллу пришлём по&nbsp;запросу</p>
       </div>
     </div>
   </section>
@@ -179,8 +179,8 @@
     <div class="container">
       <div class="final-cta__split">
         <div class="rv">
-          <h2 class="t-h2" data-i18n="unit.cta">Спросить про эту виллу</h2>
-          <p class="t-lead" data-i18n="lead.lead">Оставьте контакты: подберём виллы под ваш бюджет и&nbsp;посчитаем доходность</p>
+          <h2 class="t-h2" data-i18n="unit.cta">Спросить про&nbsp;эту виллу</h2>
+          <p class="t-lead" data-i18n="lead.lead">Оставьте контакты: подберём виллы под&nbsp;ваш бюджет и&nbsp;посчитаем доходность</p>
           <div class="final-cta__contacts">
             <a href="mailto:hello@unit.now" class="btn btn-outline btn-sm"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hello@unit.now</a>
             <a href="https://wa.me/628133917731" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><svg class="ic" aria-hidden="true"><use href="#i-message-circle"/></svg>WhatsApp</a>
@@ -189,7 +189,7 @@
         <div class="lead-panel rv">
           <form class="lead-form" id="leadForm" novalidate onsubmit="return false">
             <h3 class="t-h3" data-i18n="form.title">Оставить заявку</h3>
-            <p class="lead-form__consent" data-i18n="form.consent">Отправляя форму, вы соглашаетесь на&nbsp;обработку персональных данных и&nbsp;использование cookie согласно&nbsp;<a href="../privacy.html">политике конфиденциальности</a></p>
+            <p class="lead-form__consent" data-i18n="form.consent">Отправляя форму, вы&nbsp;соглашаетесь на&nbsp;обработку персональных данных и&nbsp;использование cookie согласно <a href="../privacy.html">политике конфиденциальности</a></p>
             <div class="field"><label for="f-name" class="dim" data-i18n="form.name">Имя</label><input id="f-name" type="text" autocomplete="name"></div>
             <div class="field"><label for="f-phone" class="dim" data-i18n="form.phone">Телефон / WhatsApp</label>
               <div class="lead-form__phone"><select id="f-cc" name="cc" aria-label="Код страны" data-i18n-aria="form.cc_aria"><option value="62" data-iso="ID" selected>ID +62</option></select><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national"></div>
@@ -228,15 +228,15 @@
         <a href="mailto:hello@unit.now" aria-label="Email"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg></a>
       </div>
     </div>
-    <div><h3 data-i18n="nav.complexes">Комплексы</h3><ul><li><a href="../index.html#cx-u1">U1 Space Village</a></li><li><a href="../index.html#cx-u2">U2 Nuanu Village</a></li><li><a href="../index.html#cx-u3">U3 Nyanyi Village</a></li></ul></div>
+    <div><h3 data-i18n="nav.complexes">Комплексы</h3><ul><li><a href="../index.html#cx-u1">U1&nbsp;Space Village</a></li><li><a href="../index.html#cx-u2">U2&nbsp;Nuanu Village</a></li><li><a href="../index.html#cx-u3">U3&nbsp;Nyanyi Village</a></li></ul></div>
     <div><h3 data-i18n="foot.sections">Разделы</h3><ul><li><a href="../index.html#plans" data-i18n="nav.catalog">Виллы</a></li><li><a href="../index.html#yield" data-i18n="nav.yield">Доходность</a></li><li><a href="../index.html#location" data-i18n="nav.location">Локация</a></li><li><a href="../index.html#company" data-i18n="nav.company">О&nbsp;компании</a></li></ul></div>
     <div><h3 data-i18n="foot.contacts">Контакты</h3><ul><li><a href="https://wa.me/628133917731" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:hello@unit.now">hello@unit.now</a></li><li><a href="#lead" data-i18n="nav.cta">Подобрать виллу</a></li></ul></div>
-    <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и&nbsp;не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальную шахматку пришлём по&nbsp;запросу</p>
+    <p class="disclaimer" data-i18n="foot.disc">Материалы носят информационный характер и не&nbsp;являются публичной офертой. Визуализации, планировки и&nbsp;цифры могут отличаться от&nbsp;готового объекта. Юнит-микс предварительный, актуальную шахматку пришлём по&nbsp;запросу</p>
   </div>
   <div class="container footer-bottom">
-    <span>Made by <i class="u5">UNIT.</i> team</span>
-    <span class="bali-clock" id="baliClock" aria-hidden="true"><span class="bali-clock__place">Nuanu, Bali — <b id="baliTime">--:--</b> WITA</span><span id="baliWeatherWrap"><span class="footer-bottom__sep">/</span><b id="baliTemp"></b></span></span>
-    <span>© 2026 unit.now<span class="footer-bottom__sep">/</span><a href="../privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a></span>
+    <span>Made by&nbsp;<i class="u5">UNIT.</i> team</span>
+    <span class="bali-clock" id="baliClock" aria-hidden="true"><span class="bali-clock__place">Nuanu, Bali&nbsp;— <b id="baliTime">--:--</b> WITA</span><span id="baliWeatherWrap"><span class="footer-bottom__sep">/</span><b id="baliTemp"></b></span></span>
+    <span>© 2026&nbsp;unit.now<span class="footer-bottom__sep">/</span><a href="../privacy.html" data-i18n="foot.privacy">Политика конфиденциальности</a></span>
   </div>
 </footer>
 

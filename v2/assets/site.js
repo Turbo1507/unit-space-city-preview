@@ -371,7 +371,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       if (!unit) return;
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
-      document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.textContent = f[k]; });
+      document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.innerHTML = f[k]; });
       document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
@@ -714,7 +714,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var field = input.closest('.field'), id = input.id + '-err', p = document.getElementById(id);
       if (!key) { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); if (p) p.remove(); return; }
       if (!p) { p = document.createElement('p'); p.id = id; p.className = 'field__err'; p.setAttribute('aria-live', 'polite'); field.appendChild(p); }
-      p.setAttribute('data-i18n', key); p.textContent = D()[key] || '';
+      p.setAttribute('data-i18n', key); p.innerHTML = D()[key] || '';
       input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id);
     }
     function check() {
@@ -733,7 +733,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       sending = false; lfBtn.disabled = false; lfBtn.removeAttribute('aria-busy'); lfBtn.textContent = D()['form.submit'] || lfBtn.textContent;
       var p = document.getElementById('lf-fail');
       if (!p) { p = document.createElement('p'); p.id = 'lf-fail'; p.className = 'field__err'; p.setAttribute('aria-live', 'polite'); lfBtn.insertAdjacentElement('afterend', p); }
-      p.setAttribute('data-i18n', 'form.fail'); p.textContent = D()['form.fail'] || '';
+      p.setAttribute('data-i18n', 'form.fail'); p.innerHTML = D()['form.fail'] || '';
     }
     leadForm.addEventListener('submit', function (e) {
       e.preventDefault(); tried = true;
@@ -1030,7 +1030,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       /* цена ниже порога даёт бессмысленные тысячи процентов: показываем подсказку, доходность не считаем */
       var low = price < MIN_PRICE, err = document.getElementById('c-price-err');
       if (low && !err) { err = document.createElement('p'); err.id = 'c-price-err'; err.className = 'field__err'; err.setAttribute('aria-live', 'polite'); priceEl.closest('.field').appendChild(err); }
-      if (low) { err.textContent = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err'); }
+      if (low) { err.innerHTML = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err'); }
       else if (err) { err.remove(); priceEl.removeAttribute('aria-invalid'); priceEl.removeAttribute('aria-describedby'); }
       document.getElementById('o-roi').textContent = !low ? (net / price * 100).toFixed(1) + '%' : '—';
     }
