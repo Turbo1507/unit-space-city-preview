@@ -1690,10 +1690,10 @@ i,em{font-style:normal}
 }
 
 /* вариант доходности: УК вертикально слева, калькулятор справа */
-#calcPickerBtn-b b{font-weight:500}
-#calcPickerBtn-b{justify-content:space-between;text-align:left}
-#calcPickerBtn-b[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
-@media (max-width:760px){ #calcPickerBtn-b{width:100%;--h:56px;padding-block:8px} #calcPickerBtn-b b{font-size:var(--fs-body)} }
+#calcPickerBtn b{font-weight:500}
+#calcPickerBtn{justify-content:space-between;text-align:left}
+#calcPickerBtn[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
+@media (max-width:760px){ #calcPickerBtn{width:100%;--h:56px;padding-block:8px} #calcPickerBtn b{font-size:var(--fs-body)} }
 .yb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s2);align-items:stretch}
 /* калькулятор в колонке: поля, итог, сноска друг под другом, сноска прижата вниз */
 .yb-grid .calc{margin:0;grid-template-columns:1fr;grid-template-rows:auto 1fr auto auto;align-content:stretch;gap:var(--s4);padding:var(--s4)}
@@ -1712,14 +1712,14 @@ i,em{font-style:normal}
 .yb-grid .calc input{background:#fff;border-color:#fff;color:var(--ink)}
 .yb-grid .calc input:disabled{opacity:1;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
 .yb-grid .calc input:focus{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.45)}
-.yb-grid #calcPickerBtn-b{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
+.yb-grid #calcPickerBtn{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
 .yb-grid .calc .calc__out{border-top-color:rgba(255,255,255,.3)}
 .yb-grid .calc__roi b,.yb-grid .calc__rows b{color:#fff}
 .yb-grid .calc__rows > div::after{opacity:.4}
 .yb-grid .calc__cta .btn{background:#fff;color:var(--blue)}
 .yb-grid .calc .field__err{color:#fff;opacity:1}
 .yb-grid .calc input[aria-invalid="true"]{border-color:#ffb3b3;box-shadow:0 0 0 2px #ffb3b3}
-@media (hover:hover){ .yb-grid #calcPickerBtn-b:hover{color:#fff;background:rgba(255,255,255,.1)} .yb-grid .calc__cta .btn:hover{background:var(--blue-050)} }
+@media (hover:hover){ .yb-grid #calcPickerBtn:hover{color:#fff;background:rgba(255,255,255,.1)} .yb-grid .calc__cta .btn:hover{background:var(--blue-050)} }
 .yb-grid .fmt-card__foot{flex-wrap:wrap;column-gap:var(--s2);row-gap:4px}
 /* на широких итог крупнее: калькулятор по высоте равен карточке, пустоты меньше */
 @media (min-width:1101px){ .yb-grid .calc__roi b{font-size:clamp(64px,6.4vw,124px)} .yb-grid .calc__rows{font-size:var(--fs-sub)} }

@@ -818,12 +818,13 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
 
   /* мини-галерея в карточках «Форматы вилл»: 5 кадров формата, стрелки-эталон, точки, свайп;
      клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее */
-  document.querySelectorAll('.fmt-card__gal[data-mg]').forEach(function (gal) {
+  document.querySelectorAll('.fmt-card__gal[data-mg], .fmt-card__gal[data-mg-list]').forEach(function (gal) {
     var u = (window.USC_UNITS || []).filter(function (x) { return x.slug === gal.getAttribute('data-mg'); })[0];
     var link = gal.querySelector('.fmt-card__media'), cover = link && link.querySelector('picture');
-    if (!u || !cover) return;
+    var own = gal.getAttribute('data-mg-list');
+    if ((!u && !own) || !cover) return;
     var src0 = (cover.querySelector('img').getAttribute('src').match(/([\w-]+)\.jpg$/) || [])[1];
-    var list = [src0].concat(u.photos.filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
+    var list = [src0].concat((own ? own.split(',') : u.photos).filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
     var alt = cover.querySelector('img').getAttribute('alt') || '', setDot = dots(gal.querySelector('.dots'), n); setDot(0);
     function pic(k) {
       if (pics[k]) return pics[k];
@@ -998,22 +999,22 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     });
   });
 
-  /* калькулятор */
-  if (document.getElementById('c-price')) {
+  /* калькулятор; S — суффикс id второго экземпляра на странице */
+  function initCalc(S) {
     function money(n) {
       if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
       return '$' + Math.round(n).toLocaleString(document.documentElement.lang === 'ru' ? 'ru-RU' : 'en-US');
     }
     /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
        текущую валюту (в IDR-режиме поля молчком оставались в $) */
-    var priceEl = document.getElementById('c-price'), rateEl = document.getElementById('c-rate');
+    var priceEl = document.getElementById('c-price' + S), rateEl = document.getElementById('c-rate' + S);
     var MIN_PRICE = 50000; /* USD; самый дешёвый лот в таблице сейчас $95 000 */
     priceEl.dataset.usd = priceEl.value;
     rateEl.dataset.usd = rateEl.value;
     function val(id) {
       if (id === 'c-price') return +priceEl.dataset.usd || 0;
       if (id === 'c-rate') return +rateEl.dataset.usd || 0;
-      return +document.getElementById(id).value || 0;
+      return +document.getElementById(id + S).value || 0;
     }
     function syncCcyDisplay() {
       var idr = window.__uscCcy === 'idr', fx = window.__uscFx;
@@ -1025,25 +1026,26 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     function calc() {
       var price = val('c-price'), rate = val('c-rate'), occ = (+val('c-occ')) / 100, mgmt = (+val('c-mgmt')) / 100;
       var gross = rate * 365 * occ, net = gross * (1 - mgmt);
-      document.getElementById('o-gross').textContent = money(gross);
-      document.getElementById('o-net').textContent = money(net);
+      document.getElementById('o-gross' + S).textContent = money(gross);
+      document.getElementById('o-net' + S).textContent = money(net);
       /* цена ниже порога даёт бессмысленные тысячи процентов: показываем подсказку, доходность не считаем */
-      var low = price < MIN_PRICE, err = document.getElementById('c-price-err');
-      if (low && !err) { err = document.createElement('p'); err.id = 'c-price-err'; err.className = 'field__err'; err.setAttribute('aria-live', 'polite'); priceEl.closest('.field').appendChild(err); }
-      if (low) { err.innerHTML = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err'); }
+      var low = price < MIN_PRICE, err = document.getElementById('c-price-err' + S);
+      if (low && !err) { err = document.createElement('p'); err.id = 'c-price-err' + S; err.className = 'field__err'; err.setAttribute('aria-live', 'polite'); priceEl.closest('.field').appendChild(err); }
+      if (low) { err.innerHTML = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err' + S); }
       else if (err) { err.remove(); priceEl.removeAttribute('aria-invalid'); priceEl.removeAttribute('aria-describedby'); }
-      document.getElementById('o-roi').textContent = !low ? (net / price * 100).toFixed(1) + '%' : '—';
+      document.getElementById('o-roi' + S).textContent = !low ? (net / price * 100).toFixed(1) + '%' : '—';
     }
     priceEl.addEventListener('input', function () {
       priceEl.dataset.usd = window.__uscCcy === 'idr' ? (+priceEl.value / window.__uscFx) : priceEl.value;
       calc();
     });
-    ['c-occ', 'c-mgmt'].forEach(function (id) { document.getElementById(id).addEventListener('input', calc); });
-    window.__uscCalcRefresh = function () { syncCcyDisplay(); calc(); };
+    ['c-occ', 'c-mgmt'].forEach(function (id) { document.getElementById(id + S).addEventListener('input', calc); });
+    var prev = window.__uscCalcRefresh;
+    window.__uscCalcRefresh = function () { if (prev) prev(); syncCcyDisplay(); calc(); };
     syncCcyDisplay();
     calc();
     /* «Выбрать тип виллы» — подставляет цену формата в калькулятор */
-    var pickerBtn = document.getElementById('calcPickerBtn'), pickerPanel = document.getElementById('calcPickerPanel');
+    var pickerBtn = document.getElementById('calcPickerBtn' + S), pickerPanel = document.getElementById('calcPickerPanel' + S);
     if (pickerBtn && pickerPanel) {
       pickerBtn.addEventListener('click', function () {
         var open = pickerPanel.hidden;
@@ -1056,9 +1058,9 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
           var rate = btn.getAttribute('data-rate');
           if (rate) rateEl.dataset.usd = rate;
           var occ = btn.getAttribute('data-occ');
-          if (occ) document.getElementById('c-occ').value = occ;
+          if (occ) document.getElementById('c-occ' + S).value = occ;
           var mgmt = btn.getAttribute('data-mgmt');
-          if (mgmt) document.getElementById('c-mgmt').value = mgmt;
+          if (mgmt) document.getElementById('c-mgmt' + S).value = mgmt;
           syncCcyDisplay();
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
@@ -1070,10 +1072,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         });
       });
       document.addEventListener('click', function (e) {
-        if (!pickerPanel.hidden && !e.target.closest('.calc__picker')) { pickerPanel.hidden = true; pickerBtn.setAttribute('aria-expanded', 'false'); }
+        if (!pickerPanel.hidden && !pickerBtn.parentNode.contains(e.target)) { pickerPanel.hidden = true; pickerBtn.setAttribute('aria-expanded', 'false'); }
       });
     }
   }
+  if (document.getElementById('c-price')) initCalc('');
   /* липкая кнопка заявки ≤1000px 
      видна, когда хиро ушёл вверх, а форма и футер ещё не на экране; не спорит с баннером cookie */
   (function () {

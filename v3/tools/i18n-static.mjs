@@ -52,6 +52,14 @@ export function redirectStub(to) {
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
 const ATTR = {
+'Башня и корпуса Nuanu над пляжем на закате': 'Nuanu tower and buildings above the beach at sunset',
+  'Виллы U1 Space Village': 'U1 Space Village villas',
+  'Гостиная виллы 2+1 в U2': 'Living room of a 2+1 villa in U2',
+  'Корпус U2 Nuanu Village': 'U2 Nuanu Village building',
+  'Побережье Nuanu Creative City с высоты': 'Nuanu Creative City coastline from above',
+  'Рисовые поля с балкона виллы U2': 'Rice fields from a U2 villa balcony',
+  'Спальня с видом на рисовые поля': 'Bedroom with a view of rice fields',
+  'Храм Танах Лот на закате': 'Tanah Lot temple at sunset',
   'Степан Федосеев': 'Stepan Fedoseev',
   'Анна Орлова': 'Anna Orlova',
   'Сергей Солонин': 'Sergey Solonin',

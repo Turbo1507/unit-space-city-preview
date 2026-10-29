@@ -23,3 +23,9 @@
 - place-band-nuanu-2: https://admin.cockpit.nuanu.com/assets/dd152fe2-9224-41ab-b037-56f02652ba42.webp (nuanu.com, партнёры)
 - place-band-tanah: Wikimedia Commons, Pura tanah lot sunset no1.jpg (public domain)
 - place-band-rice: Wikimedia Commons, Terraced field in Canggu.jpg (CC0)
+
+# Фото-бандо у локации, замена 30.10 (Босс: качество, без случайных людей)
+- place-band2-nuanu: nuanu.com, аэросъёмка побережья (партнёры)
+- place-band2-sunset: nuanu.com (cockpit 6cbe8b92, 2250×1685), башня и корпуса над пляжем на закате (партнёры)
+- place-band2-tanah: Wikimedia Commons, Tanah Lot, Indonesien (Unsplash).jpg (CC0) https://commons.wikimedia.org/wiki/File:Tanah_Lot,_Indonesien_(Unsplash).jpg
+- place-band2-balcony: своё фото, U2 вилла 2+1, балкон с видом на рисовые поля (= u2-2bd-14)

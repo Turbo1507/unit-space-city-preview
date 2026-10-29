@@ -28,4 +28,4 @@
 - place-band2-nuanu: nuanu.com, аэросъёмка побережья (партнёры)
 - place-band2-sunset: nuanu.com (cockpit 6cbe8b92, 2250×1685), башня и корпуса над пляжем на закате (партнёры)
 - place-band2-tanah: Wikimedia Commons, Tanah Lot, Indonesien (Unsplash).jpg (CC0) https://commons.wikimedia.org/wiki/File:Tanah_Lot,_Indonesien_(Unsplash).jpg
-- place-band2-rice: Wikimedia Commons, Rice field in Bali 3.jpg (CC0) https://commons.wikimedia.org/wiki/File:Rice_field_in_Bali_3.jpg
+- place-band2-balcony: своё фото, U2 вилла 2+1, балкон с видом на рисовые поля (= u2-2bd-14)

@@ -53,6 +53,8 @@ table{border-collapse:collapse}
 main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .sect{padding-block:var(--sy)}
 .sect--alt{background:var(--white)}
+/* две секции одного фона подряд: иначе отступы складываются вдвое */
+.sect.sect--alt + .sect.sect--alt{padding-top:0}
 .dim{opacity:var(--dim)}
 
 /* typography */
@@ -646,7 +648,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2);align-content:start}
-.calc .field{display:grid;gap:var(--s1);align-content:start}
+/* подпись в соседней колонке может уйти на 2 строки: поля прижимаем к низу, чтобы стояли на одном уровне */
+.calc .field{display:grid;gap:var(--s1);align-content:end}
 .calc label{font-size:var(--fs-cap)}
 .calc input{min-width:0;width:100%;height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
 .sect--alt .calc input{background:var(--white)}
@@ -1685,3 +1688,57 @@ i,em{font-style:normal}
   .ym-card .ym-card__ph{order:-1}
   .ym-card .ym-card__txt{padding:var(--s3) var(--s2) var(--s3);gap:var(--s2)}
 }
+
+/* вариант доходности: УК вертикально слева, калькулятор справа */
+#calcPickerBtn b{font-weight:500}
+#calcPickerBtn{justify-content:space-between;text-align:left}
+#calcPickerBtn[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
+@media (max-width:760px){ #calcPickerBtn{width:100%;--h:56px;padding-block:8px} #calcPickerBtn b{font-size:var(--fs-body)} }
+.yb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s2);align-items:stretch}
+/* калькулятор в колонке: поля, итог, сноска друг под другом, сноска прижата вниз */
+.yb-grid .calc{margin:0;grid-template-columns:1fr;grid-template-rows:auto 1fr auto auto;align-content:stretch;gap:var(--s4);padding:var(--s4)}
+.yb-grid .calc .calc__inputs{grid-row:auto;grid-template-rows:none}
+.yb-grid .calc .calc__out{grid-row:auto;grid-template-rows:none;align-content:start;padding-top:var(--s3);border-top:1px solid var(--line-2)}
+.yb-grid .calc .calc__out{align-self:center}
+.yb-grid .calc__cta{align-self:end}
+.yb-grid .calc__note{margin-top:calc(var(--s2) - var(--s4))}
+@media (max-width:760px){ .yb-grid .calc__cta .btn{width:100%} .yb-grid .calc__note{margin-top:calc(var(--s2) - var(--s3))} }
+@media (max-width:1100px){ .yb-grid .calc{padding:var(--s3)} }
+@media (max-width:800px){ .yb-grid{grid-template-columns:1fr} }
+@media (max-width:760px){ .yb-grid .calc{padding:var(--s2);gap:var(--s3)} }
+/* синий калькулятор рядом с карточкой УК: белые поля, итог белым */
+.yb-grid .calc{background:var(--blue);color:#fff}
+.yb-grid .calc label,.yb-grid .calc .dim{opacity:.78}
+.yb-grid .calc input{background:#fff;border-color:#fff;color:var(--ink)}
+.yb-grid .calc input:disabled{opacity:1;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+.yb-grid .calc input:focus{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.45)}
+.yb-grid #calcPickerBtn{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
+.yb-grid .calc .calc__out{border-top-color:rgba(255,255,255,.3)}
+.yb-grid .calc__roi b,.yb-grid .calc__rows b{color:#fff}
+.yb-grid .calc__rows > div::after{opacity:.4}
+.yb-grid .calc__cta .btn{background:#fff;color:var(--blue)}
+.yb-grid .calc .field__err{color:#fff;opacity:1}
+.yb-grid .calc input[aria-invalid="true"]{border-color:#ffb3b3;box-shadow:0 0 0 2px #ffb3b3}
+@media (hover:hover){ .yb-grid #calcPickerBtn:hover{color:#fff;background:rgba(255,255,255,.1)} .yb-grid .calc__cta .btn:hover{background:var(--blue-050)} }
+.yb-grid .fmt-card__foot{flex-wrap:wrap;column-gap:var(--s2);row-gap:4px}
+/* на широких итог крупнее: калькулятор по высоте равен карточке, пустоты меньше */
+@media (min-width:1101px){ .yb-grid .calc__roi b{font-size:clamp(64px,6.4vw,124px)} .yb-grid .calc__rows{font-size:var(--fs-sub)} }
+@media (min-width:1600px){ .yb-grid .calc input{height:56px} .yb-grid .calc{gap:var(--s5)} }
+/* вёрстка текстов: без одиноких слов в последней строке, заголовки ровными строками, подзаголовки не уже: правило «не больше 2 строк» важнее */
+main p,main li,main dd,.faq-a p,.fmt-card__rows b{text-wrap:pretty}
+main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaption,.co-card__sub{text-wrap:balance}
+.faq-a p{max-width:66ch}
+/* основной текст под заголовком тёмный, серый только для второстепенного */
+.sect-text,.ab-text{color:var(--ink)}
+/* заголовок формы: шире колонка, чтобы не 5 строк */
+@media (min-width:1101px){ .final-cta__split{grid-template-columns:minmax(0,6fr) minmax(0,6fr)} }
+/* цитата на мобиле: мельче и свободнее, иначе 14 строк капсом */
+@media (max-width:760px){ .quote p{font-size:19px;line-height:1.35} }
+/* итог калькулятора — белая карточка внутри синего, без линии-разделителя */
+.yb-grid .calc .calc__out{border-top:0;padding:var(--s3);background:#fff;color:var(--ink);border-radius:var(--r-s)}
+.yb-grid .calc .calc__out .dim{opacity:var(--dim)}
+.yb-grid .calc__roi b,.yb-grid .calc__rows b{color:var(--blue)}
+.yb-grid .calc__rows > div::after{opacity:.25}
+@media (max-width:760px){ .yb-grid .calc .calc__out{padding:var(--s2)} }
+/* плавающая кнопка: тень, чтобы не сливалась с синими блоками под ней */
+@media (max-width:1000px){ .m-cta{box-shadow:0 10px 28px rgba(10,11,13,.32),0 2px 8px rgba(10,11,13,.22)} }

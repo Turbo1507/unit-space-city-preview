@@ -1077,7 +1077,6 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     }
   }
   if (document.getElementById('c-price')) initCalc('');
-  if (document.getElementById('c-price-b')) initCalc('-b');
   /* липкая кнопка заявки ≤1000px 
      видна, когда хиро ушёл вверх, а форма и футер ещё не на экране; не спорит с баннером cookie */
   (function () {
