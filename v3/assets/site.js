@@ -818,12 +818,13 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
 
   /* мини-галерея в карточках «Форматы вилл»: 5 кадров формата, стрелки-эталон, точки, свайп;
      клик по кадру ведёт на страницу формата. Кадры создаются при первом показе карточки, соседний грузится заранее */
-  document.querySelectorAll('.fmt-card__gal[data-mg]').forEach(function (gal) {
+  document.querySelectorAll('.fmt-card__gal[data-mg], .fmt-card__gal[data-mg-list]').forEach(function (gal) {
     var u = (window.USC_UNITS || []).filter(function (x) { return x.slug === gal.getAttribute('data-mg'); })[0];
     var link = gal.querySelector('.fmt-card__media'), cover = link && link.querySelector('picture');
-    if (!u || !cover) return;
+    var own = gal.getAttribute('data-mg-list');
+    if ((!u && !own) || !cover) return;
     var src0 = (cover.querySelector('img').getAttribute('src').match(/([\w-]+)\.jpg$/) || [])[1];
-    var list = [src0].concat(u.photos.filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
+    var list = [src0].concat((own ? own.split(',') : u.photos).filter(function (p) { return p !== src0; })).slice(0, 5), n = list.length, i = 0, pics = [cover];
     var alt = cover.querySelector('img').getAttribute('alt') || '', setDot = dots(gal.querySelector('.dots'), n); setDot(0);
     function pic(k) {
       if (pics[k]) return pics[k];
