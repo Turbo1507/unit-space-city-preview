@@ -26,6 +26,6 @@
 
 # Фото-бандо у локации, замена 30.10 (Босс: качество, без случайных людей)
 - place-band2-nuanu: nuanu.com, аэросъёмка побережья (партнёры)
-- place-band2-arch: nuanu.com, бамбуковая башня (партнёры)
+- place-band2-sunset: nuanu.com (cockpit 6cbe8b92, 2250×1685), башня и корпуса над пляжем на закате (партнёры)
 - place-band2-tanah: Wikimedia Commons, Tanah Lot, Indonesien (Unsplash).jpg (CC0) https://commons.wikimedia.org/wiki/File:Tanah_Lot,_Indonesien_(Unsplash).jpg
 - place-band2-rice: Wikimedia Commons, Rice field in Bali 3.jpg (CC0) https://commons.wikimedia.org/wiki/File:Rice_field_in_Bali_3.jpg

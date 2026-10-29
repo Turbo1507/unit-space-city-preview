@@ -53,6 +53,8 @@ table{border-collapse:collapse}
 main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .sect{padding-block:var(--sy)}
 .sect--alt{background:var(--white)}
+/* две секции одного фона подряд: иначе отступы складываются вдвое */
+.sect.sect--alt + .sect.sect--alt{padding-top:0}
 .dim{opacity:var(--dim)}
 
 /* typography */
