@@ -1102,9 +1102,12 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     if (!box || !('IntersectionObserver' in window)) return;
     var LIB = 'https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.';
     var HIDE = /label_village|label_town|label_city|label_state|poi|building|housenumber|aeroway|airport|railway|boundary|shield|label_other|highway_path|highway-name-(path|minor)|waterway_line_label|park|landcover|landuse/;
+    // старая картинка-заглушка только если живая карта не поднялась
+    function fail() { box.classList.add('is-fallback'); }
     function start() {
       var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = LIB + 'css'; document.head.appendChild(css);
-      var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; document.head.appendChild(js);
+      var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; js.onerror = fail; document.head.appendChild(js);
+      setTimeout(function () { if (!box.classList.contains('is-live')) fail(); }, 8000);
     }
     /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж и Tanah Lot — по привязке locmap.svg,
        Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
@@ -1238,7 +1241,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         map.once('idle', function () { setTimeout(function () { pops.forEach(function (f) { f(); }); }, 800); });
       });
     }
-    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '1500px 0px' });
     io.observe(box);
   })();
 })();

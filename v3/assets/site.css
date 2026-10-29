@@ -1637,3 +1637,7 @@ i,em{font-style:normal}
 .quote::after{content:"";position:absolute;right:var(--s6);bottom:-22px;width:190px;height:180px;background:url(quote.svg) no-repeat center/contain;pointer-events:none}
 .quote blockquote,.quote figcaption{position:relative;z-index:1}
 @media (max-width:760px){ .quote::after{right:var(--s3);bottom:-11px;width:96px;height:91px} }
+
+/* карта: пока грузится живая, ровный фон её цвета, без старой картинки */
+.location-map__box{background:#ECECEA}
+.js .location-map__box:not(.is-fallback) .location-map__img{visibility:hidden}
