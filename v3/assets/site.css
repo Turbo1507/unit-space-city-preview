@@ -648,7 +648,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:clamp(24px,3vw,40px)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2);align-content:start}
-.calc .field{display:grid;gap:var(--s1);align-content:start}
+/* подпись в соседней колонке может уйти на 2 строки: поля прижимаем к низу, чтобы стояли на одном уровне */
+.calc .field{display:grid;gap:var(--s1);align-content:end}
 .calc label{font-size:var(--fs-cap)}
 .calc input{min-width:0;width:100%;height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
 .sect--alt .calc input{background:var(--white)}
