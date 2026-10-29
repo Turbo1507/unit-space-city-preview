@@ -1674,3 +1674,14 @@ i,em{font-style:normal}
   #location .stat-card__label{font-size:13px;letter-spacing:-.01em}
   html[lang=en] [data-i18n="co.q"]{font-size:21px}
 }
+/* карточка УК: подпись над заголовком, заголовок, текст; отступы по шкале, на мобиле фото сверху */
+.ym-card .ym-card__txt{display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5)}
+.ym-card .ym-card__head{display:flex;flex-direction:column;gap:var(--s1)}
+.ym-card .ym-card__sub{font-size:var(--fs-cap);line-height:1.3;color:var(--ink-2)}
+.ym-card .ym-card__t{line-height:1.1}
+.ym-card .ym-card__txt p{margin:0;max-width:44ch}
+@media (max-width:1100px){ .ym-card .ym-card__txt{padding:var(--s4)} }
+@media (max-width:760px){
+  .ym-card .ym-card__ph{order:-1}
+  .ym-card .ym-card__txt{padding:var(--s3) var(--s2) var(--s3);gap:var(--s2)}
+}
