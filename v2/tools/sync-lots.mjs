@@ -107,7 +107,7 @@ for (const f of Object.keys(agg)) {
   const a = agg[f];
   setKey(`price.${f}`, (v, lang) => priceTxt(a.min, lang));
   setKey(`fmt.${f}_w`, () => a.where);
-  setKey(`fmt.${f}_m`, (v) => a.where + v.slice(v.indexOf(NB + '—')));
+  setKey(`fmt.${f}_m`, (v) => a.where + ': ' + v.replace(/^.*?(?:: |\u00a0— )/, ''));
   setKey(`calc.pick_${f}`, (v, lang) => `${areaTxt(a, lang)} — ${priceTxt(a.min, lang)}`);
   if (!setKey(`fmt.${f}_a`, (v, lang) => areaTxt(a, lang))) {
     let n = 0;
