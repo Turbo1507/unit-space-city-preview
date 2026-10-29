@@ -1482,17 +1482,152 @@ i.u5,i.ul{font-style:normal}
   .complex .stat-grid .stat-card .cx-uk{font-size:var(--fs-h3)}
 }
 
-/* хиро, блок 2, комплексы, форматы */
-.hero__badge{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);border-radius:var(--r-s)}
+/* ===== v3: правки по доку «архитектура» ===== */
+/* заголовки капсом */
+.t-h2,.t-h3,main h3,main h4,.site-footer h2,.site-footer h3,.fmt-card__name,.complex__title,.team-card__name{text-transform:uppercase}
+.t-h2{letter-spacing:-.015em}
+/* плашка хиро: прозрачная, прямые углы */
+.hero__badge{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);border-radius:0}
+/* абзац блока 2: вторая фраза с новой строки */
 .ab-l{display:block;font-style:normal}
-i,em{font-style:normal}
+/* табы комплексов одной ширины */
 @media (min-width:761px){ .complex-nav button{flex:1 1 0;justify-content:center;text-align:center} }
+/* форматы: цена и кнопка на одной линии во всех карточках */
 .fmt-card{grid-template-rows:auto 1fr}
 .fmt-card__body{display:flex;flex-direction:column}
 .fmt-card__foot{margin-top:auto}
+/* локация: 6 расстояний сеткой, цифры мельче */
+.stat-grid--6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stat-grid--6 .stat-card{min-height:0;padding:var(--s2)}
+.stat-grid--6 .stat-card__value{font-size:var(--fs-title)}
+@media (max-width:1100px){ .stat-grid--6{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:520px){ .stat-grid--6{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.kv-chip span.kv-chip__v{opacity:1}
+.kv-chip span.kv-chip__sub{margin-top:4px;font-size:var(--fs-cap)}
+/* доходность: абзац под лидом и карточка УК */
+.sect-text{font-size:var(--fs-body);line-height:var(--lh-body);max-width:68ch;color:var(--ink-2)}
+.ym-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s3);align-items:start;background:var(--white);border-radius:var(--r);padding:var(--s4);margin-bottom:var(--s2)}
+.ym-card > div{display:grid;gap:4px}
+.ym-card__t{font-size:var(--fs-h3);font-weight:400;line-height:1.2;letter-spacing:-.02em}
+.ym-card__t i.ul{color:var(--blue)}
+.ym-card__sub{font-size:var(--fs-body);color:var(--ink-2)}
+.ym-card p{font-size:var(--fs-sub);line-height:var(--lh-sub)}
+@media (max-width:760px){ .ym-card{grid-template-columns:1fr;padding:var(--s2);gap:var(--s2)} .ym-card p{font-size:var(--fs-body);line-height:var(--lh-card)} }
+/* дочерние компании: фото сверху, текст снизу */
+.co-card{grid-template-rows:auto auto auto 1fr}
+.co-card__photo{order:-1;padding:0 0 var(--s1);align-self:start}
+@media (min-width:761px){ .co-group .co-strip{grid-template-rows:repeat(2,auto auto auto 1fr)} }
+@media (min-width:1100px){ .co-group .co-strip{grid-template-rows:auto auto auto 1fr} }
+/* цитата основателя */
+.quote{margin:clamp(32px,4vw,56px) 0 0;background:var(--ink);color:#fff;border-radius:var(--r);padding:clamp(32px,6vw,80px)}
+.quote blockquote{margin:0}
+.quote p{font-size:var(--fs-h3);line-height:1.3;font-weight:500;letter-spacing:-.01em;text-transform:uppercase;max-width:44ch}
+.quote figcaption{margin-top:var(--s4);display:grid;gap:4px}
+.quote figcaption b{font-size:var(--fs-sub);font-weight:500}
+.quote figcaption span{font-size:var(--fs-body);color:rgba(255,255,255,.7)}
+.quote figcaption i{color:inherit}
+/* ценности U/N/I/T */
+.values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s2)}
+.value-card{padding:var(--s3);gap:var(--s1)}
+.value-card__l{font-size:var(--fs-display);line-height:1;font-weight:500;letter-spacing:-.03em;color:var(--blue);margin-bottom:var(--s2)}
+.value-card h4{font-size:var(--fs-sub);line-height:var(--lh-sub);font-weight:500}
+.value-card p{font-size:var(--fs-body);line-height:var(--lh-card);color:var(--ink-2)}
+@media (max-width:1100px){ .values{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .values{grid-template-columns:1fr} .value-card{padding:var(--s2)} }
+/* футер: контакты на тёмном фоне */
+.site-footer{background:var(--ink);color:#fff;border-top:0}
+.site-footer .container{display:block}
+.site-footer .t-h2{color:#fff;margin-bottom:var(--s5)}
+.foot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+.site-footer h3{color:rgba(255,255,255,.6);font-size:var(--fs-body);font-weight:400}
+.site-footer .foot-grid p{font-size:var(--fs-sub);line-height:var(--lh-sub);max-width:32ch}
+.site-footer .foot-grid p i,.site-footer .footer-bottom i{color:inherit}
+.site-footer ul{font-size:var(--fs-sub)}
+.site-footer ul a{opacity:1}
+.footer-social{margin-top:0}
+.footer-social a{border-color:rgba(255,255,255,.3);color:#fff}
+.site-footer .disclaimer{padding-top:var(--s5);max-width:80ch;color:rgba(255,255,255,.6);opacity:1}
+.site-footer .footer-bottom{color:rgba(255,255,255,.6)}
+.footer-bottom::before{background:rgba(255,255,255,.15)}
+.footer-bottom a{color:inherit}
+@media (max-width:760px){ .foot-grid{grid-template-columns:1fr;gap:var(--s3)} .site-footer .t-h2{margin-bottom:var(--s3)} }
+/* курсив запрещён: точка вордмарка в <i> тоже прямая */
+i,em{font-style:normal}
+.site-footer .footer-bottom{display:flex}
+.t-h2{max-width:32ch}
+.sect-head .t-lead{max-width:76ch}
+@media (max-width:400px){ .t-h2{font-size:26px} }
+#location .sect-head .t-lead{max-width:none}
+
+/* ===== система: одни правила для всех секций ===== */
+/* ритм секций и межстрочное: один набор на весь сайт */
+:root{--sy:clamp(56px,8.4vw,120px);--lh-body:1.5;--lh-card:1.5}
+@media (max-width:760px){ :root{--sy:56px;--lh-body:1.4;--lh-card:1.4} }
+/* шапка секции: заголовок по ширине контейнера, ровные строки, до контента 48 (телефон 24) */
+.t-h2{max-width:none;text-wrap:balance}
+.t-lead,.card p,.sect-text{text-wrap:pretty}
+.sect-head,.ab-head{margin-bottom:48px}
+.cx-head{padding-bottom:48px}
+@media (max-width:760px){ .sect-head,.ab-head{margin-bottom:var(--s3)} .cx-head{padding-bottom:var(--s3)} }
+/* отступы внутри: карточка 24, большой блок 32, панель 56; на телефоне 16 / 16 / 24 */
+.card,.stat-card,.stat-grid--6 .stat-card,.co-card,.value-card{padding:var(--s3)}
+.ab-card:not(.ab-card--photo),.ym-card__txt,.calc,.co-group,.lead-form{padding:var(--s4)}
+.lead-panel,.quote{padding:var(--s6)}
+@media (max-width:760px){
+  .card,.stat-card,.stat-grid--6 .stat-card,.co-card,.value-card,.ab-card:not(.ab-card--photo),.ym-card__txt,.calc,.co-group,.lead-form{padding:var(--s2)}
+  .lead-panel,.quote{padding:var(--s3)}
+}
+/* крупные цифры одного размера; в сетке локации на ступень меньше */
+.stat-card__value,.complex .stat-grid .stat-card__value,.value-card__l{font-size:var(--fs-display)}
+.stat-grid--6 .stat-card__value{font-size:var(--fs-title)}
+/* заголовки карточек тоже капсом */
+.card > b,.kv-chip b,.ym-card__t,.co-group__title,.photo-band figcaption b{text-transform:uppercase}
+/* плашка «От застройщика» со скруглением, как все плашки */
+.hero__badge{border-radius:var(--r-s)}
+
+/* блок 2: у Nuanu плашки сразу под заголовком */
 @media (min-width:1201px){ .ab-col > .ab-card--blue{justify-content:flex-start} }
+/* блок 2, планшет и телефон: от фото до заголовка как в остальных карточках */
 @media (min-width:761px) and (max-width:1200px){ .ab-card--photo > div{padding:var(--s3) var(--s4) var(--s4)} }
 @media (max-width:760px){ .ab-card--photo > div{padding-top:var(--s2)} }
-@media (max-width:1200px){ .ab-card--photo{gap:0} }
-.ab-card--photo > div,.ab-card:not(.ab-card--blue):not(.ab-card--photo){gap:12px}
+
+/* карточка УК: текст слева, фото справа */
+.ym-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;padding:0;overflow:hidden;align-items:stretch}
+.ym-card__txt{display:grid;gap:var(--s3);align-content:start}
+.ym-card__ph{display:block;position:relative;min-height:320px}
+.ym-card__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:760px){ .ym-card{grid-template-columns:1fr} .ym-card__ph{min-height:0;aspect-ratio:4/3} }
+
+/* ценности: перевод названия второй строкой, обычным регистром */
+.value-card__tr{display:block;margin-top:4px;text-transform:none;font-weight:400;font-size:var(--fs-body);line-height:var(--lh-card);color:var(--ink-2)}
+
+/* футер: меню сайта первой колонкой */
+.foot-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1200px){ .foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+.site-footer .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s1)}
+.site-footer .foot-grid ul a{color:#fff;text-decoration:none}
+.site-footer .foot-grid ul a:hover{color:rgba(255,255,255,.7)}
+@media (max-width:1000px){ .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .foot-grid{grid-template-columns:1fr} }
+
+/* страница формата: описание шире, на 1920 в 2–3 строки */
 [data-unit-field="desc"]{max-width:110ch}
+.ym-card__txt > div{display:grid;gap:4px}
+.quote p{max-width:none}
+.tr-card__body > b,.co-card > b{text-transform:uppercase}
+/* подписи колонок футера обычным регистром: мелкий серый капс не используем */
+.site-footer h3{text-transform:none}
+@media (max-width:1200px){ .ab-card--photo{gap:0} }
+.faq-item,.faq-q,.faq-a{min-width:0;overflow-wrap:break-word}
+.co-card{min-width:0}
+/* отступы одной системой: заголовок карточки → текст 12, разные блоки в секции 40/24, подсекции 56/40 */
+.card:not(.product-card):not(.stat-card):not(.fmt-card):not(.avail-card):not(.team-card):not(.tr-card),.nu-card,.value-card,.tr-card__body,.ab-card--photo > div{gap:12px}
+.ym-card{margin-bottom:clamp(24px,3vw,40px)}
+.complex__gallery{margin-top:clamp(24px,3vw,40px)}
+.quote{margin-top:clamp(40px,4vw,56px)}
+.dots{gap:4px}
+.crumb{display:flex;width:fit-content;margin-bottom:var(--s3)}
+.site-footer .brand .wordmark{display:block;width:fit-content}
+.co-card__sub,.tr-card__role{margin-top:-8px}
+.value-card__l{margin-bottom:12px}
+.ab-card:not(.ab-card--blue):not(.ab-card--photo){gap:12px}
