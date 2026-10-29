@@ -1685,3 +1685,23 @@ i,em{font-style:normal}
   .ym-card .ym-card__ph{order:-1}
   .ym-card .ym-card__txt{padding:var(--s3) var(--s2) var(--s3);gap:var(--s2)}
 }
+
+/* вариант доходности: УК вертикально слева, калькулятор справа */
+#calcPickerBtn-b b{font-weight:500}
+#calcPickerBtn-b{justify-content:space-between;text-align:left}
+#calcPickerBtn-b[aria-expanded="true"] .calc__chev{transform:rotate(180deg)}
+@media (max-width:760px){ #calcPickerBtn-b{width:100%;--h:56px;padding-block:8px} #calcPickerBtn-b b{font-size:var(--fs-body)} }
+.yb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s2);align-items:stretch}
+.yb-grid .ym-card--v{grid-template-columns:1fr;grid-template-rows:auto 1fr;margin:0;background:var(--paper)}
+.yb-grid .ym-card--v .ym-card__ph{order:-1;min-height:0;aspect-ratio:16/9}
+.yb-grid .ym-card--v .ym-card__txt{padding:var(--s4)}
+/* калькулятор в колонке: поля, итог, сноска друг под другом, сноска прижата вниз */
+.yb-grid .calc{margin:0;grid-template-columns:1fr;grid-template-rows:auto auto 1fr auto;align-content:stretch;gap:var(--s4);padding:var(--s4)}
+.yb-grid .calc .calc__inputs{grid-row:auto;grid-template-rows:none}
+.yb-grid .calc .calc__out{grid-row:auto;grid-template-rows:none;align-content:start;padding-top:var(--s3);border-top:1px solid var(--line-2)}
+.yb-grid .calc__cta{align-self:end}
+.yb-grid .calc__note{margin-top:calc(var(--s2) - var(--s4))}
+@media (max-width:760px){ .yb-grid .calc__cta .btn{width:100%} .yb-grid .calc__note{margin-top:calc(var(--s2) - var(--s3))} }
+@media (max-width:1100px){ .yb-grid .ym-card--v .ym-card__txt,.yb-grid .calc{padding:var(--s3)} }
+@media (max-width:800px){ .yb-grid{grid-template-columns:1fr} }
+@media (max-width:760px){ .yb-grid .ym-card--v .ym-card__ph{aspect-ratio:4/3} .yb-grid .ym-card--v .ym-card__txt{padding:var(--s3) var(--s2)} .yb-grid .calc{padding:var(--s2);gap:var(--s3)} }
