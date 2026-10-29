@@ -1116,11 +1116,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
-    /* фото для попапа чипа (4–5 фото места, только без АП — источники в photos/CREDITS-places.md).
-       Пусто — чип без попапа: свободных фото Nuanu нет */
+    /* фото для попапа чипа (4–5 фото места, источники в photos/CREDITS-places.md): Nuanu — с nuanu.com (партнёры),
+       остальные только без АП. Пусто — чип без попапа */
     var PLACES = {
       pin: ['u1-11', 'u3-01', 'u2-2bd-14', 'u1-15', 'u2-villa-13'],
-      'loc.m_nuanu': [],
+      'loc.m_nuanu': ['place-nuanu-1', 'place-nuanu-2', 'place-nuanu-3', 'place-nuanu-4', 'place-nuanu-5'],
       'loc.m_tanah': ['place-tanah-1', 'place-tanah-2', 'place-tanah-3', 'place-tanah-4', 'place-tanah-5'],
       'loc.m_canggu': ['place-canggu-1', 'place-canggu-2', 'place-canggu-3', 'place-canggu-4', 'place-canggu-5']
     };
