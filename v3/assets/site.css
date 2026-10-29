@@ -1731,3 +1731,11 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 @media (min-width:1101px){ .final-cta__split{grid-template-columns:minmax(0,6fr) minmax(0,6fr)} }
 /* цитата на мобиле: мельче и свободнее, иначе 14 строк капсом */
 @media (max-width:760px){ .quote p{font-size:19px;line-height:1.35} }
+/* итог калькулятора — белая карточка внутри синего, без линии-разделителя */
+.yb-grid .calc .calc__out{border-top:0;padding:var(--s3);background:#fff;color:var(--ink);border-radius:var(--r-s)}
+.yb-grid .calc .calc__out .dim{opacity:var(--dim)}
+.yb-grid .calc__roi b,.yb-grid .calc__rows b{color:var(--blue)}
+.yb-grid .calc__rows > div::after{opacity:.25}
+@media (max-width:760px){ .yb-grid .calc .calc__out{padding:var(--s2)} }
+/* плавающая кнопка: тень, чтобы не сливалась с синими блоками под ней */
+@media (max-width:1000px){ .m-cta{box-shadow:0 10px 28px rgba(10,11,13,.32),0 2px 8px rgba(10,11,13,.22)} }
