@@ -1721,3 +1721,13 @@ i,em{font-style:normal}
 /* на широких итог крупнее: калькулятор по высоте равен карточке, пустоты меньше */
 @media (min-width:1101px){ .yb-grid .calc__roi b{font-size:clamp(64px,6.4vw,124px)} .yb-grid .calc__rows{font-size:var(--fs-sub)} }
 @media (min-width:1600px){ .yb-grid .calc input{height:56px} .yb-grid .calc{gap:var(--s5)} }
+/* вёрстка текстов: без одиноких слов в последней строке, заголовки ровными строками, подзаголовки не уже: правило «не больше 2 строк» важнее */
+main p,main li,main dd,.faq-a p,.fmt-card__rows b{text-wrap:pretty}
+main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaption,.co-card__sub{text-wrap:balance}
+.faq-a p{max-width:66ch}
+/* основной текст под заголовком тёмный, серый только для второстепенного */
+.sect-text,.ab-text{color:var(--ink)}
+/* заголовок формы: шире колонка, чтобы не 5 строк */
+@media (min-width:1101px){ .final-cta__split{grid-template-columns:minmax(0,6fr) minmax(0,6fr)} }
+/* цитата на мобиле: мельче и свободнее, иначе 14 строк капсом */
+@media (max-width:760px){ .quote p{font-size:19px;line-height:1.35} }
