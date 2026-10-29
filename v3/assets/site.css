@@ -1631,3 +1631,9 @@ i,em{font-style:normal}
 .co-card__sub,.tr-card__role{margin-top:-8px}
 .value-card__l{margin-bottom:12px}
 .ab-card:not(.ab-card--blue):not(.ab-card--photo){gap:12px}
+
+/* цитата: кавычки вектором в правом нижнем углу, уходят за край */
+.quote{position:relative;overflow:hidden}
+.quote::after{content:"";position:absolute;right:var(--s6);bottom:-22px;width:190px;height:180px;background:url(quote.svg) no-repeat center/contain;pointer-events:none}
+.quote blockquote,.quote figcaption{position:relative;z-index:1}
+@media (max-width:760px){ .quote::after{right:var(--s3);bottom:-11px;width:96px;height:91px} }
