@@ -1116,7 +1116,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
-    var ROUTE = [[115.106284,-8.619637],[115.106189,-8.619812],[115.106049,-8.620101],[115.105954,-8.62048],[115.105898,-8.620855],[115.105862,-8.621172],[115.10579,-8.621755],[115.105756,-8.622121],[115.105745,-8.622204],[115.10578,-8.62232],[115.105855,-8.622462],[115.105892,-8.622519],[115.106147,-8.622796],[115.106261,-8.622943],[115.106364,-8.62312],[115.106404,-8.623251],[115.106411,-8.623478],[115.106398,-8.623885],[115.106388,-8.624533],[115.106347,-8.625014],[115.106308,-8.625188],[115.106274,-8.625258],[115.10619,-8.625399],[115.106085,-8.625542],[115.105899,-8.625768],[115.105596,-8.626139],[115.10542,-8.626367],[115.105231,-8.626592],[115.105014,-8.626879],[115.104919,-8.627027],[115.104839,-8.62718],[115.104702,-8.627579],[115.104627,-8.627788],[115.104556,-8.627977],[115.104488,-8.628093],[115.104269,-8.628352],[115.103827,-8.628821],[115.103427,-8.629182]];
+    var ROUTE = [[115.1062272,-8.6196073],[115.10619,-8.61981],[115.10605,-8.620102],[115.106007,-8.62024],[115.105938,-8.620553],[115.105745,-8.622202],[115.10568,-8.622356],[115.105557,-8.622733],[115.105439,-8.6233],[115.105396,-8.623433],[115.105358,-8.623533],[115.105289,-8.623661],[115.104881,-8.624334],[115.104581,-8.624695],[115.104462,-8.62487],[115.104114,-8.625517],[115.10399,-8.625729],[115.103883,-8.625946],[115.103819,-8.626175],[115.103808,-8.62644],[115.103808,-8.626583],[115.103781,-8.626906],[115.10376,-8.627007],[115.103733,-8.627092],[115.103556,-8.627469],[115.103432,-8.627596],[115.103186,-8.627734],[115.103014,-8.627808],[115.102901,-8.627877],[115.102665,-8.628079],[115.102392,-8.628296],[115.102193,-8.628445],[115.101813,-8.628811],[115.101684,-8.628964],[115.101544,-8.629166],[115.101276,-8.629585],[115.100809,-8.630635],[115.100675,-8.630879],[115.09994,-8.630614],[115.099742,-8.630513],[115.099398,-8.630365],[115.099189,-8.630179],[115.099002,-8.630052],[115.09847,-8.629357],[115.098428,-8.629309],[115.098315,-8.629171],[115.09847,-8.628991],[115.098546,-8.628758],[115.098556,-8.628609],[115.098508,-8.628142],[115.098208,-8.627877],[115.0981,-8.627835],[115.097988,-8.627824],[115.097832,-8.627829],[115.09766,-8.627898],[115.097553,-8.627994],[115.097499,-8.628463]];
     /* фото для попапа чипа (4–5 фото места, источники в photos/CREDITS-places.md): Nuanu — с nuanu.com (партнёры),
        остальные только без АП. Пусто — чип без попапа */
     var PLACES = {
@@ -1217,7 +1217,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         map.getStyle().layers.forEach(function (l) { if (HIDE.test(l.id)) map.setLayoutProperty(l.id, 'visibility', 'none'); });
         map.setPaintProperty('background', 'background-color', '#ECECEA');
         map.setPaintProperty('water', 'fill-color', '#D6E0EA');
-        // дорога до въезда в Nuanu (OSRM по OSM), 2 минуты на машине
+        // дорога от комплекса до Nuanu, кратчайшая по карте, 2 минуты на машине
         map.addSource('route', { type: 'geojson', data: { type: 'Feature', geometry: { type: 'LineString', coordinates: ROUTE } } });
         map.addLayer({ id: 'route-case', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#fff', 'line-width': 9 } });
         map.addLayer({ id: 'route', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#0433FF', 'line-width': 4 } });
@@ -1236,9 +1236,15 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         poiText();
         var prevHook = window.__uscRerender;
         window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); if (openPop) openPop.close(); };
-        /* подпись не должна уходить за правый край (узкий экран): сдвигаем карту */
-        var over = map.project(ll).x - 10 + pin.offsetWidth + 16 - live.clientWidth;
-        if (over > 0) map.panBy([over, 0], { animate: false });
+        /* подписи не должны уходить за края (узкий экран): сдвигаем карту, воздух по краям до 16 */
+        var lr = live.getBoundingClientRect(), L = Infinity, R = -Infinity;
+        [pin.querySelector('.map-pin__lbl')].concat(poiEls.map(function (x) { return x.el; })).forEach(function (e) {
+          var r = e.getBoundingClientRect(); if (!r.width) return;
+          L = Math.min(L, r.left - lr.left); R = Math.max(R, r.right - lr.left);
+        });
+        var air = Math.min(16, Math.max(0, (lr.width - (R - L)) / 2)), dx = 0;
+        if (L < air) dx = L - air; else if (R > lr.width - air) dx = R - (lr.width - air);
+        if (dx) map.panBy([dx, 0], { animate: false });
         map.setMaxBounds(map.getBounds());
         var at = live.querySelector('.maplibregl-ctrl-attrib'); if (at) at.classList.remove('maplibregl-compact-show');
         var shown = function () { box.classList.add('is-live'); };
