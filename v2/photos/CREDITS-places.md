@@ -17,3 +17,9 @@
 - place-nuanu-3: https://admin.cockpit.nuanu.com/assets/0aa79909-46c6-4e29-a2ec-7bde786960ab.webp
 - place-nuanu-4: https://admin.cockpit.nuanu.com/assets/dd152fe2-9224-41ab-b037-56f02652ba42.webp
 - place-nuanu-5: https://admin.cockpit.nuanu.com/assets/a8eddb4b-e402-41b4-83fa-fa9a9240a52c.webp
+
+# Фото-бандо у локации
+- place-band-nuanu-1: https://admin.cockpit.nuanu.com/assets/6cbe8b92-183a-4426-934a-569ae11980a1 (nuanu.com, партнёры)
+- place-band-nuanu-2: https://admin.cockpit.nuanu.com/assets/dd152fe2-9224-41ab-b037-56f02652ba42.webp (nuanu.com, партнёры)
+- place-band-tanah: Wikimedia Commons, Pura tanah lot sunset no1.jpg (public domain)
+- place-band-rice: Wikimedia Commons, Terraced field in Canggu.jpg (CC0)

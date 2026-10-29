@@ -1358,3 +1358,40 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   run();
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); run(); };
 })();
+
+/* полоса под мобильной лентой карточек: сколько пролистано. Наличие перерисовывается табами, поэтому следим и за содержимым */
+(function () {
+  [].slice.call(document.querySelectorAll('.m-strip')).forEach(function (g) {
+    var bar = document.createElement('div'), th = document.createElement('i'), raf = 0;
+    bar.className = 'm-bar'; bar.setAttribute('aria-hidden', 'true'); bar.appendChild(th); g.parentNode.insertBefore(bar, g.nextSibling);
+    function upd() {
+      raf = 0;
+      var sw = g.scrollWidth, cw = g.clientWidth, bw = bar.clientWidth;
+      if (!bw) return;
+      bar.style.visibility = sw > cw + 1 ? '' : 'hidden';
+      var w = Math.max(48, bw * cw / sw), p = sw > cw ? g.scrollLeft / (sw - cw) : 0;
+      th.style.width = w + 'px'; th.style.transform = 'translateX(' + (bw - w) * Math.min(1, Math.max(0, p)) + 'px)';
+    }
+    var go = function () { if (!raf) raf = requestAnimationFrame(upd); };
+    g.addEventListener('scroll', go, { passive: true });
+    if ('MutationObserver' in window) new MutationObserver(function () { g.scrollLeft = 0; go(); }).observe(g, { childList: true });
+    onWidth(upd); addEventListener('load', upd); upd();
+  });
+})();
+
+/* слова через дефис не переносим по дефису: внутри слова ставим неразрывный дефис, в том числе после смены языка и перерисовки */
+(function () {
+  var RX = /([\p{L}\d])-(?=[\p{L}\d])/gu, SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|CODE)$/;
+  function fix(root) {
+    var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n;
+    while ((n = tw.nextNode())) {
+      if (n.nodeValue.indexOf('-') < 0 || !n.parentElement || SKIP.test(n.parentElement.tagName)) continue;
+      var v = n.nodeValue.replace(RX, '$1\u2011'); if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  }
+  var queued = false;
+  function run() { queued = false; fix(document.body); }
+  run();
+  new MutationObserver(function () { if (!queued) { queued = true; requestAnimationFrame(run); } })
+    .observe(document.body, { childList: true, subtree: true, characterData: true });
+})();
