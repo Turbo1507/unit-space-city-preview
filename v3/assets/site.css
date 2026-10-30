@@ -1742,3 +1742,8 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 @media (max-width:760px){ .yb-grid .calc .calc__out{padding:var(--s2)} }
 /* плавающая кнопка: тень, чтобы не сливалась с синими блоками под ней */
 @media (max-width:1000px){ .m-cta{box-shadow:0 10px 28px rgba(10,11,13,.32),0 2px 8px rgba(10,11,13,.22)} }
+
+/* отступы по близости (31.10): шапка формы отделена от полей сильнее, чем поля друг от друга (24 против 16);
+   в ряду карточек компаний название прижато к подписи, лишняя высота строки уходит над названием */
+.lead-form__consent + .field{margin-top:var(--s1)}
+@media (min-width:761px){ .co-group .co-strip .co-card > b{align-self:end} }
