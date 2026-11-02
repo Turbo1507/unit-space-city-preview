@@ -1899,3 +1899,10 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 @media (max-width:760px){
   .lx-squares li{padding:12px 8px;flex-direction:column;align-items:flex-start;justify-content:space-between}
 }
+
+/* на телефоне плашка закрывала пляж: кладём её под фото */
+@media (max-width:760px){
+  .lx-hero{height:auto;display:grid;gap:var(--s1);background:none;border-radius:0;overflow:visible}
+  .lx-hero picture{height:240px;border-radius:var(--r);overflow:hidden}
+  .lx-hero figcaption{position:static;left:auto;bottom:auto;background:var(--wash)}
+}
