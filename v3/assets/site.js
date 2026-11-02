@@ -97,7 +97,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   /* валюта USD/IDR: закон Индонезии (PBI 17/3/PBI/2015) требует показывать цену в рупиях, не только в $.
      Живой курс через open.er-api.com (без ключа, CORS открыт), кэш 12ч в localStorage, фолбэк — константа */
   var CCY_KEY = 'usc_ccy', FX_KEY = 'usc_fx', FX_FALLBACK = 16300;
-  function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'idr' ? 'idr' : 'usd'; } catch (e) { return 'usd'; } }
+  function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'usd' ? 'usd' : 'idr'; } catch (e) { return 'idr'; } }
   function saveCcy(c) { try { localStorage.setItem(CCY_KEY, c); } catch (e) { } }
   window.__uscCcy = getCcy();
   window.__uscFx = FX_FALLBACK;
@@ -798,7 +798,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     band.querySelectorAll('.ugal__arrow').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); show(bi + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); arm(); });
     });
-    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
+    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 3500); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     var bp0 = null, bSwiped = false;
     band.addEventListener('pointerdown', function (e) { bp0 = e.target.closest('.ugal__arrow') ? null : { x: e.clientX, y: e.clientY }; });
