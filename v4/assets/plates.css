@@ -4,13 +4,7 @@
    ========================================================================== */
 :root{
   --pl-gut:var(--gut);
-  --r-plane:0px;
-  --r-ctrl:8px;
-  --r:0px;
-  --r-s:0px;
 }
-/* управление остаётся мягким, плоскости и фото прямые */
-.btn,button,input,select,textarea,.hero__badge{border-radius:var(--r-ctrl)}
 
 /* плоскость: цвет на всю ширину, размер цифры считается от её ширины */
 .pl{position:relative;container-type:inline-size;background:var(--pl-bg,var(--white));color:var(--pl-fg,var(--ink));overflow:clip}
@@ -25,9 +19,9 @@
 .pl__num{display:block;font-weight:500;line-height:.82;letter-spacing:-.05em;white-space:nowrap;font-size:calc(var(--k,40) * 1cqi);font-variant-numeric:lining-nums}
 .pl__unit{font-size:.4em;letter-spacing:-.03em;vertical-align:.9em;font-weight:500}
 
-/* наложение плит: следующая наезжает на предыдущую, только где есть высота экрана */
+/* наложение плит: класс только у плит, которые влезли в экран, иначе низ закроется следующей */
 @media (min-width:1201px) and (min-height:700px){
-  .pl-stack > .pl{position:sticky;top:var(--hdr);min-height:calc(100svh - var(--hdr))}
+  html.js .pl-stack > .pl.is-stick{position:sticky;top:var(--hdr)}
 }
 
 /* фото во всю плоскость или встык с ней, без скруглений и рамок */
