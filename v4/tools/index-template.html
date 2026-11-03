@@ -117,15 +117,13 @@
   <!-- 01 — HERO -->
   <section class="hero">
     <div class="hero__media" id="heroMedia">
-      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="photos/hero2-poster.jpg" aria-hidden="true">
-        <source src="photos/hero2-1280.mp4" type="video/mp4" media="(max-width: 900px)">
-        <source src="photos/hero2-1920.mp4" type="video/mp4">
-      </video>
+      <img class="hero__poster" src="photos/hero2-poster.jpg" alt="" fetchpriority="high" decoding="async">
+      <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" data-src="photos/hero2-1280.mp4" data-src-wide="photos/hero2-1920.mp4"></video>
     </div>
     <div class="container hero__content">
       <div>
         <span class="hero__badge" data-i18n="hero.badge">От&nbsp;застройщика</span>
-        <h1 class="hero__title" data-i18n="hero.title"><i class="nw">Hi-tech</i> виллы в&nbsp;Nuanu по&nbsp;цене апартаментов</h1>
+        <h1 class="hero__title pl__num" data-i18n="v4.hero.title"><i class="hero__ln">Hi-tech виллы</i> <i class="hero__ln hero__ln--join">в&nbsp;Nuanu</i> <i class="hero__ln hero__ln--join">по&nbsp;цене</i> <i class="hero__ln">апартаментов</i></h1>
         <p class="hero__sub" data-i18n="hero.sub"><i class="u5">UNIT.</i>&nbsp;SPACE&nbsp;CITY: три комплекса, которые могут стать вашим домом, местом для&nbsp;отдыха и&nbsp;инвестиций</p>
         <div class="hero__ctas">
           <a class="btn btn-primary" href="#lead" data-i18n="nav.cta">Подобрать виллу</a>
@@ -133,6 +131,7 @@
         </div>
       </div>
     </div>
+    <script src="assets/blocks/hero.js" defer></script>
   </section>
 
   <!-- 02 — О ПРОЕКТЕ -->
