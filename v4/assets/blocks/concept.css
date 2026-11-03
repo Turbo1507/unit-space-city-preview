@@ -1,1 +1,116 @@
-/* concept */
+/* concept: весь блок стоит на сетке из трёх третей, плиты встык без зазоров */
+#concept.cn{padding-block:0;background:var(--white);scroll-margin-top:var(--hdr);--cn-k:40}
+
+/* верх: две плиты, ширина от числа знаков в цифре */
+.cn-nums{display:grid;grid-template-columns:2fr 1fr}
+.cn-plate{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s5);min-width:0;padding:var(--s6) var(--gut) var(--s5);color:#fff}
+.cn-plate--105{background:var(--blue)}
+.cn-plate--3{background:var(--ink)}
+.cn-head{display:grid;gap:var(--s2)}
+.cn-head .ab-title{grid-area:auto;margin:0}
+.cn-text{font-size:var(--fs-body);line-height:var(--lh-body)}
+.cn-text .ab-l + .ab-l{margin-top:var(--s1)}
+
+.cn-fig{display:grid;gap:var(--s2);justify-items:start;margin:0}
+.cn-fig .pl__num{--k:var(--cn-k)}
+.cn-plate--105 .pl__num{margin-left:-.075em}
+.cn-plate--3 .pl__num{margin-left:-.015em}
+.cn-fig__l{font-size:var(--fs-title);font-weight:500;line-height:var(--lh-title);letter-spacing:var(--ls-title);text-transform:uppercase}
+
+/* продолжение синей плоскости: инфраструктура словами на треть ширины каждая */
+.cn-infra{display:grid;gap:var(--s6);padding:var(--s7) 0;background:var(--blue);color:#fff}
+.cn-infra__t{padding-inline:var(--gut);font-size:var(--fs-display);font-weight:500;line-height:var(--lh-display);letter-spacing:var(--ls-display);text-transform:uppercase}
+.cn-infra__l{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) 0;margin:0;padding:0;list-style:none}
+.cn-infra__l li{min-width:0;padding:0 var(--s1) 0 var(--gut);font-size:var(--fs-title);font-weight:500;line-height:var(--lh-title);letter-spacing:var(--ls-title);text-transform:uppercase}
+
+/* Nuanu: спокойная белая плита, текст обычным регистром и фото на две трети */
+.cn-nuanu{display:grid;grid-template-columns:1fr 2fr;background:var(--white);color:var(--ink)}
+.cn-nuanu__body{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s5);min-width:0;padding:var(--s6) var(--gut) var(--s5)}
+.cn-nuanu__body .t-h3{text-transform:uppercase}
+.cn-nuanu__l{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.cn-nuanu__l li{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.cn-nuanu__pic{aspect-ratio:3/2;height:auto;overflow:hidden}
+.cn-nuanu__pic img,.cn-pic img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* мозаика: высокое фото на треть, правее две полосы плит со сдвигом стыка */
+.cn-mos{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:minmax(22.2cqi,auto) auto}
+.cn-rail,.cn-slide{display:contents}
+.cn-pic{position:relative;height:auto;min-width:0;overflow:hidden}
+.cn-pic img{position:absolute;inset:0}
+.cn-pic--tall{grid-area:1/1/3/5;min-height:50cqi}
+.cn-pic--tall img{object-position:50% 72%}
+.cn-pic--wide{grid-area:2/8/3/13;min-height:27.8cqi}
+.cn-txt{display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s2);min-width:0;padding:var(--s5) var(--gut);font-size:var(--fs-body);line-height:var(--lh-body)}
+.cn-txt .t-h3{text-transform:uppercase}
+.cn-txt--arch{grid-area:1/5/2/10;background:var(--paper);color:var(--ink)}
+.cn-txt--std{grid-area:1/10/2/13;background:var(--ink);color:#fff}
+.cn-txt--dsg{grid-area:2/5/3/8;background:var(--white);color:var(--ink)}
+
+/* верхний экран целиком, только если хватает высоты окна */
+@media (min-width:1001px) and (min-height:640px){
+  .cn-nums{min-height:calc(var(--vh) * 100 - var(--hdr))}
+  /* на низком окне цифра уступает, чтобы плита не вышла за экран */
+  .cn-fig .pl__num{font-size:min(calc(var(--cn-k) * 1cqi),max(28cqi,calc((var(--vh) * 100 - var(--hdr) - 336px) / .82)))}
+}
+
+/* узкий десктоп и планшет: слова и фото уже не держат третьи доли */
+@media (max-width:1200px){
+  .cn-fig__l,.cn-infra__l li{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+  .cn-nuanu{grid-template-columns:5fr 7fr}
+  .cn-nuanu__pic{aspect-ratio:auto;min-height:44cqi}
+  .cn-mos{grid-template-rows:auto auto auto}
+  .cn-pic--tall{grid-area:1/1/3/6;min-height:62.5cqi}
+  .cn-txt--arch{grid-area:1/6/2/13}
+  .cn-txt--std{grid-area:2/6/3/13}
+  .cn-txt--dsg{grid-area:3/1/4/6}
+  .cn-pic--wide{grid-area:3/6/4/13;min-height:38.9cqi}
+}
+@media (max-width:1000px){
+  .cn-plate,.cn-nuanu__body{padding:var(--s5) var(--gut) var(--s4)}
+  .cn-infra{gap:var(--s5);padding-block:var(--s6)}
+  .cn-txt{padding:var(--s4) var(--gut)}
+}
+/* самое длинное слово уже не входит в треть */
+@media (max-width:860px){
+  .cn-infra__l{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cn-infra__l li{padding-right:var(--gut)}
+}
+
+/* телефон: плиты по высоте содержимого, две фото-плиты лентой со свайпом */
+@media (max-width:760px){
+  #concept.cn{--cn-k:59}
+  .cn-nums{grid-template-columns:minmax(0,1fr)}
+  .cn-plate{gap:var(--s4);padding:var(--s5) var(--gut) var(--s4)}
+  .cn-plate--3{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s3)}
+  .cn-plate--3 .cn-fig{grid-row:1;grid-template-columns:auto minmax(0,1fr);gap:var(--s2);align-items:end}
+  .cn-plate--3 .cn-fig__l{padding-bottom:12px}
+
+  .cn-infra{gap:var(--s3);padding-block:var(--s5)}
+  .cn-infra__t{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  .cn-infra__l{grid-template-columns:minmax(0,1fr);gap:var(--s1)}
+  .cn-infra__l li{padding-inline:var(--gut)}
+
+  .cn-nuanu{grid-template-columns:minmax(0,1fr)}
+  .cn-nuanu__pic{grid-row:1;aspect-ratio:3/2;min-height:0}
+  .cn-nuanu__body{gap:var(--s3);padding:var(--s4) var(--gut)}
+  .cn-nuanu__l{gap:var(--s1)}
+  .cn-nuanu__l li{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+
+  .cn-mos{display:block}
+  .cn-rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .cn-rail::-webkit-scrollbar{display:none}
+  .cn-slide{display:flex;flex-direction:column;flex:0 0 84%;scroll-snap-align:start;min-width:0}
+  .cn-pic--tall,.cn-pic--wide{grid-area:auto;flex:none;min-height:0;aspect-ratio:1/1}
+  .cn-txt{justify-content:flex-start;padding:var(--s3) var(--gut) var(--s4)}
+  .cn-txt--arch,.cn-txt--dsg{flex:1 1 auto}
+  .cn-slide--dsg .cn-txt{background:var(--white)}
+  .cn-txt--arch{background:var(--paper)}
+}
+
+/* цифра подрастает при входе в кадр, текст и фото не трогаем */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    html.js .cn-fig .pl__num{animation:cn-rise linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+  }
+}
+@keyframes cn-rise{from{opacity:.35;transform:translateY(16px)}to{opacity:1;transform:none}}
