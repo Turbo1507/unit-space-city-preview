@@ -124,7 +124,7 @@ for (const f of Object.keys(agg)) {
   tpl = tpl.replace(new RegExp(`(<button type="button" class="calc__pick-card( is-active)?" data-price=")\\d+("[^>]*><b data-i18n="fmt\\.${f}">)`),
     (m, o, act, c) => o + agg[f].min + c);
   if (new RegExp(`class="calc__pick-card is-active"[^>]*><b data-i18n="fmt\\.${f}">`).test(tpl)) {
-    tpl = tpl.replace(/(<input type="number" id="c-price" value=")\d+(")/, (m, o, c) => o + agg[f].min + c);
+    tpl = tpl.replace(/(id="c-price" data-usd=")\d+(")/, (m, o, c) => o + agg[f].min + c);
   }
   for (const key of [`price.${f}`, `fmt.${f}_w`, `fmt.${f}_m`, `calc.pick_${f}`]) {
     const v = ruVal(key); if (v == null) continue;

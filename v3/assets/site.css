@@ -13,9 +13,9 @@
 :root{--vh:1vh}
 @supports (height:1svh){ :root{--vh:1svh} }
 :root{
-  --paper:#F4F4F4; --ink:#3a3a3a; --ink-2:rgba(58,58,58,.5); --line:#e6e6e6; --line-2:#D2D2CE;
+  --paper:#F4F4F4; --ink:#3a3a3a; --ink-2:rgba(58,58,58,.75); --line:#e6e6e6; --line-2:#D2D2CE;
   --white:#FFFFFF; --blue:#0433FF; --blue-press:#0327c9; --blue-050:#eef1ff; --err:#c3262e; --wash:#ECECEA;
-  --dim:.5;
+  --dim:.75;
   --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px; --s6:56px; --s7:80px;
   --sy:120px; --gap-s:40px; --gap-m:48px; --gap-l:56px; --gap-xl:80px;
   --gut:40px;
@@ -91,8 +91,6 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
   background:#fff;border-color:var(--blue);color:var(--blue)}
 .btn-sm{--h:40px;padding-inline:var(--s2);font-size:var(--fs-cap)}
 .btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
-.cta-row{display:flex;flex-wrap:wrap;gap:var(--s2)}
-.cta-row[hidden]{display:none}
 /* иконки — Rune Icons outline, inline-спрайт, наследуют цвет текста */
 .ic{width:18px;height:18px;flex:none;stroke:currentColor;fill:none}
 .btn .ic{width:16px;height:16px}
@@ -100,7 +98,6 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .lbl .ic{width:16px;height:16px;opacity:.8}
 .card > b.lbl,.kv-grid b.lbl{display:flex}
 .crumb .ic{width:14px;height:14px}
-.cta-row--after{margin-top:var(--gap-s)}
 
 /* header (логика БСО) 
    прозрачная над хиро, белый текст; после 40px скролла — is-solid: фон+блюр+линия,
@@ -114,7 +111,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 .wordmark i{color:var(--blue);font-style:normal}
 .site-header:not(.is-solid) .wordmark i{color:#fff}
 .site-nav{display:flex;gap:var(--s3);font-size:var(--fs-cap);font-weight:500}
-.site-nav a{opacity:.7;transition:opacity .2s}
+.site-nav a{opacity:var(--dim);transition:opacity .2s}
 .site-nav a.is-active{opacity:1;color:var(--blue)}
 /* WhatsApp в шапке: круг в цвет текста шапки, на наведении синий */
 .hd-wa{display:flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border-radius:50%;color:inherit;
@@ -127,7 +124,7 @@ main [id]{scroll-margin-top:calc(var(--hdr) + var(--s4))}
 /* дропдауны языка/валюты в шапке (инлайн-кнопки в ряд не тянут 4 значения — свели к 2 селектам) */
 .header-selectors{display:flex;align-items:center;gap:4px;font-size:var(--fs-cap);font-weight:500}
 .hd-sel{position:relative}
-.hd-sel__btn{display:flex;align-items:center;gap:4px;height:32px;padding:0 8px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:.7;transition:opacity .2s}
+.hd-sel__btn{display:flex;align-items:center;gap:4px;height:32px;padding:0 8px;background:none;border:0;border-radius:var(--r-s);cursor:pointer;color:inherit;opacity:var(--dim);transition:opacity .2s}
 .hd-sel.is-open .hd-sel__btn{opacity:1}
 .hd-sel__chev{width:14px;height:14px;flex:none;transition:transform .2s var(--ease)}
 .hd-sel.is-open .hd-sel__chev{transform:rotate(180deg)}
@@ -181,10 +178,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .hero{position:relative;min-height:100vh;min-height:calc(var(--vh)*100);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;isolation:isolate}
 .hero__media{position:absolute;inset:0;z-index:-2}
 .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* кроссфейд 4 кадров: слои друг на друге, активный — opacity 1 */
-.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s var(--ease)}
-.hero__slide.is-in{opacity:1}
-@media (prefers-reduced-motion:reduce){ .hero__slide{transition:none} }
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(180deg, rgba(10,11,13,.35) 0%, rgba(10,11,13,.15) 22%, rgba(10,11,13,.55) 55%, rgba(10,11,13,.86) 100%)}
 .hero__content{width:100%;padding-top:calc(var(--hdr) + var(--s5));padding-bottom:var(--gap-s);
@@ -199,22 +192,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .btn-glass{border-color:rgba(255,255,255,.7);color:#fff}
 @media (max-width:820px){ .hero__ctas{margin-top:var(--s4)} }
 @media (max-width:480px){ .hero__ctas .btn{flex:1 1 100%} }
-
-
-.hero__strip{border-top:1px solid rgba(255,255,255,.22)}
-.hero__strip .container{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);padding-block:var(--s2)}
-.hero__strip div{font-size:var(--fs-cap);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.hero__strip span{font-weight:400;color:inherit;margin-left:var(--s2)}
 @media (max-width:820px){
   .hero__content{flex-direction:column;align-items:stretch;gap:var(--s3)}
   /* заголовок чуть крупнее (3 строки держим), подзаголовок мельче */
   .hero__title{font-size:min(var(--fs-display),calc((100vw - 48px) / 8.6));letter-spacing:-.03em}
   .hero__sub{margin-top:var(--s2);font-size:var(--fs-body);max-width:36ch;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
   .hero__badge{height:28px;font-size:var(--fs-cap);margin-bottom:var(--s2)}
-  /* мобилка: мини-карта + полоса статов U1/U2/U3 убраны из хиро целиком —
-     переехали отдельным блоком в #about вместе с описанием U1/U2/U3. На десктопе
-     карточка с картой остаётся (так и оставляем). */
-  .hero__strip{display:none}
 }
 
 /* cookie */
@@ -247,38 +230,13 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .card--photobg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 15%,rgba(10,11,13,.55) 45%,rgba(10,11,13,.88) 100%);pointer-events:none}
 .card--photobg > b{position:relative;z-index:1;padding:0 var(--s3)}
 .card--photobg > p{position:relative;z-index:1;margin:0;padding:8px var(--s3) var(--s3);opacity:1;color:rgba(255,255,255,.88)}
-.card__value{font-size:var(--fs-title);font-weight:500;color:var(--blue);margin-block:var(--s1);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-.card--dark .card__value{color:#fff}
-.pill{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--r-s);background:var(--blue);color:#fff;font-size:var(--fs-cap);font-weight:500;justify-self:start;margin-bottom:var(--s1);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
 .card-grid{display:grid;gap:var(--s2)}
 .card-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .card-grid--3{grid-template-columns:repeat(3,1fr)}
 .card-grid--4{grid-template-columns:repeat(4,1fr)}
 .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2)}
-.bento .span-2{grid-column:span 2}
-/* обзорный блок «3 комплекса» — тот же бенто-язык (карточка + карточка-карта) */
-.bento-2{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s2)}
-/* карточка обзора выглядела пусто рядом с картой — строки U1/U2/U3 растянуты на всю высоту,
-   каждая кликабельна (ведёт на таб комплекса), статус — тем же чипом, что и у бейджа комплекса */
-.ov-card{display:flex;flex-direction:column}
-.ov-photo{display:none}
-.ov-rows{margin-top:auto;padding-top:var(--s3);display:grid;gap:var(--s1)}
-.ov-row{display:flex;align-items:center;gap:var(--s2);padding:var(--s2);border-radius:var(--r-s);background:var(--white);color:inherit;text-decoration:none;transition:background .18s var(--ease)}
-.ov-row > b{flex:none;color:var(--blue);font-weight:500}
-.ov-row__name{flex:1;font-weight:500}
-@media (min-width:1200px){
-  /* фото над строками U1/U2/U3 — при наведении на строку подставляется фото именно этого комплекса */
-  .ov-photo{display:block;position:relative;aspect-ratio:16/9;border-radius:var(--r-s);overflow:hidden;margin-top:var(--s3);background:var(--wash)}
-  .ov-photo picture,.ov-photo img{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .ov-photo img{object-fit:cover;opacity:0;transition:opacity .3s var(--ease)}
-  .ov-photo img[data-u="u1"]{opacity:1}
-  .ov-rows{margin-top:var(--s2)}
-  .ov-rows{grid-template-columns:1fr 1fr}
-  .ov-row:last-child{grid-column:1/-1}
-}
 @media (max-width:820px){ .card-grid--3,.card-grid--4,.bento{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .card-grid--2,.card-grid--3,.card-grid--4,.bento,.bento-2{grid-template-columns:1fr} .bento .span-2{grid-column:auto} }
-@media (max-width:760px){ .bento-2{grid-template-columns:1fr} }
+@media (max-width:520px){ .card-grid--2,.card-grid--3,.card-grid--4,.bento,.bento-2{grid-template-columns:1fr} }
 /* акцентная карточка-блок — синяя заливка, чтобы бросалась в глаза (концепция комплекса) */
 /* .sect--alt .card{background:paper} специфичнее одного класса — .card--accent проигрывал и синий
    фон не применялся (карточка была серой, текст еле читался) */
@@ -288,26 +246,9 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 /* числа в заголовках — синим (кроме
    текста поверх фото: там остаётся белый) */
 .accent{color:var(--blue)}
-
-/* ================================================================
-   STAT-CARD: заливка, подпись сверху мелко, число внизу, без линий
-   ================================================================ */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-bottom:var(--s2)}
-.stat-grid--3{grid-template-columns:repeat(3,1fr)}
-.stat-card--blue .stat-card__value{color:var(--blue);font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
 .stat-card{background:var(--white);border-radius:var(--r);padding:var(--s3);min-height:clamp(168px,17vw,232px);display:flex;flex-direction:column}
 .sect--alt .stat-card{background:var(--paper)}
-.stat-card__label{font-size:var(--fs-cap);max-width:20ch;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.stat-card__value .dash{margin:0 .12em}
-/* цифры в стат-картах — всегда синие; слова «от / лет» — ink */
-.stat-card__value{margin-top:auto;padding-top:var(--s3);font-weight:500;font-size:var(--fs-display);color:var(--blue);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
-.stat-card__value > span{color:var(--ink)}
-.stat-card__value > span.dash{color:var(--blue)}
-.stat-card__value em{color:var(--blue);font-style:normal}
-.stat-card__value .stat-card__word{font-size:var(--fs-cap);margin-right:4px;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.stat-card__value .pct{font-size:inherit;vertical-align:baseline;letter-spacing:inherit}
-@media (max-width:820px){ .stat-grid,.stat-grid--3{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .stat-grid{grid-template-columns:1fr} .stat-card{min-height:0} .stat-card__value{padding-top:var(--s2)} }
+@media (max-width:520px){ .stat-card{min-height:0} }
 
 /* full-bleed photo band (баннер, вне ритма --sy) */
 .photo-band{position:relative;height:clamp(420px,60vw,760px);overflow:hidden;margin:0;background:var(--wash)}
@@ -361,55 +302,17 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
   .complex-nav button{flex:1 1 0;padding:12px 4px;text-align:center;font-size:var(--fs-cap);min-height:44px}
   .complex-nav button span{display:none}
 }
-
-/* clip, не hidden: overflow:hidden-контейнер браузер прокручивает сам при переходе по якорю #cx-uN на сдвинутую
-   панель — слайдер уезжал вбок на ширину экрана и блок был пустым */
-.complex-slider{overflow:hidden;overflow:clip;position:relative}
-.complex-track{display:grid;align-items:start;transition:height .6s var(--ease)}
 .complex{grid-area:1/1;padding-block:var(--s2) var(--sy);transition:transform .6s var(--ease),opacity .6s var(--ease)}
 .complex[data-state="prev"]{transform:translateX(-100%);opacity:0;pointer-events:none}
 .complex[data-state="next"]{transform:translateX(100%);opacity:0;pointer-events:none}
 .complex[data-state="active"]{transform:none;opacity:1}
 .complex:not([data-state="active"]){visibility:hidden;transition:transform .6s var(--ease),opacity .6s var(--ease),visibility 0s .6s}
-.complex__badge-row{display:flex;align-items:center;gap:var(--s1);flex-wrap:wrap}
-.complex__badge{display:inline-flex;align-items:center;height:24px;font-weight:500;letter-spacing:.02em;color:#fff;background:var(--blue);border-radius:var(--r-s);padding:0 var(--s2);font-size:var(--fs-cap)}
-/* U1/U2 готовы, U3 строится — статус рядом с бейджем комплекса */
-.status-chip{display:inline-flex;align-items:center;height:24px;padding:0 var(--s2);border-radius:var(--r-s);font-size:var(--fs-cap);font-weight:500;letter-spacing:0}
-.status-chip--done{background:var(--blue);color:#fff}
-.status-chip--build{background:var(--wash);color:#5E5E64}
 .complex__title{font-weight:500;font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-.complex__head{display:grid;gap:var(--s2);justify-items:start;margin-bottom:var(--gap-s)}
-.complex__intro{font-size:var(--fs-sub);max-width:80ch;margin-top:var(--s1);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.complex .stat-grid{margin-bottom:var(--s3)}
-.complex__formats{font-size:var(--fs-body);max-width:90ch;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.complex__formats b{font-weight:500}
-.complex .complex__formats,.complex .stat-card__label{opacity:1}
-.complex .stat-card__label{font-size:var(--fs-body);max-width:none;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.complex__formats .nl{display:block;margin-top:4px}
-/* карточки комплекса: цифра подгоняется под ширину карточки, чтобы «39 - 185,8» влезало;
-   подпись и цифра обрезаны по буквам, поэтому поле сверху и снизу ровно равно padding */
-.complex .stat-grid{container-type:inline-size}
 .complex .stat-card{min-height:clamp(160px,13vw,200px)}
-.complex .stat-card__label,.complex .stat-card__value{text-box:trim-both cap alphabetic}
-.complex .stat-card__value{line-height:var(--lh-title)}
 
 @media (max-width:820px){
-  .complex .stat-grid{grid-template-columns:1fr 1fr}
-  .complex .stat-grid > :last-child{grid-column:1/-1}
   .complex .stat-card{min-height:0;padding:var(--s2)}
   
-}
-/* общее для всех комплексов — над табами, при переключении не меняется */
-.cx-common{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);padding-bottom:var(--s2)}
-.cx-common__card{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s3);padding:var(--s3);border-radius:var(--r);background:var(--blue);color:#fff;min-height:clamp(136px,11vw,176px)}
-.cx-common__v{font-size:var(--fs-title);font-weight:500;line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-.cx-common__l{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.cx-common__v,.cx-common__l{text-box:trim-both cap alphabetic}
-@media (max-width:640px){
-  .cx-common{grid-template-columns:1fr;gap:var(--s1);padding-bottom:var(--s1)}
-  .cx-common__card{padding:var(--s2);min-height:0;gap:var(--s2)}
-  .cx-common__v{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
-  .cx-common__l{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
 }
 /* статус комплекса прямо в табе */
 .cx-st{display:inline-flex;align-items:center;height:24px;padding:0 var(--s1);margin-left:var(--s1);border-radius:var(--r-s);vertical-align:3px;
@@ -425,16 +328,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .complex__gallery{margin-top:var(--gap-l);display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(200px,20vw,296px);gap:var(--s2)}
 .complex__gallery figure{overflow:hidden;border-radius:var(--r);background:var(--wash);margin:0}
 .complex__gallery img{width:100%;height:100%;object-fit:cover;display:block}
-.complex__gallery--6 .tile-a{grid-column:1;grid-row:1 / 3}
-.complex__gallery--6 .tile-b{grid-column:2;grid-row:1}
-.complex__gallery--6 .tile-c{grid-column:2;grid-row:2}
-.complex__gallery--6 .tile-d{grid-column:3 / 5;grid-row:1}
-.complex__gallery--6 .tile-e{grid-column:3;grid-row:2}
-.complex__gallery--6 .tile-f{grid-column:4;grid-row:2}
-.complex__gallery--4 .tile-a{grid-column:1 / 3;grid-row:1 / 3}
-.complex__gallery--4 .tile-b{grid-column:3;grid-row:1}
-.complex__gallery--4 .tile-c{grid-column:4;grid-row:1}
-.complex__gallery--4 .tile-d{grid-column:3 / 5;grid-row:2}
 /* «Показать ещё» — доп. фото коллажа скрыты на десктопе до клика, докладываются в ту же сетку;
    на мобиле лента и так одна (см. ниже), скрывать нечего (убрали отдельную «Галерею проекта») */
 @media (min-width:801px){ .complex__gallery .tile-more{display:none} .complex__gallery.is-expanded .tile-more{display:block} }
@@ -485,24 +378,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .co-card__photo{margin:0;padding-top:var(--s2);align-self:end}
 .co-card__photo picture{display:block;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash)}
 .co-card__photo img{width:100%;height:100%;object-fit:cover}
-/* иллюстрация ULA.ZONE — не фото цеха, cover обрезал бы композицию (как на unitdeveloper.com) */
-.co-card__photo--contain picture{background:var(--white)}
-.co-card__photo--contain img{object-fit:contain;padding:var(--s2)}
 .team-card__photo picture{display:block;width:100%;height:100%}
 .team-card__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
-.pr-card__head{display:flex;align-items:center;gap:var(--s2);min-height:64px}
-.pr-card__letter{font-size:var(--fs-display);font-weight:500;color:var(--blue);padding-right:var(--s2);border-right:1.5px solid var(--line-2);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
-.pr-card__head b{color:var(--blue);font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-/* «Принципы» → «Манифест»: связный текст вместо 4 карточек-букв, акцент — синяя линия слева
-   и выделенные ключевые слова, без кавычек-клише */
-/* манифест — по центру, на фото: текст поверх фото ОСТАЁТСЯ белым, не красим
-   акцентом (см. правило внизу «не перекрашивай текст на фотографии») */
-.manifesto{margin:0;position:relative;overflow:hidden;border-radius:var(--r);padding:var(--gap-xl) var(--gut);text-align:center;color:#fff}
-.manifesto__bg{position:absolute;inset:0;z-index:-2;margin:0}
-.manifesto__bg img{width:100%;height:100%;object-fit:cover;display:block}
-.manifesto::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,11,13,.5),rgba(10,11,13,.74))}
-.manifesto p{font-size:var(--fs-h3);font-weight:400;max-width:56ch;margin-inline:auto;color:rgba(255,255,255,.88);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
-.manifesto p b{color:#fff;font-weight:500}
 .tr-card{grid-template-columns:120px minmax(0,1fr);gap:var(--s2) var(--s3);align-items:start}
 .tr-card__photo{margin:0;width:120px;aspect-ratio:1;border-radius:var(--r-s);overflow:hidden;background:var(--white)}
 .tr-card__photo picture{display:block;width:100%;height:100%}
@@ -521,7 +398,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .tr-card__body > b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
 .tr-card__role{font-size:var(--fs-body);margin-top:-4px;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
 .tr-card__body > p{font-size:var(--fs-body);opacity:var(--dim);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.tr-card--wide{grid-column:1/-1}
 @media (max-width:520px){ .tr-card{grid-template-columns:1fr} }
 /* узкие карточки рядом: тексту остаётся меньше 100px, ставим по одной в ряд */
 @media (max-width:760px){ .tr-grid{grid-template-columns:minmax(0,1fr)} }
@@ -559,105 +435,39 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 @media (max-width:820px){ .fmt-grid{grid-template-columns:1fr} }
 /* узко: строки остаются «подпись … значение» с лидером до конца, значение переносится справа */
 @media (max-width:520px){ .fmt-card .fmt-card__rows{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)} .fmt-card .fmt-card__rows > div > b{max-width:58%} }
-
-/* scenarios: три карточки в ряд, фото сверху (как бенто «О проекте») */
-.scenario-list{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
-.scenario figure{aspect-ratio:16/10;background:var(--wash);border-radius:var(--r-s);overflow:hidden;margin:0 0 var(--s1)}
-.scenario img{width:100%;height:100%;object-fit:cover}
-.scenario h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.scenario p{font-size:var(--fs-body);opacity:var(--dim);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-@media (max-width:820px){ .scenario-list{grid-template-columns:1fr} }
-
-/* ================================================================
-   PRODUCT CARD: медиа 4:3 без бокса; имя+подпись; пилюля цены
-   ================================================================ */
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4) var(--s3)}
-.product-grid--3{grid-template-columns:repeat(3,1fr)}
 .product-card{display:grid;gap:var(--s1);align-content:start;color:inherit}
 /* карточка каталога в том же виде, что карточка формата: панель .card, фото с полем, 16:10, r-s, имя и цена 20px, синяя кнопка */
 .product-card.card{gap:var(--s2)}
-.product-card__media{aspect-ratio:16/10;border-radius:var(--r-s);overflow:hidden;background:var(--wash);position:relative;display:flex;align-items:center;justify-content:center}
 /* метраж — чип-пилюля на фото, слева сверху; в подписи остаётся только название */
 .product-card__area{position:absolute;left:var(--s2);top:var(--s2);z-index:1;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--r-s);background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--ink);font-size:var(--fs-cap);font-weight:500;font-variant-numeric:tabular-nums}
-.product-card__media img{width:100%;height:100%;object-fit:cover}
 /* «Доступно: N вилл» — чип справа сверху, вид как у метража */
 .product-card__area--n{left:auto;right:var(--s2)}
 /* узкий кадр (3 карточки на ~1100): чипы сходились впритык — второй уходит под метраж */
 .fmt-card__media{container-type:inline-size}
 @container (max-width:304px){ .product-card__area--n{right:auto;left:var(--s2);top:calc(var(--s2) + 36px)} }
-.product-card__row{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s2)}
-.product-card__name{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.product-card__name b{color:var(--blue);font-weight:500;white-space:nowrap}
 .product-card__meta{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
 /* цена — текст, а не синий чип: чип читался как кнопка */
 .product-card__price{flex:none;display:inline-flex;align-items:baseline;color:var(--ink);font-size:var(--fs-body);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-/* явная CTA-кнопка под ценой — карточка сама остаётся ссылкой, кнопка декоративная, но без неё непонятно, куда жать */
-.product-card__row .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.product-card__cta{width:100%;justify-content:center;margin-top:var(--s1)}
 /* узкая карточка (3 в ряд на 900–1199): название и цена в одну строку не влезали, «1+1 спальня» переносилось
    и ряды разъезжались. Порог по ширине самой карточки — весь ряд перестраивается разом */
 @media (min-width:901px){
   .product-card{container-type:inline-size}
-  @container (max-width:340px){ .product-card__row{flex-direction:column;gap:var(--s1)} }
 }
-@media (max-width:900px){ .product-grid,.product-grid--3{grid-template-columns:1fr 1fr} }
 /* мобилка: 2 в ряд (одна — слишком крупно); цена уходит под имя строкой */
 @media (max-width:520px){
-  .product-grid,.product-grid--3{gap:var(--s3) var(--s2)}
-  .product-card__row{flex-wrap:wrap;gap:var(--s1)}
-  .product-card__row > div{flex-basis:100%}
   .product-card__area{left:var(--s1);top:var(--s1);height:26px;padding:0 12px;font-size:var(--fs-cap)}
   .product-card__area--n{left:auto;right:var(--s1)}
   .product-card.card{padding:var(--s1);gap:var(--s1)}
-  /* кадр квадратный: при 16:10 фото было всего 147×92 */
-  .product-card__media{aspect-ratio:1/1}
-  .product-card__name,.product-card__row .product-card__price{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-  .product-card__cta{--h:40px;padding-inline:var(--s1);font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-}
-
-.empty{grid-column:1/-1;justify-items:center;text-align:center;padding:var(--s6) var(--s3);gap:var(--s2)}
-.empty p{max-width:44ch}
-.empty .cta-row{justify-content:center;margin-top:var(--s1)}
-.catalog-filters{display:flex;flex-wrap:wrap;gap:var(--s1);align-items:center;margin-bottom:var(--s3)}
-/* две группы (комплексы / форматы): на десктопе в одну строку через разделитель, на мобиле — две строки */
-.catalog-filters__row{display:contents}
-/* на десктопе кнопки «Фильтры» нет, счётчик в конце строки; на мобиле фильтры свёрнуты под кнопку,
-   счётчик рядом с ней («не показывать сразу все фильтры», «Найдено криво стоит») */
-.catalog-filters__bar{display:contents}
-.catalog-filters .cat-ft{display:none}
-.catalog-filters .cnt{order:9}
-@media (max-width:640px){
-  .catalog-filters{flex-direction:column;align-items:stretch}
-  .catalog-filters__bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-  .catalog-filters .cat-ft{display:inline-flex;gap:var(--s1)}
-  .cat-ft .ic{width:16px;height:16px}
-  .cat-ft[aria-expanded="true"]{border-color:var(--ink)}
-  .catalog-filters__row{display:none;flex-wrap:wrap;gap:var(--s1);align-items:center}
-  .catalog-filters.is-open .catalog-filters__row{display:flex}
-  .catalog-filters .sep{display:none}
-  .catalog-filters .cnt{margin-left:0}
 }
 .chip,.cat-ft{height:40px;padding:0 var(--s2);display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:var(--r);background:var(--white);font-size:var(--fs-cap);cursor:pointer;transition:border-color .16s,color .16s,background .16s}
 .chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
-.catalog-filters .sep{width:1px;height:24px;background:var(--line-2);margin:0 var(--s1)}
-.catalog-filters .cnt{margin-left:auto;font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.catalog-filters .cnt b{font-weight:500}
-
-/* yield: три сценария карточками + калькулятор */
-/* лид калькулятора — не приглушённый, а полноценный акцент: зовёт взаимодействовать */
-/* вес как у остальных подзаголовков — 500 выглядел жирнее без причины */
-.calc-lead{opacity:1;color:var(--ink)}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);background:var(--white);border-radius:var(--r);padding:var(--gap-s)}
 .sect--alt .calc{background:var(--paper)}
 .calc__inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2);align-content:start}
 /* подпись в соседней колонке может уйти на 2 строки: поля прижимаем к низу, чтобы стояли на одном уровне */
 .calc .field{display:grid;gap:var(--s1);align-content:end}
 .calc label{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.calc input{min-width:0;width:100%;height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-variant-numeric:tabular-nums}
-.sect--alt .calc input{background:var(--white)}
-.calc input:focus{outline:none;border-color:var(--blue)}
 /* цена виллы на странице юнита — фиксирована, менять нельзя */
-.calc input:disabled{opacity:.6;cursor:not-allowed}
 /* кнопка «выбрать тип виллы» — подставляет цену конкретного формата в калькулятор */
 .calc__picker{grid-column:1/-1;position:relative}
 .calc__picker-panel{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:5;display:grid;gap:var(--s1);padding:var(--s1);background:var(--white);border:1px solid var(--line-2);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.08)}
@@ -699,30 +509,12 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 
 /* location */
 .location-map{border-radius:var(--r);overflow:hidden;background:var(--white)}
-/* плашки расстояний + карта целиком в экран под шапкой: карта берёт остаток высоты.
-   На телефоне не держим: карта обычной высоты 4:5 */
-@media (min-width:761px){
-.loc-fit{display:flex;flex-direction:column;gap:var(--s2);height:calc(100svh - var(--hdr) - var(--s4));min-height:480px;max-height:880px}
-.loc-fit .stat-grid{margin-bottom:0;flex:none}
-.loc-fit .location-map{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
-.loc-fit .location-map__box{flex:1 1 auto;min-height:0;aspect-ratio:auto}
-}
-/* ≤1000px снизу висит липкая кнопка заявки (56 + отступ 16) — карта не должна уходить под неё */
-@media (min-width:761px) and (max-width:1000px){ .loc-fit{height:calc(100svh - var(--hdr) - var(--s4) - 56px - var(--s2));min-height:440px} }
 .sect--alt .location-map{background:var(--paper)}
 .row > .card{align-self:stretch}
 .ph{background:var(--wash);border-radius:var(--r)}
 .ph--map{aspect-ratio:16/10}
 .ph--plan{aspect-ratio:4/3;max-width:520px}
 .location-map figcaption{padding:var(--s1) var(--s2);font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.tag-row{display:flex;flex-wrap:wrap;gap:var(--s1)}
-/* адрес/пляж/инфраструктура — 3 отдельных чипа вместо одной карточки со списком: иконки в фирменный синий */
-.kv-chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
-.card.kv-chip{display:flex;flex-direction:row;align-items:flex-start;gap:var(--s2)}
-.kv-chip__ic{color:var(--blue);width:24px;height:24px;flex:none;margin-top:4px}
-.kv-chip b{display:block;font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);margin-bottom:4px}
-.kv-chip span{display:block;font-size:var(--fs-body);line-height:var(--lh-body);opacity:var(--dim)}
-@media (max-width:760px){ .kv-chip-grid{grid-template-columns:1fr} }
 /* карта — живой embed, серый под бренд; карточка инфраструктуры: фото слева, чипы справа */
 .location-map__img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 /* на десктопе (2 колонки бенто) карта растягивается вровень с левой карточкой, а не по своему aspect-ratio — иначе не дотягивает до низа */
@@ -732,7 +524,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .location-map__box .location-map__img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
 .location-map__box .location-map__live{position:absolute;inset:0;opacity:0;transition:opacity .4s}
 .location-map__box.is-live .location-map__live{opacity:1}
-.location-map__live .maplibregl-canvas{outline:none}
 .location-map__live .maplibregl-ctrl-attrib{font-size:11px;background:rgba(255,255,255,.8)}
 .map-pin{display:flex;align-items:center;gap:var(--s1);pointer-events:none}
 .map-pin__dot{width:20px;height:20px;border-radius:50%;background:var(--blue);border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.25);flex:none}
@@ -744,11 +535,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-poi__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:var(--lh-ui);padding:var(--s1);border-radius:var(--r-s);box-shadow:0 1px 3px rgba(0,0,0,.1);white-space:nowrap}
 @media (max-width:760px){ .location-map__box{aspect-ratio:4/5} }
 @media (max-width:520px){ .map-poi__lbl{font-size:var(--fs-map);padding:4px 8px} .map-pin__lbl{font-size:var(--fs-map)} }
-/* чип места раскрывается вниз в карточку с галереей: карточка лежит поверх чипа, заголовок на том же месте,
-   clip-path разворачивает её из размера чипа. Места без фото остаются простыми чипами */
-.maplibregl-marker.has-pop{cursor:pointer}
 .has-pop .map-pin__lbl,.has-pop .map-poi__lbl{pointer-events:auto;cursor:pointer}
-.maplibregl-marker.is-open{z-index:5}
 .map-pop{position:absolute;top:0;left:0;width:280px;padding-bottom:var(--s1);background:var(--white);color:var(--ink);border-radius:var(--r-s);box-shadow:0 8px 24px rgba(0,0,0,.18);pointer-events:auto;cursor:default;visibility:hidden;clip-path:inset(var(--ct,0) var(--cr,0) var(--cb,0) var(--cl,0) round var(--r-s));transition:clip-path .26s cubic-bezier(.4,0,.2,1),visibility 0s linear .26s}
 .is-open > .map-pop{visibility:visible;clip-path:inset(0 0 0 0 round var(--r-s));transition:clip-path .42s cubic-bezier(.2,.8,.2,1)}
 .map-pop__gal{opacity:0;transition:opacity .2s linear}
@@ -766,109 +553,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .map-pop__gal .ugal__arrow--next{right:var(--s1)}
 @media (max-width:520px){ .map-pop{width:224px} .map-pop__t{font-size:var(--fs-map)} }
 @media (prefers-reduced-motion:reduce){ .map-pop,.is-open > .map-pop,.map-pop__gal,.is-open > .map-pop .map-pop__gal,.map-pop__gal picture{transition:none} }
-.card.infra{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4);align-items:start}
-.infra__photo{margin:0;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3;background:var(--wash);align-self:stretch}
-.infra__photo img{width:100%;height:100%;object-fit:cover;display:block}
-.infra__body{padding:0}
-.infra__body .t-h3{margin-bottom:var(--s1)}
-.infra__body .tag-row{margin-top:var(--s3)}
-/* мастерплан Nuanu — с выносками на объекты, в узкой колонке подписи нечитаемы:
-   карточка в одну колонку, план во всю ширину. Пропорция точно по исходнику, иначе обрежет выноски */
-.card.infra--plan{grid-template-columns:1fr;gap:var(--s3)}
-.infra__photo--plan{aspect-ratio:2/1;position:relative}
-/* мастерплан: чистая картинка + подписи HTML поверх, координаты из Figma unitdeveloper (.mp-pin), подписи «Визуализация комплекса» нет.
-   Точка пина = низ ножки; top — верх подписи, как в Figma */
-.plan-pan,.plan-canvas{position:absolute;inset:0}
-.plan-canvas img{width:100%;height:100%;object-fit:cover;display:block}
-/* Nuanu: бенто под мастерпланом — 3 + 2 на десктопе, 2 колонки на планшете, 1 на мобиле */
-.nu-bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s2);margin-top:var(--s2)}
-.nu-card{grid-column:span 2;gap:var(--s2)}
-.nu-card:nth-child(n+4){grid-column:span 3}
-.nu-card__ic{width:48px;height:48px;padding:12px;box-sizing:border-box;border-radius:8px;background:var(--blue-050);color:var(--blue);margin-bottom:var(--s1)}
-.nu-card h4{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.nu-card p{max-width:60ch}
 .nw{white-space:nowrap}
-@media (max-width:1000px){ .nu-card,.nu-card:nth-child(n+4){grid-column:span 3} .nu-card:last-child{grid-column:1 / -1} }
-/* мобила — свайп, как .amenity-strip; край следующей карточки виден */
-@media (max-width:760px){
-  .nu-bento{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
-    margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);padding-bottom:4px}
-  .nu-bento::-webkit-scrollbar{display:none}
-  .nu-card,.nu-card:nth-child(n+4),.nu-card:last-child{flex:0 0 min(80%,320px);scroll-snap-align:start;gap:var(--s1)}
-  .nu-card__ic{padding:12px}
-}
-.plan-canvas{container-type:inline-size}
-/* затемнение как в Figma: 174:6 (multiply 20%) и 174:7 (низ кадра 20%), осветлил */
-.plan-canvas::before,.plan-canvas::after{content:"";position:absolute;inset:0;pointer-events:none}
-.plan-canvas::before{background:linear-gradient(to bottom,rgba(0,0,0,.44) 0%,rgba(0,0,0,.85) 31.4%,rgba(112,112,112,.85) 100%);opacity:.2;mix-blend-mode:multiply}
-.plan-canvas::after{background:linear-gradient(to bottom,rgba(0,0,0,0) 62%,rgba(0,0,0,.17) 100%)}
-/* пин стоит ТОЧКОЙ на координате; --h — ножка в px фрейма 1060, масштабируется с картинкой; шрифт 13px на 1060 */
-.plan-pin{position:absolute;z-index:1;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-100%);color:#fff;font-size:var(--fs-map);line-height:var(--lh-ui);text-align:center;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.75);pointer-events:none}
-.plan-pin::after{content:"";flex:none;width:1px;height:max(6px,calc(var(--h) * 100cqw / 1060 - 7px));margin-top:4px;background:#fff}
-.plan-pin::before{content:"";position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#fff}
-.plan-pin--dn{flex-direction:column-reverse;transform:translate(-50%,0)}
-.plan-pin--dn::after{margin:0 0 4px}
-.plan-pin--dn::before{bottom:auto;top:-3px}
-.plan-canvas .plan-badge{z-index:1}
-/* чип комплекса на мастерплане: то же место, что на unitdeveloper.com (.mp-badge), точка ножки — на квартале.
-   Координаты — доля кадра: десктоп 2:1 целиком; мобильный кадр — своя сцена (досчитано по подписям), ножка справа, чтобы чип не вылез за край */
-.plan-badge{--x:75.7%;--y:19.7%;position:absolute;left:var(--x);top:var(--y);transform:translate(-20px,-100%);display:flex;flex-direction:column;align-items:flex-start;pointer-events:none}
-.plan-badge__lbl{background:var(--white);color:var(--ink);font-size:var(--fs-cap);line-height:var(--lh-ui);padding:var(--s1) 12px;border-radius:var(--r-s);box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap}
-.plan-badge__stem{position:relative;width:1px;height:20px;margin-left:24px;background:var(--white)}
-.plan-badge__stem::after{content:"";position:absolute;left:50%;bottom:-3px;width:6px;height:6px;border-radius:50%;background:var(--white);transform:translateX(-50%)}
-@media (max-width:760px){ .plan-badge__lbl{font-size:var(--fs-map);padding:8px 8px} .plan-badge__stem{height:14px} }
-@media (max-width:760px){
-  .infra__photo--plan{aspect-ratio:auto;height:380px}
-  .plan-pan{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .plan-pan::-webkit-scrollbar{display:none}
-  .plan-canvas{position:relative;inset:auto;width:760px;height:100%}
-  /* подсказка, что план листают; плашка как чип комплекса (белая, радиус 8), гаснет после первого касания */
-  .plan-hint{position:absolute;left:50%;bottom:var(--s2);z-index:2;display:flex;align-items:center;gap:var(--s1);transform:translateX(-50%);
-    background:var(--white);color:var(--ink);font-size:var(--fs-cap);padding:var(--s1) 12px;border-radius:var(--r-s);
-    box-shadow:0 1px 4px rgba(0,0,0,.18);white-space:nowrap;pointer-events:none;transition:opacity .4s ease,visibility .4s;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-  .plan-hint .ic{width:16px;height:16px;color:var(--blue);animation:plan-nudge 1.6s ease-in-out .6s 3}
-  .plan-hint.is-used{opacity:0;visibility:hidden}
-  /* чипы у краёв кадра прячутся и появляются при свайпе */
-  .is-pan .plan-pin,.is-pan .plan-badge{transition:opacity .35s ease,translate .35s ease,scale .35s ease}
-  .is-pan .plan-pin.is-off,.is-pan .plan-badge.is-off{opacity:0;translate:0 8px;scale:.92}
-}
-@media (min-width:761px){ .plan-hint{display:none} }
 @keyframes plan-nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
-@media (prefers-reduced-motion:reduce){ .plan-hint .ic{animation:none} .is-pan .plan-pin,.is-pan .plan-badge,.plan-hint{transition:none} }
-@media (max-width:760px){ .card.infra{grid-template-columns:1fr} }
-/* «Что есть в комплексе» — на мобиле свайп-лента фото-карточек, на десктопе пока остаётся .infra (десктоп-версия на паузе) */
-/* «что есть в комплексе»: на десктопе сетка фото-карточек — была строка серых тегов,
-   смотрелась бедно. На мобиле остаётся свайп-лента, разметка одна на оба случая */
-/* align-items:start + flex-колонка: иначе строка грида считается по высоте фото (aspect-ratio),
-   а подпись выпадает наружу и её перекрывает следующий ряд */
-.amenity-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3) var(--s2);align-items:start}
-.amenity-card{margin:0;min-width:0;display:flex;flex-direction:column}
-.amenity-card picture,.amenity-card .ph{display:block;aspect-ratio:1/1;border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
-.amenity-card--ph .ph{background:var(--blue-050)}
-.amenity-card img{width:100%;height:100%;object-fit:cover}
-.amenity-card figcaption{margin-top:var(--s2);font-size:var(--fs-cap);font-weight:500;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-@media (max-width:760px){
-  .amenity-strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
-    overscroll-behavior-x:contain;padding-bottom:4px;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)}
-  .amenity-strip::-webkit-scrollbar{display:none}
-  .amenity-card{flex:0 0 132px;scroll-snap-align:start}
-}
-.tag-row span{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 var(--s2);border-radius:var(--r);border:1px solid var(--line-2);background:var(--white);font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-/* U3 ещё строится — выделяем отдельно от готовых U1/U2 */
-.tag-row span.tag-row__done{border-color:var(--blue);background:var(--blue-050);color:var(--blue)}
-.tag-row__done b{color:var(--blue)}
-.card .tag-row span{border-color:transparent;background:var(--white)}
-.sect--alt .card .tag-row span{background:var(--white)}
-
-/* «подпись + текст» сетка */
-.kv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s4)}
-.kv-grid--1{grid-template-columns:1fr}
-.kv-grid--2{grid-template-columns:1fr 1fr}
-.kv-grid--3{grid-template-columns:repeat(3,1fr)}
-.kv-grid b{display:block;font-size:var(--fs-sub);font-weight:500;margin-bottom:var(--s1);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.kv-grid > div > span,.kv-grid p{display:block;font-size:var(--fs-body);opacity:var(--dim);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-@media (max-width:820px){ .kv-grid,.kv-grid--3{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .kv-grid,.kv-grid--2,.kv-grid--3{grid-template-columns:1fr} }
 
 /* team: имя и роль над фото */
 .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
@@ -886,21 +572,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .team-card--wide .team-card__bio{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
 @media (max-width:900px){ .team-grid{grid-template-columns:1fr} }
 @media (max-width:520px){ .team-card,.team-card--wide{grid-template-columns:1fr;grid-template-rows:auto;grid-template-areas:"head" "photo" "bio"} }
-
-/* how to buy */
-.step-list{display:grid}
-.step-row{display:grid;grid-template-columns:96px 1fr;gap:var(--s2);padding-block:var(--s3);align-items:start}
-.step-row + .step-row{border-top:1px solid var(--line)}
-.step-row .num{font-weight:500;color:var(--blue);font-size:var(--fs-title);font-variant-numeric:tabular-nums;line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-.step-row b{display:block;font-weight:500;font-size:var(--fs-sub);margin-bottom:4px;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.step-row p{font-size:var(--fs-body);max-width:52ch;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-@media (max-width:620px){ .step-row{grid-template-columns:1fr;gap:4px} }
-
-/* faq */
-.faq-grid{display:grid;grid-template-columns:4.5fr 7.5fr;gap:var(--gap-xl);align-items:start}
-.faq-head{position:sticky;top:calc(var(--hdr) + var(--s4))}
-.faq-head .t-lead{margin-top:var(--s2)}
-.faq-head .btn{margin-top:var(--s3)}
 /* FAQ как на БСО: кнопка-карточка на всю ширину, ответ раскрывается под ней (grid 0fr→1fr) */
 .faq-list{display:grid;gap:var(--s1)}
 .faq-q{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);width:100%;padding:var(--s3);text-align:left;border:1px solid var(--line);border-radius:var(--r);background:var(--white);color:var(--ink);
@@ -914,7 +585,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .faq-a > div{overflow:hidden}
 .faq-a p{padding:var(--s2) var(--s3) var(--s1);font-size:var(--fs-body);max-width:70ch;line-height:var(--lh-body);letter-spacing:var(--ls-body)}
 @media (prefers-reduced-motion:reduce){ .faq-a,.faq-chev{transition:none} }
-@media (max-width:820px){ .faq-grid{grid-template-columns:1fr} .faq-head{position:static} }
 
 /* ================================================================
    FINAL: текст слева, форма-карточка на синей панели справа
@@ -928,7 +598,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .lead-panel{background:var(--blue);border-radius:var(--r);padding:var(--gap-l)}
 .lead-form{background:var(--white);color:var(--ink);border-radius:var(--r);padding:var(--s4);display:grid;gap:var(--s2)}
 .lead-form .t-h3{margin-bottom:var(--s1)}
-.lead-form__pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
 .lead-form .field{display:grid;gap:var(--s1)}
 .lead-form label{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
 .lead-form input,.lead-form select{height:48px;border:1px solid var(--line-2);border-radius:var(--r-s);padding:0 var(--s2);background:var(--paper);font-size:var(--fs-body)}
@@ -936,8 +605,8 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .lead-form .btn{width:100%;justify-content:center}
 /* ошибки полей (форма, калькулятор): красная рамка + строка под полем */
 .field__err{font-size:var(--fs-cap);color:var(--err);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.lead-form input[aria-invalid="true"],.calc input[aria-invalid="true"]{border-color:var(--err)}
-.lead-form input[aria-invalid="true"]:focus,.calc input[aria-invalid="true"]:focus{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
+.lead-form input[aria-invalid="true"]{border-color:var(--err)}
+.lead-form input[aria-invalid="true"]:focus{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
 .lead-form__note,.lead-form__consent{font-size:var(--fs-cap);opacity:var(--dim);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
 .lead-form__consent{margin-top:calc(-1 * var(--s1))}
 .lead-form__consent a{text-decoration:underline;text-underline-offset:3px}
@@ -968,7 +637,6 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
 .csel-pop:has(.csel-search) .csel-sb{top:64px}
 .csel-sb.on{opacity:1}
 .csel-sb-thumb{position:absolute;left:0;right:0;top:0;min-height:20px;border-radius:3px;background:var(--blue)}
-.lead-form__pair > .field:last-child .csel-pop{left:auto;right:0}
 /* телефон: код страны (кнопка csel, узкая) + номер; на всех вьюпортах 16px — без iOS-зума */
 .lead-form__phone{display:flex;gap:var(--s1)}
 .lead-form__phone .csel{flex:0 0 118px}
@@ -979,7 +647,7 @@ body.menu-open .menu-overlay{transform:none;visibility:visible;transition:transf
    на ~60px, шапка и крестик меню «уезжали»  */
 .final-cta__split > *,.lead-form .field,.lead-form__phone .csel{min-width:0}
 .lead-form input{width:100%;min-width:0}
-@media (max-width:760px){ .final-cta__split{grid-template-columns:minmax(0,1fr)} .final-cta__split > :first-child{padding-top:0} .lead-form__pair{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:760px){ .final-cta__split{grid-template-columns:minmax(0,1fr)} .final-cta__split > :first-child{padding-top:0} }
 
 /* footer */
 .site-footer{background:var(--paper);border-top:1px solid var(--line)}
@@ -1081,7 +749,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 @media (max-width:520px){ .avail__tabs .chip span{display:none} .avail__tabs .chip{min-width:64px;justify-content:center} }
 .lead-form__pick{margin:0;font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
 .lead-form__pick b{font-weight:500}
-.ic--flip{transform:scaleX(-1)}
 /* прогресс-точки вместо счётчика «1/3» (как на БСО) — размеры 1:1 с БСО */
 .dots{position:absolute;z-index:2;left:50%;bottom:var(--s2);transform:translateX(-50%);display:flex;gap:4px;pointer-events:none}
 .dots span{width:5px;height:5px;border-radius:3px;background:rgba(255,255,255,.5);box-shadow:0 1px 2px rgba(0,0,0,.3);transition:background .25s,width .25s}
@@ -1117,18 +784,14 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   /* подзаголовки на мобиле 16px (; было 18) */
   .t-lead,.complex__intro{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
   .t-small,.consent-bar p,.lead-form__note,.lead-form__consent,.photo-band figcaption span,.stat-card__label,.product-card__meta,.team-card__role,.field__err{line-height:var(--lh-cap)}
-  .manifesto p{line-height:var(--lh-sub)}
   .sect-head{gap:var(--s2);margin-bottom:var(--s3)}
   .sub-head{margin-block:var(--s5) var(--s2)}
-  .cta-row--after{margin-top:var(--s3)}
   .card{padding:var(--s2)}
   .card--photobg{padding:0}
   .stat-card{padding:var(--s2)}
-  .complex__head{margin-bottom:var(--s3)}
   .complex__gallery{margin-top:var(--s4)}
   .calc{padding:var(--s2)}
   .calc__roi b{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
-  .step-row{padding-block:var(--s2)}
   .faq-q{padding:var(--s2)}
   .faq-a p{padding:var(--s1) var(--s2) var(--s1)}
   .lead-panel{padding:var(--s2)}
@@ -1140,7 +803,7 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
 @media (min-width:1600px){
   :root{ --col:1680px; --gut:64px; --fs-display:72px; --fs-title:52px; --fs-h3:36px; --fs-sub:24px; --fs-body:18px; --fs-cap:16px; }
   
-  .chip{height:44px} .tag-row span{min-height:44px}
+  .chip{height:44px}
 }
 
 /* reveal — только при <html class="js"> */
@@ -1209,10 +872,8 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .site-nav a:hover{opacity:1}
   .hd-sel__btn:hover{opacity:1}
   .menu-list a:hover{color:var(--blue)}
-  .ov-row:hover{background:var(--blue-050)}
   .fmt-card:hover .fmt-card__media img{transform:scale(1.02)}
   .fmt-card:hover .fmt-card__name{color:var(--blue)}
-  a.product-card:hover .product-card__name{color:var(--blue)}
   .chip:hover{border-color:var(--ink-2)}
   .calc__pick-card:hover{background:var(--blue-050);color:var(--blue)}
   .faq-q:hover{border-color:var(--ink-2)}
@@ -1228,13 +889,6 @@ main.page{padding-top:calc(var(--hdr) + var(--s5))}
   .lightbox__close:hover{background:rgba(255,255,255,.22)}
   .lightbox__arrow:hover{background:rgba(255,255,255,.22)}
   .ugal__arrow:hover{opacity:1}
-  .lightbox__btn:hover{background:rgba(255,255,255,.22)}
-}
-@media (hover:hover) and (min-width:1200px){
-  .ov-card:has(.ov-row:hover) .ov-photo img{opacity:0}
-  .ov-card:has(.ov-row[data-u="u1"]:hover) .ov-photo img[data-u="u1"],
-  .ov-card:has(.ov-row[data-u="u2"]:hover) .ov-photo img[data-u="u2"],
-  .ov-card:has(.ov-row[data-u="u3"]:hover) .ov-photo img[data-u="u3"]{opacity:1}
 }
 
 /* Связки UNIT.: «UNIT.» medium, хвост названия regular — но UNIT. никогда не легче окружения:
@@ -1297,9 +951,7 @@ i.u5,i.ul{font-style:normal}
 
 /* табы комплексов: панель начинается сразу под ними, U и статус уже есть на табе */
 .complex-nav{border-bottom:0}
-.complex__badge-row{display:none}
-.cx-common{padding-bottom:var(--s5)}
-@media (max-width:760px){ .complex{padding-top:var(--s2)} .cx-common{padding-bottom:var(--s4)} }
+@media (max-width:760px){ .complex{padding-top:var(--s2)} }
 
 /* блок 2: шапка стопкой, одна шкала шрифтов во всех карточках, списки без полосок */
 .ab-head{grid-template-columns:minmax(0,1fr);grid-template-areas:"t" "s" "x";gap:0;margin-bottom:var(--s5)}
@@ -1409,16 +1061,6 @@ i.u5,i.ul{font-style:normal}
 }
 @media (min-width:1201px) and (max-width:1599px){ .ab-card--photo{padding:var(--s3)} }
 
-/* цифры проекта вторым рядом под карточками комплекса */
-.complex .stat-grid:has(+ .cx-extra){margin-bottom:var(--s2)}
-.complex .cx-extra{grid-template-columns:repeat(2,minmax(0,1fr))}
-.complex .cx-extra .stat-card{min-height:clamp(128px,10vw,160px)}
-
-.complex .cx-extra .cx-uk{font-size:var(--fs-h3);color:var(--blue);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
-
-@media (max-width:820px){ .complex .cx-extra > :last-child{grid-column:auto} .complex .cx-extra .stat-card{min-height:0} }
-@media (max-width:520px){ .complex .cx-extra{grid-template-columns:1fr} .cx-uk .ul{white-space:normal} }
-
 /* Nuanu одна в колонке: заголовок сверху, плашки прижаты к низу, свободное место между ними */
 @media (min-width:1201px){
   .ab-col > .ab-card--blue{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s4)}
@@ -1481,10 +1123,6 @@ i.u5,i.ul{font-style:normal}
   .complex-nav .cx-st{height:auto;padding:0;background:none;font-weight:400;line-height:var(--lh-ui)}
   .complex-nav .cx-st--build{color:var(--ink-2)}
   .complex-nav button[aria-selected="true"] .cx-st{background:none;color:rgba(255,255,255,.8)}
-  .complex .stat-card__label{font-size:var(--fs-cap);color:var(--ink-2);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-  .complex .stat-grid .stat-card .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-  .complex .stat-card__value .stat-card__word{font-size:var(--fs-cap);font-weight:400;margin-right:4px;line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-  .complex .stat-grid .stat-card .cx-uk{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
 }
 
 /* ===== v3: правки по доку «архитектура» ===== */
@@ -1501,23 +1139,8 @@ i.u5,i.ul{font-style:normal}
 .fmt-card{grid-template-rows:auto 1fr}
 .fmt-card__body{display:flex;flex-direction:column}
 .fmt-card__foot{margin-top:auto}
-/* локация: 6 расстояний сеткой, цифры мельче */
-.stat-grid--6{grid-template-columns:repeat(6,minmax(0,1fr))}
-.stat-grid--6 .stat-card{min-height:0;padding:var(--s2)}
-.stat-grid--6 .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
-@media (max-width:1100px){ .stat-grid--6{grid-template-columns:repeat(3,minmax(0,1fr))} }
-@media (max-width:520px){ .stat-grid--6{grid-template-columns:repeat(2,minmax(0,1fr))} }
-.kv-chip span.kv-chip__v{opacity:1}
-.kv-chip span.kv-chip__sub{margin-top:4px;font-size:var(--fs-cap)}
 /* доходность: абзац под лидом и карточка УК */
 .sect-text{font-size:var(--fs-body);max-width:68ch;color:var(--ink-2);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.ym-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s3);align-items:start;background:var(--white);border-radius:var(--r);padding:var(--s4);margin-bottom:var(--s2)}
-.ym-card > div{display:grid;gap:4px}
-.ym-card__t{font-size:var(--fs-h3);font-weight:400;line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
-.ym-card__t i.ul{color:var(--blue)}
-.ym-card__sub{font-size:var(--fs-body);color:var(--ink-2);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.ym-card p{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-@media (max-width:760px){ .ym-card{grid-template-columns:1fr;padding:var(--s2);gap:var(--s2)} .ym-card p{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)} }
 /* дочерние компании: фото сверху, текст снизу */
 .co-card{grid-template-rows:auto auto auto 1fr}
 .co-card__photo{order:-1;padding:0 0 var(--s1);align-self:start}
@@ -1580,10 +1203,7 @@ i,em{font-style:normal}
   .card,.stat-card,.stat-grid--6 .stat-card,.co-card,.value-card,.ab-card:not(.ab-card--photo),.ym-card__txt,.calc,.co-group,.lead-form{padding:var(--s2)}
   .lead-panel,.quote{padding:var(--s3)}
 }
-/* крупные цифры одного размера; в сетке локации на ступень меньше */
-.stat-card__value,.complex .stat-grid .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
 .value-card__l{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
-.stat-grid--6 .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
 /* заголовки карточек тоже капсом */
 .card > b,.kv-chip b,.ym-card__t,.co-group__title,.photo-band figcaption b{text-transform:uppercase}
 /* плашка «От застройщика» со скруглением, как все плашки */
@@ -1594,13 +1214,6 @@ i,em{font-style:normal}
 /* блок 2, планшет и телефон: от фото до заголовка как в остальных карточках */
 @media (min-width:761px) and (max-width:1200px){ .ab-card--photo > div{padding:var(--s3) var(--s4) var(--s4)} }
 @media (max-width:760px){ .ab-card--photo > div{padding-top:var(--s2)} }
-
-/* карточка УК: текст слева, фото справа */
-.ym-card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;padding:0;overflow:hidden;align-items:stretch}
-.ym-card__txt{display:grid;gap:var(--s3);align-content:start}
-.ym-card__ph{display:block;position:relative;min-height:320px}
-.ym-card__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-@media (max-width:760px){ .ym-card{grid-template-columns:1fr} .ym-card__ph{min-height:0;aspect-ratio:4/3} }
 
 /* ценности: перевод названия второй строкой, обычным регистром */
 .value-card__tr{display:block;margin-top:4px;text-transform:none;font-weight:400;font-size:var(--fs-body);color:var(--ink-2);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
@@ -1616,7 +1229,6 @@ i,em{font-style:normal}
 
 /* страница формата: описание шире, на 1920 в 2–3 строки */
 [data-unit-field="desc"]{max-width:110ch}
-.ym-card__txt > div{display:grid;gap:4px}
 .quote p{max-width:none}
 .tr-card__body > b,.co-card > b{text-transform:uppercase}
 /* подписи колонок футера обычным регистром: мелкий серый капс не используем */
@@ -1626,7 +1238,6 @@ i,em{font-style:normal}
 .co-card{min-width:0}
 /* отступы одной системой: заголовок карточки → текст 12, разные блоки в секции 40/24, подсекции 56/40 */
 .card:not(.product-card):not(.stat-card):not(.fmt-card):not(.avail-card):not(.team-card):not(.tr-card),.nu-card,.value-card,.tr-card__body,.ab-card--photo > div{gap:12px}
-.ym-card{margin-bottom:var(--gap-s)}
 .complex__gallery{margin-top:var(--gap-s)}
 .quote{margin-top:var(--gap-l)}
 .dots{gap:4px}
@@ -1675,19 +1286,7 @@ i,em{font-style:normal}
 /* длинные слова, которые нельзя рвать, на узких экранах: шрифт по ширине */
 @media (max-width:520px){ .legal h1.t-h2{font-size:min(var(--fs-title),calc((100vw - 48px) / 12.8))} }
 @media (max-width:380px){
-  #location .stat-card__label{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
   html[lang=en] [data-i18n="co.q"]{font-size:var(--fs-sub)}
-}
-/* карточка УК: подпись над заголовком, заголовок, текст; отступы по шкале, на мобиле фото сверху */
-.ym-card .ym-card__txt{display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5)}
-.ym-card .ym-card__head{display:flex;flex-direction:column;gap:var(--s1)}
-.ym-card .ym-card__sub{font-size:var(--fs-cap);color:var(--ink-2);line-height:var(--lh-cap);letter-spacing:var(--ls-cap)}
-.ym-card .ym-card__t{line-height:var(--lh-h3)}
-.ym-card .ym-card__txt p{margin:0;max-width:44ch}
-@media (max-width:1100px){ .ym-card .ym-card__txt{padding:var(--s4)} }
-@media (max-width:760px){
-  .ym-card .ym-card__ph{order:-1}
-  .ym-card .ym-card__txt{padding:var(--s3) var(--s2) var(--s3);gap:var(--s2)}
 }
 
 /* вариант доходности: УК вертикально слева, калькулятор справа */
@@ -1710,21 +1309,16 @@ i,em{font-style:normal}
 /* синий калькулятор рядом с карточкой УК: белые поля, итог белым */
 .yb-grid .calc{background:var(--blue);color:#fff}
 .yb-grid .calc label,.yb-grid .calc .dim{opacity:.78}
-.yb-grid .calc input{background:#fff;border-color:#fff;color:var(--ink)}
-.yb-grid .calc input:disabled{opacity:1;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
-.yb-grid .calc input:focus{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.45)}
 .yb-grid #calcPickerBtn{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
 .yb-grid .calc .calc__out{border-top-color:rgba(255,255,255,.3)}
 .yb-grid .calc__roi b,.yb-grid .calc__rows b{color:#fff}
 .yb-grid .calc__rows > div::after{opacity:.4}
 .yb-grid .calc__cta .btn{background:#fff;color:var(--blue)}
-.yb-grid .calc .field__err{color:#fff;opacity:1}
-.yb-grid .calc input[aria-invalid="true"]{border-color:#ffb3b3;box-shadow:0 0 0 2px #ffb3b3}
 @media (hover:hover){ .yb-grid #calcPickerBtn:hover{color:#fff;background:rgba(255,255,255,.1)} .yb-grid .calc__cta .btn:hover{background:var(--blue-050)} }
 .yb-grid .fmt-card__foot{flex-wrap:wrap;column-gap:var(--s2);row-gap:4px}
 /* на широких итог крупнее: калькулятор по высоте равен карточке, пустоты меньше */
 @media (min-width:1101px){ .yb-grid .calc__rows{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)} }
-@media (min-width:1600px){ .yb-grid .calc input{height:56px} .yb-grid .calc{gap:var(--s5)} }
+@media (min-width:1600px){ .yb-grid .calc{gap:var(--s5)} }
 /* вёрстка текстов: без одиноких слов в последней строке, заголовки ровными строками, подзаголовки не уже: правило «не больше 2 строк» важнее */
 main p,main li,main dd,.faq-a p,.fmt-card__rows b{text-wrap:pretty}
 main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaption,.co-card__sub{text-wrap:balance}
@@ -1759,13 +1353,12 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 @media (max-width:760px){ .ab-card--photo{padding:var(--s2)} }
 
 /* новые варианты блоков */
-.vb-tag{display:inline-block;margin-bottom:var(--s3);padding:4px 8px;border-radius:var(--r-s);background:var(--blue-050);color:var(--blue);font-size:var(--fs-cap);font-weight:500;line-height:var(--lh-cap)}
-.cxb-f:focus-visible,#complexes-b .complex-nav button:focus-visible,.cxb figure:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.cxb-f:focus-visible,#complexes .complex-nav button:focus-visible,.cxb figure:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
 /* комплексы: на десктопе коллаж слева, текст справа, в адаптивах коллаж всегда под текстом */
-#complexes-b{padding-bottom:var(--sy)}
+#complexes{padding-bottom:var(--sy)}
 /* у табов свой отступ сверху: вместе выходит 48 (моб 24), как от шапки до контента в других секциях */
-#complexes-b .cx-head{padding-bottom:var(--s4)}
+#complexes .cx-head{padding-bottom:var(--s4)}
 .cxb-panels{padding-top:var(--s2)}
 .cxb{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s5);align-items:stretch}
 .cxb[hidden]{display:none}
@@ -1775,7 +1368,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .cxb__pics figure:first-child{grid-row:1 / 3}
 .cxb__pics img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
 /* у U3 один широкий кадр и два вертикальных */
-#cxb-u3 .cxb__pics figure:first-child{grid-row:1;grid-column:1 / 3}
+#cx-u3 .cxb__pics figure:first-child{grid-row:1;grid-column:1 / 3}
 .cxb__toggle{align-self:flex-start;background:#fff;border-color:var(--blue);color:var(--blue)}
 @media (hover:hover){ .cxb__toggle:hover{background:var(--blue);color:#fff} }
 .cxb__body{display:flex;flex-direction:column;min-width:0}
@@ -1807,8 +1400,8 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
   .cxb__left{order:2;margin-top:var(--s4)}
   .cxb__rest{order:3}
   .cxb__pics{flex:none;min-height:0;aspect-ratio:2/1}
-  #cxb-u3 .cxb__pics{aspect-ratio:3/1;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr)}
-  #cxb-u3 .cxb__pics figure:first-child{grid-column:auto}
+  #cx-u3 .cxb__pics{aspect-ratio:3/1;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr)}
+  #cx-u3 .cxb__pics figure:first-child{grid-column:auto}
 }
 @media (max-width:800px){
   .cxb__left{display:none}
@@ -1816,7 +1409,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
   .cxb__rest.is-open{margin-top:var(--s4)}
 }
 @media (max-width:760px){
-  #complexes-b .cx-head{padding-bottom:var(--s2)}
+  #complexes .cx-head{padding-bottom:var(--s2)}
   .cxb__intro{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:0}
 }
 /* три плитки в ряд на телефоне рвут подписи: кладём строками */
@@ -1858,8 +1451,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .lx-card{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:var(--s2);padding:var(--s2);border-radius:var(--r);background:var(--paper)}
 .lx-card > *{min-width:0}
 .lx-card h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-/* 8/3: карта и фото на широком экране не режутся меньше 60% */
-.lx-map,.lx-pic{aspect-ratio:8/3;width:100%;border-radius:var(--r-s);overflow:hidden}
+.lx-map,.lx-pic{aspect-ratio:2/1;width:100%;border-radius:var(--r-s);overflow:hidden}
 .lx-map{display:block;height:auto;object-fit:cover}
 .lx-pic picture{display:block;height:100%}
 .lx-pic{position:relative}
@@ -1929,7 +1521,6 @@ b,strong{font-weight:500}
 }
 /* цифра сверху, подпись под ней: цифры стоят на одной линии, а разная длина подписей не оставляет дыры внутри плитки */
 main .stat-card.stat-card{min-height:0;flex-direction:column-reverse;justify-content:flex-end;gap:var(--s1)}
-.stat-card__value,.complex .stat-grid .stat-card__value,.stat-card .stat-card__value{margin-top:0;padding-top:0}
 .lx-dist > div{display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:4px}
 @media (min-width:481px){ .cxb__stats > div{flex-direction:column-reverse;justify-content:flex-end} }
 @media (max-width:480px){ .cxb__stats > div{justify-content:space-between} }
@@ -1968,8 +1559,58 @@ main .stat-card.stat-card{min-height:0;flex-direction:column-reverse;justify-con
   .plb__pic,.plb__meta{margin-bottom:12px}
   .plb .btn{margin-top:12px}
 }
-/* лента с фото точной ширины не должна растягивать панель комплекса */
-.complex-track{grid-template-columns:minmax(0,1fr)}
 .complex{min-width:0}
 /* вторичный текст уже 50%: второе приглушение делает его нечитаемым */
 .value-card p{opacity:1}
+
+/* калькулятор: показывает значения, вводить нечего */
+.calc__val{display:block;font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub);overflow-wrap:anywhere}
+
+/* адрес под заголовком карты */
+.lx-head{display:grid;gap:4px}
+.lx-addr{font-size:var(--fs-cap);line-height:var(--lh-cap);letter-spacing:var(--ls-cap);color:var(--ink-2)}
+@media (max-width:760px){ .lx-map{height:320px} }
+
+/* плашка cookie: у формы уходит, на телефоне низкая полоса и первый экран поднят над ней */
+.consent-bar.is-away{transform:translateY(24px);opacity:0;pointer-events:none}
+@media (max-width:760px){
+  .consent-bar{left:var(--s2);right:var(--s2);bottom:var(--s2);width:auto;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:12px var(--s2)}
+  .consent-bar .btn{width:auto}
+  .hero__content{transition:padding-bottom .5s var(--ease)}
+  body.consent-open .hero__content{padding-bottom:calc(var(--gap-s) + var(--consent-h,0px) + var(--s2))}
+}
+
+/* русское меню длиннее: на этих ширинах шапка должна остаться в сетке */
+@media (min-width:1201px) and (max-width:1599px){ .site-header .container{gap:var(--s3)} .site-nav{gap:var(--s2)} }
+
+/* низкий телефон: плашка cookie не должна закрывать кнопки первого экрана */
+@media (max-width:760px) and (max-height:700px){ body.consent-open .hero__content{padding-top:calc(var(--hdr) + var(--s2))} }
+
+/* чипы карты: подпись комплекса над точкой на узкой карте, Чангу на краю */
+.map-pin--top{flex-direction:column-reverse;gap:4px}
+.map-pin--top .map-pin__lbl{white-space:nowrap}
+.map-poi--edge{position:absolute;bottom:var(--s1);right:40px;z-index:2}
+.map-poi--edge .map-poi__dot{display:none}
+.map-poi--edge .map-poi__lbl::after{content:" →"}
+
+/* планшет: карта и фото на всю ширину карточки, иначе подписи на карте не помещаются */
+@media (min-width:761px) and (max-width:1000px){
+  .lx-card{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .lx-map,.lx-pic{grid-row:auto;aspect-ratio:2/1;height:auto;min-height:0}
+  .lx-dist{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* самые узкие телефоны: плашка ниже, чтобы кнопки первого экрана остались открыты */
+@media (max-width:380px){ .consent-bar{gap:12px;padding:var(--s1) 12px} }
+@media (max-width:380px){ .consent-bar{bottom:var(--s1)} }
+
+/* маркеры внешней карты */
+.location-map__live .maplibregl-canvas{outline:none}
+.maplibregl-marker.has-pop{cursor:pointer}
+.maplibregl-marker.is-open{z-index:5}
+
+/* планшет: отступ внутри калькулятора не больше поля карточки */
+@media (max-width:1200px){ .yb-grid .calc{gap:var(--s2)} }
+
+/* карта уже: подписи ниже, иначе соседние слипаются */
+@media (max-width:1100px){ .lx-map .map-poi__lbl,.lx-map .map-pin__lbl{font-size:var(--fs-map);padding:4px 8px} }
