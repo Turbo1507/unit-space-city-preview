@@ -206,7 +206,8 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       document.body.classList.add('consent-open'); reserve(); addEventListener('resize', reserve);
       // у формы плашка уходит, чтобы не закрывать кнопку отправки
       var lead = document.getElementById('lead');
-      if (lead && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { bar.classList.toggle('is-away', es[0].isIntersecting); }).observe(lead);
+      var footEl = document.querySelector('.site-footer'), near = new Map();
+      if (lead && 'IntersectionObserver' in window) { var awayIo = new IntersectionObserver(function (es) { es.forEach(function (e) { near.set(e.target, e.isIntersecting); }); bar.classList.toggle('is-away', near.get(lead) === true || near.get(footEl) === true); }); awayIo.observe(lead); if (footEl) awayIo.observe(footEl); }
       setTimeout(function () { bar.classList.add('in'); }, 700);
       var ok = document.getElementById('consentOk');
       /* карточка карты в углу перекрывалась баннером cookie (тоже в углу) — стрелка вела на клик по «OK» вместо перехода к карте;
