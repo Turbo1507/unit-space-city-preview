@@ -1581,7 +1581,8 @@ i,em{font-style:normal}
   .lead-panel,.quote{padding:var(--s3)}
 }
 /* крупные цифры одного размера; в сетке локации на ступень меньше */
-.stat-card__value,.complex .stat-grid .stat-card__value,.value-card__l{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
+.stat-card__value,.complex .stat-grid .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+.value-card__l{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
 .stat-grid--6 .stat-card__value{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
 /* заголовки карточек тоже капсом */
 .card > b,.kv-chip b,.ym-card__t,.co-group__title,.photo-band figcaption b{text-transform:uppercase}
@@ -1967,3 +1968,8 @@ main .stat-card.stat-card{min-height:0;flex-direction:column-reverse;justify-con
   .plb__pic,.plb__meta{margin-bottom:12px}
   .plb .btn{margin-top:12px}
 }
+/* лента с фото точной ширины не должна растягивать панель комплекса */
+.complex-track{grid-template-columns:minmax(0,1fr)}
+.complex{min-width:0}
+/* вторичный текст уже 50%: второе приглушение делает его нечитаемым */
+.value-card p{opacity:1}
