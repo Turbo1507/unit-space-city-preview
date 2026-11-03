@@ -1,1 +1,68 @@
-/* plans */
+/* форматы: табло цен. Плита на формат, тон через один, фото встык справа и растёт вместе с форматом */
+#plans{padding-block:0;background:var(--paper);scroll-margin-top:var(--hdr)}
+
+.plx-head__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--s3);align-items:end}
+.plx-head .t-h2{max-width:none}
+
+.plx-list > .plx:nth-child(1){--p:28%;--h:12.5}
+.plx-list > .plx:nth-child(2){--p:31%;--h:13.6}
+.plx-list > .plx:nth-child(3){--p:34%;--h:15}
+.plx-list > .plx:nth-child(4){--p:40%;--h:18.3}
+
+.plx{display:grid;grid-template-columns:minmax(0,1fr) var(--p)}
+.plx__txt{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"hd btn" "price btn";align-content:space-between;row-gap:var(--s2);column-gap:var(--s3);padding:var(--s3) var(--gut);min-width:0}
+
+.plx__hd{grid-area:hd;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:var(--s2);row-gap:4px;min-width:0}
+.plx__name,.plx__area{font-size:var(--fs-h3);font-weight:500;line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+.plx__where{font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--ink-2)}
+
+/* --k считан по самой длинной цене, это доллары на английском, рядом с самым широким фото */
+.plx__price{grid-area:price;--k:6;color:var(--blue);align-self:end}
+.plx__btn{grid-area:btn;align-self:end;justify-content:center;white-space:nowrap}
+
+.plx__gal{position:relative;min-height:calc(var(--h) * 1cqi);overflow:clip;background:var(--wash)}
+.plx__gal .fmt-card__media{position:absolute;inset:0;aspect-ratio:auto;height:100%}
+
+.plx-note{padding:var(--s2) var(--gut);color:var(--ink-2)}
+#plans .m-bar{margin:var(--s2) var(--gut) 0}
+
+@media (min-width:1600px){
+  .plx-list > .plx:nth-child(1){--p:24%;--h:10.6}
+  .plx-list > .plx:nth-child(2){--p:27%;--h:11.6}
+  .plx-list > .plx:nth-child(3){--p:30%;--h:12.8}
+  .plx-list > .plx:nth-child(4){--p:36%;--h:15.6}
+  .plx__price{--k:5.6}
+}
+
+/* кнопка стоит рядом с ценой: на этих ширинах фото уже, чтобы длинная цена в долларах вошла */
+@media (min-width:1001px) and (max-width:1360px){
+  .plx-list > .plx:nth-child(1){--p:26%}
+  .plx-list > .plx:nth-child(2){--p:28%}
+  .plx-list > .plx:nth-child(3){--p:31%}
+  .plx-list > .plx:nth-child(4){--p:34%}
+  .plx__price{--k:5.6}
+}
+@media (min-width:1001px) and (max-width:1100px){
+  .plx__price{--k:5.1}
+}
+
+@media (max-width:1000px){
+  .plx-head__in{grid-template-columns:minmax(0,1fr);row-gap:var(--s2)}
+  .plx-list > .plx:nth-child(n){--p:38%}
+  .plx__txt{grid-template-columns:minmax(0,1fr);grid-template-areas:"hd" "price" "btn"}
+  .plx__price{--k:8.6}
+  .plx__btn{justify-self:start}
+}
+
+/* телефон: лента плит со свайпом, плиты встык, следующая выглядывает */
+@media (max-width:760px){
+  #plans .plx-list{margin-inline:0;padding-inline:0;scroll-padding-inline:0;gap:0}
+  .plx{display:flex;flex-direction:column}
+  .plx__gal{order:-1;flex:none;min-height:0;aspect-ratio:3/2}
+  .plx__txt{flex:1;grid-template-rows:auto 1fr auto;padding:var(--s2);row-gap:12px}
+  .plx__name{flex-basis:100%}
+  .plx__area{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+  .plx__price{--k:14.6}
+  .plx__btn{justify-self:stretch}
+  .plx-note{padding-top:var(--s2);padding-bottom:var(--s4)}
+}
