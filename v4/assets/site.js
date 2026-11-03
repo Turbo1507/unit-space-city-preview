@@ -1014,13 +1014,8 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var prev = window.__uscCalcRefresh;
     window.__uscCalcRefresh = function () { if (prev) prev(); calc(); };
     calc();
-    var pickerBtn = el('calcPickerBtn'), pickerPanel = el('calcPickerPanel');
-    if (pickerBtn && pickerPanel) {
-      pickerBtn.addEventListener('click', function () {
-        var open = pickerPanel.hidden;
-        pickerPanel.hidden = !open;
-        pickerBtn.setAttribute('aria-expanded', String(open));
-      });
+    var pickerPanel = el('calcPickerPanel');
+    if (pickerPanel) {
       pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
           priceEl.dataset.usd = btn.getAttribute('data-price');
@@ -1028,16 +1023,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
           occEl.dataset.v = btn.getAttribute('data-occ');
           mgmtEl.dataset.v = btn.getAttribute('data-mgmt');
           calc();
-          pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
-          /* кнопка показывает выбранный формат; data-i18n меняем, чтобы смена языка не вернула старое имя */
-          var cur = pickerBtn.querySelector('b'), src = btn.querySelector('b');
-          if (cur && src) { cur.setAttribute('data-i18n', src.getAttribute('data-i18n')); cur.innerHTML = src.innerHTML; }
-          pickerPanel.hidden = true;
-          pickerBtn.setAttribute('aria-expanded', 'false');
+          pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) {
+            b.classList.toggle('is-active', b === btn);
+            b.setAttribute('aria-pressed', String(b === btn));
+          });
         });
-      });
-      document.addEventListener('click', function (e) {
-        if (!pickerPanel.hidden && !pickerBtn.parentNode.contains(e.target)) { pickerPanel.hidden = true; pickerBtn.setAttribute('aria-expanded', 'false'); }
       });
     }
   }

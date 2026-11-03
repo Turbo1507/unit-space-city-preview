@@ -374,15 +374,14 @@
   </section>
 
   <!-- 09 — ДОХОДНОСТЬ -->
-  <section class="sect sect--alt" id="yield">
-    <div class="container">
-      <div class="sect-head rv">
-        <h2 class="t-h2" data-i18n="yield.title">Управляющая компания с&nbsp;опытом на&nbsp;Бали</h2>
-        <p class="t-lead" data-i18n="yield.lead">Реальная загрузка наших объектов за&nbsp;первое полугодие 2026&nbsp;года составила 92,6%</p>
-        <p class="sect-text" data-i18n="yield.text">Гарантируем прозрачную отчётность, полный консьерж-сервис и&nbsp;управление арендой, чтобы вы&nbsp;получали доход без&nbsp;лишних хлопот</p>
-      </div>
-      <div class="yb-grid">
-      <div class="card fmt-card rv">
+  <section class="sect pl pl--grey" id="yield">
+    <div class="sect-head y__head rv">
+      <h2 class="t-h2" data-i18n="yield.title">Управляющая компания с&nbsp;опытом на&nbsp;Бали</h2>
+      <p class="t-lead" data-i18n="yield.lead">Реальная загрузка наших объектов за&nbsp;первое полугодие 2026&nbsp;года составила 92,6%</p>
+      <p class="sect-text" data-i18n="yield.text">Гарантируем прозрачную отчётность, полный консьерж-сервис и&nbsp;управление арендой, чтобы вы&nbsp;получали доход без&nbsp;лишних хлопот</p>
+    </div>
+    <div class="y__split">
+      <div class="card fmt-card y__mc rv">
         <div class="fmt-card__media"><picture><source srcset="photos/u1-09.webp" type="image/webp"><img src="photos/u1-09.jpg" alt="" width="720" height="450" loading="lazy"></picture></div>
         <div class="fmt-card__body">
           <div class="fmt-card__head"><div><div class="fmt-card__name"><i class="ul"><i class="u5">UNIT.</i>SPACE MANAGEMENT</i></div><div class="product-card__meta dim" data-i18n="yield.mc_s">Управляющая компания</div></div></div>
@@ -396,32 +395,35 @@
           <div class="fmt-card__actions"><a class="btn btn-primary" href="#lead" data-i18n="yb.cta">Получить условия управления</a></div>
         </div>
       </div>
-      <div class="calc rv">
-        <div class="calc__inputs">
+      <div class="calc pl pl--blue rv">
+        <div class="calc__main">
           <div class="calc__picker">
-            <button type="button" class="btn btn-outline btn-sm" id="calcPickerBtn" aria-expanded="false" aria-controls="calcPickerPanel"><span class="calc__pick-t"><span data-i18n="calc.pick">Тип виллы</span><i class="calc__pick-c">: </i><b data-i18n="fmt.2bd">2BD</b></span><svg class="calc__chev" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <div class="calc__picker-panel" id="calcPickerPanel" hidden>
-              <button type="button" class="calc__pick-card" data-price="95000" data-rate="60" data-occ="85" data-mgmt="11"><b data-i18n="fmt.studio">Studio</b><span data-i18n="calc.pick_studio">39–54,2 м² — от $95 000</span></button>
-              <button type="button" class="calc__pick-card" data-price="115000" data-rate="95" data-occ="85" data-mgmt="18"><b data-i18n="fmt.1bd">1BD</b><span data-i18n="calc.pick_1bd">54,2–62 м² — от $115 000</span></button>
-              <button type="button" class="calc__pick-card is-active" data-price="170000" data-rate="140" data-occ="85" data-mgmt="18"><b data-i18n="fmt.2bd">2BD</b><span data-i18n="calc.pick_2bd">89–110 м² — от $170 000</span></button>
-              <button type="button" class="calc__pick-card" data-price="287000" data-rate="205" data-occ="85" data-mgmt="18"><b data-i18n="fmt.villa">3BD&nbsp;Villa&nbsp;+&nbsp;Pool</b><span data-i18n="calc.pick_villa">185,8 м² — от $287 000</span></button>
+            <p class="calc__pick-l" id="calcPickL" data-i18n="calc.pick">Тип виллы</p>
+            <div class="calc__picker-panel" id="calcPickerPanel" role="group" aria-labelledby="calcPickL">
+              <button type="button" class="calc__pick-card" data-price="95000" data-rate="60" data-occ="85" data-mgmt="11" aria-pressed="false"><b data-i18n="fmt.studio">Studio</b><span data-i18n="calc.pick_studio">39–54,2 м² — от $95 000</span></button>
+              <button type="button" class="calc__pick-card" data-price="115000" data-rate="95" data-occ="85" data-mgmt="18" aria-pressed="false"><b data-i18n="fmt.1bd">1BD</b><span data-i18n="calc.pick_1bd">54,2–62 м² — от $115 000</span></button>
+              <button type="button" class="calc__pick-card is-active" data-price="170000" data-rate="140" data-occ="85" data-mgmt="18" aria-pressed="true"><b data-i18n="fmt.2bd">2BD</b><span data-i18n="calc.pick_2bd">89–110 м² — от $170 000</span></button>
+              <button type="button" class="calc__pick-card" data-price="287000" data-rate="205" data-occ="85" data-mgmt="18" aria-pressed="false"><b data-i18n="fmt.villa">3BD&nbsp;Villa&nbsp;+&nbsp;Pool</b><span data-i18n="calc.pick_villa">185,8 м² — от $287 000</span></button>
             </div>
           </div>
-          <div class="field"><label for="c-price" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-dollar-sign"/></svg><span data-i18n="calc.price">Цена от</span></label><output class="calc__val tnum" id="c-price" data-usd="170000"></output></div>
-          <div class="field"><label for="c-rate" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="calc.rate">Ставка за&nbsp;ночь</span></label><output class="calc__val tnum" id="c-rate" data-usd="140"></output></div>
-          <div class="field"><label for="c-occ" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg><span data-i18n="calc.occ">Загрузка</span></label><output class="calc__val tnum" id="c-occ" data-v="85"></output></div>
-          <div class="field"><label for="c-mgmt" class="dim lbl"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><span data-i18n="calc.mgmt">Комиссия УК</span></label><output class="calc__val tnum" id="c-mgmt" data-v="18"></output></div>
-        </div>
-        <div class="calc__out" aria-live="polite">
-          <div class="calc__roi"><b id="o-roi">—</b><span class="dim" data-i18n="calc.roi">доходность к&nbsp;цене в&nbsp;год</span></div>
-          <div class="calc__rows">
-            <div><span class="dim" data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">—</b></div>
-            <div><span class="dim" data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">—</b></div>
+          <div class="calc__out" aria-live="polite">
+            <div class="calc__roi"><b id="o-roi" class="pl__num">21,0%</b><span data-i18n="calc.roi">доходность к&nbsp;цене в&nbsp;год</span></div>
+            <div class="calc__rows">
+              <div><span data-i18n="calc.gross">Валовый доход в&nbsp;год</span><b id="o-gross" class="tnum">$43 435</b></div>
+              <div><span data-i18n="calc.net">За&nbsp;вычетом комиссии УК</span><b id="o-net" class="tnum">$35 617</b></div>
+            </div>
+            <div class="calc__cta"><a href="#lead" class="btn btn-primary" data-i18n="yield.cta">Расчёт под&nbsp;мою виллу</a></div>
           </div>
         </div>
-        <div class="calc__cta"><a href="#lead" class="btn btn-primary" data-i18n="yield.cta">Расчёт под&nbsp;мою виллу</a></div>
-        <p class="calc__note t-small dim" data-i18n="calc.note">Без&nbsp;учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под&nbsp;вашу виллу пришлём по&nbsp;запросу</p>
-      </div>
+        <div class="calc__base">
+          <div class="calc__inputs">
+            <div class="field"><label for="c-price" data-i18n="calc.price">Цена от</label><output class="calc__val tnum" id="c-price" data-usd="170000">$170 000</output></div>
+            <div class="field"><label for="c-rate" data-i18n="calc.rate">Ставка за&nbsp;ночь</label><output class="calc__val tnum" id="c-rate" data-usd="140">$140</output></div>
+            <div class="field"><label for="c-occ" data-i18n="calc.occ">Загрузка</label><output class="calc__val tnum" id="c-occ" data-v="85">85%</output></div>
+            <div class="field"><label for="c-mgmt" data-i18n="calc.mgmt">Комиссия УК</label><output class="calc__val tnum" id="c-mgmt" data-v="18">18%</output></div>
+          </div>
+          <p class="calc__note t-small" data-i18n="calc.note">Без&nbsp;учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под&nbsp;вашу виллу пришлём по&nbsp;запросу</p>
+        </div>
       </div>
     </div>
   </section>
