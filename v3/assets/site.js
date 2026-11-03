@@ -980,13 +980,23 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   var cxbSec = document.getElementById('complexes-b');
   if (cxbSec) {
     var cxbNav = cxbSec.querySelector('.complex-nav'), cxbTabs = [].slice.call(cxbNav.querySelectorAll('button[data-cxb]'));
-    var cxbPanels = cxbTabs.map(function (t) { return document.getElementById(t.getAttribute('data-cxb')); }), cxbCur = 0;
+    var cxbPanels = cxbTabs.map(function (t) { return document.getElementById(t.getAttribute('data-cxb')); }), cxbCur = 0, cxbNear = false;
+    // в ленте на телефоне кадры должны быть готовы до свайпа, но грузим их только у открытого таба и рядом с блоком
+    function cxbEager() {
+      if (!cxbNear || window.innerWidth > 800) return;
+      cxbPanels[cxbCur].querySelectorAll('.complex__gallery img').forEach(function (im) { im.loading = 'eager'; });
+    }
+    if ('IntersectionObserver' in window) {
+      var cxbIo = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { cxbNear = true; cxbEager(); cxbIo.disconnect(); } }, { rootMargin: '600px 0px' });
+      cxbIo.observe(cxbSec);
+    } else { cxbNear = true; cxbEager(); }
     function cxbGo(i, byUser, focus) {
       i = (i + cxbTabs.length) % cxbTabs.length; cxbCur = i;
       cxbPanels.forEach(function (p, k) { p.hidden = k !== i; });
       cxbTabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       if (byUser) cxbNav.classList.add('is-touched');
       if (focus) cxbTabs[i].focus();
+      cxbEager();
       // полоса мобильной ленты считается по видимой панели
       var g = cxbPanels[i].querySelector('.complex__gallery'); if (g) g.dispatchEvent(new Event('scroll'));
       // панели разной высоты: если начало панели ушло под табы, возвращаем его
@@ -1010,11 +1020,15 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       panel.querySelectorAll('figure img').forEach(function (im) { if (!seen[im.src]) { seen[im.src] = 1; items.push({ jpg: im.src, alt: im.alt }); } });
       panel.querySelectorAll('figure').forEach(function (fig) {
         fig.style.cursor = 'zoom-in';
-        fig.addEventListener('click', function () {
+        fig.tabIndex = 0;
+        fig.setAttribute('role', 'button');
+        function openFig() {
           if (!window.USC_LB) return;
           var src = fig.querySelector('img').src, start = items.findIndex(function (p) { return p.jpg === src; });
           window.USC_LB.open(items, start < 0 ? 0 : start);
-        });
+        }
+        fig.addEventListener('click', openFig);
+        fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFig(); } });
       });
       var btn = panel.querySelector('.cxb__toggle'), rest = panel.querySelector('.cxb__rest');
       if (btn) btn.addEventListener('click', function () {
@@ -1024,6 +1038,19 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
+    // ссылка #cxb-u2 открывает свой таб и ставит панель под шапку и табы
+    function cxbFromHash() {
+      var m = /^#cxb-u([1-3])$/.exec(location.hash);
+      if (!m) return;
+      var i = +m[1] - 1;
+      cxbGo(i);
+      var top = parseFloat(getComputedStyle(cxbNav).top) || 0;
+      window.scrollTo(0, window.scrollY + cxbPanels[i].getBoundingClientRect().top - top - cxbNav.offsetHeight - 16);
+    }
+    window.addEventListener('hashchange', cxbFromHash);
+    // блоки выше ещё меняют высоту после загрузки, поэтому при заходе по ссылке уточняем позицию
+    window.addEventListener('load', function () { cxbFromHash(); setTimeout(cxbFromHash, 600); });
+    cxbFromHash();
   }
 
   /* FAQ-аккордеон (как на БСО): один открыт, остальные закрываются */

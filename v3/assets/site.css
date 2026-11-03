@@ -1743,21 +1743,30 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 /* плавающая кнопка: тень, чтобы не сливалась с синими блоками под ней */
 @media (max-width:1000px){ .m-cta{box-shadow:0 10px 28px rgba(10,11,13,.32),0 2px 8px rgba(10,11,13,.22)} }
 
-/* отступы по близости (31.10): шапка формы отделена от полей сильнее, чем поля друг от друга (24 против 16);
+/* отступы по близости: шапка формы отделена от полей сильнее, чем поля друг от друга (24 против 16);
    в ряду карточек компаний название прижато к подписи, лишняя высота строки уходит над названием */
 .lead-form__consent + .field{margin-top:var(--s1)}
 @media (min-width:761px){ .co-group .co-strip .co-card > b{align-self:end} }
 
 /* новые варианты блоков */
+#complexes-b,#plans-b,#location-b{--num:24px}
+@media (max-width:760px){ #complexes-b,#plans-b,#location-b{--num:20px} }
+.cxb-f:focus-visible,#complexes-b .complex-nav button:focus-visible,.cxb figure:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 .vb-tag{display:inline-block;margin-bottom:var(--s3);padding:4px 8px;border-radius:var(--r-s);background:var(--blue-050);color:var(--blue);font-size:var(--fs-cap);font-weight:500}
 /* фон совпадает с блоком выше: его нижний отступ уже разделяет блоки, второй давал бы пустоту */
 #plans-b{padding-top:0}
 
 /* комплексы: слева коллаж и кнопка, справа текст; обе колонки одной высоты */
 #complexes-b{padding-bottom:var(--sy)}
-#complexes-b .cx-head{padding-bottom:var(--s3)}
+/* у табов свой отступ сверху: вместе выходит 48 (моб 24), как от шапки до контента в других секциях */
+#complexes-b .cx-head{padding-bottom:var(--s4)}
 .cxb-panels{padding-top:var(--s2)}
 .cxb{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--s5);align-items:stretch}
+/* на широком экране правая часть коллажа становится слишком вытянутой и режет кадр */
+@media (min-width:1600px){
+  .cxb{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cxb .cxb__pics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .cxb[hidden]{display:none}
 .cxb__left{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
 .cxb__pics{flex:1 1 auto;min-height:320px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:var(--s1)}
@@ -1772,7 +1781,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .cxb__stats{margin-top:var(--s3);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s1)}
 .cxb__stats > div{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s1);min-width:0;padding:12px;border-radius:var(--r-s);background:var(--paper)}
 .cxb__stats span{font-size:var(--fs-cap);line-height:1.25}
-.cxb__stats b{font-size:24px;font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
+.cxb__stats b{font-size:var(--num);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
 .cxb__stats .stat-card__word{margin-right:4px;font-size:var(--fs-cap);font-style:normal}
 .cxb__uk{margin-top:var(--s1);padding:12px;border-radius:var(--r-s);background:var(--paper);font-size:var(--fs-cap);line-height:1.25}
 .cxb__fh{margin-top:var(--s4);font-size:var(--fs-body);font-weight:500;line-height:1.2}
@@ -1786,9 +1795,9 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .cxb__rest.is-open{display:block;margin-top:var(--s2)}
 .cxb__rest .complex__gallery{margin-top:0;gap:var(--s1)}
 @media (min-width:801px){ .cxb-dup{display:none} }
-@media (max-width:1000px){
+@media (max-width:1100px){
   .cxb{grid-template-columns:minmax(0,1fr)}
-  .cxb__pics{flex:none;min-height:0;aspect-ratio:16/10}
+  .cxb__pics{flex:none;min-height:0;aspect-ratio:2/1}
   .cxb__body{margin-top:var(--s3)}
 }
 @media (max-width:800px){
@@ -1798,11 +1807,11 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
   .cxb__body{margin-top:var(--s2)}
 }
 @media (max-width:760px){
-  #complexes-b .cx-head{padding-bottom:var(--s1)}
+  #complexes-b .cx-head{padding-bottom:var(--s2)}
   .cxb__intro{font-size:var(--fs-body);line-height:1.3}
 }
 /* длинное название формата не помещается в строку с метражом */
-@media (min-width:1001px) and (max-width:1100px),(max-width:480px){
+@media (max-width:480px){
   .cxb-f{flex-direction:column;align-items:flex-start;gap:4px}
 }
 /* три плитки в ряд на телефоне рвут подписи: кладём строками */
@@ -1819,10 +1828,13 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .plb__pic{flex:none;display:block;aspect-ratio:4/3;margin-bottom:var(--s2);border-radius:var(--r-s);overflow:hidden;background:var(--wash)}
 .plb__pic picture{display:block;height:100%}
 .plb__pic img{display:block;width:100%;height:100%;object-fit:cover}
-.plb .fmt-card__name{font-size:var(--fs-sub);line-height:1.2}
+.plb .fmt-card__name{font-size:var(--fs-sub);line-height:1.2;letter-spacing:-.02em}
 .plb__meta{display:flex;justify-content:space-between;gap:var(--s1);margin-top:4px;margin-bottom:var(--s2);font-size:var(--fs-cap);line-height:1.25;color:var(--ink-2)}
-.plb .product-card__price{margin-top:auto;font-size:24px;line-height:1.1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
-.plb .btn{margin-top:var(--s2);justify-content:center;padding-inline:var(--s1);font-size:var(--fs-cap)}
+.plb .product-card__price{margin-top:auto;font-size:var(--num);line-height:1.1;font-weight:500;letter-spacing:-.02em;color:var(--blue)}
+.plb .btn{margin-top:var(--s2);justify-content:center;padding-inline:var(--s1)}
+/* в четыре узкие колонки подпись кнопки иначе переносится */
+@media (min-width:1001px) and (max-width:1150px){ .plb .btn{font-size:var(--fs-cap)} }
+#plans-b .t-small{opacity:1;color:var(--ink-2)}
 @media (max-width:1000px){ .plb-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){
   .plb-grid{display:flex;grid-template-columns:none}
@@ -1834,13 +1846,14 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .lx-hero picture{display:block;height:100%}
 .lx-hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
 .lx-hero figcaption{position:absolute;left:var(--s2);bottom:var(--s2);display:grid;gap:4px;padding:12px var(--s2);border-radius:var(--r-s);background:var(--white)}
-.lx-hero b{font-size:24px;font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
+.lx-hero b{font-size:var(--num);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
 .lx-hero span{font-size:var(--fs-cap);line-height:1.25}
 .lx-half{margin-top:var(--s2);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2)}
 .lx-half > *{min-width:0}
-.lx-card{display:flex;flex-direction:column;gap:var(--s2);padding:var(--s2);border-radius:var(--r);background:var(--paper)}
+.lx-card{container-type:inline-size;display:flex;flex-direction:column;gap:var(--s2);padding:var(--s2);border-radius:var(--r);background:var(--paper)}
 .lx-card h3{font-size:var(--fs-sub);font-weight:500;line-height:1.2;letter-spacing:-.02em}
-.lx-map,.lx-pic{flex:1 1 0;min-height:clamp(200px,calc((100vw - 240px) * .175),340px);width:100%;border-radius:var(--r-s);overflow:hidden}
+/* высота от ширины карточки: кадр не режется меньше 60% */
+.lx-map,.lx-pic{flex:1 1 0;min-height:max(200px,38cqw);width:100%;border-radius:var(--r-s);overflow:hidden}
 .lx-map{display:block;object-fit:cover}
 .lx-pic picture{display:block;height:100%}
 .lx-pic{position:relative}
@@ -1848,7 +1861,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 .lx-dist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s1)}
 .lx-dist > div{display:grid;gap:4px;min-width:0;padding:12px;border-radius:var(--r-s);background:var(--white)}
 .lx-dist span{font-size:var(--fs-cap);line-height:1.25}
-.lx-dist b{font-size:24px;font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
+.lx-dist b{font-size:var(--num);font-weight:500;line-height:1.1;letter-spacing:-.02em;color:var(--blue)}
 .lx-dist small{font-size:var(--fs-cap);font-weight:400;letter-spacing:0}
 .lx-squares{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s1)}
 .lx-squares li{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s1);min-width:0;min-height:72px;padding:12px;border-radius:var(--r-s);background:var(--white);font-size:var(--fs-cap);font-weight:500;line-height:1.25}
@@ -1868,3 +1881,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
   .lx-hero figcaption{position:static;background:var(--paper)}
   .lx-dist{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+/* плитки обеих карточек одной высоты, тогда фото и заголовки стоят на одной линии */
+@media (min-width:1600px){ .lx-squares li{min-height:74px} }
+/* на самых узких телефонах длинные подписи не помещаются в две колонки */
+@media (max-width:340px){ .lx-dist,.lx-squares{grid-template-columns:minmax(0,1fr)} }
