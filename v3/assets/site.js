@@ -908,7 +908,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     return { map: map, score: min * 0.6 + mean * 0.4 };
   }
   function layoutGallery(g) {
-    var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE'; });
+    var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE' && !f.classList.contains('cxb-dup'); });
     if (window.innerWidth <= 800) { figs.forEach(function (f) { f.style.gridColumn = f.style.gridRow = ''; }); g.style.gridAutoRows = ''; return; }
     var AR = tileAr(g), first = figs.filter(function (f) { return !f.classList.contains('tile-more'); }).length;
     var i = 0, row = 1, prev = '';
@@ -975,6 +975,56 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         if (top < off) window.scrollBy(0, top - off); }
     });
   });
+
+  /* вариант блока комплексов: табы, в панели коллаж и текст */
+  var cxbSec = document.getElementById('complexes-b');
+  if (cxbSec) {
+    var cxbNav = cxbSec.querySelector('.complex-nav'), cxbTabs = [].slice.call(cxbNav.querySelectorAll('button[data-cxb]'));
+    var cxbPanels = cxbTabs.map(function (t) { return document.getElementById(t.getAttribute('data-cxb')); }), cxbCur = 0;
+    function cxbGo(i, byUser, focus) {
+      i = (i + cxbTabs.length) % cxbTabs.length; cxbCur = i;
+      cxbPanels.forEach(function (p, k) { p.hidden = k !== i; });
+      cxbTabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      if (byUser) cxbNav.classList.add('is-touched');
+      if (focus) cxbTabs[i].focus();
+      // полоса мобильной ленты считается по видимой панели
+      var g = cxbPanels[i].querySelector('.complex__gallery'); if (g) g.dispatchEvent(new Event('scroll'));
+      // панели разной высоты: если начало панели ушло под табы, возвращаем его
+      var navB = cxbNav.getBoundingClientRect().bottom, top = cxbPanels[i].getBoundingClientRect().top;
+      if (byUser && top < navB) window.scrollBy(0, top - navB - 16);
+    }
+    cxbTabs.forEach(function (t, i) { t.addEventListener('click', function () { cxbGo(i, true); }); });
+    cxbNav.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { cxbGo(cxbCur + 1, true, true); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { cxbGo(cxbCur - 1, true, true); e.preventDefault(); }
+    });
+    var cxbStuck = 0;
+    function cxbCheck() {
+      cxbStuck = 0;
+      var top = parseFloat(getComputedStyle(cxbNav).top) || 0, r = cxbNav.getBoundingClientRect();
+      cxbNav.classList.toggle('is-stuck', r.top <= top + 1 && cxbSec.getBoundingClientRect().bottom > r.bottom + 1);
+    }
+    window.addEventListener('scroll', function () { if (!cxbStuck) cxbStuck = requestAnimationFrame(cxbCheck); }, { passive: true });
+    cxbPanels.forEach(function (panel) {
+      var seen = {}, items = [];
+      panel.querySelectorAll('figure img').forEach(function (im) { if (!seen[im.src]) { seen[im.src] = 1; items.push({ jpg: im.src, alt: im.alt }); } });
+      panel.querySelectorAll('figure').forEach(function (fig) {
+        fig.style.cursor = 'zoom-in';
+        fig.addEventListener('click', function () {
+          if (!window.USC_LB) return;
+          var src = fig.querySelector('img').src, start = items.findIndex(function (p) { return p.jpg === src; });
+          window.USC_LB.open(items, start < 0 ? 0 : start);
+        });
+      });
+      var btn = panel.querySelector('.cxb__toggle'), rest = panel.querySelector('.cxb__rest');
+      if (btn) btn.addEventListener('click', function () {
+        var open = rest.classList.toggle('is-open'), k = open ? 'cx.less' : 'cx.more';
+        var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
+        btn.setAttribute('data-i18n', k); if (dict[k]) btn.textContent = dict[k];
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+  }
 
   /* FAQ-аккордеон (как на БСО): один открыт, остальные закрываются */
   var faqList = document.getElementById('faqList');
