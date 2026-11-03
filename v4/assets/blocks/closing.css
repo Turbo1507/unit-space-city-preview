@@ -43,17 +43,17 @@ html:not(.js) #faq .faq-a{grid-template-rows:1fr}
 /* попап кода страны выше футера и не обрезается краем плиты */
 #lead{overflow:visible;z-index:1}
 #lead .final-cta__split{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0;align-items:stretch}
-.lead-side{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s5);padding:48px var(--s5) 48px var(--gut);background:var(--blue);color:#fff}
+.lead-side{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s5);padding:48px var(--s5) 48px var(--gut);background:var(--white);color:var(--ink)}
 #lead .final-cta__split > .lead-side{padding-top:48px}
 #lead .lead-side .pl__num{--k:3.5;max-width:none;white-space:normal;line-height:var(--lh-display);letter-spacing:var(--ls-display)}
 html[lang="en"] #lead .lead-side .pl__num{--k:3}
 #lead .lead-side .accent{color:inherit}
 #lead .final-cta__split .t-lead{margin-top:var(--s2)}
 #lead .final-cta__contacts{margin-top:0}
-#lead .final-cta__contacts .btn{color:#fff;transition:background-color .18s var(--ease),color .18s var(--ease)}
-#lead .final-cta__contacts .btn:focus-visible{outline-color:#fff}
+#lead .final-cta__contacts .btn{color:var(--ink);border-color:var(--line-2);transition:background-color .18s var(--ease),color .18s var(--ease)}
+#lead .final-cta__contacts .btn:focus-visible{outline-color:var(--blue)}
 @media (hover:hover){
-  #lead .final-cta__contacts .btn:hover{background:#fff;border-color:#fff;color:var(--blue)}
+  #lead .final-cta__contacts .btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
 }
 
 #lead .lead-panel{padding:48px var(--gut) 48px var(--s5);background:var(--paper)}

@@ -24,7 +24,7 @@
 .cn-infra__l li{min-width:0;padding:0 var(--s1) 0 var(--gut);font-size:var(--fs-title);font-weight:500;line-height:var(--lh-title);letter-spacing:var(--ls-title);text-transform:uppercase}
 
 /* Nuanu: спокойная белая плита, текст обычным регистром и фото на две трети */
-.cn-nuanu{display:grid;grid-template-columns:1fr 2fr;background:var(--white);color:var(--ink)}
+.cn-nuanu{display:grid;grid-template-columns:1fr 2fr;background:var(--paper);color:var(--ink)}
 .cn-nuanu__body{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s5);min-width:0;padding:var(--s6) var(--gut) var(--s5)}
 .cn-nuanu__body .t-h3{text-transform:uppercase}
 .cn-nuanu__l{display:grid;gap:12px;margin:0;padding:0;list-style:none}
@@ -114,3 +114,6 @@
   }
 }
 @keyframes cn-rise{from{opacity:.35;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* в нижней части кадра посетители кафе, берём только бамбуковый свод */
+.cn-nuanu__pic img{object-position:50% 0;transform-origin:50% 0;transform:scale(1.65)}
