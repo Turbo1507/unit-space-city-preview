@@ -31,14 +31,6 @@
 .cp-nuanu__list li{display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
 .cp-nuanu__list .ab-ic{flex:none;width:20px;height:20px;color:var(--blue)}
 
-/* блок 3: цифры без плашек, управляющая компания строкой, форматы без рамок */
-.cxb__stats{gap:var(--s3)}
-.cxb__stats > div{padding:0;background:none;border-radius:0}
-.cxb__uk{padding:0;background:none;border-radius:0;margin-top:var(--s2);color:var(--ink-2)}
-.cxb__fmts{gap:var(--s3)}
-.cxb-f{padding:0;border:0;border-radius:0;background:none}
-@media (hover:hover){ .cxb-f:hover{background:none;border-color:transparent;color:var(--blue)} }
-
 @media (max-width:1000px){
   .cp-infra__list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
@@ -58,4 +50,39 @@
   .cp-nuanu{grid-template-columns:minmax(0,1fr);gap:var(--s2);padding:var(--s2)}
   .cp-nuanu__list{flex-direction:column}
   .cp-nuanu__list li{white-space:normal}
+}
+
+/* заголовок первого экрана в две строки */
+@media (min-width:761px){
+  .hero__title{max-width:none}
+}
+
+/* блок 2: причины разного веса. Вертикальное фото слева, две горизонтальные карточки справа */
+@media (min-width:1001px){
+  .cp-reasons{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto auto}
+  .cp-card:first-child{grid-row:1/3}
+  .cp-card:first-child picture{flex:1 1 0;min-height:280px;aspect-ratio:auto}
+  .cp-card:not(:first-child){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s3);align-items:stretch}
+  .cp-card:not(:first-child) picture{aspect-ratio:auto;height:100%;min-height:232px}
+  .cp-card:not(:first-child) > div{align-content:center}
+}
+
+/* блок 2: пункты инфраструктуры плитками одного размера */
+.cp-infra__list{gap:var(--s1)}
+.cp-infra__list li{padding:12px var(--s2);border-radius:var(--r-s);background:rgba(255,255,255,.14)}
+@media (max-width:760px){
+  .cp-infra__list{gap:var(--s1)}
+  .cp-infra__list li{padding:12px;gap:8px}
+}
+
+/* блок 2: Nuanu заполняет ширину: список и два фото */
+.cp-nuanu{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);align-items:stretch}
+.cp-nuanu__body{align-content:center;padding:var(--s1) var(--s1) var(--s1) 0}
+.cp-nuanu__list{flex-direction:column;flex-wrap:nowrap;gap:12px}
+.cp-nuanu__pic{aspect-ratio:auto;min-height:260px}
+.cp-nuanu__pic--vault img{object-position:50% 0;transform-origin:50% 0;transform:scale(1.65)}
+@media (max-width:1000px){
+  .cp-nuanu{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cp-nuanu__body{grid-column:1/-1;padding:0}
+  .cp-nuanu__pic{aspect-ratio:4/3;min-height:0}
 }
