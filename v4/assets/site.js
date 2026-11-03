@@ -1112,7 +1112,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
       var map = new maplibregl.Map({
         container: live, style: 'https://tiles.openfreemap.org/styles/positron',
-        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 120, right: 150 } },
+        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 150, right: 200 } },
         interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
         dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
         attributionControl: false, fadeDuration: 0

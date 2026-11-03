@@ -1,1 +1,105 @@
-/* location */
+/* локация: синяя плита с «3 минуты», пляж встык, расстояния с картой, Nuanu с фото, мозаика окрестностей */
+/* встык с краем плоскости углов нет, всё с отступом и подписи на карте скругляются как на сайте */
+.lxb{--r:10px;--r-s:8px;background:var(--white)}
+.lxb figure{margin:0}
+.lxb picture{display:block;width:100%;height:100%}
+.lxb picture img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* синяя плита */
+.lxb-top .t-h2{color:inherit}
+.lxb-top .t-lead{margin-top:var(--s2);color:inherit}
+@media (min-width:1001px){ .lxb-top .t-h2{white-space:nowrap} }
+
+/* «3» высотой в две строки текста; контейнер сам блок, поэтому --k не зависит от полей страницы */
+.lxb-three{--kn:34;--kt:15.3;container-type:inline-size;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:last baseline;margin-top:var(--gap-l);text-transform:uppercase}
+html[lang="en"] .lxb-three{--kn:27.4;--kt:12.3}
+.lxb-three__n{--k:var(--kn)}
+.lxb-three__t{display:grid;padding-left:2cqi}
+.lxb-three__t .pl__num{--k:var(--kt)}
+.lxb-sub{margin-top:var(--s3);font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+/* браузер без единиц контейнера: считаем от экрана */
+@supports not (width:1cqi){
+  .lxb-three .lxb-three__n{font-size:calc(var(--kn) * .86vw)}
+  .lxb-three .lxb-three__t .pl__num{font-size:calc(var(--kt) * .86vw)}
+}
+
+.lxb-beach{aspect-ratio:21/9;overflow:hidden;background:var(--wash)}
+.lxb-beach img{object-position:50% 62%}
+
+/* две половины встык: ширины меняются местами между рядами */
+.lxb-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.lxb-split--nu{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.lxb-split > *{min-width:0}
+.lxb-split .pl__in{display:flex;flex-direction:column;height:100%;padding-block:var(--gap-l)}
+
+/* расстояния: минуты крупно, строки держатся отступом */
+.lxb-dist h3,.lxb-nu h3{font-weight:500}
+.lxb-dist h3{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+#location .lx-dist{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s2);margin-top:var(--s5)}
+#location .lx-dist > div{display:grid;grid-template-columns:34% minmax(0,1fr);align-items:baseline;gap:var(--s2);padding:0;background:none;border-radius:0}
+#location .lx-dist b{--k:10;font-size:calc(var(--k) * 1cqi);color:inherit;letter-spacing:-.04em;line-height:1}
+#location .lx-dist small{font-size:var(--fs-body);font-weight:400;letter-spacing:0}
+#location .lx-dist span{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.lx-addr{margin-top:auto;padding-top:var(--s5);font-size:var(--fs-body);line-height:var(--lh-body);color:rgba(255,255,255,.8)}
+
+/* карта занимает всю половину, на ней только подписи и попапы */
+#locMap{grid-row:auto;aspect-ratio:auto;width:100%;height:auto;min-height:680px;border-radius:0}
+
+/* Nuanu */
+.lxb-nu__pic{overflow:hidden;background:var(--wash);min-height:560px}
+.lxb-nu__pic img{object-position:38% 62%}
+.lxb-nu h3{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title);color:var(--blue)}
+.lxb-nu__list{margin-top:auto;padding-top:var(--s5);display:grid;gap:var(--s2);list-style:none}
+.lxb-nu__list li{font-size:var(--fs-h3);font-weight:500;line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+
+/* мозаика окрестностей */
+.lxb-rib .pl__in{padding:0 0 var(--gap-l)}
+.lxb-tile figcaption{display:grid;gap:4px;padding:var(--s2) var(--pl-gut) 0}
+.lxb-tile b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub);text-transform:uppercase}
+.lxb-tile span{font-size:var(--fs-body);line-height:var(--lh-cap);color:var(--ink-2)}
+.lxb-tile picture{overflow:hidden;background:var(--wash);height:auto}
+.lxb-tile--s picture{aspect-ratio:10/7}
+.lxb-tile--l picture{aspect-ratio:2/1}
+@media (min-width:761px){
+  .lxb-rib__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));row-gap:var(--s5)}
+  .lxb-tile--s{grid-column:span 5}
+  .lxb-tile--l{grid-column:span 7}
+}
+
+/* планшет: половины друг под другом */
+@media (max-width:1000px){
+  .lxb-split,.lxb-split--nu{grid-template-columns:minmax(0,1fr)}
+  #locMap{min-height:520px}
+  .lxb-nu__pic{min-height:0;aspect-ratio:16/9}
+  .lxb-split--nu .lxb-nu{order:2}
+  .lxb-nu__list{margin-top:0}
+}
+@media (min-width:761px) and (max-width:1000px){
+  #location .lx-dist{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s4)}
+  #location .lx-dist b{--k:7}
+}
+
+/* телефон: плиты по содержимому, мозаика становится лентой */
+@media (max-width:760px){
+  .lxb-three{margin-top:var(--s4)}
+  .lxb-sub{margin-top:var(--s2)}
+  .lxb-beach{aspect-ratio:4/3}
+  .lxb-split .pl__in{padding-block:var(--s5)}
+  #location .lx-dist{margin-top:var(--s3);gap:var(--s1)}
+  #location .lx-dist b{--k:13}
+  #location .lx-dist span{font-size:var(--fs-body);line-height:var(--lh-body)}
+  #locMap{min-height:440px}
+  .lxb-nu__pic{aspect-ratio:4/3}
+  .lxb-rib .pl__in{padding:var(--s5) var(--pl-gut)}
+  .lxb-rib__grid{gap:var(--s1)}
+  .lxb-tile--s picture,.lxb-tile--l picture{aspect-ratio:4/3;border-radius:var(--r)}
+  .lxb-tile figcaption{padding:var(--s2) 0 0}
+}
+
+/* появление цифры: только усиление, без поддержки и при «меньше движения» всё видно сразу */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    html.js .lxb-three{animation:lxb-rise linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+  }
+}
+@keyframes lxb-rise{from{opacity:.35;transform:translateY(16px)}to{opacity:1;transform:none}}
