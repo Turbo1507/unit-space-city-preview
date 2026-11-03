@@ -941,6 +941,8 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var btn = panel.querySelector('.cxb__toggle'), rest = panel.querySelector('.cxb__rest');
       if (btn) btn.addEventListener('click', function () {
         var open = rest.classList.toggle('is-open'), k = open ? 'cx.less' : 'cx.more';
+        // пока галерея скрыта, её ширина 0: раскладку считаем при раскрытии
+        if (open) layoutGallery(rest.querySelector('.complex__gallery'));
         var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
         btn.setAttribute('data-i18n', k); if (dict[k]) btn.textContent = dict[k];
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
