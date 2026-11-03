@@ -1,1 +1,163 @@
-/* company */
+/* company: шапка на белом, UNIT.DEVELOPER синей плитой, под ней дочерние шахматкой встык.
+   Дальше основатели, цитата, ценности и партнёры, тоже плиты без зазоров.
+   Раскладка: от 1101 четыре колонки, 761-1100 две, до 760 лента со свайпом. */
+#company{padding-block:0;background:var(--white);scroll-margin-top:var(--hdr)}
+
+/* ---------- шапка ---------- */
+#company .co-head__in{padding-block:var(--gap-xl) var(--s6)}
+#company .co-head .t-h2{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display);max-width:none;text-wrap:pretty}
+#company .co-head .t-lead{margin:var(--s4) 0 0 calc(100% / 3);max-width:none}
+
+/* ---------- материнская плита ---------- */
+#company .co-group{display:block;padding:0;gap:0;border-radius:0}
+#company .co-group__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s4);justify-items:stretch;padding-bottom:var(--s6)}
+/* своя мера ширины: поля страницы разные, а строка должна лечь точно в них */
+#company .co-group__title{grid-column:1/-1;display:block;container-type:inline-size;font-weight:500}
+#company .co-group__title .pl__num{--k:13.1}
+#company .co-group__sub{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+#company .co-group__head p{margin:0;max-width:none;text-wrap:pretty;font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+
+/* дочерние: столбец = компания, фото и текст меняются местами через одну */
+#company .co-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto;gap:0;padding:0;margin:0;overflow:visible;scroll-snap-type:none}
+#company .co-strip .co-card{display:grid;grid-row:span 2;grid-template-rows:subgrid;flex:none;gap:0;padding:0;min-width:0;color:var(--ink)}
+#company .co-card__photo{position:relative;order:0;margin:0;padding:0;align-self:stretch;min-height:18.75cqi;background:var(--wash)}
+#company .co-card:nth-child(even) .co-card__photo{order:1}
+#company .co-card__photo picture{position:absolute;inset:0;aspect-ratio:auto;border-radius:0}
+#company .co-card__t{display:grid;align-content:start;gap:4px;min-width:0;padding:var(--s4) var(--gut);background:var(--paper)}
+#company .co-card__t > b{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub);text-transform:uppercase;overflow-wrap:anywhere}
+#company .co-card__sub{margin:0;font-weight:500;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+#company .co-card__t > p{margin:var(--s2) 0 0;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+
+/* ---------- заголовки плит ---------- */
+#company .sub-head{margin:0;padding:var(--s6) var(--gut) var(--s4);font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+
+/* ---------- основатели: фото и текст встык. EN: одна карта на всю ширину ---------- */
+#company .team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+#company .team-card{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto 1fr;grid-template-areas:"photo head" "photo bio";gap:0;padding:0;background:var(--paper)}
+#company .team-card:nth-child(even){background:var(--white)}
+#company .team-card > div:first-child{padding:var(--s4) var(--gut) var(--s3)}
+#company .team-card__photo{position:relative;display:block;aspect-ratio:auto;min-height:31.25cqi;background:var(--wash)}
+#company .team-card__photo picture{position:absolute;inset:0}
+#company .team-card__photo img{object-position:50% 20%}
+#company .team-card__name{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+#company .team-card__role{margin-top:var(--s1);opacity:1;color:var(--ink-2);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+#company .team-card__bio{align-self:end;max-width:none;padding:0 var(--gut) var(--s4)}
+#company .team-card--wide{grid-column:1/-1;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+#company .team-card--wide > div:first-child{padding:var(--s6) var(--gut) var(--s4) var(--s6)}
+#company .team-card--wide .team-card__photo{min-height:38cqi}
+#company .team-card--wide .team-card__name{font-size:var(--fs-display);line-height:var(--lh-display);letter-spacing:var(--ls-display)}
+#company .team-card--wide .team-card__role{margin-top:var(--s2);font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+#company .team-card--wide .team-card__bio{padding:0 var(--gut) var(--s6) var(--s6);font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+
+/* ---------- цитата: тёмная плита, строка не заходит на знак кавычек ---------- */
+#company .quote{margin:0;padding:var(--gap-xl) var(--gut);border-radius:0;overflow:clip}
+#company .quote p{max-width:calc(100% - 240px);font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+#company .quote figcaption{margin-top:var(--s5)}
+#company .quote figcaption span{color:#fff}
+#company .quote::after{right:var(--gut)}
+
+/* ---------- ценности: буквы слова UNIT на всю ячейку, тон через одну ---------- */
+#company .values{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+#company .value-card{container-type:inline-size;display:block;padding:var(--s4) var(--gut);background:var(--paper)}
+#company .value-card:nth-child(even){background:var(--white)}
+#company .value-card__l{--k:110;display:block;margin:0 0 var(--s3);color:var(--blue);font-size:calc(var(--k) * 1cqi);line-height:.82;letter-spacing:-.05em}
+#company .value-card p{margin-top:var(--s2)}
+
+/* ---------- партнёры: кирпичная шахматка, фото и логотип белым, текст синим ---------- */
+#company .tr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+#company .tr-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:0;align-items:stretch;padding:0;background:var(--white)}
+#company .tr-card:nth-child(n+3){grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+#company .tr-card:nth-child(n+3) .tr-card__photo{order:1}
+#company .tr-card__photo{position:relative;width:auto;aspect-ratio:auto;min-height:16.66cqi;display:grid;place-items:center;background:var(--white)}
+/* кадр 320 на 336: шире ячейка уже не сделает его резким */
+#company .tr-card__photo picture{position:absolute;inset:0}
+#company .tr-card__photo img{object-position:50% 20%}
+#company .tr-card__photo--logo .dome-svg{width:56%;max-width:160px}
+#company .tr-card__photo--logo .permata-img{width:72px;max-width:56%}
+#company .obsidian-logo{font-size:var(--fs-sub)}
+#company .obsidian-logo small{font-size:.5em;opacity:1}
+#company .tr-card__body{align-content:start;gap:4px;padding:var(--s4) var(--gut);background:var(--blue);color:#fff}
+#company .tr-card__body > b{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+#company .tr-card__role{margin:0;font-weight:500;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+#company .tr-card__body > p{margin-top:var(--s2);opacity:1}
+
+/* ---------- планшет: две колонки, шахматка сохраняется ---------- */
+@media (max-width:1100px){
+  #company .co-head .t-lead{margin-left:0}
+  #company .co-group__head{grid-template-columns:minmax(0,1fr);gap:var(--s2)}
+  #company .co-strip{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+  #company .co-card__photo{min-height:30cqi}
+
+  #company .team-grid{grid-template-columns:minmax(0,1fr)}
+  #company .team-card__photo{min-height:40cqi}
+  #company .team-card:nth-child(even){grid-template-areas:"head photo" "bio photo"}
+
+  #company .values{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #company .value-card:nth-child(n){background:var(--paper)}
+  #company .value-card:nth-child(2),#company .value-card:nth-child(3){background:var(--white)}
+  #company .value-card__l{--k:70}
+
+  #company .tr-card,#company .tr-card:nth-child(n+3){grid-row:span 2;grid-template-columns:minmax(0,1fr);grid-template-rows:subgrid}
+  #company .tr-card:nth-child(n+3) .tr-card__photo{order:0}
+  #company .tr-card:nth-child(even) .tr-card__photo{order:1}
+  #company .tr-card__photo{min-height:32cqi}
+}
+
+/* ---------- телефон: плита по содержимому, однотипное листается ---------- */
+@media (max-width:760px){
+  #company .co-head__in{padding-block:var(--s6) var(--s4)}
+  #company .co-head .t-h2{font-size:var(--fs-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  #company .co-head .t-lead{margin-top:var(--s2)}
+  #company .co-group__head{padding-bottom:var(--s4)}
+  #company .co-group__sub,#company .co-group__head p{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+
+  #company .m-strip{margin-inline:0;padding-inline:0;scroll-padding-inline:0;gap:0}
+  #company .m-bar{margin:var(--s2) var(--gut) 0}
+  #company .sub-head{padding:var(--s6) var(--gut) var(--s3)}
+
+  /* grid-лента, а не flex: строки фото и текста ровные через все карточки */
+  #company .co-strip{display:grid;grid-auto-flow:column;grid-auto-columns:78%;grid-template-columns:none;grid-template-rows:auto auto;overflow-x:auto;scroll-snap-type:x mandatory}
+  #company .co-card{scroll-snap-align:start}
+  #company .co-strip .co-card__photo{min-height:52cqi}
+  #company .co-card__t{padding-block:var(--s2)}
+  #company .co-group .m-bar{margin-block:var(--s2);background:rgba(255,255,255,.32)}
+  #company .co-group .m-bar i{background:#fff}
+
+  #company .team-grid{display:flex}
+  #company .team-grid > .team-card{flex:0 0 86%;scroll-snap-align:start}
+  #company .team-grid > .team-card:only-child{flex-basis:100%}
+  #company .team-card,#company .team-card:nth-child(even),#company .team-card--wide{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto 1fr;grid-template-areas:"photo" "head" "bio"}
+  #company .team-card__photo,#company .team-card--wide .team-card__photo{min-height:0;aspect-ratio:1}
+  #company .team-card > div:first-child,#company .team-card--wide > div:first-child{padding:var(--s2) var(--gut) var(--s1)}
+  #company .team-card__bio,#company .team-card--wide .team-card__bio{align-self:start;padding:0 var(--gut) var(--s3);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+  #company .team-card__name,#company .team-card--wide .team-card__name{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3)}
+  #company .team-card--wide .team-card__role{margin-top:var(--s1);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+  #company .co-team .m-bar{margin-bottom:var(--s4)}
+
+  #company .quote{padding:var(--s6) var(--gut)}
+  #company .quote p{max-width:none;font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+  #company .quote figcaption{margin-top:var(--s3);max-width:calc(100% - 112px)}
+
+  #company .values{display:flex}
+  #company .values > .value-card{flex:0 0 78%;padding:var(--s2) var(--gut);scroll-snap-align:start}
+  #company .value-card:nth-child(n){background:var(--paper)}
+  #company .value-card:nth-child(even){background:var(--white)}
+  #company .value-card__l{--k:80;margin-bottom:var(--s2)}
+  #company .co-vals .m-bar{margin-bottom:var(--s4)}
+
+  #company .tr-grid{display:grid;grid-auto-flow:column;grid-auto-columns:78%;grid-template-columns:none;grid-template-rows:auto auto;overflow-x:auto}
+  #company .tr-card{scroll-snap-align:start}
+  #company .tr-card__photo{min-height:200px}
+  #company .tr-card__body{padding-block:var(--s2)}
+  #company .tr-card__body > b{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+  #company .tr-grid + .m-bar{margin-bottom:var(--s4)}
+}
+
+/* ячейки стоят встык с краем плиты: углов нет при любых токенах радиуса */
+#company .co-card__photo picture,#company .team-card,#company .team-card__photo,#company .value-card,#company .tr-card,#company .tr-card__photo{border-radius:0}
+
+/* планшет: знак кавычек меньше, цитате больше ширины */
+@media (min-width:761px) and (max-width:1100px){
+  #company .quote p{max-width:calc(100% - 120px)}
+  #company .quote::after{bottom:-11px;width:96px;height:91px}
+}
