@@ -1,0 +1,61 @@
+/* Каждый блок: шапка, один главный ряд, один второстепенный. Карточка не вложена в карточку. */
+
+/* блок 2: шапка */
+#concept .ab-head{margin-bottom:var(--s5)}
+#concept .cp-text{margin:var(--s2) 0 0;max-width:none;color:var(--ink-2)}
+#concept .cp-text .ab-l{display:block;font-style:normal}
+
+/* блок 2: три причины одного вида, фото вписано в карточку, поверх ничего не лежит */
+.cp-reasons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2)}
+.cp-card{display:flex;flex-direction:column;gap:var(--s2);min-width:0;padding:var(--s3);border-radius:var(--r);background:var(--white)}
+.cp-card picture{display:block;flex:none;height:auto;aspect-ratio:3/2;overflow:hidden;border-radius:var(--r-s)}
+.cp-card img{display:block;width:100%;height:100%;object-fit:cover}
+.cp-card > div{display:grid;gap:12px}
+.cp-card h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.cp-card p{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);color:var(--ink-2)}
+
+/* блок 2: единственная синяя плоскость в блоке, пункты простым списком */
+.cp-infra{margin-top:var(--s2);padding:var(--s4);border-radius:var(--r);background:var(--blue);color:#fff}
+.cp-infra h3{font-size:var(--fs-h3);font-weight:500;line-height:var(--lh-h3);letter-spacing:var(--ls-h3);margin-bottom:var(--s3)}
+.cp-infra__list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s2) var(--s3);margin:0;padding:0;list-style:none}
+.cp-infra__list li{display:flex;align-items:center;gap:12px;min-width:0;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+.cp-infra__list .ab-ic{flex:none;width:20px;height:20px;color:#fff}
+
+/* блок 2: Nuanu спокойнее и последним */
+.cp-nuanu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s4);align-items:center;margin-top:var(--s2);padding:var(--s3);border-radius:var(--r);background:var(--white)}
+.cp-nuanu__pic{display:block;aspect-ratio:3/2;overflow:hidden;border-radius:var(--r-s)}
+.cp-nuanu__pic img{display:block;width:100%;height:100%;object-fit:cover}
+.cp-nuanu__body{display:grid;gap:var(--s2);min-width:0}
+.cp-nuanu__body h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.cp-nuanu__list{display:flex;flex-wrap:wrap;gap:12px var(--s4);margin:0;padding:0;list-style:none}
+.cp-nuanu__list li{display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
+.cp-nuanu__list .ab-ic{flex:none;width:20px;height:20px;color:var(--blue)}
+
+/* блок 3: цифры без плашек, управляющая компания строкой, форматы без рамок */
+.cxb__stats{gap:var(--s3)}
+.cxb__stats > div{padding:0;background:none;border-radius:0}
+.cxb__uk{padding:0;background:none;border-radius:0;margin-top:var(--s2);color:var(--ink-2)}
+.cxb__fmts{gap:var(--s3)}
+.cxb-f{padding:0;border:0;border-radius:0;background:none}
+@media (hover:hover){ .cxb-f:hover{background:none;border-color:transparent;color:var(--blue)} }
+
+@media (max-width:1000px){
+  .cp-infra__list{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+/* на планшете три причины стопкой: фото слева, текст справа */
+@media (min-width:761px) and (max-width:1000px){
+  .cp-reasons{grid-template-columns:minmax(0,1fr)}
+  .cp-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:var(--s3)}
+}
+/* телефон: причины лентой со свайпом, вместо длинной стопки */
+@media (max-width:760px){
+  .cp-reasons{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none;gap:var(--s1)}
+  .cp-reasons::-webkit-scrollbar{display:none}
+  .cp-card{scroll-snap-align:start;padding:var(--s2);gap:12px}
+  .cp-infra{padding:var(--s3) var(--s2)}
+  .cp-infra h3{margin-bottom:var(--s2)}
+  .cp-infra__list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px var(--s2)}
+  .cp-nuanu{grid-template-columns:minmax(0,1fr);gap:var(--s2);padding:var(--s2)}
+  .cp-nuanu__list{flex-direction:column}
+  .cp-nuanu__list li{white-space:normal}
+}

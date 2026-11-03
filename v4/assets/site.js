@@ -206,8 +206,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       document.body.classList.add('consent-open'); reserve(); addEventListener('resize', reserve);
       // у формы плашка уходит, чтобы не закрывать кнопку отправки
       var lead = document.getElementById('lead');
-      var footEl = document.querySelector('.site-footer'), near = new Map();
-      if (lead && 'IntersectionObserver' in window) { var awayIo = new IntersectionObserver(function (es) { es.forEach(function (e) { near.set(e.target, e.isIntersecting); }); bar.classList.toggle('is-away', near.get(lead) === true || near.get(footEl) === true); }); awayIo.observe(lead); if (footEl) awayIo.observe(footEl); }
+      if (lead && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { bar.classList.toggle('is-away', es[0].isIntersecting); }).observe(lead);
       setTimeout(function () { bar.classList.add('in'); }, 700);
       var ok = document.getElementById('consentOk');
       /* карточка карты в углу перекрывалась баннером cookie (тоже в углу) — стрелка вела на клик по «OK» вместо перехода к карте;
@@ -942,8 +941,6 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var btn = panel.querySelector('.cxb__toggle'), rest = panel.querySelector('.cxb__rest');
       if (btn) btn.addEventListener('click', function () {
         var open = rest.classList.toggle('is-open'), k = open ? 'cx.less' : 'cx.more';
-        // пока галерея скрыта, её ширина 0: раскладку считаем при раскрытии
-        if (open) layoutGallery(rest.querySelector('.complex__gallery'));
         var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
         btn.setAttribute('data-i18n', k); if (dict[k]) btn.textContent = dict[k];
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -1015,8 +1012,13 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var prev = window.__uscCalcRefresh;
     window.__uscCalcRefresh = function () { if (prev) prev(); calc(); };
     calc();
-    var pickerPanel = el('calcPickerPanel');
-    if (pickerPanel) {
+    var pickerBtn = el('calcPickerBtn'), pickerPanel = el('calcPickerPanel');
+    if (pickerBtn && pickerPanel) {
+      pickerBtn.addEventListener('click', function () {
+        var open = pickerPanel.hidden;
+        pickerPanel.hidden = !open;
+        pickerBtn.setAttribute('aria-expanded', String(open));
+      });
       pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
           priceEl.dataset.usd = btn.getAttribute('data-price');
@@ -1024,11 +1026,16 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
           occEl.dataset.v = btn.getAttribute('data-occ');
           mgmtEl.dataset.v = btn.getAttribute('data-mgmt');
           calc();
-          pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) {
-            b.classList.toggle('is-active', b === btn);
-            b.setAttribute('aria-pressed', String(b === btn));
-          });
+          pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+          /* кнопка показывает выбранный формат; data-i18n меняем, чтобы смена языка не вернула старое имя */
+          var cur = pickerBtn.querySelector('b'), src = btn.querySelector('b');
+          if (cur && src) { cur.setAttribute('data-i18n', src.getAttribute('data-i18n')); cur.innerHTML = src.innerHTML; }
+          pickerPanel.hidden = true;
+          pickerBtn.setAttribute('aria-expanded', 'false');
         });
+      });
+      document.addEventListener('click', function (e) {
+        if (!pickerPanel.hidden && !pickerBtn.parentNode.contains(e.target)) { pickerPanel.hidden = true; pickerBtn.setAttribute('aria-expanded', 'false'); }
       });
     }
   }
@@ -1103,7 +1110,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
       var map = new maplibregl.Map({
         container: live, style: 'https://tiles.openfreemap.org/styles/positron',
-        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 150, right: 200 } },
+        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 120, right: 150 } },
         interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
         dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
         attributionControl: false, fadeDuration: 0
