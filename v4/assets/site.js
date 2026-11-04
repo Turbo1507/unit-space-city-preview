@@ -1216,6 +1216,10 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
           var t2 = card.querySelector('.map-pop__t'), cs = getComputedStyle(lbl);
           t2.innerHTML = lbl.innerHTML; t2.style.padding = cs.padding;
           card.style.left = card.style.top = '0px';
+          /* низкая карта: фото в карточке ниже, чтобы карточка осталась внутри карты с полем 8 */
+          gal.style.aspectRatio = gal.style.height = '';
+          var tall = card.offsetHeight - (live.clientHeight - 16);
+          if (tall > 0) { var galH = gal.offsetHeight - tall; gal.style.aspectRatio = 'auto'; gal.style.height = galH + 'px'; }
           var W = card.offsetWidth, H = card.offsetHeight, lw = lbl.offsetWidth, lh = lbl.offsetHeight;
           var bx = live.getBoundingClientRect(), mr = mk.getBoundingClientRect(), gap = 8;
           var X = function (e) { return lbl.offsetLeft + (e === 'r' ? lw - W : 0); };
