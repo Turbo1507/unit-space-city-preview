@@ -146,6 +146,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         document.querySelectorAll(p.sel).forEach(function (el) { el.textContent = el.textContent.replace(/\$\s*$/, 'Rp'); });
       });
     }
+    document.querySelectorAll('.plb .product-card__price').forEach(function (el) { el.innerHTML = el.textContent.replace(/^(\S+)\s+/, '<small>$1</small> '); });
     if (window.__uscRerender) window.__uscRerender(lang);
     if (window.__uscCalcRefresh) window.__uscCalcRefresh();
   }
@@ -706,7 +707,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     band.querySelectorAll('.ugal__arrow').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); show(bi + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); arm(); });
     });
-    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 3500); }
+    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 2500); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     var bp0 = null, bSwiped = false;
     band.addEventListener('pointerdown', function (e) { bp0 = e.target.closest('.ugal__arrow') ? null : { x: e.clientX, y: e.clientY }; });
@@ -815,7 +816,63 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var min = Math.min.apply(null, vis), mean = vis.reduce(function (a, v) { return a + v; }, 0) / vis.length;
     return { map: map, score: min * 0.6 + mean * 0.4 };
   }
+  // коллаж в узкой колонке: ряды из 6 долей, сразу видно два ряда, остальное по кнопке
+  function layoutCx(g) {
+    var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE'; });
+    figs.forEach(function (f) { f.style.gridColumn = ''; f.style.order = ''; f.classList.remove('tile-more'); });
+    var btn = g.parentNode.querySelector('.gal-more');
+    if (window.innerWidth <= 800) { if (btn) btn.hidden = false; g.style.gridAutoRows = ''; return; }
+    var q = figs.map(function (f) { return { f: f, a: figAr(f) }; }), rows = [], flip = false;
+    // мало фото: кнопка не нужна, широкие кадры на всю колонку
+    // на широком экране обычные ряды режут кадр меньше, там это правило не нужно
+    var few = figs.length <= 4 && window.innerWidth < 1600;
+    if (few) {
+      var pp = q.filter(function (x) { return x.a < 1; });
+      q.filter(function (x) { return x.a >= 1; }).forEach(function (x) { rows.push([[x, 6]]); });
+      if (pp.length) rows.push(pp.map(function (x) { return [x, 6 / pp.length]; }));
+      q = [];
+    }
+    function take(test) { for (var k = 0; k < q.length; k++) if (test(q[k])) return q.splice(k, 1)[0]; return null; }
+    var isP = function (x) { return x.a < 1; }, isL = function (x) { return x.a >= 1 && x.a < 2; };
+    while (q.length) {
+      var h = q.shift(), row;
+      if (h.a >= 2) row = [[h, 6]];
+      else if (isL(h)) {
+        var p = take(isP);
+        if (p) { row = flip ? [[p, 2], [h, 4]] : [[h, 4], [p, 2]]; flip = !flip; }
+        else { var l = take(isL); row = l ? [[h, 3], [l, 3]] : [[h, 6]]; }
+      } else {
+        var w = take(isL);
+        if (w) { row = flip ? [[h, 2], [w, 4]] : [[w, 4], [h, 2]]; flip = !flip; }
+        else { var a = take(isP), b = a ? take(isP) : null; row = b ? [[h, 2], [a, 2], [b, 2]] : (a ? [[h, 3], [a, 3]] : [[h, 3]]); }
+      }
+      rows.push(row);
+    }
+    var ord = 0;
+    rows.forEach(function (row, r) {
+      row.forEach(function (c) {
+        c[0].f.style.gridColumn = 'span ' + c[1];
+        c[0].f.style.order = ord++;
+        if (r > 1 && !few) c[0].f.classList.add('tile-more');
+      });
+    });
+    if (btn) btn.hidden = few || rows.length <= 2;
+    g.setAttribute('data-rows', few ? rows.length : Math.min(rows.length, 2));
+    cxFit(g.parentNode.parentNode);
+  }
+  // видимая часть коллажа по высоте равна левой колонке: верх и низ колонок на одних линиях
+  function cxFit(p) {
+    var s = p.querySelector('.cx-side'), g = p.querySelector('.complex__gallery'), btn = p.querySelector('.gal-more');
+    if (!s || !g) return;
+    if (window.innerWidth <= 1100) { g.style.gridAutoRows = ''; return; }
+    var hh = s.offsetHeight;
+    if (!hh) return;
+    var gap = parseFloat(getComputedStyle(g).rowGap) || 0, n = +g.getAttribute('data-rows') || 2;
+    if (btn && !btn.hidden) hh -= btn.offsetHeight + (parseFloat(getComputedStyle(btn).marginTop) || 0);
+    g.style.gridAutoRows = Math.max(120, (hh - gap * (n - 1)) / n) + 'px';
+  }
   function layoutGallery(g) {
+    if (g.parentNode.classList.contains('cx-gal')) { layoutCx(g); return; }
     var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE' && !f.classList.contains('cxb-dup'); });
     if (window.innerWidth <= 800) { figs.forEach(function (f) { f.style.gridColumn = f.style.gridRow = ''; }); g.style.gridAutoRows = ''; return; }
     var AR = tileAr(g), first = figs.filter(function (f) { return !f.classList.contains('tile-more'); }).length;
@@ -869,7 +926,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     onWidth(upd); upd();
   });
   document.querySelectorAll('.gal-more').forEach(function (btn) {
-    var gallery = btn.closest('.container').querySelector('.complex__gallery');
+    var gallery = btn.closest('.cx-gal, .container').querySelector('.complex__gallery');
     if (!gallery) return;
     /* «Показать все фото» ↔ «Свернуть фото». data-i18n меняем вместе с текстом, чтобы смена языка не сбрасывала подпись */
     btn.addEventListener('click', function () {
@@ -905,11 +962,13 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       if (byUser) cxbNav.classList.add('is-touched');
       if (focus) cxbTabs[i].focus();
       cxbEager();
+      cxSticky();
       // полоса мобильной ленты считается по видимой панели
       var g = cxbPanels[i].querySelector('.complex__gallery'); if (g) g.dispatchEvent(new Event('scroll'));
       // панели разной высоты: если начало панели ушло под табы, возвращаем его
-      var navB = cxbNav.getBoundingClientRect().bottom, top = cxbPanels[i].getBoundingClientRect().top;
-      if (byUser && top < navB) window.scrollBy(0, top - navB - 16);
+      // без анимации: контент уже сменился, плавная прокрутка выглядит как прыжок страницы
+      var navB = (parseFloat(getComputedStyle(cxbNav).top) || 0) + cxbNav.offsetHeight, top = cxbPanels[i].getBoundingClientRect().top;
+      if (byUser && top < navB) window.scrollTo({ top: window.scrollY + top - navB - 16, behavior: 'instant' });
     }
     cxbTabs.forEach(function (t, i) { t.addEventListener('click', function () { cxbGo(i, true); }); });
     cxbNav.addEventListener('keydown', function (e) {
@@ -946,6 +1005,19 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
+    // левая колонка прилипает под табами; если выше экрана, прилипает нижним краем, чтобы кнопка была видна
+    function cxSticky() {
+      if (window.innerWidth <= 1100) return;
+      var top = (parseFloat(getComputedStyle(cxbNav).top) || 0) + cxbNav.offsetHeight + 16;
+      cxbPanels.forEach(function (p) {
+        var s = p.querySelector('.cx-side');
+        if (s && !p.hidden) { s.style.top = Math.min(top, window.innerHeight - s.offsetHeight - 16) + 'px'; cxFit(p); }
+      });
+    }
+    if (window.ResizeObserver) { var cxRO = new ResizeObserver(cxSticky); cxbPanels.forEach(function (p) { var s = p.querySelector('.cx-side'); if (s) cxRO.observe(s); }); }
+    window.addEventListener('resize', cxSticky);
+    window.addEventListener('load', cxSticky);
+    cxSticky();
     // ссылка #cx-u2 открывает свой таб и ставит панель под шапку и табы
     function cxbFromHash() {
       var m = /^#cx-u([1-3])$/.exec(location.hash);
@@ -1292,7 +1364,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var lots = window.USC_LOTS, units = window.USC_UNITS; if (!lots || !units) return;
     var lang = window.__uscLang || (document.documentElement.lang || 'en').slice(0, 2), d = (window.I18N && window.I18N[lang]) || {};
     var pool = function (s) { return /-pool$/.test(s); };
-    document.querySelectorAll('.fmt-card').forEach(function (c) {
+    document.querySelectorAll('.fmt-card, .plb').forEach(function (c) {
       c.querySelectorAll('.js-av').forEach(function (e) { e.remove(); });
       var a = c.querySelector('a.fmt-card__media'), m = a && (a.getAttribute('href') || '').match(/([\w-]+)\.html/);
       var u = m && units.filter(function (x) { return x.slug === m[1]; })[0]; if (!u) return;
@@ -1346,4 +1418,43 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   run();
   new MutationObserver(function () { if (!queued) { queued = true; requestAnimationFrame(run); } })
     .observe(document.body, { childList: true, subtree: true, characterData: true });
+})();
+
+/* остановки скролла на десктопе: скролл замер рядом с началом блока, доводим до него.
+   У комплексов якорь такой, что табы прилипли сверху, а панель целиком под ними */
+(function () {
+  var RANGE = 72, WAIT = 180, TIME = 480, timer = 0, held = false, raf = 0;
+  var head = function () { var h = document.querySelector('.site-header, header'); return h ? h.offsetHeight : 64; };
+  function anchors() {
+    var y = window.scrollY, hdr = head(), out = [];
+    var add = function (el, gap) { if (!el) return; var r = el.getBoundingClientRect(); if (r.height) out.push(Math.round(r.top + y - gap)); };
+    document.querySelectorAll('main .sect-head').forEach(function (el) { if (!el.closest('#complexes')) add(el, hdr + 24); });
+    document.querySelectorAll('main .photo-band').forEach(function (el) { add(el, hdr); });
+    add(document.querySelector('#location .lx-half'), hdr + 16);
+    var nav = document.querySelector('#complexes .complex-nav');
+    if (nav) document.querySelectorAll('#complexes .cxb').forEach(function (el) { add(el, hdr + nav.offsetHeight + 16); });
+    return out;
+  }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+  /* своя анимация: системный smooth на расстоянии до 72 px выглядит рывком */
+  function glide(from, to) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo({ top: to, behavior: 'instant' }); return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var k = Math.min((now - t0) / TIME, 1), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      window.scrollTo({ top: from + (to - from) * e, behavior: 'instant' });
+      raf = k < 1 ? requestAnimationFrame(step) : 0;
+    })(t0);
+  }
+  function settle() {
+    if (raf || held || window.innerWidth <= 1000 || document.body.classList.contains('menu-open')) return;
+    var y = window.scrollY, best = null;
+    anchors().forEach(function (a) { var d = Math.abs(a - y); if (d >= 2 && d <= RANGE && (best === null || d < Math.abs(best - y))) best = a; });
+    if (best === null) return;
+    glide(y, best);
+  }
+  window.addEventListener('scroll', function () { if (raf) return; clearTimeout(timer); timer = setTimeout(settle, WAIT); }, { passive: true });
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true }); });
+  window.addEventListener('pointerdown', function () { held = true; stop(); });
+  window.addEventListener('pointerup', function () { held = false; clearTimeout(timer); timer = setTimeout(settle, WAIT); });
 })();
