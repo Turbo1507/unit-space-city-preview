@@ -1180,9 +1180,10 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var live = document.createElement('div'); live.className = 'location-map__live'; live.setAttribute('aria-hidden', 'true');
       box.appendChild(live);
       var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+      var pad = tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 120, right: 150 };
       var map = new maplibregl.Map({
         container: live, style: 'https://tiles.openfreemap.org/styles/positron',
-        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 120, right: 150 } },
+        bounds: bounds(), fitBoundsOptions: { padding: pad },
         interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
         dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
         attributionControl: false, fadeDuration: 0
@@ -1280,15 +1281,22 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         poiText();
         var prevHook = window.__uscRerender;
         window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); if (openPop) openPop.close(); };
-        /* подписи не должны уходить за края (узкий экран): сдвигаем карту, воздух по краям до 16 */
-        var lr = live.getBoundingClientRect(), L = Infinity, R = -Infinity;
-        [pin.querySelector('.map-pin__lbl')].concat(poiEls.filter(function (x) { return !x.far; }).map(function (x) { return x.el; })).forEach(function (e) {
-          var r = e.getBoundingClientRect(); if (!r.width) return;
-          L = Math.min(L, r.left - lr.left); R = Math.max(R, r.right - lr.left);
-        });
-        var air = Math.min(16, Math.max(0, (lr.width - (R - L)) / 2)), dx = 0;
-        if (L < air) dx = L - air; else if (R > lr.width - air) dx = R - (lr.width - air);
-        if (dx) map.panBy([dx, 0], { animate: false });
+        /* подписи не должны уходить за края: поля считаем от реальной ширины подписей, карта уменьшает масштаб, воздух по краям 16 */
+        var lr = live.getBoundingClientRect(), AIR = 16;
+        var chips = [{ ll: ll, e: pin.querySelector('.map-pin__lbl') }].concat(poiEls.filter(function (x) { return !x.far; }).map(function (x) {
+          return { ll: POI.filter(function (p) { return p.k === x.k; })[0].ll, e: x.el };
+        })).map(function (c) {
+          var r = c.e.getBoundingClientRect(), o = map.project(c.ll);
+          return { ll: c.ll, l: r.left - lr.left - o.x, r: r.right - lr.left - o.x, w: r.width };
+        }).filter(function (c) { return c.w; });
+        for (var fit = 0; fit < 5; fit++) {
+          var L = Infinity, R = -Infinity;
+          chips.forEach(function (c) { var x = map.project(c.ll).x; L = Math.min(L, x + c.l); R = Math.max(R, x + c.r); });
+          var ovL = Math.max(0, AIR - L), ovR = Math.max(0, R - (lr.width - AIR));
+          if (ovL < 1 && ovR < 1) break;
+          pad = { top: pad.top, bottom: pad.bottom, left: pad.left + ovL, right: pad.right + ovR };
+          map.fitBounds(bounds(), { padding: pad, animate: false });
+        }
         map.setMaxBounds(map.getBounds());
         var at = live.querySelector('.maplibregl-ctrl-attrib'); if (at) at.classList.remove('maplibregl-compact-show');
         var shown = function () { box.classList.add('is-live'); };
