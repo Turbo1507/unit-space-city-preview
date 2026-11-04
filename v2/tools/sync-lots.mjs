@@ -108,7 +108,7 @@ for (const f of Object.keys(agg)) {
   setKey(`price.${f}`, (v, lang) => priceTxt(a.min, lang));
   setKey(`fmt.${f}_w`, () => a.where);
   setKey(`fmt.${f}_m`, (v) => a.where + ': ' + v.replace(/^.*?(?:: |\u00a0— )/, ''));
-  setKey(`calc.pick_${f}`, (v, lang) => `${areaTxt(a, lang)} — ${priceTxt(a.min, lang)}`);
+  setKey(`calc.pick_${f}`, (v, lang) => `${areaTxt(a, lang)}, ${priceTxt(a.min, lang)}`);
   if (!setKey(`fmt.${f}_a`, (v, lang) => areaTxt(a, lang))) {
     let n = 0;
     i18n = i18n.replace(new RegExp(`(\\n(\\s*)"fmt\\.${f}_w": "[^"]*",)`, 'g'), (m, line, sp) => `${line}\n${sp}"fmt.${f}_a": "${areaTxt(a, n++ === 0 ? 'ru' : 'en')}",`);
@@ -124,7 +124,7 @@ for (const f of Object.keys(agg)) {
   tpl = tpl.replace(new RegExp(`(<button type="button" class="calc__pick-card( is-active)?" data-price=")\\d+("[^>]*><b data-i18n="fmt\\.${f}">)`),
     (m, o, act, c) => o + agg[f].min + c);
   if (new RegExp(`class="calc__pick-card is-active"[^>]*><b data-i18n="fmt\\.${f}">`).test(tpl)) {
-    tpl = tpl.replace(/(<input type="number" id="c-price" value=")\d+(")/, (m, o, c) => o + agg[f].min + c);
+    tpl = tpl.replace(/(id="c-price" data-usd=")\d+(")/, (m, o, c) => o + agg[f].min + c);
   }
   for (const key of [`price.${f}`, `fmt.${f}_w`, `fmt.${f}_m`, `calc.pick_${f}`]) {
     const v = ruVal(key); if (v == null) continue;

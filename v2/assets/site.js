@@ -97,7 +97,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   /* валюта USD/IDR: закон Индонезии (PBI 17/3/PBI/2015) требует показывать цену в рупиях, не только в $.
      Живой курс через open.er-api.com (без ключа, CORS открыт), кэш 12ч в localStorage, фолбэк — константа */
   var CCY_KEY = 'usc_ccy', FX_KEY = 'usc_fx', FX_FALLBACK = 16300;
-  function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'idr' ? 'idr' : 'usd'; } catch (e) { return 'usd'; } }
+  function getCcy() { try { return localStorage.getItem(CCY_KEY) === 'usd' ? 'usd' : 'idr'; } catch (e) { return 'idr'; } }
   function saveCcy(c) { try { localStorage.setItem(CCY_KEY, c); } catch (e) { } }
   window.__uscCcy = getCcy();
   window.__uscFx = FX_FALLBACK;
@@ -132,7 +132,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   window.__uscMoney = function (usd, lang, exact) {
     return (exact ? '' : (lang === 'ru' ? 'от ' : 'from ')) + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
   };
-  var CALC_LABELS = [{ sel: '[data-i18n="calc.price"]' }, { sel: '[data-i18n="calc.rate"]' }, { sel: '[data-i18n="form.budget"]' }];
+  var CALC_LABELS = [{ sel: '[data-i18n="form.budget"]' }];
   function refreshMoney() {
     var lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
     if (window.__uscCcy === 'idr') {
@@ -146,6 +146,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         document.querySelectorAll(p.sel).forEach(function (el) { el.textContent = el.textContent.replace(/\$\s*$/, 'Rp'); });
       });
     }
+    document.querySelectorAll('.plb .product-card__price').forEach(function (el) { el.innerHTML = el.textContent.replace(/^(\S+)\s+/, '<small>$1</small> '); });
     if (window.__uscRerender) window.__uscRerender(lang);
     if (window.__uscCalcRefresh) window.__uscCalcRefresh();
   }
@@ -201,11 +202,17 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     function showCard(d) { setTimeout(function () { if (card) card.classList.add('in'); }, d); }
     if (accepted || !bar) { showCard(400); }
     else {
+      // на телефоне первый экран поднимаем на высоту плашки, иначе она закрывает кнопки
+      function reserve() { document.documentElement.style.setProperty('--consent-h', bar.offsetHeight + 'px'); }
+      document.body.classList.add('consent-open'); reserve(); addEventListener('resize', reserve);
+      // у формы плашка уходит, чтобы не закрывать кнопку отправки
+      var lead = document.getElementById('lead');
+      if (lead && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { bar.classList.toggle('is-away', es[0].isIntersecting); }).observe(lead);
       setTimeout(function () { bar.classList.add('in'); }, 700);
       var ok = document.getElementById('consentOk');
       /* карточка карты в углу перекрывалась баннером cookie (тоже в углу) — стрелка вела на клик по «OK» вместо перехода к карте;
          теперь карточка появляется только после закрытия баннера, плюс страховка на 6с если баннер проигнорировали */
-      if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('in'); showCard(200); });
+      if (ok) ok.addEventListener('click', function () { try { localStorage.setItem(KEY, '1'); } catch (e) {} bar.classList.remove('in'); document.body.classList.remove('consent-open'); removeEventListener('resize', reserve); showCard(200); });
       showCard(6000);
     }
   })();
@@ -220,104 +227,6 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   if ('IntersectionObserver' in window) {
     var nio = new IntersectionObserver(function (ents) { ents.forEach(function (en) { if (en.isIntersecting) { countUp(en.target); nio.unobserve(en.target); } }); }, { threshold: .6 });
     document.querySelectorAll('[data-count]').forEach(function (el) { nio.observe(el); });
-  }
-
-  /* комплексы: слайдер, переключение кнопками U1/U2/U3 (+ свайп, стрелки, #cx-uN) */
-  var cxNav = document.querySelector('.complex-nav'), cxTrack = document.querySelector('.complex-track');
-  if (cxNav && cxTrack) {
-    var tabs = [].slice.call(cxNav.querySelectorAll('button[data-cx]')), ink = document.getElementById('cxInk');
-    var slides = tabs.map(function (t) { return document.getElementById(t.dataset.cx); });
-    var cur = 0;
-    function moveInk(t) { if (ink) { ink.style.left = t.offsetLeft + 'px'; ink.style.width = t.offsetWidth + 'px'; } }
-    // прилипшие табы серые, иначе сливаются с белым фоном комплексов
-    var stuckRaf = 0;
-    function checkStuck() {
-      stuckRaf = 0;
-      var top = parseFloat(getComputedStyle(cxNav).top) || 0, r = cxNav.getBoundingClientRect();
-      cxNav.classList.toggle('is-stuck', r.top <= top + 1 && cxNav.parentElement.getBoundingClientRect().bottom > r.bottom + 1);
-    }
-    window.addEventListener('scroll', function () { if (!stuckRaf) stuckRaf = requestAnimationFrame(checkStuck); }, { passive: true });
-    window.addEventListener('resize', checkStuck);
-    checkStuck();
-    function go(i, focusTab, init) {
-      i = Math.max(0, Math.min(slides.length - 1, i)); cur = i;
-      slides.forEach(function (s, k) { s.setAttribute('data-state', k === i ? 'active' : (k < i ? 'prev' : 'next')); });
-      tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
-      moveInk(tabs[i]);
-      if (focusTab) tabs[i].focus();
-      /* выбор комплекса тут — подхватывается фильтром каталога «доступные юниты» ниже */
-      fitTrack();
-      // при загрузке страницу не трогаем: иначе через 700 мс её утаскивало к комплексам, если уже пролистали ниже (восстановление позиции, быстрый скролл)
-      if (init) return;
-      cxNav.classList.add('is-touched');
-      // если с раскрытого длинного коллажа перешли на короткий комплекс и его низ оказался выше экрана — показать его начало
-      toStart(slides[i], 'smooth');
-      // плавную прокрутку может сбить одновременное сжатие секции (transition height .6s) — после анимации добиваем без анимации
-      clearTimeout(go.t); go.t = setTimeout(function () { toStart(slides[cur], 'auto'); }, 700);
-    }
-    function toStart(s, behavior) {
-      var r = s.getBoundingClientRect(), navB = cxNav.getBoundingClientRect().bottom;
-      if (r.bottom < navB + 120) scrollTo({ top: scrollY + r.top - navB, behavior: behavior });
-    }
-    /* панели стоят друг на друге в одной ячейке сетки — высота секции = высота активной панели,
-       а не самой длинной (раскрытый коллаж U1 не должен оставлять пустоту на U2) */
-    function fitTrack() {
-      if (slides[cur]) cxTrack.style.height = slides[cur].offsetHeight + 'px';
-      // нативный переход по якорю #cx-uN (при загрузке по ссылке) останавливается под шапкой и табами, а не за ними
-      var m = (parseFloat(getComputedStyle(cxNav).top) || 0) + cxNav.offsetHeight + 'px';
-      slides.forEach(function (s) { s.style.scrollMarginTop = m; });
-    }
-    if (window.ResizeObserver) { var cxRO = new ResizeObserver(fitTrack); slides.forEach(function (s) { cxRO.observe(s); }); }
-    onWidth(fitTrack);
-    tabs.forEach(function (t, i) { t.addEventListener('click', function () { go(i); }); });
-    cxNav.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { go(cur + 1, true); e.preventDefault(); }
-      if (e.key === 'ArrowLeft') { go(cur - 1, true); e.preventDefault(); }
-    });
-    onWidth(function () { moveInk(tabs[cur]); });
-    /* свайп влево/вправо по контенту комплекса — переключает U1/U2/U3, не только кнопки табов */
-    var cxSlider = document.getElementById('complexSlider');
-    if (cxSlider) {
-      var sp0 = null;
-      /* не перехватываем свайп, начатый в собственных горизонтальных лентах (коллаж/полоса фото) — иначе он листал бы комплекс вместо фото */
-      cxSlider.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'mouse' || e.target.closest('.complex__gallery, .strip__track')) { sp0 = null; return; }
-        sp0 = { x: e.clientX, y: e.clientY };
-      });
-      cxSlider.addEventListener('pointerup', function (e) {
-        if (!sp0) return;
-        var dx = e.clientX - sp0.x, dy = e.clientY - sp0.y; sp0 = null;
-        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1));
-      });
-    }
-    var hash = (location.hash || '').replace('#', ''), start = slides.findIndex(function (s) { return s && s.id === hash; });
-    go(start >= 0 ? start : 0, false, true);
-    function toBlock(behavior) {
-      var stick = parseFloat(getComputedStyle(cxNav).top) || 0;
-      scrollTo({ top: scrollY + cxTrack.getBoundingClientRect().top - stick - cxNav.offsetHeight, behavior: behavior });
-    }
-    if (start >= 0) requestAnimationFrame(function () { toBlock('auto'); });
-    addEventListener('hashchange', function () { var h = location.hash.replace('#', ''), i = slides.findIndex(function (s) { return s.id === h; }); if (i >= 0) go(i); });
-    /* ссылки на #cx-uN (чипы блока 2, футер): открыть комплекс и подвести страницу к началу блока сами —
-       нативный переход по якорю на сдвинутую панель прокручивал слайдер вбок, и блок был пустым */
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest('a[href^="#cx-"]'); if (!a) return;
-      var i = slides.findIndex(function (s) { return s && '#' + s.id === a.getAttribute('href'); }); if (i < 0) return;
-      e.preventDefault();
-      go(i);
-      if (history.replaceState) history.replaceState(null, '', a.getAttribute('href'));
-      toBlock('smooth');
-    });
-    if (cxSlider) cxSlider.addEventListener('scroll', function () { cxSlider.scrollLeft = 0; });
-    /* фото соседних комплексов грузим заранее: иначе при переключении U1→U2 плитки догружались прямо во время сдвига */
-    var cxSec = document.getElementById('complexes');
-    if (cxSec && 'IntersectionObserver' in window) {
-      var pio = new IntersectionObserver(function (es) {
-        if (!es[0].isIntersecting) return; pio.disconnect();
-        cxSec.querySelectorAll('.complex__gallery figure:not(.tile-more) img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; });
-      }, { rootMargin: '800px 0px' });
-      pio.observe(cxSec);
-    }
   }
 
   /* карточка формата (каталога на главной больше нет, его заменил блок «Наличие» на страницах форматов) */
@@ -798,7 +707,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     band.querySelectorAll('.ugal__arrow').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); show(bi + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); arm(); });
     });
-    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 5000); }
+    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 2500); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     var bp0 = null, bSwiped = false;
     band.addEventListener('pointerdown', function (e) { bp0 = e.target.closest('.ugal__arrow') ? null : { x: e.clientX, y: e.clientY }; });
@@ -907,8 +816,64 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var min = Math.min.apply(null, vis), mean = vis.reduce(function (a, v) { return a + v; }, 0) / vis.length;
     return { map: map, score: min * 0.6 + mean * 0.4 };
   }
-  function layoutGallery(g) {
+  // коллаж в узкой колонке: ряды из 6 долей, сразу видно два ряда, остальное по кнопке
+  function layoutCx(g) {
     var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE'; });
+    figs.forEach(function (f) { f.style.gridColumn = ''; f.style.order = ''; f.classList.remove('tile-more'); });
+    var btn = g.parentNode.querySelector('.gal-more');
+    if (window.innerWidth <= 800) { if (btn) btn.hidden = false; g.style.gridAutoRows = ''; return; }
+    var q = figs.map(function (f) { return { f: f, a: figAr(f) }; }), rows = [], flip = false;
+    // мало фото: кнопка не нужна, широкие кадры на всю колонку
+    // на широком экране обычные ряды режут кадр меньше, там это правило не нужно
+    var few = figs.length <= 4 && window.innerWidth < 1600;
+    if (few) {
+      var pp = q.filter(function (x) { return x.a < 1; });
+      q.filter(function (x) { return x.a >= 1; }).forEach(function (x) { rows.push([[x, 6]]); });
+      if (pp.length) rows.push(pp.map(function (x) { return [x, 6 / pp.length]; }));
+      q = [];
+    }
+    function take(test) { for (var k = 0; k < q.length; k++) if (test(q[k])) return q.splice(k, 1)[0]; return null; }
+    var isP = function (x) { return x.a < 1; }, isL = function (x) { return x.a >= 1 && x.a < 2; };
+    while (q.length) {
+      var h = q.shift(), row;
+      if (h.a >= 2) row = [[h, 6]];
+      else if (isL(h)) {
+        var p = take(isP);
+        if (p) { row = flip ? [[p, 2], [h, 4]] : [[h, 4], [p, 2]]; flip = !flip; }
+        else { var l = take(isL); row = l ? [[h, 3], [l, 3]] : [[h, 6]]; }
+      } else {
+        var w = take(isL);
+        if (w) { row = flip ? [[h, 2], [w, 4]] : [[w, 4], [h, 2]]; flip = !flip; }
+        else { var a = take(isP), b = a ? take(isP) : null; row = b ? [[h, 2], [a, 2], [b, 2]] : (a ? [[h, 3], [a, 3]] : [[h, 3]]); }
+      }
+      rows.push(row);
+    }
+    var ord = 0;
+    rows.forEach(function (row, r) {
+      row.forEach(function (c) {
+        c[0].f.style.gridColumn = 'span ' + c[1];
+        c[0].f.style.order = ord++;
+        if (r > 1 && !few) c[0].f.classList.add('tile-more');
+      });
+    });
+    if (btn) btn.hidden = few || rows.length <= 2;
+    g.setAttribute('data-rows', few ? rows.length : Math.min(rows.length, 2));
+    cxFit(g.parentNode.parentNode);
+  }
+  // видимая часть коллажа по высоте равна левой колонке: верх и низ колонок на одних линиях
+  function cxFit(p) {
+    var s = p.querySelector('.cx-side'), g = p.querySelector('.complex__gallery'), btn = p.querySelector('.gal-more');
+    if (!s || !g) return;
+    if (window.innerWidth <= 1100) { g.style.gridAutoRows = ''; return; }
+    var hh = s.offsetHeight;
+    if (!hh) return;
+    var gap = parseFloat(getComputedStyle(g).rowGap) || 0, n = +g.getAttribute('data-rows') || 2;
+    if (btn && !btn.hidden) hh -= btn.offsetHeight + (parseFloat(getComputedStyle(btn).marginTop) || 0);
+    g.style.gridAutoRows = Math.max(120, (hh - gap * (n - 1)) / n) + 'px';
+  }
+  function layoutGallery(g) {
+    if (g.parentNode.classList.contains('cx-gal')) { layoutCx(g); return; }
+    var figs = [].slice.call(g.children).filter(function (f) { return f.tagName === 'FIGURE' && !f.classList.contains('cxb-dup'); });
     if (window.innerWidth <= 800) { figs.forEach(function (f) { f.style.gridColumn = f.style.gridRow = ''; }); g.style.gridAutoRows = ''; return; }
     var AR = tileAr(g), first = figs.filter(function (f) { return !f.classList.contains('tile-more'); }).length;
     var i = 0, row = 1, prev = '';
@@ -961,7 +926,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     onWidth(upd); upd();
   });
   document.querySelectorAll('.gal-more').forEach(function (btn) {
-    var gallery = btn.closest('.container').querySelector('.complex__gallery');
+    var gallery = btn.closest('.cx-gal, .container').querySelector('.complex__gallery');
     if (!gallery) return;
     /* «Показать все фото» ↔ «Свернуть фото». data-i18n меняем вместе с текстом, чтобы смена языка не сбрасывала подпись */
     btn.addEventListener('click', function () {
@@ -975,6 +940,103 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         if (top < off) window.scrollBy(0, top - off); }
     });
   });
+
+  /* комплексы: табы, в панели коллаж и текст */
+  var cxbSec = document.getElementById('complexes');
+  if (cxbSec) {
+    var cxbNav = cxbSec.querySelector('.complex-nav'), cxbTabs = [].slice.call(cxbNav.querySelectorAll('button[data-cxb]'));
+    var cxbPanels = cxbTabs.map(function (t) { return document.getElementById(t.getAttribute('data-cxb')); }), cxbCur = 0, cxbNear = false;
+    // в ленте на телефоне кадры должны быть готовы до свайпа, но грузим их только у открытого таба и рядом с блоком
+    function cxbEager() {
+      if (!cxbNear || window.innerWidth > 800) return;
+      cxbPanels[cxbCur].querySelectorAll('.complex__gallery img').forEach(function (im) { im.loading = 'eager'; });
+    }
+    if ('IntersectionObserver' in window) {
+      var cxbIo = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { cxbNear = true; cxbEager(); cxbIo.disconnect(); } }, { rootMargin: '600px 0px' });
+      cxbIo.observe(cxbSec);
+    } else { cxbNear = true; cxbEager(); }
+    function cxbGo(i, byUser, focus) {
+      i = (i + cxbTabs.length) % cxbTabs.length; cxbCur = i;
+      cxbPanels.forEach(function (p, k) { p.hidden = k !== i; });
+      cxbTabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      if (byUser) cxbNav.classList.add('is-touched');
+      if (focus) cxbTabs[i].focus();
+      cxbEager();
+      cxSticky();
+      // полоса мобильной ленты считается по видимой панели
+      var g = cxbPanels[i].querySelector('.complex__gallery'); if (g) g.dispatchEvent(new Event('scroll'));
+      // панели разной высоты: если начало панели ушло под табы, возвращаем его
+      // без анимации: контент уже сменился, плавная прокрутка выглядит как прыжок страницы
+      var navB = (parseFloat(getComputedStyle(cxbNav).top) || 0) + cxbNav.offsetHeight, top = cxbPanels[i].getBoundingClientRect().top;
+      if (byUser && top < navB) window.scrollTo({ top: window.scrollY + top - navB - 16, behavior: 'instant' });
+    }
+    cxbTabs.forEach(function (t, i) { t.addEventListener('click', function () { cxbGo(i, true); }); });
+    cxbNav.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { cxbGo(cxbCur + 1, true, true); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { cxbGo(cxbCur - 1, true, true); e.preventDefault(); }
+    });
+    var cxbStuck = 0;
+    function cxbCheck() {
+      cxbStuck = 0;
+      var top = parseFloat(getComputedStyle(cxbNav).top) || 0, r = cxbNav.getBoundingClientRect();
+      cxbNav.classList.toggle('is-stuck', r.top <= top + 1 && cxbSec.getBoundingClientRect().bottom > r.bottom + 1);
+    }
+    window.addEventListener('scroll', function () { if (!cxbStuck) cxbStuck = requestAnimationFrame(cxbCheck); }, { passive: true });
+    cxbPanels.forEach(function (panel) {
+      var seen = {}, items = [];
+      panel.querySelectorAll('figure img').forEach(function (im) { if (!seen[im.src]) { seen[im.src] = 1; items.push({ jpg: im.src, alt: im.alt }); } });
+      panel.querySelectorAll('figure').forEach(function (fig) {
+        fig.style.cursor = 'zoom-in';
+        fig.tabIndex = 0;
+        fig.setAttribute('role', 'button');
+        function openFig() {
+          if (!window.USC_LB) return;
+          var src = fig.querySelector('img').src, start = items.findIndex(function (p) { return p.jpg === src; });
+          window.USC_LB.open(items, start < 0 ? 0 : start);
+        }
+        fig.addEventListener('click', openFig);
+        fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFig(); } });
+      });
+      var btn = panel.querySelector('.cxb__toggle'), rest = panel.querySelector('.cxb__rest');
+      if (btn) btn.addEventListener('click', function () {
+        var open = rest.classList.toggle('is-open'), k = open ? 'cx.less' : 'cx.more';
+        var dict = (window.I18N && window.I18N[window.__uscLang || document.documentElement.lang]) || {};
+        btn.setAttribute('data-i18n', k); if (dict[k]) btn.textContent = dict[k];
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    // левая колонка прилипает под табами; если выше экрана, прилипает нижним краем, чтобы кнопка была видна
+    function cxSticky() {
+      if (window.innerWidth <= 1100) return;
+      var top = (parseFloat(getComputedStyle(cxbNav).top) || 0) + cxbNav.offsetHeight + 16;
+      cxbPanels.forEach(function (p) {
+        var s = p.querySelector('.cx-side');
+        if (s && !p.hidden) { s.style.top = Math.min(top, window.innerHeight - s.offsetHeight - 16) + 'px'; cxFit(p); }
+      });
+    }
+    if (window.ResizeObserver) { var cxRO = new ResizeObserver(cxSticky); cxbPanels.forEach(function (p) { var s = p.querySelector('.cx-side'); if (s) cxRO.observe(s); }); }
+    window.addEventListener('resize', cxSticky);
+    window.addEventListener('load', cxSticky);
+    cxSticky();
+    // ссылка #cx-u2 открывает свой таб и ставит панель под шапку и табы
+    function cxbFromHash() {
+      var m = /^#cx-u([1-3])$/.exec(location.hash);
+      if (!m) return;
+      var i = +m[1] - 1;
+      cxbGo(i);
+      var top = parseFloat(getComputedStyle(cxbNav).top) || 0;
+      window.scrollTo(0, window.scrollY + cxbPanels[i].getBoundingClientRect().top - top - cxbNav.offsetHeight - 16);
+    }
+    window.addEventListener('hashchange', cxbFromHash);
+    // повторный клик по той же ссылке хеш не меняет, а панель могла быть уже закрыта
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#cx-u"]'); if (!a || a.getAttribute('href') !== location.hash) return;
+      e.preventDefault(); cxbFromHash();
+    });
+    // блоки выше ещё меняют высоту после загрузки, поэтому при заходе по ссылке уточняем позицию
+    window.addEventListener('load', function () { cxbFromHash(); setTimeout(cxbFromHash, 600); });
+    cxbFromHash();
+  }
 
   /* FAQ-аккордеон (как на БСО): один открыт, остальные закрываются */
   var faqList = document.getElementById('faqList');
@@ -999,53 +1061,30 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     });
   });
 
-  /* калькулятор; S — суффикс id второго экземпляра на странице */
+  /* калькулятор: цена из таблицы, ставка, загрузка и комиссия заданы форматом; посетитель выбирает только формат */
   function initCalc(S) {
     function money(n) {
       if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
       return '$' + Math.round(n).toLocaleString(document.documentElement.lang === 'ru' ? 'ru-RU' : 'en-US');
     }
-    /* цена/ставка — «рабочие» поля модели, всегда хранятся в USD (data-usd); .value показывает
-       текущую валюту (в IDR-режиме поля молчком оставались в $) */
-    var priceEl = document.getElementById('c-price' + S), rateEl = document.getElementById('c-rate' + S);
-    var MIN_PRICE = 50000; /* USD; самый дешёвый лот в таблице сейчас $95 000 */
-    priceEl.dataset.usd = priceEl.value;
-    rateEl.dataset.usd = rateEl.value;
-    function val(id) {
-      if (id === 'c-price') return +priceEl.dataset.usd || 0;
-      if (id === 'c-rate') return +rateEl.dataset.usd || 0;
-      return +document.getElementById(id + S).value || 0;
-    }
-    function syncCcyDisplay() {
-      var idr = window.__uscCcy === 'idr', fx = window.__uscFx;
-      var pUsd = +priceEl.dataset.usd, rUsd = +rateEl.dataset.usd;
-      priceEl.value = idr ? Math.round(pUsd * fx / 1000) * 1000 : pUsd;
-      rateEl.value = idr ? Math.round(rUsd * fx / 1000) * 1000 : rUsd;
-      priceEl.step = idr ? 1000000 : 1000;
-    }
+    var el = function (id) { return document.getElementById(id + S); };
+    var priceEl = el('c-price'), rateEl = el('c-rate'), occEl = el('c-occ'), mgmtEl = el('c-mgmt');
     function calc() {
-      var price = val('c-price'), rate = val('c-rate'), occ = (+val('c-occ')) / 100, mgmt = (+val('c-mgmt')) / 100;
-      var gross = rate * 365 * occ, net = gross * (1 - mgmt);
-      document.getElementById('o-gross' + S).textContent = money(gross);
-      document.getElementById('o-net' + S).textContent = money(net);
-      /* цена ниже порога даёт бессмысленные тысячи процентов: показываем подсказку, доходность не считаем */
-      var low = price < MIN_PRICE, err = document.getElementById('c-price-err' + S);
-      if (low && !err) { err = document.createElement('p'); err.id = 'c-price-err' + S; err.className = 'field__err'; err.setAttribute('aria-live', 'polite'); priceEl.closest('.field').appendChild(err); }
-      if (low) { err.innerHTML = (D()['calc.err_price'] || '%s').replace('%s', money(MIN_PRICE)); priceEl.setAttribute('aria-invalid', 'true'); priceEl.setAttribute('aria-describedby', 'c-price-err' + S); }
-      else if (err) { err.remove(); priceEl.removeAttribute('aria-invalid'); priceEl.removeAttribute('aria-describedby'); }
-      document.getElementById('o-roi' + S).textContent = !low ? (net / price * 100).toFixed(1) + '%' : '—';
+      var price = +priceEl.dataset.usd || 0, rate = +rateEl.dataset.usd || 0, occ = +occEl.dataset.v || 0, mgmt = +mgmtEl.dataset.v || 0;
+      var gross = rate * 365 * occ / 100, net = gross * (1 - mgmt / 100);
+      priceEl.textContent = money(price);
+      rateEl.textContent = money(rate);
+      occEl.textContent = occ + '%';
+      mgmtEl.textContent = mgmt + '%';
+      el('o-gross').textContent = money(gross);
+      el('o-net').textContent = money(net);
+      var roi = (net / price * 100).toFixed(1);
+      el('o-roi').textContent = price ? (document.documentElement.lang === 'ru' ? roi.replace('.', ',') : roi) + '%' : '—';
     }
-    priceEl.addEventListener('input', function () {
-      priceEl.dataset.usd = window.__uscCcy === 'idr' ? (+priceEl.value / window.__uscFx) : priceEl.value;
-      calc();
-    });
-    ['c-occ', 'c-mgmt'].forEach(function (id) { document.getElementById(id + S).addEventListener('input', calc); });
     var prev = window.__uscCalcRefresh;
-    window.__uscCalcRefresh = function () { if (prev) prev(); syncCcyDisplay(); calc(); };
-    syncCcyDisplay();
+    window.__uscCalcRefresh = function () { if (prev) prev(); calc(); };
     calc();
-    /* «Выбрать тип виллы» — подставляет цену формата в калькулятор */
-    var pickerBtn = document.getElementById('calcPickerBtn' + S), pickerPanel = document.getElementById('calcPickerPanel' + S);
+    var pickerBtn = el('calcPickerBtn'), pickerPanel = el('calcPickerPanel');
     if (pickerBtn && pickerPanel) {
       pickerBtn.addEventListener('click', function () {
         var open = pickerPanel.hidden;
@@ -1055,13 +1094,9 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (btn) {
         btn.addEventListener('click', function () {
           priceEl.dataset.usd = btn.getAttribute('data-price');
-          var rate = btn.getAttribute('data-rate');
-          if (rate) rateEl.dataset.usd = rate;
-          var occ = btn.getAttribute('data-occ');
-          if (occ) document.getElementById('c-occ' + S).value = occ;
-          var mgmt = btn.getAttribute('data-mgmt');
-          if (mgmt) document.getElementById('c-mgmt' + S).value = mgmt;
-          syncCcyDisplay();
+          rateEl.dataset.usd = btn.getAttribute('data-rate');
+          occEl.dataset.v = btn.getAttribute('data-occ');
+          mgmtEl.dataset.v = btn.getAttribute('data-mgmt');
           calc();
           pickerPanel.querySelectorAll('.calc__pick-card').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
           /* кнопка показывает выбранный формат; data-i18n меняем, чтобы смена языка не вернула старое имя */
@@ -1116,6 +1151,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
        Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
     var POI = [
       { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
+      { k: 'loc.m_beach', ll: [115.090328, -8.625027], side: 'l' },
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
@@ -1125,15 +1161,18 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var PLACES = {
       pin: ['u1-11', 'u3-01', 'u2-2bd-14', 'u1-15', 'u2-villa-13'],
       'loc.m_nuanu': ['place-nuanu-1', 'place-nuanu-2', 'place-nuanu-3', 'place-nuanu-4', 'place-nuanu-5'],
+      'loc.m_beach': ['place-band2-sunset', 'place-band2-nuanu'],
       'loc.m_tanah': ['place-tanah-1', 'place-tanah-2', 'place-tanah-3', 'place-tanah-4', 'place-tanah-5'],
       'loc.m_canggu': ['place-canggu-1', 'place-canggu-2', 'place-canggu-3', 'place-canggu-4', 'place-canggu-5']
     };
-    // узкий экран: дальний Canggu (20 минут на машине) не влезает без каши из чипов — кадр по ближним точкам
-    var narrow = function () { return box.clientWidth < 600; };
+    // на узкой карте подпись комплекса над точкой: сбоку ей не хватает места
+    var tight = function () { return box.clientWidth < 400; };
+    // дальний Canggu в кадр не берём, иначе ближние подписи слипаются: он чипом на краю, на телефоне его нет
+    var showFar = function () { return window.innerWidth > 760; };
     function bounds() {
-      var pts = POI.filter(function (p) { return !(p.far && narrow()); });
-      var xs = pts.map(function (p) { return p.ll[0]; }).concat(+box.dataset.lng), ys = pts.map(function (p) { return p.ll[1]; }).concat(+box.dataset.lat);
-      return [[Math.min.apply(null, xs) - 0.006, Math.min.apply(null, ys) - 0.004], [Math.max.apply(null, xs) + 0.006, Math.max.apply(null, ys) + 0.004]];
+      var pts = POI.filter(function (p) { return !p.far; }), rt = ROUTE.map(function (c) { return c[1]; });
+      var xs = pts.map(function (p) { return p.ll[0]; }).concat(+box.dataset.lng), ys = pts.map(function (p) { return p.ll[1]; }).concat(+box.dataset.lat, rt);
+      return [[Math.min.apply(null, xs), Math.min.apply(null, ys)], [Math.max.apply(null, xs), Math.max.apply(null, ys)]];
     }
     function build() {
       if (!window.maplibregl) return;
@@ -1143,7 +1182,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
       var map = new maplibregl.Map({
         container: live, style: 'https://tiles.openfreemap.org/styles/positron',
-        bounds: bounds(), fitBoundsOptions: { padding: narrow() ? { top: 40, bottom: 40, left: 96, right: 124 } : { top: 48, bottom: 48, left: 150, right: 140 } },
+        bounds: bounds(), fitBoundsOptions: { padding: tight() ? { top: 56, bottom: 24, left: 88, right: 70 } : { top: 24, bottom: 24, left: 120, right: 150 } },
         interactive: fine, scrollZoom: false, boxZoom: false, doubleClickZoom: false, keyboard: false,
         dragRotate: false, touchZoomRotate: false, touchPitch: false, pitchWithRotate: false,
         attributionControl: false, fadeDuration: 0
@@ -1226,14 +1265,16 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         map.addLayer({ id: 'route', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#0433FF', 'line-width': 4 } });
         var pin = document.createElement('div'); pin.className = 'map-pin';
         pin.innerHTML = '<span class="map-pin__dot"></span><span class="map-pin__lbl"><i class="u5">UNIT.</i><i class="ul">&nbsp;SPACE CITY</i></span>';
-        new maplibregl.Marker({ element: pin, anchor: 'left', offset: [-10, 0] }).setLngLat(ll).addTo(map);
+        if (tight()) pin.classList.add('map-pin--top');
+        new maplibregl.Marker({ element: pin, anchor: tight() ? 'bottom' : 'left', offset: tight() ? [0, 10] : [-10, 0] }).setLngLat(ll).addTo(map);
         popup(pin, pin.querySelector('.map-pin__lbl'), PLACES.pin, 'l');
-        var poiEls = POI.filter(function (p) { return !(p.far && narrow()); }).map(function (p) {
+        var poiEls = POI.filter(function (p) { return !p.far || showFar(); }).map(function (p) {
           var el = document.createElement('div'); el.className = 'map-poi map-poi--' + p.side;
           el.innerHTML = '<span class="map-poi__dot"></span><span class="map-poi__lbl"></span>';
-          new maplibregl.Marker({ element: el, anchor: p.side === 'l' ? 'right' : 'left', offset: [p.side === 'l' ? 6 : -6, 0] }).setLngLat(p.ll).addTo(map);
+          if (p.far) { el.classList.add('map-poi--edge'); live.appendChild(el); }
+          else new maplibregl.Marker({ element: el, anchor: p.side === 'l' ? 'right' : 'left', offset: [p.side === 'l' ? 6 : -6, 0] }).setLngLat(p.ll).addTo(map);
           popup(el, el.querySelector('.map-poi__lbl'), PLACES[p.k], p.side === 'l' ? 'r' : 'l', p.up);
-          return { el: el.querySelector('.map-poi__lbl'), k: p.k };
+          return { el: el.querySelector('.map-poi__lbl'), k: p.k, far: p.far };
         });
         var poiText = function () { var d = D(); poiEls.forEach(function (x) { x.el.textContent = d[x.k] || ''; }); };
         poiText();
@@ -1241,7 +1282,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         window.__uscRerender = function (lang) { if (prevHook) prevHook(lang); poiText(); if (openPop) openPop.close(); };
         /* подписи не должны уходить за края (узкий экран): сдвигаем карту, воздух по краям до 16 */
         var lr = live.getBoundingClientRect(), L = Infinity, R = -Infinity;
-        [pin.querySelector('.map-pin__lbl')].concat(poiEls.map(function (x) { return x.el; })).forEach(function (e) {
+        [pin.querySelector('.map-pin__lbl')].concat(poiEls.filter(function (x) { return !x.far; }).map(function (x) { return x.el; })).forEach(function (e) {
           var r = e.getBoundingClientRect(); if (!r.width) return;
           L = Math.min(L, r.left - lr.left); R = Math.max(R, r.right - lr.left);
         });
@@ -1258,26 +1299,6 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '1500px 0px' });
     io.observe(box);
   })();
-})();
-
-/* мастерплан на мобиле листается вбок: стартуем так, чтобы квартал UNIT. SPACE CITY был в кадре */
-(function () {
-  var pan = document.querySelector('.plan-pan'); if (!pan) return;
-  var go = function () { var b = pan.querySelector('.plan-badge'); if (!b || pan.scrollWidth <= pan.clientWidth) return;
-    pan.scrollLeft = Math.max(0, b.offsetLeft + 80 - pan.clientWidth * 0.75); };
-  go(); window.addEventListener('load', go);
-  /* чипы у краёв кадра гаснут, въезжающие в кадр появляются; плашка «Листайте» уходит после первого касания */
-  var fig = pan.parentNode, hint = fig.querySelector('.plan-hint'), raf = 0,
-    items = [].slice.call(pan.querySelectorAll('.plan-pin, .plan-badge'));
-  var upd = function () { raf = 0; var on = pan.scrollWidth > pan.clientWidth + 1; fig.classList.toggle('is-pan', on);
-    var l = pan.scrollLeft, w = pan.clientWidth, m = 8;
-    /* чип виден целиком или спрятан: край подписи ближе 8px к краю кадра — прячем */
-    items.forEach(function (e) { var ew = e.offsetWidth, x0 = e.offsetLeft - l - (e.classList.contains('plan-badge') ? 20 : ew / 2);
-      e.classList.toggle('is-off', on && (x0 < m || x0 + ew > w - m)); }); };
-  var tick = function () { if (!raf) raf = requestAnimationFrame(upd); };
-  pan.addEventListener('scroll', tick, { passive: true }); window.addEventListener('resize', tick); window.addEventListener('load', tick); upd();
-  var used = function () { if (hint) hint.classList.add('is-used'); };
-  ['touchstart', 'pointerdown', 'wheel'].forEach(function (ev) { pan.addEventListener(ev, used, { passive: true, once: true }); });
 })();
 
 /* email-ссылки: адрес ещё и копируется в буфер с подсказкой — на ПК без почтовой программы mailto ничего не делает */
@@ -1343,7 +1364,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var lots = window.USC_LOTS, units = window.USC_UNITS; if (!lots || !units) return;
     var lang = window.__uscLang || (document.documentElement.lang || 'en').slice(0, 2), d = (window.I18N && window.I18N[lang]) || {};
     var pool = function (s) { return /-pool$/.test(s); };
-    document.querySelectorAll('.fmt-card').forEach(function (c) {
+    document.querySelectorAll('.fmt-card, .plb').forEach(function (c) {
       c.querySelectorAll('.js-av').forEach(function (e) { e.remove(); });
       var a = c.querySelector('a.fmt-card__media'), m = a && (a.getAttribute('href') || '').match(/([\w-]+)\.html/);
       var u = m && units.filter(function (x) { return x.slug === m[1]; })[0]; if (!u) return;
@@ -1397,4 +1418,43 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   run();
   new MutationObserver(function () { if (!queued) { queued = true; requestAnimationFrame(run); } })
     .observe(document.body, { childList: true, subtree: true, characterData: true });
+})();
+
+/* остановки скролла на десктопе: скролл замер рядом с началом блока, доводим до него.
+   У комплексов якорь такой, что табы прилипли сверху, а панель целиком под ними */
+(function () {
+  var RANGE = 72, WAIT = 180, TIME = 480, timer = 0, held = false, raf = 0;
+  var head = function () { var h = document.querySelector('.site-header, header'); return h ? h.offsetHeight : 64; };
+  function anchors() {
+    var y = window.scrollY, hdr = head(), out = [];
+    var add = function (el, gap) { if (!el) return; var r = el.getBoundingClientRect(); if (r.height) out.push(Math.round(r.top + y - gap)); };
+    document.querySelectorAll('main .sect-head').forEach(function (el) { if (!el.closest('#complexes')) add(el, hdr + 24); });
+    document.querySelectorAll('main .photo-band').forEach(function (el) { add(el, hdr); });
+    add(document.querySelector('#location .lx-half'), hdr + 16);
+    var nav = document.querySelector('#complexes .complex-nav');
+    if (nav) document.querySelectorAll('#complexes .cxb').forEach(function (el) { add(el, hdr + nav.offsetHeight + 16); });
+    return out;
+  }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+  /* своя анимация: системный smooth на расстоянии до 72 px выглядит рывком */
+  function glide(from, to) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo({ top: to, behavior: 'instant' }); return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var k = Math.min((now - t0) / TIME, 1), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      window.scrollTo({ top: from + (to - from) * e, behavior: 'instant' });
+      raf = k < 1 ? requestAnimationFrame(step) : 0;
+    })(t0);
+  }
+  function settle() {
+    if (raf || held || window.innerWidth <= 1000 || document.body.classList.contains('menu-open')) return;
+    var y = window.scrollY, best = null;
+    anchors().forEach(function (a) { var d = Math.abs(a - y); if (d >= 2 && d <= RANGE && (best === null || d < Math.abs(best - y))) best = a; });
+    if (best === null) return;
+    glide(y, best);
+  }
+  window.addEventListener('scroll', function () { if (raf) return; clearTimeout(timer); timer = setTimeout(settle, WAIT); }, { passive: true });
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true }); });
+  window.addEventListener('pointerdown', function () { held = true; stop(); });
+  window.addEventListener('pointerup', function () { held = false; clearTimeout(timer); timer = setTimeout(settle, WAIT); });
 })();

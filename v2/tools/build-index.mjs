@@ -41,8 +41,8 @@ console.log('ok index.html (EN); кириллица осталась:', left.len
 
 // RU → ru/index.html 
 let ru = tpl.replace(/<html\b[^>]*>/, '<html lang="ru" data-assets="../photos/">');
-ru = ru.replace(/(<meta property="og:url" content="[^"]*v2\/)(")/, '$1ru/$2');
-ru = ru.replace(/"@id":"([^"]*v2\/)#site","url":"[^"]*"/, '"@id":"$1ru/#site","url":"$1ru/"');
+ru = ru.replace(/(<meta property="og:url" content="[^"]*v3\/)(")/, '$1ru/$2');
+ru = ru.replace(/"@id":"([^"]*v3\/)#site","url":"[^"]*"/, '"@id":"$1ru/#site","url":"$1ru/"');
 ru = ru.replaceAll('href="assets/', 'href="../assets/').replaceAll('src="assets/', 'src="../assets/');
 ru = ru.replaceAll('="photos/', '="../photos/');
 ru = ru.replaceAll(', photos/', ', ../photos/'); // второй и далее кадры в srcset
