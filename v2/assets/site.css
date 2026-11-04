@@ -1132,6 +1132,10 @@ i.u5,i.ul{font-style:normal}
 .hero__badge{background:#e4e4e4;color:var(--ink);border:0;border-radius:0}
 /* абзац блока 2: вторая фраза с новой строки */
 .ab-l{display:block;font-style:normal}
+/* короткий вариант текста для телефона */
+.d-only,.m-only{font-style:normal}
+.m-only{display:none}
+@media (max-width:760px){ .d-only{display:none} .m-only{display:inline} }
 /* табы комплексов одной ширины */
 @media (min-width:761px){ .complex-nav button{flex:1 1 0;justify-content:center;text-align:center} }
 /* форматы: цена и кнопка на одной линии во всех карточках */

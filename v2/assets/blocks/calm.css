@@ -1,6 +1,6 @@
 /* блок 2: шапка */
 #concept .ab-head{margin-bottom:var(--s5)}
-#concept .cp-text{margin:var(--s2) 0 0;max-width:none;color:var(--ink-2)}
+#concept .cp-text{margin:var(--s2) 0 0;max-width:none}
 #concept .cp-text .ab-l{display:block;font-style:normal}
 
 /* блок 2, ряд 1: фото на весь фон, затемнение только под текстом */
@@ -252,3 +252,31 @@
 /* кадрирование фото блока 6 */
 #location .lx-hero img{object-position:50% 15%}
 #location .lx-pic img{object-position:50% 72%}
+
+/* телефон: фото Nuanu над карточкой, галерея комплекса сразу под табами */
+@media (max-width:760px){
+  .cp-nuanu__pic{order:-1}
+}
+@media (max-width:800px){
+  .cx-gal{order:-1;margin-top:0;margin-bottom:var(--s1)}
+  .cx-gal .complex__gallery{margin-top:0}
+}
+
+/* блок 6: на телефоне пункты Nuanu бенто-карточками, на десктопе простой список */
+#location .lx-squares .ab-ic{display:none}
+@media (max-width:760px){
+  #location .lx-squares{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s1)}
+  #location .lx-squares li{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s1);min-height:96px;padding:var(--s2);border-radius:var(--r-s);background:var(--white);font-size:var(--fs-cap);line-height:var(--lh-cap)}
+  #location .lx-squares li:nth-child(3n+1){grid-column:1/-1}
+  #location .lx-squares .ab-ic{display:block}
+}
+
+/* калькулятор: вводные плитками, цифра H3 */
+.yb-grid .calc .field{align-content:space-between;gap:var(--s2);min-width:0;padding:var(--s2);border-radius:var(--r-s);background:rgba(255,255,255,.14)}
+.yb-grid .calc .field .lbl{flex-direction:column;align-items:flex-start;gap:var(--s1)}
+.yb-grid .calc .field .lbl .ic{width:20px;height:20px;opacity:1}
+.yb-grid .calc .calc__val{font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3);white-space:nowrap}
+.yb-grid .calc .calc__inputs{gap:var(--s1)}
+@media (max-width:460px){
+  .yb-grid .calc .calc__inputs{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
