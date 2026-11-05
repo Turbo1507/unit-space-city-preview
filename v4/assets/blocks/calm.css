@@ -237,7 +237,7 @@
   .cp-nuanu__pic{order:-1}
 }
 @media (max-width:800px){
-  .cx-gal{order:-1;margin-top:0;margin-bottom:var(--s1)}
+  .cx-gal{order:-1;margin-top:0;margin-bottom:var(--s3)}
   .cx-gal .complex__gallery{margin-top:0}
 }
 

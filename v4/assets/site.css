@@ -1099,7 +1099,7 @@ i.u5,i.ul{font-style:normal}
 /* полоса под мобильной лентой фото комплекса, ползунок = видимая часть */
 .gal-bar{display:none}
 @media (max-width:800px){
-  .gal-bar{display:block;position:relative;height:4px;margin-top:var(--s2);border-radius:2px;background:var(--line);overflow:hidden}
+  .gal-bar{display:block;position:relative;height:4px;margin-top:var(--s2);border-radius:2px;background:var(--line);overflow:hidden;opacity:.5}
   .gal-bar i{position:absolute;left:0;top:0;bottom:0;width:20%;border-radius:inherit;background:var(--ink)}
 }
 
@@ -1266,7 +1266,7 @@ i,em{font-style:normal}
   .m-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);gap:var(--s2);margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
   .m-strip::-webkit-scrollbar{display:none}
   .m-strip > *{flex:0 0 calc(100% - 32px);min-width:0;scroll-snap-align:start}
-  .m-bar{display:block;position:relative;height:4px;margin-top:var(--s2);border-radius:2px;background:var(--line);overflow:hidden}
+  .m-bar{display:block;position:relative;height:4px;margin-top:var(--s2);border-radius:2px;background:var(--line);overflow:hidden;opacity:.5}
   .m-bar i{position:absolute;left:0;top:0;bottom:0;width:20%;border-radius:inherit;background:var(--ink)}
   /* в ленте горизонтальный свайп листает карточки, фото внутри карточки — стрелками и точками */
   .m-strip .fmt-card__gal .fmt-card__media{touch-action:auto}
@@ -1439,7 +1439,7 @@ main h2,main h3,main h4,.t-lead,.complex__intro,.hero__sub,.photo-band figcaptio
 @media (min-width:1001px) and (max-width:1150px){ .plb .btn{font-size:var(--fs-cap)} }
 @media (max-width:760px){
   .plb-grid{display:flex;grid-template-columns:none}
-  #plans .t-small{margin-top:var(--s2)}
+  #plans .t-small{margin-top:var(--s3)}
 }
 
 /* локация: строки карточек общие, фото и заголовки всегда на одной линии */
