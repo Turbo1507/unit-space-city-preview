@@ -43,7 +43,7 @@ for (const lang of ['ru', 'en']) {
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
       .replaceAll('{{NAME}}', u.name[lang]).replaceAll('{{AREA}}', area).replaceAll('{{CODE}}', cx.code).replaceAll('{{CXNAME}}', cx.name)
       .replaceAll('{{FLOOR}}', u.floor[lang]).replaceAll('{{PRICE}}', USC_PRICE[lang][u.fmt]).replaceAll('{{WHERE}}', cx.where[lang]).replaceAll('{{STATUS}}', cx.status[lang])
-      .replaceAll('{{THUMBS}}', thumbs).replaceAll('{{PHOTOS}}', u.photos.join(',')).replaceAll('{{PB}}', photoBase).replaceAll('{{P0}}', u.photos[0]).replaceAll('{{N}}', String(u.photos.length)).replaceAll('{{ALT}}', esc(cx.code + ' — ' + u.name[lang]))
+      .replaceAll('{{THUMBS}}', thumbs).replaceAll('{{PHOTOS}}', u.photos.join(',')).replaceAll('{{PB}}', photoBase).replaceAll('{{P0}}', u.photos[0]).replaceAll('{{N}}', String(u.photos.length)).replaceAll('{{ALT}}', esc(cx.code + ': ' + u.name[lang]))
       .replaceAll('{{RENDER_NOTE}}', u.render ? `<p class="t-small dim" style="margin-top:var(--s2)" data-i18n="unit.render_note">${dict['unit.render_note']}</p>` : '')
       .replaceAll('{{PLAN}}', '<div class="ph ph--plan" aria-hidden="true"></div>')
       .replaceAll('{{URL}}', `${BASE}${lang === 'ru' ? 'ru/' : ''}units/${u.slug}.html`)
