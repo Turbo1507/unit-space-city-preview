@@ -259,7 +259,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var href = hrefBase + u.slug + '.html';
     return '<div class="card fmt-card">' +
       '<a class="fmt-card__media" href="' + href + '" tabindex="-1" aria-hidden="true"><picture><source srcset="' + ASSETS + ph + '.webp" type="image/webp">' +
-      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ' — ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
+      '<img src="' + ASSETS + ph + '.jpg" alt="' + CX[u.q].code + ': ' + u.name[lang] + '" width="720" height="450" loading="lazy"></picture>' +
       '<span class="product-card__area">' + window.USC_AREA_TXT(u, lang) + '&nbsp;' + m2 + '</span></a>' +
       '<div class="fmt-card__body"><div class="fmt-card__head"><div><div class="fmt-card__name">' + u.name[lang] + '</div>' +
       '<div class="product-card__meta dim">' + CX[u.q].code + ', ' + u.floor[lang] + '</div></div></div>' +
@@ -281,7 +281,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var cx = window.USC_COMPLEX[unit.q];
       var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.innerHTML = f[k]; });
-      document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' — UNIT. SPACE CITY';
+      document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' | UNIT. SPACE CITY';
       if (more) {
         var others = window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q === unit.q; });
         if (others.length < 3) others = others.concat(window.USC_UNITS.filter(function (u) { return u.slug !== unit.slug && u.q !== unit.q; })).slice(0, 3);
@@ -1057,7 +1057,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var mail = a.getAttribute('href').replace('mailto:', '');
       function tipShow(ok) {
         var tip = document.createElement('span'); tip.className = 'copied';
-        tip.textContent = ok ? mail + ' — ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано') : mail;
+        tip.textContent = ok ? mail + ': ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано') : mail;
         document.body.appendChild(tip); setTimeout(function () { tip.classList.add('in'); }, 10); setTimeout(function () { tip.remove(); }, 2600);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(function () { tipShow(true); }, function () { tipShow(false); });
