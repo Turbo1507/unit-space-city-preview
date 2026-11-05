@@ -21,30 +21,19 @@
 /* вертикальное фото не должно растягивать кадр */
 .cp-infra__list img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
 .cp-z{display:flex;flex:1;align-items:center;gap:12px;padding:var(--s2);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-.cp-infra__list .ab-ic{flex:none;width:20px;height:20px;color:#fff}
+.cp-infra__more{margin-top:var(--s2);font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);color:#fff}
 .cp-note{display:none}
 
 /* блок 2, ряд 3: Nuanu на две колонки первого ряда, фото отдельным тайлом в третьей */
 .cp-nuanu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-top:var(--s2)}
 .cp-nuanu__body{grid-column:span 2;display:grid;gap:var(--s2);align-content:start;min-width:0;padding:var(--s3);border-radius:var(--r);background:var(--white)}
 .cp-nuanu__body h3{font-size:var(--fs-sub);font-weight:500;line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
-.cp-nuanu__list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s1);margin:0;padding:0;list-style:none}
-.cp-nuanu__list li{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s1);min-width:0;aspect-ratio:1/1;padding:var(--s2);border-radius:var(--r-s);background:var(--paper);font-size:var(--fs-cap);line-height:var(--lh-cap)}
-.cp-nuanu__list .ab-ic{flex:none;width:20px;height:20px;color:var(--blue)}
+.cp-nuanu__ha{font-size:var(--fs-h3);font-weight:500;line-height:var(--lh-h3);letter-spacing:var(--ls-h3);color:var(--blue)}
+.cp-nuanu__text{font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
 .cp-nuanu__pic{position:relative;display:block;min-height:200px;overflow:hidden;border-radius:var(--r)}
 .cp-nuanu__pic img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
 .cp-nuanu__pic--2{display:none}
 
-/* плитки Nuanu не влезают квадратами: 3 и 2 в ряд */
-@media (max-width:1240px){
-  .cp-nuanu__list{grid-template-columns:repeat(6,minmax(0,1fr))}
-  .cp-nuanu__list li{grid-column:span 2;aspect-ratio:auto;min-height:96px}
-  .cp-nuanu__list li:nth-child(n+4){grid-column:span 3}
-}
-/* длинные слова не влезают в шесть колонок вместе с иконкой */
-@media (max-width:1100px){
-  .cp-infra__list .ab-ic{display:none}
-}
 /* первый ряд лентой со свайпом, зоны по три */
 @media (max-width:1000px){
   .cp-reasons{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:46%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none}
@@ -63,13 +52,8 @@
   .cp-infra__list{grid-template-columns:repeat(6,minmax(0,1fr))}
   .cp-infra__list li.has-pic{grid-column:span 3}
   #concept .cp-infra__list picture{aspect-ratio:3/2}
-  .cp-infra__list li:not(.has-pic){grid-column:span 3}
-  .cp-infra__list .has-pic .ab-ic{display:none}
   .cp-z{padding:12px;font-size:var(--fs-cap);line-height:var(--lh-cap)}
   .cp-nuanu{grid-template-columns:minmax(0,1fr);gap:var(--s1)}
-  .cp-nuanu__list{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cp-nuanu__list li,.cp-nuanu__list li:nth-child(n+4){grid-column:span 1}
-  .cp-nuanu__list li:last-child{grid-column:span 2}
   .cp-nuanu__body{grid-column:auto;padding:var(--s2)}
   .cp-nuanu__pic{aspect-ratio:3/2;min-height:0}
 }
@@ -99,22 +83,17 @@
   .cp-infra{grid-area:1/3/6/4;padding:var(--s3)}
   .cp-infra h3{margin-bottom:var(--s2)}
   .cp-infra__list{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cp-infra__list .cp-z{align-items:flex-start}
-  .cp-infra__list .ab-ic{display:none}
   .cp-nuanu__body{grid-area:6/1/7/3}
   .cp-nuanu__pic{grid-area:6/3/7/4}
 }
 @media (min-width:1101px) and (max-width:1279px){
   .cp-infra h3{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
 }
-/* широкий экран: плитки стали бы пустыми квадратами, карточка уже, рядом два фото */
+/* широкий экран: карточка уже, рядом два фото */
 @media (min-width:1600px){
   .cp-nuanu__body{grid-area:6/1/7/2}
   .cp-nuanu__pic{grid-area:6/2/7/3}
   .cp-nuanu__pic--2{display:block;grid-area:6/3/7/4}
-  .cp-nuanu__list{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cp-nuanu__list li{flex-direction:row;align-items:center;justify-content:flex-start;aspect-ratio:auto;font-size:var(--fs-body);line-height:var(--lh-body);letter-spacing:var(--ls-body)}
-  .cp-nuanu__list li:last-child{grid-column:1/-1}
 }
 
 /* блок 3: слева карточка комплекса, форматы и кнопка, справа коллаж */
@@ -267,7 +246,7 @@
 @media (max-width:760px){
   #location .lx-squares{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s1)}
   #location .lx-squares li{display:flex;flex-direction:column;justify-content:space-between;gap:var(--s1);min-height:96px;padding:var(--s2);border-radius:var(--r-s);background:var(--white);font-size:var(--fs-cap);line-height:var(--lh-cap)}
-  #location .lx-squares li:nth-child(3n+1){grid-column:1/-1}
+  #location .lx-squares li:nth-child(1),#location .lx-squares li:nth-child(4){grid-column:1/-1}
   #location .lx-squares .ab-ic{display:block}
 }
 
@@ -280,3 +259,23 @@
 @media (max-width:460px){
   .yb-grid .calc .calc__inputs{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* список типов вилл на белой панели: белый цвет калькулятора сюда не наследуется */
+.yb-grid .calc .calc__picker-panel{color:var(--ink)}
+.yb-grid .calc .calc__pick-card.is-active{color:#fff}
+
+/* меню ведёт к заголовку блока, в ту же точку, где останавливается скролл */
+main section[id]{scroll-margin-top:calc(var(--hdr) + 24px - var(--sy))}
+/* соседние секции одного фона идут без верхнего поля */
+main .sect.sect--alt + .sect.sect--alt[id]{scroll-margin-top:calc(var(--hdr) + 24px)}
+
+/* блок 5: быстрый выбор формата, виден только там, где карточки идут лентой */
+.plb-nav{display:none}
+@media (max-width:760px){
+  .plb-nav{position:sticky;top:var(--hdr);z-index:20;display:flex;gap:var(--s1);margin:0 calc(var(--gut) * -1) var(--s1);padding:var(--s1) var(--gut);background:var(--paper)}
+  .plb-nav button{flex:1 1 0;min-width:0;min-height:44px;padding:8px 4px;border:0;border-radius:var(--r-s);background:var(--white);color:var(--ink);font-size:var(--fs-cap);font-weight:500;line-height:var(--lh-ui);white-space:nowrap;cursor:pointer;transition:background .18s var(--ease),color .18s var(--ease)}
+  .plb-nav button[aria-current="true"]{background:var(--blue);color:#fff}
+}
+
+/* пока следующий кадр не загрузился, под ним тёмный фон, а не белая вспышка */
+.photo-band[data-band]{background:var(--ink)}

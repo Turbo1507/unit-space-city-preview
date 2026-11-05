@@ -552,7 +552,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         list.appendChild(li);
       });
       btn.querySelector('.csel-val').textContent = select.selectedIndex >= 0 ? select.options[select.selectedIndex].textContent : '';
-      if (search) { search.placeholder = D()['form.cc_search'] || 'Search'; search.setAttribute('aria-label', search.placeholder); }
+      if (search) { search.placeholder = String(D()['form.cc_search'] || 'Search').replace(/&nbsp;/g, '\u00a0'); search.setAttribute('aria-label', search.placeholder); }
     }
     function mark(i) {
       active = i; var v = vis();
@@ -703,11 +703,15 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var bs = band.querySelectorAll('.photo-band__slide'), bi = 0, timer;
     if (bs.length < 2) return;
     var setDot = dots(band.querySelector('.dots'), bs.length); setDot(0);
+    /* все кадры грузим заранее, когда полоса рядом, и не показываем незагруженный */
+    function ready(s) { var im = s.querySelector('img'); return !im || (im.complete && im.naturalWidth > 0); }
+    function wake() { band.querySelectorAll('img').forEach(function (im) { im.loading = 'eager'; }); }
+    if ('IntersectionObserver' in window) { var bio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { wake(); bio.disconnect(); } }, { rootMargin: '800px 0px' }); bio.observe(band); } else wake();
     function show(i) { bs[bi].classList.remove('is-in'); bi = (i + bs.length) % bs.length; bs[bi].classList.add('is-in'); setDot(bi); }
     band.querySelectorAll('.ugal__arrow').forEach(function (a) {
       a.addEventListener('click', function (e) { e.stopPropagation(); show(bi + (a.classList.contains('ugal__arrow--prev') ? -1 : 1)); arm(); });
     });
-    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { show(bi + 1); }, 2500); }
+    function arm() { clearInterval(timer); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(function () { if (ready(bs[(bi + 1) % bs.length])) show(bi + 1); }, 2500); }
     band.addEventListener('mouseenter', function () { clearInterval(timer); }); band.addEventListener('mouseleave', arm);
     var bp0 = null, bSwiped = false;
     band.addEventListener('pointerdown', function (e) { bp0 = e.target.closest('.ugal__arrow') ? null : { x: e.clientX, y: e.clientY }; });
@@ -1395,6 +1399,33 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   var prev = window.__uscRerender; window.__uscRerender = function (lang) { if (prev) prev(lang); run(); };
 })();
 
+/* быстрый выбор формата над лентой */
+(function () {
+  var nav = document.querySelector('.plb-nav'), g = document.querySelector('.plb-grid');
+  if (!nav || !g) return;
+  var btns = [].slice.call(nav.querySelectorAll('button')), raf = 0, lock = 0;
+  function cards() { return [].slice.call(g.children); }
+  function mark(i) { btns.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); }); }
+  function pad() { return parseFloat(getComputedStyle(g).paddingLeft) || 0; }
+  btns.forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      var c = cards()[i]; if (!c) return;
+      var x = c.getBoundingClientRect().left - g.getBoundingClientRect().left + g.scrollLeft - pad();
+      mark(i); lock = Date.now() + 700;
+      g.scrollTo({ left: x, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  });
+  g.addEventListener('scroll', function () {
+    if (raf || Date.now() < lock) return;
+    raf = requestAnimationFrame(function () {
+      raf = 0;
+      var left = g.getBoundingClientRect().left + pad(), best = 0, min = Infinity;
+      cards().forEach(function (c, i) { var d = Math.abs(c.getBoundingClientRect().left - left); if (d < min) { min = d; best = i; } });
+      mark(best);
+    });
+  }, { passive: true });
+})();
+
 /* полоса под мобильной лентой карточек: сколько пролистано. Наличие перерисовывается табами, поэтому следим и за содержимым */
 (function () {
   [].slice.call(document.querySelectorAll('.m-strip')).forEach(function (g) {
@@ -1440,7 +1471,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   function anchors() {
     var y = window.scrollY, hdr = head(), out = [];
     var add = function (el, gap) { if (!el) return; var r = el.getBoundingClientRect(); if (r.height) out.push(Math.round(r.top + y - gap)); };
-    document.querySelectorAll('main .sect-head').forEach(function (el) { if (!el.closest('#complexes')) add(el, hdr + 24); });
+    document.querySelectorAll('main .sect-head, main .ab-head, #complexes .cx-head').forEach(function (el) { add(el, hdr + 24); });
     document.querySelectorAll('main .photo-band').forEach(function (el) { add(el, hdr); });
     add(document.querySelector('#location .lx-half'), hdr + 16);
     var nav = document.querySelector('#complexes .complex-nav');

@@ -14,7 +14,7 @@ window.USC_LOTS = [
   {"id":"U2.34","q":"u2","fmt":"studio","slug":"u2-studio","area":39,"price":95000,"lvl":1},
   {"id":"U2.11","q":"u2","fmt":"studio","slug":"u2-studio","area":39,"price":100000,"lvl":1},
   {"id":"U2.3","q":"u2","fmt":"1bd","slug":"u2-1bd","area":56.5,"price":115000,"lvl":1},
-  {"id":"U2.8","q":"u2","fmt":"1bd","slug":"u2-1bd","area":62,"price":135000,"lvl":1},
+  {"id":"U2.8","q":"u2","fmt":"1bd","slug":"u2-1bd","area":62,"price":125000,"lvl":1},
   {"id":"U2.26","q":"u2","fmt":"1bd","slug":"u2-1bd","area":62,"price":135000,"lvl":1},
   {"id":"U2.28","q":"u2","fmt":"1bd","slug":"u2-1bd","area":60,"price":165000,"lvl":2},
   {"id":"U2.14","q":"u2","fmt":"2bd","slug":"u2-2bd","area":101,"price":170000,"lvl":1},
