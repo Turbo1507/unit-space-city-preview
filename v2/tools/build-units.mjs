@@ -11,6 +11,7 @@ const root = path.resolve(here, '..');
 const assetsDir = path.join(root, 'photos');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/units.js'), 'utf8'), ctx);
+vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/lots.js'), 'utf8'), ctx);
 vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/i18n.js'), 'utf8').split('window.setLang')[0], ctx);
 const { USC_UNITS, USC_COMPLEX, USC_PRICE, USC_PRICE_USD, USC_FMT, USC_AREA_TXT, I18N } = ctx.window;
 const tpl = fs.readFileSync(path.join(here, 'unit-template.html'), 'utf8');
@@ -19,6 +20,9 @@ const m2 = { ru: 'м²', en: 'm²' };
 let missing = [];
 
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+/* в описании и разметке цена этого комплекса и формата, а не минимум формата по всем комплексам */
+const minUsd = (u) => { const ls = (ctx.window.USC_LOTS || []).filter((l) => l.slug === u.slug); return ls.length ? Math.min(...ls.map((l) => l.price)) : USC_PRICE_USD[u.fmt]; };
+const priceOf = (u, lang) => (lang === 'ru' ? 'от $' : 'from $') + String(minUsd(u)).replace(/\B(?=(\d{3})+(?!\d))/g, lang === 'ru' ? ' ' : ',');
 for (const lang of ['ru', 'en']) {
   const outDir = lang === 'en' ? path.join(root, 'units') : path.join(root, 'ru', 'units');
   fs.mkdirSync(outDir, { recursive: true });
@@ -32,8 +36,8 @@ for (const lang of ['ru', 'en']) {
     const area = USC_AREA_TXT(u, lang);
     const title = `${u.name[lang]} ${area} ${m2[lang]}, ${cx.code} ${cx.name}`;
     const desc = lang === 'ru'
-      ? `${u.name.ru} ${area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${USC_PRICE.ru[u.fmt]}. Покупка напрямую у девелопера UNIT.`
-      : `${u.name.en} ${area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(USC_PRICE.en[u.fmt])}. Direct from the developer, UNIT.SPACE.`;
+      ? `${u.name.ru} ${area} м² в ${cx.code} ${cx.name} (${cx.where.ru}), ${cx.status.ru}. ${priceOf(u, 'ru')}. Покупка напрямую у девелопера UNIT.`
+      : `${u.name.en} ${area} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(priceOf(u, 'en'))}. Direct from the developer, UNIT.SPACE.`;
     let html = tpl
       .replace(/(<p [^>]*data-unit-field="desc">)\{\{DESC\}\}(<\/p>)/, `$1${USC_FMT[u.fmt].desc[lang]}$2`)
       .replaceAll('{{SLUG}}', u.slug).replaceAll('{{TITLE}}', esc(title)).replaceAll('{{DESC}}', esc(desc))
@@ -45,7 +49,7 @@ for (const lang of ['ru', 'en']) {
       .replaceAll('{{URL}}', `${BASE}${lang === 'ru' ? 'ru/' : ''}units/${u.slug}.html`)
       .replaceAll('{{OGIMG}}', `https://turbo1507.github.io/unit-space-city-preview/v2/photos/${u.photos[0]}.jpg`)
       .replaceAll('{{OGLOCALE}}', lang === 'en' ? 'en_US' : 'ru_RU')
-      .replaceAll('{{PRICENUM}}', String(USC_PRICE_USD[u.fmt]))
+      .replaceAll('{{PRICENUM}}', String(minUsd(u)))
       .replaceAll('{{RATENUM}}', String(({ studio: 60, '1bd': 95, '2bd': 140, villa: 205 })[u.fmt]))
       .replaceAll('{{MGMTNUM}}', String(({ studio: 11, '1bd': 18, '2bd': 18, villa: 18 })[u.fmt]));
     if (lang === 'en') {
@@ -54,8 +58,8 @@ for (const lang of ['ru', 'en']) {
       html = html.replace(/<button type="button" data-lang="ru" class="is-active">RU<\/button><span>\/<\/span><button type="button" data-lang="en">EN<\/button>/g,
         '<button type="button" data-lang="ru">RU</button><span>/</span><button type="button" data-lang="en" class="is-active">EN</button>');
     } else {
-      html = enMeta(html, `${esc(`${u.name.en} ${USC_AREA_TXT(u, 'en')} ${m2.en}, ${cx.code} ${cx.name}`)} — UNIT. SPACE CITY`,
-        `${u.name.en} ${USC_AREA_TXT(u, 'en')} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(USC_PRICE.en[u.fmt])}. Direct from the developer, UNIT.SPACE.`);
+      html = enMeta(html, `${esc(`${u.name.en} ${USC_AREA_TXT(u, 'en')} ${m2.en}, ${cx.code} ${cx.name}`)} | UNIT. SPACE CITY`,
+        `${u.name.en} ${USC_AREA_TXT(u, 'en')} m² in ${cx.code} ${cx.name} (${cx.where.en}), ${cx.status.en}. ${cap(priceOf(u, 'en'))}. Direct from the developer, UNIT.SPACE.`);
       html = html.replace('data-assets="../photos/"', 'data-assets="../../photos/"');
       html = html.replaceAll('href="../assets/', 'href="../../assets/').replaceAll('src="../assets/', 'src="../../assets/');
     }
