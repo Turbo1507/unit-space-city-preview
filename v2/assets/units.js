@@ -19,7 +19,7 @@ window.USC_UNITS = [
 window.USC_UNITS.forEach(function (u) { u.name.en = u.name.ru_en; delete u.name.ru_en; });
 /* area — из таблицы наличия (пишет tools/sync-lots.mjs): число или диапазон [min,max]; RU с запятой */
 window.USC_AREA_TXT = function (u, lang) {
-  var f = function (x) { return lang === 'ru' ? String(x).replace('.', ',') : String(x); };
+  var f = function (x) { return lang === 'en' ? String(x) : String(x).replace('.', ','); };
   return Array.isArray(u.area) ? f(u.area[0]) + '\u2013' + f(u.area[1]) : f(u.area);
 };
 window.USC_COMPLEX = {

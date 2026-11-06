@@ -2,6 +2,8 @@
    RU-словарь снят программно из index.html (со всеми nbsp). EN — по терминологии партнёрской страницы unitdeveloper.com/for-partners/unit-space-city. */
 window.I18N = {
   ru: {
+ "money.from": "от {p}",
+ "ui.copied": "скопировано",
  "foot.reach": "Связь",
  "foot.menu": "Меню",
  "foot.office_bali_a": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia",
@@ -253,7 +255,7 @@ window.I18N = {
  "calc.mgmt": "Комиссия УК",
  "calc.pick": "Тип виллы",
  "calc.pick_studio": "39–54,2 м², от $95 000",
- "calc.pick_1bd": "54,2–62 м², от $115 000",
+ "calc.pick_1bd": "54,2–62 м², от $114 000",
  "calc.pick_2bd": "89–110 м², от $170 000",
  "calc.pick_villa": "185,8 м², от $287 000",
  "calc.roi": "доходность к&nbsp;цене в&nbsp;год",
@@ -366,7 +368,7 @@ window.I18N = {
  "form.email": "Email",
  "form.cc_aria": "Код страны",
  "form.cc_search": "Поиск страны или&nbsp;кода",
- "price.studio": "от $95 000", "price.1bd": "от $115 000", "price.2bd": "от $170 000", "price.villa": "от $287 000",
+ "price.studio": "от $95 000", "price.1bd": "от $114 000", "price.2bd": "от $170 000", "price.villa": "от $287 000",
  "form.budget": "Бюджет, $",
  "form.budget_ph": "Необязательно",
  "form.goal": "Цель",
@@ -484,6 +486,8 @@ window.I18N = {
  "unit.yield_lead": "Пример расчёта по&nbsp;цене этой виллы, ставке за&nbsp;ночь и&nbsp;прогнозируемой загрузке"
 },
   en: {
+ "money.from": "from {p}",
+ "ui.copied": "copied",
  "foot.reach": "Get in&nbsp;touch",
  "foot.menu": "Menu",
  "foot.office_bali_a": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia",
@@ -520,7 +524,7 @@ window.I18N = {
  "loc.st6": "To the&nbsp;airport, min",
  "loc.st5": "To&nbsp;Tanah Lot, min",
  "meta.title": "UNIT. SPACE&nbsp;CITY | Hi-tech homes by&nbsp;Nuanu, Bali",
- "meta.desc": "Three UNIT.SPACE residential complexes in&nbsp;Nuanu & Nyanyi, Bali: 105&nbsp;villas and&nbsp;studios, three minutes to the&nbsp;ocean, rental yield from 10%&nbsp;a&nbsp;year. Direct from the&nbsp;developer, UNIT.SPACE.",
+ "meta.desc": "Three UNIT.SPACE residential complexes next to&nbsp;Nuanu, Bali: 105&nbsp;villas and&nbsp;studios, three minutes to the&nbsp;ocean, rental yield from 10%&nbsp;a&nbsp;year. Direct from the&nbsp;developer, UNIT.SPACE.",
  "menu.title": "Menu",
  "menu.close": "Close menu",
  "lang.aria": "Language",
@@ -747,7 +751,7 @@ window.I18N = {
  "calc.mgmt": "Management fee",
  "calc.pick": "Unit type",
  "calc.pick_studio": "39–54.2 m², from $95,000",
- "calc.pick_1bd": "54.2–62 m², from $115,000",
+ "calc.pick_1bd": "54.2–62 m², from $114,000",
  "calc.pick_2bd": "89–110 m², from $170,000",
  "calc.pick_villa": "185.8 m², from $287,000",
  "calc.roi": "annual yield on&nbsp;price",
@@ -860,7 +864,7 @@ window.I18N = {
  "form.email": "Email",
  "form.cc_aria": "Country code",
  "form.cc_search": "Search country or&nbsp;code",
- "price.studio": "from $95,000", "price.1bd": "from $115,000", "price.2bd": "from $170,000", "price.villa": "from $287,000",
+ "price.studio": "from $95,000", "price.1bd": "from $114,000", "price.2bd": "from $170,000", "price.villa": "from $287,000",
  "form.budget": "Budget, $",
  "form.budget_ph": "Optional",
  "form.goal": "Goal",
@@ -965,8 +969,40 @@ window.I18N = {
  "unit.yield_title": "Yield for&nbsp;this villa",
  "unit.yield_lead": "Sample calculation based on&nbsp;this villa’s price, nightly rate and&nbsp;projected occupancy"
 }
-};window.setLang = function (lang) {
-  var dict = window.I18N[lang] || window.I18N.ru;
+};
+/* языки сайта: EN в корне, остальные в /xx/. Словари новых языков лежат в assets/i18n-xx.js
+   (собирает tools/build-langs.mjs из tools/l10n/xx.json), недостающее берётся из EN */
+window.USC_LANGS = ['en', 'ru', 'id', 'fr', 'es', 'uk', 'it', 'tr', 'nl'];
+window.USC_LOC = { en: 'en-US', ru: 'ru-RU', id: 'id-ID', fr: 'fr-FR', es: 'es-ES', uk: 'uk-UA', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL' };
+window.uscLang = function () { var l = typeof document !== 'undefined' && document.documentElement.lang; return window.USC_LOC[l] ? l : 'en'; };
+window.uscDec = function (lang, s) { return lang === 'en' ? String(s) : String(s).replace(/(\d)\.(\d)/g, '$1,$2'); };
+window.uscM2 = function (lang) { return lang === 'ru' || lang === 'uk' ? 'м²' : 'm²'; };
+window.uscUsd = function (n, lang) { return '$' + Math.round(n).toLocaleString(window.USC_LOC[lang] || 'en-US').replace(/[  ]/g, ' '); };
+window.uscFrom = function (lang, money) { var p = (window.I18N[lang] || {})['money.from'] || 'from {p}'; return p.replace('{p}', money); };
+/* новый язык: недостающие ключи из EN; цены, метражи и комплексы (их пишет автосинк в EN) пересчитываются из EN и USC_PRICE_USD */
+window.uscApplyLang = function (lang, X) {
+  var en = window.I18N.en, d = window.I18N[lang]; X = X || {};
+  var FM = ['studio', '1bd', '2bd', 'villa'], tails = {};
+  FM.forEach(function (f) { var v = d['fmt.' + f + '_m']; if (v) tails[f] = v.indexOf(': ') > -1 ? v.slice(v.indexOf(': ') + 2) : v; });
+  Object.keys(en).forEach(function (k) { if (!(k in d) || /^legal\./.test(k)) d[k] = en[k]; });
+  var USD = window.USC_PRICE_USD || {};
+  window.USC_PRICE = window.USC_PRICE || {}; window.USC_PRICE[lang] = {};
+  FM.forEach(function (f) {
+    if (USD[f] == null) return;
+    var price = window.uscFrom(lang, window.uscUsd(USD[f], lang)), a = en['fmt.' + f + '_a'], m = en['fmt.' + f + '_m'];
+    window.USC_PRICE[lang][f] = price;
+    if (en['price.' + f] != null) d['price.' + f] = price;
+    if (a != null) d['fmt.' + f + '_a'] = window.uscDec(lang, a).replace('m²', window.uscM2(lang));
+    if (m != null) d['fmt.' + f + '_m'] = m.split(': ')[0] + ': ' + (tails[f] || m.slice(m.indexOf(': ') + 2));
+    if (a != null && en['calc.pick_' + f] != null) d['calc.pick_' + f] = d['fmt.' + f + '_a'] + ', ' + price;
+  });
+  (window.USC_UNITS || []).forEach(function (u) { var t = (X.units || {})[u.slug] || {}; u.name[lang] = t.name || u.name.en; u.floor[lang] = t.floor || u.floor.en; });
+  var C = window.USC_COMPLEX || {}; Object.keys(C).forEach(function (q) { var t = (X.complex || {})[q] || {}; C[q].status[lang] = t.status || C[q].status.en; C[q].where[lang] = t.where || C[q].where.en; });
+  var F = window.USC_FMT || {}; Object.keys(F).forEach(function (f) { F[f].desc[lang] = (X.fmt || {})[f] || F[f].desc.en; });
+  window.USC_ATTR = window.USC_ATTR || {}; window.USC_ATTR[lang] = X.attrs || {};
+};
+window.setLang = function (lang) {
+  var dict = window.I18N[lang] || window.I18N.en;
   document.documentElement.lang = lang;
   var isPage = document.body.classList.contains('page');
   document.querySelectorAll('body [data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (dict[k] != null) el.innerHTML = dict[k]; });

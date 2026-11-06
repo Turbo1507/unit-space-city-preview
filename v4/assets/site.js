@@ -43,19 +43,19 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
 
   /* язык (паттерн БСО): у каждого языка свой URL (EN — корень /, RU — /ru/, основной язык EN),
      кнопка ведёт на hreflang-альтернативу; словарь применяется к JS-частям по <html lang> */
-  var pageLang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
+  var pageLang = window.uscLang();
   /* альтернатива берётся из hreflang, но переводится на текущий origin/путь — с превью или своего домена не уводит на GitHub Pages */
   function altHref(lang) {
     var l = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]'); if (!l) return null;
     var me = document.querySelector('link[rel="canonical"]'), href = l.getAttribute('href');
     if (!me) return href;
-    var tail = /(?:ru\/)?(?:units\/[^/]*\.html|privacy\.html|index\.html)?$/;
+    var tail = /(?:(?:ru|id|fr|es|uk|it|tr|nl)\/)?(?:units\/[^/]*\.html|privacy\.html|index\.html)?$/;
     var base = me.getAttribute('href').replace(tail, '');
     if (href.indexOf(base) !== 0) return href;
     return location.pathname.replace(tail, '') + href.slice(base.length);
   }
   function saveLang(l) { try { document.cookie = 'usc_lang=' + l + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {} }
-  var wanted = /[?&]lang=(ru|en)\b/.exec(location.search);
+  var wanted = /[?&]lang=(en|ru|id|fr|es|uk|it|tr|nl)\b/.exec(location.search);
   if (wanted) saveLang(wanted[1]);
   if (wanted && wanted[1] !== pageLang && altHref(wanted[1])) { location.replace(altHref(wanted[1]) + location.hash); }
   document.querySelectorAll('[data-lang]').forEach(function (b) {
@@ -121,7 +121,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     { sel: '[data-i18n="price.2bd"]', fmt: '2bd' }, { sel: '[data-i18n="price.villa"]', fmt: 'villa' },
     { sel: '[data-i18n="buy.1p"]', usd: 1500 }
   ];
-  function fmtUsd(n, lang) { return '$' + Math.round(n).toLocaleString(lang === 'ru' ? 'ru-RU' : 'en-US'); }
+  function fmtUsd(n, lang) { return window.uscUsd(n, lang); }
   /* компактная запись IDR («Rp2.185.454.000» тяжело читать) — млрд/млн с суффиксами B/M */
   window.__uscFmtIdrNum = function (n) {
     if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
@@ -130,11 +130,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   };
   function fmtIdr(n) { return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx); }
   window.__uscMoney = function (usd, lang, exact) {
-    return (exact ? '' : (lang === 'ru' ? 'от ' : 'from ')) + (window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang));
+    var m = window.__uscCcy === 'idr' ? fmtIdr(usd) : fmtUsd(usd, lang); return exact ? m : window.uscFrom(lang, m);
   };
   var CALC_LABELS = [{ sel: '[data-i18n="form.budget"]' }];
   function refreshMoney() {
-    var lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
+    var lang = window.uscLang();
     if (window.__uscCcy === 'idr') {
       PRICE_ELS.forEach(function (p) {
         document.querySelectorAll(p.sel).forEach(function (el) {
@@ -146,7 +146,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         document.querySelectorAll(p.sel).forEach(function (el) { el.textContent = el.textContent.replace(/\$\s*$/, 'Rp'); });
       });
     }
-    document.querySelectorAll('.plb .product-card__price').forEach(function (el) { el.innerHTML = el.textContent.replace(/^(\S+)\s+/, '<small>$1</small> '); });
+    document.querySelectorAll('.plb .product-card__price').forEach(function (el) { /* «от» мелко: слова до и после суммы, порядок зависит от языка */ var t = el.textContent, mm = /(?:\$|Rp)\s?\d[\d.,\s\u00a0\u202f]*[BM]?/.exec(t); if (!mm) return; var pa = t.slice(0, mm.index).trim(), pb = t.slice(mm.index + mm[0].length).trim(); el.innerHTML = (pa ? '<small>' + pa + '</small> ' : '') + mm[0].trim() + (pb ? ' <small>' + pb + '</small>' : ''); });
     if (window.__uscRerender) window.__uscRerender(lang);
     if (window.__uscCalcRefresh) window.__uscCalcRefresh();
   }
@@ -155,7 +155,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     li.addEventListener('click', function () {
       var c = li.getAttribute('data-ccy'); if (!c || c === window.__uscCcy) return;
       window.__uscCcy = c; saveCcy(c); syncSel('ccy', c);
-      window.setLang(document.documentElement.lang === 'ru' ? 'ru' : 'en');
+      window.setLang(window.uscLang());
     });
   });
   var prevSetLang = window.setLang;
@@ -244,7 +244,8 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   /* число вилл и этажи по лотам таблицы (assets/lots.js): «Доступно: N вилл», «Этаж 1, 2» */
   window.__uscVillas = function (n, lang) {
     var d = (window.I18N && window.I18N[lang]) || {}, k = n % 10, h = n % 100;
-    var w = lang === 'ru' ? (k === 1 && h !== 11 ? d['avail.v1'] : k >= 2 && k <= 4 && (h < 12 || h > 14) ? d['avail.v2'] : d['avail.v5']) : (n === 1 ? d['avail.v1'] : d['avail.v2']);
+    var c = 'other'; try { c = new Intl.PluralRules(window.USC_LOC[lang] || 'en-US').select(n); } catch (e) {}
+    var w = c === 'one' ? d['avail.v1'] : c === 'few' ? d['avail.v2'] : c === 'many' ? (d['avail.v5'] || d['avail.v2']) : (lang === 'ru' || lang === 'uk' ? d['avail.v5'] : d['avail.v2']);
     return n + '&nbsp;' + (w || '');
   };
   window.__uscFloors = function (ls) {
@@ -252,7 +253,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     return f.sort().join(', ');
   };
   window.__uscFmtCard = function (u, hrefBase) {
-    var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0], m2 = lang === 'ru' ? 'м²' : 'm²';
+    var CX = window.USC_COMPLEX, lang = L(), d = D(), ph = u.photos[0], m2 = window.uscM2(lang);
     var row = function (k, v) { return '<div><span>' + (d[k] || '') + '</span><b>' + (d[v] || '') + '</b></div>'; };
     var rows = row('fmt.f_rooms', 'fmt.' + u.fmt + '_r') + row('fmt.f_where', 'fmt.' + u.fmt + '_w') +
       (u.fmt === 'villa' ? row('fmt.f_out', 'fmt.villa_o') : row('fmt.f_fit', 'fmt.f_full')) + row('fmt.f_yield', 'fmt.f_uk');
@@ -279,7 +280,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     function renderUnit(lang) {
       if (!unit) return;
       var cx = window.USC_COMPLEX[unit.q];
-      var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: lang === 'ru' ? 'м²' : 'm²' };
+      var f = { name: unit.name[lang], floor: unit.floor[lang], price: window.__uscMoney(window.USC_PRICE_USD[unit.fmt], lang), where: cx.where[lang], status: cx.status[lang], desc: window.USC_FMT[unit.fmt].desc[lang], m2: window.uscM2(lang) };
       document.querySelectorAll('[data-unit-field]').forEach(function (el) { var k = el.getAttribute('data-unit-field'); if (f[k] != null) el.innerHTML = f[k]; });
       document.title = unit.name.en + ' ' + window.USC_AREA_TXT(unit, 'en') + ' m², ' + cx.code + ' ' + cx.name + ' | UNIT. SPACE CITY';
       if (more) {
@@ -293,7 +294,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var avTabs = document.querySelector('.avail__tabs'), avGrid = document.querySelector('.avail__grid'), avQ = null, avPick = null;
     function renderAvail(lang) {
       if (!unit || !avTabs || !avGrid) return;
-      var d = (window.I18N && window.I18N[lang]) || {}, CX = window.USC_COMPLEX, m2 = lang === 'ru' ? 'м²' : 'm²';
+      var d = (window.I18N && window.I18N[lang]) || {}, CX = window.USC_COMPLEX, m2 = window.uscM2(lang);
       /* 1+1 и 1+1 с бассейном — разные продукты: вариант с бассейном показывает только свои лоты */
       var pool = function (s) { return /-pool$/.test(s); }, mine = pool(unit.slug);
       var lots = (window.USC_LOTS || []).filter(function (l) { return l.fmt === unit.fmt && pool(l.slug) === mine; });
@@ -307,7 +308,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
         var g = groups[l.area] || (groups[l.area] = { area: l.area, n: 0, min: Infinity, max: 0, lots: [] }); g.n++; g.min = Math.min(g.min, l.price); g.max = Math.max(g.max, l.price); g.lots.push(l);
       });
       var list = Object.keys(groups).map(function (k) { return groups[k]; }).sort(function (a, b) { return a.area - b.area; });
-      var num = function (a) { return lang === 'ru' ? String(a).replace('.', ',') : String(a); };
+      var num = function (a) { return window.uscDec(lang, a); };
       /* фото комплекса в этом формате; кнопка сразу к заявке с комплексом, форматом и метражом
          (выпадающий список вилл не нужен); виллы с купелью — строкой лидеров */
       var ph = (window.USC_UNITS.filter(function (x) { return x.q === avQ && x.fmt === unit.fmt && pool(x.slug) === mine; })[0] || window.USC_UNITS.filter(function (x) { return x.q === avQ; })[0] || unit).photos[0];
@@ -493,14 +494,17 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   function fillCountrySelect(select) {
     var rows = window.USC_COUNTRIES; if (!select || !rows) return;
     var lg = L(), prevIso = select.selectedOptions[0] && select.selectedOptions[0].getAttribute('data-iso');
-    var sorted = rows.slice().sort(function (a, b) { return (lg === 'ru' ? a[1] : a[2]).localeCompare(lg === 'ru' ? b[1] : b[2], lg); });
+    /* названия стран: RU и EN из справочника, остальные языки через Intl */
+    var dn = null; try { if (lg !== 'ru' && lg !== 'en') dn = new Intl.DisplayNames([lg], { type: 'region' }); } catch (e) {}
+    var cname = function (r) { if (lg === 'ru') return r[1]; if (dn) { try { return dn.of(r[0]) || r[2]; } catch (e) {} } return r[2]; };
+    var sorted = rows.slice().sort(function (a, b) { return cname(a).localeCompare(cname(b), lg); });
     select.innerHTML = '';
     sorted.forEach(function (r) {
       var o = document.createElement('option');
       o.value = r[3]; o.textContent = r[0] + ' +' + r[3];
       o.setAttribute('data-iso', r[0]); o.setAttribute('data-format', r[4] || '');
-      o.setAttribute('data-label', (lg === 'ru' ? r[1] : r[2]) + '  +' + r[3]);
-      o.setAttribute('data-search', (r[1] + ' ' + r[2] + ' ' + r[0] + ' ' + r[3]).toLowerCase());
+      o.setAttribute('data-label', cname(r) + '  +' + r[3]);
+      o.setAttribute('data-search', (r[1] + ' ' + r[2] + ' ' + cname(r) + ' ' + r[0] + ' ' + r[3]).toLowerCase());
       select.appendChild(o);
     });
     var pick = select.querySelector('option[data-iso="' + (prevIso || 'ID') + '"]') || select.options[0];
@@ -1057,7 +1061,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var mail = a.getAttribute('href').replace('mailto:', '');
       function tipShow(ok) {
         var tip = document.createElement('span'); tip.className = 'copied';
-        tip.textContent = ok ? mail + ': ' + (document.documentElement.lang === 'en' ? 'copied' : 'скопировано') : mail;
+        tip.textContent = ok ? mail + ': ' + ((window.I18N[window.uscLang()] || {})['ui.copied'] || 'copied') : mail;
         document.body.appendChild(tip); setTimeout(function () { tip.classList.add('in'); }, 10); setTimeout(function () { tip.remove(); }, 2600);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(function () { tipShow(true); }, function () { tipShow(false); });
@@ -1069,7 +1073,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   function initCalc(S) {
     function money(n) {
       if (window.__uscCcy === 'idr') return 'Rp' + window.__uscFmtIdrNum(n * window.__uscFx);
-      return '$' + Math.round(n).toLocaleString(document.documentElement.lang === 'ru' ? 'ru-RU' : 'en-US');
+      return window.uscUsd(n, window.uscLang());
     }
     var el = function (id) { return document.getElementById(id + S); };
     var priceEl = el('c-price'), rateEl = el('c-rate'), occEl = el('c-occ'), mgmtEl = el('c-mgmt');
@@ -1083,7 +1087,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       el('o-gross').textContent = money(gross);
       el('o-net').textContent = money(net);
       var roi = (net / price * 100).toFixed(1);
-      el('o-roi').textContent = price ? (document.documentElement.lang === 'ru' ? roi.replace('.', ',') : roi) + '%' : '—';
+      el('o-roi').textContent = price ? window.uscDec(window.uscLang(), roi) + '%' : '—';
     }
     var prev = window.__uscCalcRefresh;
     window.__uscCalcRefresh = function () { if (prev) prev(); calc(); };
@@ -1358,6 +1362,8 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   var SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|OPTION|CODE|PRE|NOSCRIPT|svg)$/;
   var RX = /(^|[\s\u00A0(«"„“])([A-Za-zА-Яа-яЁё]{1,3}|\d+) (?=\S)/g;
   function run(root) {
+    /* на других языках неразрывные пробелы уже в переводе: правило «до 3 букв» там склеивает целые фразы */
+    if (!/^(ru|en)$/.test(document.documentElement.lang)) return;
     var w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
       for (var p = n.parentNode; p && p !== document.body; p = p.parentNode) if (SKIP.test(p.nodeName) || p.isContentEditable) return NodeFilter.FILTER_REJECT;
       return / /.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;

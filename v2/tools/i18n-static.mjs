@@ -20,16 +20,16 @@ export function applyDict(html, dict) {
   return html;
 }
 
-// rel — путь страницы относительно корня v2 ('' для index, 'units/x.html'). EN — корень, RU — /ru/ (основной язык EN)
+// языки: EN в корне, остальные в /xx/; rel — путь страницы от корня версии ('' для главной, 'units/x.html')
+export const ALL_LANGS = ['en', 'ru', 'id', 'fr', 'es', 'uk', 'it', 'tr', 'nl'];
+// на сайте только языки, у которых есть перевод в tools/l10n/<xx>.json
+export const LANGS = ALL_LANGS.filter((l) => l === 'en' || l === 'ru' || fs.existsSync(new URL('./l10n/' + l + '.json', import.meta.url)));
+export const OG = { en: 'en_US', ru: 'ru_RU', id: 'id_ID', fr: 'fr_FR', es: 'es_ES', uk: 'uk_UA', it: 'it_IT', tr: 'tr_TR', nl: 'nl_NL' };
+export const pre = (l) => (l === 'en' ? '' : l + '/');
 export function langHead(lang, rel) {
-  const en = BASE + rel, ru = BASE + 'ru/' + rel;
-  return [
-    `<script>/* saved language choice (usc_lang cookie); without a choice the opened URL stays as is, bots are left alone */(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)||/[?&]lang=/.test(location.search))return;var m=/(?:^|; )usc_lang=(ru|en)/.exec(document.cookie);if(!m||m[1]==='${lang}')return;var p=location.pathname,t=m[1]==='ru'?p.replace('/v3/','/v3/ru/'):p.replace('/v3/ru/','/v3/');if(t!==p)location.replace(t+location.search+location.hash)}catch(e){}})()</script>`,
-    `<link rel="canonical" href="${lang === 'ru' ? ru : en}">`,
-    `<link rel="alternate" hreflang="en" href="${en}">`,
-    `<link rel="alternate" hreflang="ru" href="${ru}">`,
-    `<link rel="alternate" hreflang="x-default" href="${en}">`
-  ].join('\n');
+  const url = (l) => BASE + pre(l) + rel, self = pre(lang) + rel;
+  const go = `<script>/* saved language choice (usc_lang cookie); without a choice the opened URL stays as is, bots are left alone */(function(){try{if(/bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent)||/[?&]lang=/.test(location.search))return;var m=/(?:^|; )usc_lang=(${LANGS.join('|')})(?:;|$)/.exec(document.cookie);if(!m||m[1]==='${lang}')return;var s='${self}',p=location.pathname${rel === '' ? ".replace(/index\\.html$/,'')" : ''};if(p.slice(p.length-s.length)!==s)return;var t=p.slice(0,p.length-s.length)+(m[1]==='en'?'':m[1]+'/')+'${rel}';if(t!==p)location.replace(t+location.search+location.hash)}catch(e){}})()</script>`;
+  return [go, `<link rel="canonical" href="${url(lang)}">`, ...LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${url(l)}">`), `<link rel="alternate" hreflang="x-default" href="${url('en')}">`].join('\n');
 }
 // title и description на любом языке английские: так их видят поиск и превью ссылок в мессенджерах
 export function enMeta(html, title, desc) {
@@ -51,7 +51,7 @@ export function redirectStub(to) {
 }
 
 // alt/aria без i18n-ключей (фото галерей, служебные подписи) + вычистить кириллицу из комментариев
-const ATTR = {
+export const ATTR = {
 'Башня и корпуса Nuanu над пляжем на закате': 'Nuanu tower and buildings above the beach at sunset',
   'Виллы U1 Space Village': 'U1 Space Village villas',
   'Гостиная 2BD в U2': '2BD living room in U2',
@@ -134,10 +134,36 @@ const ATTR = {
   'Закрыть меню': 'Close menu', 'Комплексы': 'Complexes', 'Меню': 'Menu', 'Разделы': 'Sections', 'Язык': 'Language',
   'Уведомление об использовании cookie': 'Cookie notice'
 };
-export function translateAttrs(html) {
+export function translateAttrs(html, lang = 'en', attrs = {}) {
   for (const [ruV, enV] of Object.entries(ATTR)) html = html.replaceAll(`="${ruV}"`, `="${enV}"`);
   html = html.replace(/: фото (\d+)"/g, ': photo $1"');
-  return html.replace(/<!--[\s\S]*?-->/g, m => m.replace(/[А-Яа-яЁё]+/g, '').replace(/\s{2,}/g, ' '));
+  if (lang !== 'en') {
+    for (const [enV, v] of Object.entries(attrs)) if (enV !== 'photo' && v) html = html.replaceAll(`="${enV}"`, `="${v.replace(/"/g, '&quot;')}"`);
+    if (attrs.photo) html = html.replace(/: photo (\d+)"/g, `: ${attrs.photo} $1"`);
+  }
+  return html.replace(/<!--[\s\S]*?-->/g, m => m.replace(/[А-Яа-яЁёЇїІіЄєҐґ]+/g, '').replace(/\s{2,}/g, ' '));
+}
+
+// данные и словари всех языков в одном контексте, как в браузере: units, lots, i18n, i18n-xx
+import vm from 'node:vm';
+export function loadCtx(root) {
+  const ctx = { window: {} };
+  const run = (rel) => vm.runInNewContext(fs.readFileSync(path.join(root, rel), 'utf8'), ctx);
+  run('assets/units.js'); run('assets/lots.js');
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/i18n.js'), 'utf8').split('window.setLang')[0], ctx);
+  for (const l of LANGS) if (!['en', 'ru'].includes(l) && fs.existsSync(path.join(root, `assets/i18n-${l}.js`))) run(`assets/i18n-${l}.js`);
+  return ctx.window;
+}
+// подключить словарь языка после i18n.js
+export function addLangScript(html, lang, up) {
+  if (lang === 'en' || lang === 'ru') return html;
+  return html.replace(/(<script src="[./]*assets\/i18n\.js[^"]*"><\/script>)/, `$1\n<script src="${up}assets/i18n-${lang}.js"></script>`);
+}
+// значение переключателя языка до запуска JS
+export function langSel(html, lang) {
+  html = html.replace(/[ \t]*<li role="option" data-lang="(\w+)"[^>]*>\w+<\/li>\n?/g, (m, l) => (LANGS.includes(l) ? m : ''));
+  html = html.replace(/(<div class="hd-sel" data-sel="lang">\s*<button[^>]*><span class="hd-sel__val">)[A-Z]{2}(<\/span>)/g, `$1${lang.toUpperCase()}$2`);
+  return html.replace(/<li role="option" data-lang="(\w+)" aria-selected="(?:true|false)">/g, (m, l) => `<li role="option" data-lang="${l}" aria-selected="${l === lang}">`);
 }
 
 // кеш-бастинг: ?v=<hash содержимого> у site.css / site.js / i18n.js / units.js (Pages кеширует 10 мин)
@@ -148,10 +174,10 @@ import { fileURLToPath } from 'node:url';
 const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function assetVersion() {
   const h = createHash('md5');
-  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'lots.js', 'countries.js']) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
+  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'lots.js', 'countries.js', ...LANGS.map((l) => `i18n-${l}.js`)]) if (fs.existsSync(path.join(_root, 'assets', f))) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
   return h.digest('hex').slice(0, 8);
 }
 export function stamp(html) {
   const v = assetVersion();
-  return html.replace(/(assets\/(?:site\.css|site\.js|i18n\.js|units\.js|lots\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
+  return html.replace(/(assets\/(?:site\.css|site\.js|i18n(?:-[a-z]{2})?\.js|units\.js|lots\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
 }

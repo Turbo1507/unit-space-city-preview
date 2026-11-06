@@ -19,7 +19,7 @@ window.USC_UNITS = [
 window.USC_UNITS.forEach(function (u) { u.name.en = u.name.ru_en; delete u.name.ru_en; });
 /* area — из таблицы наличия (пишет tools/sync-lots.mjs): число или диапазон [min,max]; RU с запятой */
 window.USC_AREA_TXT = function (u, lang) {
-  var f = function (x) { return lang === 'ru' ? String(x).replace('.', ',') : String(x); };
+  var f = function (x) { return lang === 'en' ? String(x) : String(x).replace('.', ','); };
   return Array.isArray(u.area) ? f(u.area[0]) + '\u2013' + f(u.area[1]) : f(u.area);
 };
 window.USC_COMPLEX = {
@@ -27,11 +27,11 @@ window.USC_COMPLEX = {
   u2:{code:'U2',name:'Nuanu Village', status:{ru:'сдан в 2026, заселён',en:'completed 2026, occupied'}, where:{ru:'рядом с Nuanu',en:'next to Nuanu'}},
   u3:{code:'U3',name:'Nyanyi Village',status:{ru:'строится, сдача зимой 2026',en:'under construction, handover winter 2026'}, where:{ru:'посёлок Nyanyi, ближе к океану',en:'Nyanyi village, closer to the ocean'}}
 };
-window.USC_PRICE = {ru:{studio:'от $95 000','1bd':'от $115 000','2bd':'от $170 000',villa:'от $287 000'},
-                    en:{studio:'from $95,000','1bd':'from $115,000','2bd':'from $170,000',villa:'from $287,000'}};
+window.USC_PRICE = {ru:{studio:'от $95 000','1bd':'от $114 000','2bd':'от $170 000',villa:'от $287 000'},
+                    en:{studio:'from $95,000','1bd':'from $114,000','2bd':'from $170,000',villa:'from $287,000'}};
 /* числовая цена в USD — источник для форматирования USD/IDR в рантайме (window.__uscMoney, site.js).
    Минимальная цена свободного лота формата — пишет tools/sync-lots.mjs из таблицы наличия */
-window.USC_PRICE_USD = {studio:95000,'1bd':115000,'2bd':170000,villa:287000};
+window.USC_PRICE_USD = {studio:95000,'1bd':114000,'2bd':170000,villa:287000};
 window.USC_FMT = {
   studio:{desc:{ru:'Единое пространство без&nbsp;перегородок: совмещённые спальня, кухня и&nbsp;гостиная. Чистые линии, натуральные материалы, полная меблировка от&nbsp;UNIT.FURNITURE. Собственная терраса: ваше личное пространство на&nbsp;свежем воздухе. Вид на&nbsp;рисовые поля или&nbsp;внутренний двор комплекса',en:'One open space with no partitions: bedroom, kitchen and&nbsp;living room together. Clean lines, natural materials, fully furnished by&nbsp;UNIT.FURNITURE. Your own terrace is&nbsp;your private space in the&nbsp;open air. Views of the&nbsp;rice fields or the&nbsp;inner courtyard'}},
   '1bd':{desc:{ru:'Пространство, где есть место и для&nbsp;уединения, и для&nbsp;жизни. Отдельная спальня для&nbsp;спокойного отдыха. Кухня и&nbsp;гостиная для&nbsp;встреч, работы и&nbsp;неспешных завтраков на&nbsp;террасе. Вид на&nbsp;рисовые поля или&nbsp;тропический двор комплекса. Для&nbsp;тех, кто ценит компактность и&nbsp;продуманность',en:'A&nbsp;space with room both for&nbsp;privacy and for&nbsp;living. A&nbsp;separate bedroom for&nbsp;quiet rest. Kitchen and&nbsp;living room for&nbsp;meeting friends, working and&nbsp;slow breakfasts on the&nbsp;terrace. Views of the&nbsp;rice fields or the&nbsp;tropical courtyard. For&nbsp;those who value a&nbsp;compact, well thought-out home'}},

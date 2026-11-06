@@ -1,0 +1,2012 @@
+{
+ "dict": {
+  "money.from": {
+   "en": "from {p}",
+   "ru": "от {p}"
+  },
+  "ui.copied": {
+   "en": "copied",
+   "ru": "скопировано"
+  },
+  "foot.reach": {
+   "en": "Get in&nbsp;touch",
+   "ru": "Связь"
+  },
+  "foot.menu": {
+   "en": "Menu",
+   "ru": "Меню"
+  },
+  "foot.office_bali_a": {
+   "en": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia",
+   "ru": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, Nuanu Creative City, Tabanan, Bali, Indonesia"
+  },
+  "foot.office_hq": {
+   "en": "Head office",
+   "ru": "Головной офис"
+  },
+  "foot.office_hq_a": {
+   "en": "Jl Pantai Nyanyi No.&nbsp;88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia",
+   "ru": "Jl Pantai Nyanyi No.&nbsp;88, Beraban, Tabanan, Bali&nbsp;80351, Indonesia"
+  },
+  "foot.office_bali": {
+   "en": "Bali office",
+   "ru": "Офис на&nbsp;Бали"
+  },
+  "co.v4p": {
+   "en": "A&nbsp;minimal footprint on the&nbsp;planet and&nbsp;respect for the&nbsp;ecosystem",
+   "ru": "Минимальный след на&nbsp;планете и&nbsp;уважение к&nbsp;экосистеме"
+  },
+  "co.v4t": {
+   "en": "Terra",
+   "ru": "Terra<i class='value-card__tr'>Экологичность</i>"
+  },
+  "co.v3p": {
+   "en": "Coherent design where every detail is&nbsp;functional and&nbsp;well thought out",
+   "ru": "Целостность дизайна, где каждая деталь функциональна и&nbsp;продумана"
+  },
+  "co.v3t": {
+   "en": "Integrity",
+   "ru": "Integrity<i class='value-card__tr'>Эргономичность и&nbsp;детали</i>"
+  },
+  "co.v2p": {
+   "en": "Staying ahead of&nbsp;the&nbsp;times through innovation and&nbsp;lasting solutions",
+   "ru": "Опережение времени через инновации и&nbsp;долговечные решения"
+  },
+  "co.v2t": {
+   "en": "Next-gen",
+   "ru": "Next-gen<i class='value-card__tr'>Мышление будущим</i>"
+  },
+  "co.v1p": {
+   "en": "Building a&nbsp;community of&nbsp;like-minded people and&nbsp;harmony between architecture and&nbsp;people",
+   "ru": "Созидание сообщества единомышленников и&nbsp;гармония между архитектурой и&nbsp;человеком"
+  },
+  "co.v1t": {
+   "en": "Unity",
+   "ru": "Unity<i class='value-card__tr'>Единство</i>"
+  },
+  "co.qr": {
+   "en": "Head of&nbsp;<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, 13+&nbsp;years in&nbsp;development",
+   "ru": "Глава <i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>, 13+&nbsp;лет в&nbsp;девелопменте"
+  },
+  "co.qn": {
+   "en": "Stepan Fedoseev",
+   "ru": "Степан Федосеев"
+  },
+  "co.q": {
+   "en": "<i class='nw'>Hi-tech</i> architecture is a&nbsp;modern classic and a&nbsp;way of&nbsp;thinking. We&nbsp;create spaces where technology serves nature instead of&nbsp;straining it. Every line, every material, every square metre works for&nbsp;human comfort",
+   "ru": "<i class='nw'>Hi-tech</i> архитектура это современная классика и&nbsp;способ мышления. Мы&nbsp;создаём пространства, где технологии служат природе, а не&nbsp;напрягают её. Каждая линия, каждый материал, каждый метр площади работает на&nbsp;комфорт человека"
+  },
+  "yield.mc_p": {
+   "en": "We&nbsp;work with our own management company because we&nbsp;believe high-tech villas are best looked after by the&nbsp;people who built them. <i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> has its own 24/7&nbsp;operations team, so we&nbsp;can guarantee comfortable living and&nbsp;stable income for&nbsp;investors",
+   "ru": "Мы&nbsp;работаем с&nbsp;собственной управляющей компанией, потому что уверены: обслуживать технологичные виллы лучше всего будут те, кто их&nbsp;построил. В&nbsp;<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> собственная служба эксплуатации 24/7, благодаря которой мы&nbsp;гарантируем комфортное проживание и&nbsp;стабильный доход инвесторов"
+  },
+  "yield.mc_s": {
+   "en": "Management company",
+   "ru": "Управляющая компания"
+  },
+  "yb.f_ops": {
+   "en": "Operations team",
+   "ru": "Служба эксплуатации"
+  },
+  "yb.f_ops_v": {
+   "en": "24/7",
+   "ru": "24/7"
+  },
+  "yb.f_svc": {
+   "en": "Service",
+   "ru": "Сервис"
+  },
+  "yb.f_svc_v": {
+   "en": "guest concierge",
+   "ru": "консьерж для гостей"
+  },
+  "yb.f_rent": {
+   "en": "Rentals",
+   "ru": "Аренда"
+  },
+  "yb.f_rent_v": {
+   "en": "managed in-house",
+   "ru": "ведём сами"
+  },
+  "yb.f_rep": {
+   "en": "Reporting",
+   "ru": "Отчётность"
+  },
+  "yb.f_rep_v": {
+   "en": "transparent",
+   "ru": "прозрачная"
+  },
+  "yb.occ_v": {
+   "en": "92.6%",
+   "ru": "92,6%"
+  },
+  "yb.occ": {
+   "en": "occupancy in&nbsp;H1&nbsp;2026",
+   "ru": "загрузка за&nbsp;1-е полугодие 2026"
+  },
+  "yb.cta": {
+   "en": "Get management terms",
+   "ru": "Получить условия управления"
+  },
+  "yield.text": {
+   "en": "We&nbsp;guarantee transparent reporting, full concierge service and&nbsp;rental management, so you earn income without the&nbsp;hassle",
+   "ru": "Гарантируем прозрачную отчётность, полный консьерж-сервис и&nbsp;управление арендой, чтобы вы&nbsp;получали доход без&nbsp;лишних хлопот"
+  },
+  "loc.beach_s": {
+   "en": "A&nbsp;scenic black sand beach",
+   "ru": "Живописный пляж с&nbsp;чёрным песком"
+  },
+  "loc.addr_s": {
+   "en": "The&nbsp;first line of&nbsp;development on the&nbsp;west coast",
+   "ru": "Первая линия развития западного побережья"
+  },
+  "loc.st6": {
+   "en": "To the&nbsp;airport, min",
+   "ru": "До&nbsp;аэропорта, минут"
+  },
+  "loc.st5": {
+   "en": "To&nbsp;Tanah Lot, min",
+   "ru": "До&nbsp;Танах Лот, минут"
+  },
+  "meta.title": {
+   "en": "UNIT. SPACE&nbsp;CITY | Hi-tech homes by&nbsp;Nuanu, Bali",
+   "ru": "UNIT. SPACE&nbsp;CITY | Hi-tech виллы у&nbsp;Nuanu, Бали"
+  },
+  "meta.desc": {
+   "en": "Three UNIT.SPACE residential complexes next to&nbsp;Nuanu, Bali: 105&nbsp;villas and&nbsp;studios, three minutes to the&nbsp;ocean, rental yield from 10%&nbsp;a&nbsp;year. Direct from the&nbsp;developer, UNIT.SPACE.",
+   "ru": "Три жилых комплекса UNIT.SPACE рядом с&nbsp;Nuanu, Бали: 105&nbsp;вилл и&nbsp;студий, 3&nbsp;минуты до&nbsp;океана, доходность от&nbsp;10%&nbsp;в&nbsp;год. Покупка напрямую у&nbsp;девелопера UNIT."
+  },
+  "menu.title": {
+   "en": "Menu",
+   "ru": "Меню"
+  },
+  "menu.close": {
+   "en": "Close menu",
+   "ru": "Закрыть меню"
+  },
+  "lang.aria": {
+   "en": "Language",
+   "ru": "Язык"
+  },
+  "ccy.aria": {
+   "en": "Currency",
+   "ru": "Валюта"
+  },
+  "lightbox.title": {
+   "en": "Photo gallery",
+   "ru": "Фото галерея"
+  },
+  "lightbox.close": {
+   "en": "Close",
+   "ru": "Закрыть"
+  },
+  "lightbox.prev": {
+   "en": "Previous photo",
+   "ru": "Предыдущее фото"
+  },
+  "lightbox.next": {
+   "en": "Next photo",
+   "ru": "Следующее фото"
+  },
+  "nav.about": {
+   "en": "About",
+   "ru": "О&nbsp;проекте"
+  },
+  "nav.complexes": {
+   "en": "Complexes",
+   "ru": "Комплексы"
+  },
+  "nav.catalog": {
+   "en": "Units",
+   "ru": "Виллы"
+  },
+  "nav.yield": {
+   "en": "Returns",
+   "ru": "Доходность"
+  },
+  "nav.location": {
+   "en": "Location",
+   "ru": "Локация"
+  },
+  "nav.company": {
+   "en": "Company",
+   "ru": "О&nbsp;компании"
+  },
+  "nav.cta": {
+   "en": "Find my villa",
+   "ru": "Подобрать виллу"
+  },
+  "ab.a2": {
+   "en": "Villa terrace overlooking the&nbsp;rice fields",
+   "ru": "Терраса виллы с&nbsp;видом на&nbsp;рисовые поля"
+  },
+  "ab.a1": {
+   "en": "U1&nbsp;villa among the&nbsp;rice fields",
+   "ru": "Вилла U1&nbsp;среди рисовых полей"
+  },
+  "cx.f5": {
+   "en": "Own management company",
+   "ru": "Своя управляющая компания"
+  },
+  "cx.y1": {
+   "en": "Annual yield",
+   "ru": "Доходность в&nbsp;год"
+  },
+  "cx.f4": {
+   "en": "Yield a&nbsp;year",
+   "ru": "Доходность в&nbsp;год"
+  },
+  "cxn.build": {
+   "en": "Building",
+   "ru": "Строится"
+  },
+  "cxn.done": {
+   "en": "Built",
+   "ru": "Построено"
+  },
+  "own.1": {
+   "en": "Café, coworking, cinema",
+   "ru": "Кафе, коворкинг, кинотеатр"
+  },
+  "own.2": {
+   "en": "Lounge bar",
+   "ru": "Лаунж-бар"
+  },
+  "own.4": {
+   "en": "Sauna",
+   "ru": "Сауна"
+  },
+  "own.5": {
+   "en": "Cold plunge",
+   "ru": "Купель"
+  },
+  "own.6": {
+   "en": "Workout area",
+   "ru": "Зона для&nbsp;тренировок"
+  },
+  "own.7": {
+   "en": "Shared courtyard with a&nbsp;pool",
+   "ru": "Общий двор с&nbsp;бассейном"
+  },
+  "loc.own_l": {
+   "en": "What’s inside <i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> itself",
+   "ru": "Что есть в&nbsp;самом комплексе <i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>"
+  },
+  "ab.a5": {
+   "en": "Nuanu tower at night",
+   "ru": "Башня Nuanu ночью"
+  },
+  "band1a.a": {
+   "en": "2BD villa in U2 Nuanu Village",
+   "ru": "Вилла 2BD в U2 Nuanu Village"
+  },
+  "band2c.a": {
+   "en": "Bamboo vault of a Nuanu pavilion",
+   "ru": "Бамбуковый свод павильона Nuanu"
+  },
+  "cxb.n1": {
+   "en": "Fully furnished; on-site café, coworking, sauna and&nbsp;cold plunge pool",
+   "ru": "Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold plunge внутри квартала"
+  },
+  "cxb.n2": {
+   "en": "All units except the&nbsp;Studio have a&nbsp;separate kitchen and&nbsp;living area",
+   "ru": "Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии"
+  },
+  "cxb.n3": {
+   "en": "Construction progress: dated photos on&nbsp;request",
+   "ru": "Прогресс стройки: фото по&nbsp;датам, по&nbsp;запросу"
+  },
+  "ab.a4": {
+   "en": "Façade of a U2 building",
+   "ru": "Фасад корпуса U2"
+  },
+  "ab.a3": {
+   "en": "Nuanu Creative City at sunset, aerial view",
+   "ru": "Nuanu Creative City на закате, вид с воздуха"
+  },
+  "ab.c5t": {
+   "en": "Exclusive Nuanu amenities",
+   "ru": "Эксклюзивная инфраструктура Nuanu"
+  },
+  "ab.more": {
+   "en": "A&nbsp;restaurant, yoga, a&nbsp;library, a&nbsp;kids’ room, an&nbsp;events hall and a&nbsp;music studio",
+   "ru": "Ресторан, йога, библиотека, детская комната, зал для&nbsp;мероприятий и&nbsp;музыкальная студия"
+  },
+  "ab.nha": {
+   "en": "44&nbsp;hectares",
+   "ru": "44&nbsp;гектара"
+  },
+  "ab.nlist": {
+   "en": "An&nbsp;international school, spa complexes, a&nbsp;beach club with a&nbsp;restaurant and a&nbsp;cave pool",
+   "ru": "Международная школа, спа-комплексы, пляжный клуб с&nbsp;рестораном и&nbsp;бассейн в&nbsp;пещере"
+  },
+  "ab.u1": {
+   "en": "2&nbsp;pools",
+   "ru": "2&nbsp;бассейна"
+  },
+  "ab.u3": {
+   "en": "Coworking",
+   "ru": "Коворкинг"
+  },
+  "ab.u4": {
+   "en": "Café",
+   "ru": "Кафе"
+  },
+  "ab.u6": {
+   "en": "Sauna",
+   "ru": "Сауна"
+  },
+  "ab.u7": {
+   "en": "Cold plunge",
+   "ru": "Купель"
+  },
+  "ab.u11": {
+   "en": "Cinema",
+   "ru": "Кинотеатр"
+  },
+  "ab.f1": {
+   "en": "units across three complexes",
+   "ru": "юнитов в&nbsp;трёх комплексах"
+  },
+  "ab.f2": {
+   "en": "yield a&nbsp;year",
+   "ru": "доходность в&nbsp;год"
+  },
+  "ab.f3": {
+   "en": "management company for&nbsp;all complexes",
+   "ru": "управляющая компания на&nbsp;все комплексы"
+  },
+  "cx.h2": {
+   "en": "Three complexes, one neighbourhood",
+   "ru": "Три комплекса в&nbsp;одном квартале"
+  },
+  "ab.c4t": {
+   "en": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> amenities",
+   "ru": "Инфраструктура <i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>"
+  },
+  "ab.c3p": {
+   "en": "Advanced construction technologies that resist moisture and&nbsp;mould",
+   "ru": "Использование передовых технологий строительства, устойчивых к&nbsp;влаге и&nbsp;плесени"
+  },
+  "ab.c3t": {
+   "en": "<i class=\"u5\">UNIT.</i> quality standard",
+   "ru": "Стандарт качества <i class=\"u5\">UNIT.</i>"
+  },
+  "ab.c2p": {
+   "en": "Every unit is&nbsp;designed down to the&nbsp;smallest detail. Each has its own cosy terrace overlooking the&nbsp;rice fields. Fully furnished for&nbsp;comfortable living",
+   "ru": "<i class='d-only'>Дизайн каждого юнита продуман до&nbsp;мельчайших деталей. Своя собственная уютная терраса у&nbsp;каждого юнита с&nbsp;видом на&nbsp;рисовые поля. Полностью укомплектован для&nbsp;комфортной жизни</i><i class='m-only'>Каждый юнит продуман до&nbsp;мелочей и&nbsp;полностью укомплектован для&nbsp;комфортной жизни. У&nbsp;каждого своя уютная терраса с&nbsp;видом на&nbsp;рисовые поля</i>"
+  },
+  "ab.c2t": {
+   "en": "Considered design",
+   "ru": "Продуманный дизайн"
+  },
+  "ab.c1p": {
+   "en": "<i class='d-only'>Three residential complexes (U1, U2, U3), built in&nbsp;one architectural style, share common amenities. Smart logistics and&nbsp;EV parking keep the&nbsp;environmental impact low and&nbsp;cut exhaust emissions</i><i class='m-only'>Three complexes, U1, U2 and&nbsp;U3, in&nbsp;one architectural style with shared amenities. Smart logistics and&nbsp;EV parking cut emissions and&nbsp;protect the&nbsp;nature around them</i>",
+   "ru": "<i class='d-only'>Три жилых комплекса (U1, U2, U3), построенных в&nbsp;едином архитектурном стиле, разделяют общую инфраструктуру. Минимизируют воздействие на&nbsp;экологию и&nbsp;снижают выброс выхлопных газов за&nbsp;счёт продуманной логистики и&nbsp;парковок для&nbsp;электротранспорта</i><i class='m-only'>Три комплекса в&nbsp;едином архитектурном стиле с&nbsp;общей инфраструктурой. Логистика и&nbsp;парковки для&nbsp;электротранспорта снижают выбросы и&nbsp;берегут природу</i>"
+  },
+  "ab.c1t": {
+   "en": "Architecture and&nbsp;nature",
+   "ru": "Архитектура и&nbsp;природа"
+  },
+  "ab.text": {
+   "en": "<i class='d-only'><i class='ab-l'>One ecosystem of&nbsp;three tech-forward neighbourhoods, where <i class='nw'>hi-tech</i> architecture meets untouched nature.</i><i class='ab-l'>Considered minimalism brings comfort to&nbsp;living, working and&nbsp;resting</i></i><i class='m-only'>One ecosystem of&nbsp;three tech-forward neighbourhoods, where <i class='nw'>hi-tech</i> architecture meets untouched nature and&nbsp;considered minimalism brings comfort to&nbsp;living, working and&nbsp;resting</i>",
+   "ru": "<i class='d-only'><i class='ab-l'>Единая экосистема из&nbsp;трёх технологичных кварталов, в&nbsp;которой <i class='nw'>hi-tech</i> архитектура встречается с&nbsp;нетронутой природой.</i><i class='ab-l'>Продуманный минимализм обеспечивает комфорт жизни, работы и&nbsp;отдыха</i></i><i class='m-only'>Единая экосистема из&nbsp;трёх технологичных кварталов, где <i class='nw'>hi-tech</i> архитектура встречается с&nbsp;нетронутой природой, а&nbsp;продуманный минимализм даёт комфорт жизни, работы и&nbsp;отдыха</i>"
+  },
+  "ab.sub": {
+   "en": "105&nbsp;units: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
+   "ru": "105&nbsp;юнитов: Studio, 1BD, 2BD, 3BD&nbsp;Villa"
+  },
+  "ab.title": {
+   "en": "About <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
+   "ru": "О&nbsp;проекте <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>"
+  },
+  "wa.aria": {
+   "en": "Message us on&nbsp;WhatsApp",
+   "ru": "Написать в&nbsp;WhatsApp"
+  },
+  "hero.more": {
+   "en": "Explore the&nbsp;project",
+   "ru": "Узнать о&nbsp;проекте"
+  },
+  "hero.badge": {
+   "en": "From the&nbsp;developer",
+   "ru": "От&nbsp;застройщика"
+  },
+  "hero.title": {
+   "en": "<i class='nw'>Hi-tech</i> villas in&nbsp;Nuanu at&nbsp;apartment‑level prices",
+   "ru": "<i class='nw'>Hi-tech</i> виллы в&nbsp;Nuanu по&nbsp;цене апартаментов"
+  },
+  "hero.sub": {
+   "en": "Tech-forward units that can become your investment, your getaway and&nbsp;your home",
+   "ru": "Технологичные юниты, которые могут стать вашей инвестицией, местом для&nbsp;отдыха и&nbsp;жизни"
+  },
+  "hero.alt": {
+   "en": "UNIT.SPACE villa at&nbsp;sunset, rice fields",
+   "ru": "Вилла UNIT.SPACE на&nbsp;закате, рисовые поля"
+  },
+  "hero.card_aria": {
+   "en": "See the&nbsp;complexes on the&nbsp;map",
+   "ru": "Смотреть локацию комплексов на&nbsp;карте"
+  },
+  "hero.card_kicker": {
+   "en": "Location",
+   "ru": "Локация"
+  },
+  "hero.card_title": {
+   "en": "U1, U2&nbsp;and&nbsp;U3&nbsp;in&nbsp;one spot",
+   "ru": "U1, U2&nbsp;и&nbsp;U3&nbsp;в&nbsp;одной точке"
+  },
+  "hero.s1": {
+   "en": "22&nbsp;units, completed 2024",
+   "ru": "22&nbsp;юнита, сдан в&nbsp;2024"
+  },
+  "hero.s2": {
+   "en": "55&nbsp;units, completed 2026",
+   "ru": "55&nbsp;юнитов, сдан в&nbsp;2026"
+  },
+  "hero.s3": {
+   "en": "28&nbsp;units, winter 2026",
+   "ru": "28&nbsp;юнитов, зима 2026"
+  },
+  "hero.map_sub": {
+   "en": "Nyanyi, Bali",
+   "ru": "Nyanyi, Бали"
+  },
+  "about.ov_u1n": {
+   "en": "Space Village",
+   "ru": "Space Village"
+  },
+  "about.ov_u2n": {
+   "en": "Nuanu Village",
+   "ru": "Nuanu Village"
+  },
+  "about.ov_u3n": {
+   "en": "Nyanyi Village",
+   "ru": "Nyanyi Village"
+  },
+  "band1a.t": {
+   "en": "2BD villa",
+   "ru": "Вилла 2BD"
+  },
+  "band1a.s": {
+   "en": "Two bedrooms and a&nbsp;terrace in&nbsp;U2 Nuanu Village",
+   "ru": "Две спальни и&nbsp;терраса в&nbsp;U2 Nuanu Village"
+  },
+  "band1b.t": {
+   "en": "2BD living room",
+   "ru": "Гостиная 2BD"
+  },
+  "band1b.s": {
+   "en": "Lounge and kitchen in&nbsp;one open space",
+   "ru": "Мягкая зона и&nbsp;кухня в&nbsp;одном пространстве"
+  },
+  "band1c.t": {
+   "en": "U1&nbsp;Space Village villas",
+   "ru": "Виллы U1&nbsp;Space Village"
+  },
+  "band1c.s": {
+   "en": "The&nbsp;first complex, completed in&nbsp;2024",
+   "ru": "Первый комплекс, сдан в&nbsp;2024"
+  },
+  "band1d.t": {
+   "en": "Bedroom with a&nbsp;field view",
+   "ru": "Спальня с&nbsp;видом на&nbsp;поля"
+  },
+  "band1d.s": {
+   "en": "A&nbsp;panoramic window onto the&nbsp;Nuanu rice fields",
+   "ru": "Панорамное окно на&nbsp;рисовые поля Nuanu"
+  },
+  "band1e.t": {
+   "en": "3BD&nbsp;Villa terrace",
+   "ru": "Терраса 3BD&nbsp;Villa"
+  },
+  "band1e.s": {
+   "en": "A&nbsp;private pool and garden",
+   "ru": "Приватный бассейн и&nbsp;сад"
+  },
+  "band1f.t": {
+   "en": "3BD&nbsp;Villa living room",
+   "ru": "Гостиная 3BD&nbsp;Villa"
+  },
+  "band1f.s": {
+   "en": "Lounge and dining table with a&nbsp;garden view",
+   "ru": "Мягкая зона и&nbsp;обеденный стол с&nbsp;видом на&nbsp;сад"
+  },
+  "band1g.t": {
+   "en": "View from above",
+   "ru": "Вид с&nbsp;высоты"
+  },
+  "band1g.s": {
+   "en": "Buildings among rice fields",
+   "ru": "Корпуса среди рисовых полей"
+  },
+  "band2a.t": {
+   "en": "Nuanu Creative City",
+   "ru": "Nuanu Creative City"
+  },
+  "band2a.s": {
+   "en": "An&nbsp;art city on the&nbsp;coast, 2&nbsp;minutes away",
+   "ru": "Арт-город на&nbsp;побережье в&nbsp;2&nbsp;минутах"
+  },
+  "band2b.t": {
+   "en": "Tanah Lot temple",
+   "ru": "Храм Танах Лот"
+  },
+  "band2b.s": {
+   "en": "Sunset over the&nbsp;ocean",
+   "ru": "Закат над океаном"
+  },
+  "band2c.t": {
+   "en": "Nuanu architecture",
+   "ru": "Архитектура Nuanu"
+  },
+  "band2c.s": {
+   "en": "Bamboo pavilions, restaurants and <i class='nw'>art spaces</i>",
+   "ru": "Бамбуковые павильоны, рестораны и&nbsp;<i class='nw'>арт-пространства</i>"
+  },
+  "band2d.t": {
+   "en": "Rice terraces",
+   "ru": "Рисовые террасы"
+  },
+  "band2d.s": {
+   "en": "The&nbsp;view from a&nbsp;U2 villa balcony",
+   "ru": "Вид с&nbsp;балкона виллы U2"
+  },
+  "band2e.t": {
+   "en": "Art gallery",
+   "ru": "Арт-галерея"
+  },
+  "band2e.s": {
+   "en": "Contemporary art at Labyrinth Collective",
+   "ru": "Современное искусство в&nbsp;Labyrinth Collective"
+  },
+  "band2e.a": {
+   "en": "Labyrinth Collective gallery hall in Nuanu",
+   "ru": "Зал галереи Labyrinth Collective в Nuanu"
+  },
+  "band2f.t": {
+   "en": "Aurora Media Park",
+   "ru": "Медиапарк Aurora"
+  },
+  "band2f.s": {
+   "en": "Art trails through tropical greenery",
+   "ru": "Арт-тропы среди тропической зелени"
+  },
+  "band2f.a": {
+   "en": "A path in Aurora Media Park",
+   "ru": "Тропа в медиапарке Aurora"
+  },
+  "band2g.t": {
+   "en": "Nusantara LongHouse",
+   "ru": "Nusantara LongHouse"
+  },
+  "band2g.s": {
+   "en": "Traditional Indonesian architecture",
+   "ru": "Традиционная архитектура Индонезии"
+  },
+  "band2g.a": {
+   "en": "The wooden Nusantara LongHouse",
+   "ru": "Деревянный дом Nusantara LongHouse"
+  },
+  "band2h.t": {
+   "en": "Open-air sculptures",
+   "ru": "Скульптуры под&nbsp;открытым небом"
+  },
+  "band2h.s": {
+   "en": "Light installations in the&nbsp;evening",
+   "ru": "Световые инсталляции по&nbsp;вечерам"
+  },
+  "band2h.a": {
+   "en": "Illuminated Nuanu sculptures in the evening",
+   "ru": "Подсвеченные скульптуры Nuanu вечером"
+  },
+  "cx.more": {
+   "en": "Show all photos",
+   "ru": "Показать все фото"
+  },
+  "cx.less": {
+   "en": "Hide photos",
+   "ru": "Свернуть фото"
+  },
+  "about.from": {
+   "en": "from",
+   "ru": "от"
+  },
+  "about.years": {
+   "en": "yrs",
+   "ru": "лет"
+  },
+  "u1.status": {
+   "en": "Built",
+   "ru": "Построено"
+  },
+  "u1.intro": {
+   "en": "The&nbsp;first <i class='nw'>Hi-tech</i> complex in&nbsp;Bali. Completed in&nbsp;2024, fully occupied and&nbsp;operating as a&nbsp;rental business run by&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
+   "ru": "Первый <i class='nw'>Hi-tech</i> комплекс на&nbsp;Бали. Сдан в&nbsp;2024, заселён и&nbsp;работает как отель под&nbsp;управляющей компанией <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>"
+  },
+  "u1.f1": {
+   "en": "Units in the&nbsp;complex",
+   "ru": "Юнитов в&nbsp;комплексе"
+  },
+  "u1.f2": {
+   "en": "Year completed, operating",
+   "ru": "Год сдачи, заселён"
+  },
+  "u1.f3": {
+   "en": "Format sizes,&nbsp;m²",
+   "ru": "Площади форматов,&nbsp;м²"
+  },
+  "u1.f3v": {
+   "en": "54<span class=\"dash\">–</span>89",
+   "ru": "54<span class=\"dash\">–</span>89"
+  },
+  "u1.formats": {
+   "en": "<b>Villa formats:</b> Studio (54.2&nbsp;m²), 1BD (54.2&nbsp;m²), 2BD (89&nbsp;m²).<span class=\"nl\">Fully furnished; on-site café, coworking, sauna and&nbsp;cold plunge pool</span>",
+   "ru": "<b>Форматы вилл:</b> Studio (54,2&nbsp;м²), 1BD (54,2&nbsp;м²), 2BD (89&nbsp;м²).<span class=\"nl\">Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold plunge внутри квартала</span>"
+  },
+  "u2.status": {
+   "en": "Built",
+   "ru": "Построено"
+  },
+  "u2.intro": {
+   "en": "The&nbsp;second complex of the&nbsp;neighbourhood. Completed in&nbsp;2026, fully operating. The&nbsp;widest choice of&nbsp;formats: from a&nbsp;studio to a&nbsp;185.8&nbsp;m² villa with a&nbsp;private pool and&nbsp;garden",
+   "ru": "Второй комплекс квартала. Сдан в&nbsp;2026, заселён. Самый широкий выбор форматов: от&nbsp;студии до&nbsp;виллы 185,8&nbsp;м² с&nbsp;бассейном и&nbsp;садом"
+  },
+  "u2.f1": {
+   "en": "Units in the&nbsp;complex",
+   "ru": "Юнитов в&nbsp;комплексе"
+  },
+  "u2.f2": {
+   "en": "Year completed, operating",
+   "ru": "Год сдачи, заселён"
+  },
+  "u2.f3": {
+   "en": "Format sizes,&nbsp;m²",
+   "ru": "Площади форматов,&nbsp;м²"
+  },
+  "u2.f3v": {
+   "en": "39<span class=\"dash\">–</span>186",
+   "ru": "39<span class=\"dash\">–</span>186"
+  },
+  "u2.formats": {
+   "en": "<b>Villa formats:</b> Studio (39&nbsp;m²), 1BD (56.5 - 62&nbsp;m²), 2BD (89 - 110&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (185.8&nbsp;m²).<span class=\"nl\">All units except the&nbsp;Studio have a&nbsp;separate kitchen and&nbsp;living area</span>",
+   "ru": "<b>Форматы вилл:</b> Studio (39&nbsp;м²), 1BD (56,5 - 62&nbsp;м²), 2BD (89 - 110&nbsp;м²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (185,8&nbsp;м²).<span class=\"nl\">Кухня и&nbsp;гостиная отдельно во&nbsp;всех форматах, кроме студии</span>"
+  },
+  "u3.status": {
+   "en": "Under construction",
+   "ru": "Строится"
+  },
+  "u3.intro": {
+   "en": "<i class='d-only'><i class=\"ab-l\">The&nbsp;third complex of the&nbsp;neighbourhood. Under construction, handover in&nbsp;winter 2026.</i><i class=\"ab-l\">Formats with a&nbsp;private pool are added</i></i><i class='m-only'>The&nbsp;third complex of the&nbsp;neighbourhood. Under construction, handover in&nbsp;winter 2026. Formats with a&nbsp;private pool are added</i>",
+   "ru": "<i class='d-only'><i class=\"ab-l\">Третий комплекс квартала. Строится, сдача зимой 2026.</i><i class=\"ab-l\">Появляются форматы с&nbsp;приватным бассейном</i></i><i class='m-only'>Третий комплекс квартала. Строится, сдача зимой 2026. Появляются форматы с&nbsp;приватным бассейном</i>"
+  },
+  "u3.f1": {
+   "en": "Units in the&nbsp;complex",
+   "ru": "Юнитов в&nbsp;комплексе"
+  },
+  "u3.f2": {
+   "en": "Handover",
+   "ru": "Сдача"
+  },
+  "u3.f2w": {
+   "en": "winter",
+   "ru": "зима"
+  },
+  "u3.f3": {
+   "en": "Format sizes,&nbsp;m²",
+   "ru": "Площади форматов,&nbsp;м²"
+  },
+  "u3.formats": {
+   "en": "<b>Villa formats:</b> 1BD (60&nbsp;m²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;m²), 2BD (89&nbsp;m²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;m²).<span class=\"nl\">Construction progress: dated photos on&nbsp;request</span>",
+   "ru": "<b>Форматы вилл:</b> 1BD (60&nbsp;м²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;м²), 2BD (89&nbsp;м²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;м²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;м²).<span class=\"nl\">Прогресс стройки: фото по&nbsp;датам, по&nbsp;запросу</span>"
+  },
+  "plans.title": {
+   "en": "Villa formats",
+   "ru": "Форматы вилл"
+  },
+  "plans.lead": {
+   "en": "From a&nbsp;studio to a&nbsp;villa with a&nbsp;pool. The&nbsp;full set of&nbsp;floor plans is in the&nbsp;presentation, on&nbsp;request",
+   "ru": "От&nbsp;студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок пришлём в&nbsp;презентации по&nbsp;запросу"
+  },
+  "cxb.uk": {
+   "en": "In-house management company: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
+   "ru": "Своя управляющая компания: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>"
+  },
+  "cxb.f": {
+   "en": "Villa formats",
+   "ru": "Форматы вилл"
+  },
+  "cxb.v11p": {
+   "en": "1BD&nbsp;+&nbsp;Pool",
+   "ru": "1BD&nbsp;+&nbsp;Pool"
+  },
+  "cxb.v21p": {
+   "en": "2BD&nbsp;+&nbsp;Pool",
+   "ru": "2BD&nbsp;+&nbsp;Pool"
+  },
+  "cxb.v31": {
+   "en": "3BD&nbsp;Villa&nbsp;+&nbsp;Pool",
+   "ru": "3BD&nbsp;Villa&nbsp;+&nbsp;Pool"
+  },
+  "cxb.a542": {
+   "en": "54.2&nbsp;m²",
+   "ru": "54,2&nbsp;м²"
+  },
+  "cxb.a89": {
+   "en": "89&nbsp;m²",
+   "ru": "89&nbsp;м²"
+  },
+  "cxb.a39": {
+   "en": "39&nbsp;m²",
+   "ru": "39&nbsp;м²"
+  },
+  "cxb.a565": {
+   "en": "56.5–62&nbsp;m²",
+   "ru": "56,5–62&nbsp;м²"
+  },
+  "cxb.a89110": {
+   "en": "89–110&nbsp;m²",
+   "ru": "89–110&nbsp;м²"
+  },
+  "cxb.a185": {
+   "en": "185.8&nbsp;m²",
+   "ru": "185,8&nbsp;м²"
+  },
+  "cxb.a60": {
+   "en": "60&nbsp;m²",
+   "ru": "60&nbsp;м²"
+  },
+  "cxb.a100": {
+   "en": "100&nbsp;m²",
+   "ru": "100&nbsp;м²"
+  },
+  "cxb.a109": {
+   "en": "109&nbsp;m²",
+   "ru": "109&nbsp;м²"
+  },
+  "cxb.a200": {
+   "en": "200&nbsp;m²",
+   "ru": "200&nbsp;м²"
+  },
+  "cxb.nav": {
+   "en": "Complexes",
+   "ru": "Комплексы"
+  },
+  "lx.beach_t": {
+   "en": "3&nbsp;minutes to&nbsp;the&nbsp;beach",
+   "ru": "3&nbsp;минуты до&nbsp;пляжа"
+  },
+  "lx.dist": {
+   "en": "Distances",
+   "ru": "Расстояния"
+  },
+  "lx.nu": {
+   "en": "Nuanu amenities",
+   "ru": "Инфраструктура Nuanu"
+  },
+  "lx.nu_s": {
+   "en": "An&nbsp;innovative eco-city on the&nbsp;Bali coast: 44&nbsp;hectares of&nbsp;art, nature and&nbsp;technology",
+   "ru": "Инновационный <span class='nw'>эко-город</span> на&nbsp;побережье Бали: 44&nbsp;гектара искусства, природы и&nbsp;технологий"
+  },
+  "lx.s1": {
+   "en": "36&nbsp;cafés and restaurants",
+   "ru": "36&nbsp;кафе и&nbsp;ресторанов"
+  },
+  "lx.s2": {
+   "en": "Aurora Media Park",
+   "ru": "Медиапарк Aurora"
+  },
+  "lx.s3": {
+   "en": "The&nbsp;Dome Experience",
+   "ru": "The&nbsp;Dome Experience"
+  },
+  "lx.s4": {
+   "en": "Pacha Alpaca park",
+   "ru": "Парк Pacha Alpaca"
+  },
+  "lx.s5": {
+   "en": "Bars and beach clubs",
+   "ru": "Бары и&nbsp;<span class='nw'>бич-клабы</span>"
+  },
+  "lx.s6": {
+   "en": "Sunset views",
+   "ru": "Виды на&nbsp;закат"
+  },
+  "lx.s7": {
+   "en": "Butterfly park",
+   "ru": "Парк бабочек"
+  },
+  "lx.s8": {
+   "en": "Art gallery",
+   "ru": "Арт-галерея"
+  },
+  "lx.d1": {
+   "en": "To&nbsp;Nuanu",
+   "ru": "До&nbsp;Nuanu"
+  },
+  "lx.d2": {
+   "en": "To&nbsp;the&nbsp;ocean",
+   "ru": "До&nbsp;океана"
+  },
+  "lx.d3": {
+   "en": "To&nbsp;the supermarket",
+   "ru": "До&nbsp;супермаркета"
+  },
+  "lx.d4": {
+   "en": "To&nbsp;Tanah Lot",
+   "ru": "До&nbsp;Танах Лот"
+  },
+  "lx.d5": {
+   "en": "To&nbsp;Canggu",
+   "ru": "До&nbsp;Чангу"
+  },
+  "lx.d6": {
+   "en": "To&nbsp;the&nbsp;airport",
+   "ru": "До&nbsp;аэропорта"
+  },
+  "lx.min": {
+   "en": "min",
+   "ru": "мин"
+  },
+  "fmt.f_rooms": {
+   "en": "Layout",
+   "ru": "Пространство"
+  },
+  "fmt.f_where": {
+   "en": "Complexes",
+   "ru": "Комплексы"
+  },
+  "fmt.f_fit": {
+   "en": "Fit-out",
+   "ru": "Комплектация"
+  },
+  "fmt.f_full": {
+   "en": "fully furnished",
+   "ru": "полная меблировка"
+  },
+  "fmt.f_yield": {
+   "en": "Rental",
+   "ru": "Сдача в&nbsp;аренду"
+  },
+  "fmt.f_uk": {
+   "en": "via <i class='u5'>UNIT.</i> management",
+   "ru": "через УК <i class='u5'>UNIT.</i>"
+  },
+  "fmt.f_out": {
+   "en": "Outside",
+   "ru": "Снаружи"
+  },
+  "fmt.studio_r": {
+   "en": "bedroom + kitchen + living in&nbsp;one space",
+   "ru": "спальня + кухня + гостиная"
+  },
+  "fmt.1bd_r": {
+   "en": "bedroom + kitchen-living room",
+   "ru": "спальня + кухня-гостиная"
+  },
+  "fmt.2bd_r": {
+   "en": "two bedrooms + kitchen-living room",
+   "ru": "две спальни + кухня-гостиная"
+  },
+  "fmt.villa_r": {
+   "en": "three bedrooms, two floors",
+   "ru": "три спальни, два этажа"
+  },
+  "fmt.villa_o": {
+   "en": "own garden and&nbsp;private pool",
+   "ru": "собственный сад и&nbsp;приватный бассейн"
+  },
+  "fmt.more": {
+   "en": "See villas and&nbsp;prices",
+   "ru": "Смотреть виллы и&nbsp;цены"
+  },
+  "fmt.request": {
+   "en": "Get presentation",
+   "ru": "Получить презентацию"
+  },
+  "fmt.plan": {
+   "en": "Floor plan",
+   "ru": "Планировка"
+  },
+  "fmt.studio": {
+   "en": "Studio",
+   "ru": "Studio"
+  },
+  "fmt.studio_m": {
+   "en": "U1, U2: open-plan",
+   "ru": "U1, U2: единое пространство"
+  },
+  "fmt.1bd": {
+   "en": "1BD",
+   "ru": "1BD"
+  },
+  "fmt.1bd_m": {
+   "en": "U1, U2, U3: separate kitchen and living area",
+   "ru": "U1, U2, U3: кухня и гостиная отдельно"
+  },
+  "fmt.2bd": {
+   "en": "2BD",
+   "ru": "2BD"
+  },
+  "fmt.2bd_m": {
+   "en": "U2: for a family",
+   "ru": "U2: для семьи"
+  },
+  "fmt.villa": {
+   "en": "3BD&nbsp;Villa&nbsp;+&nbsp;Pool",
+   "ru": "3BD&nbsp;Villa&nbsp;+&nbsp;Pool"
+  },
+  "fmt.villa_m": {
+   "en": "U2: garden and private pool",
+   "ru": "U2: сад и приватный бассейн"
+  },
+  "plans.note": {
+   "en": "We&nbsp;will send current prices on&nbsp;request",
+   "ru": "Актуальные цены пришлём по&nbsp;запросу"
+  },
+  "cat.title": {
+   "en": "Available units",
+   "ru": "Свободные виллы"
+  },
+  "cat.lead": {
+   "en": "We&nbsp;will send the&nbsp;current selection with prices and&nbsp;floors on&nbsp;request",
+   "ru": "Актуальную подборку с&nbsp;ценами и&nbsp;этажами пришлём по&nbsp;запросу"
+  },
+  "cat.all_q": {
+   "en": "All complexes",
+   "ru": "Все комплексы"
+  },
+  "cat.all_f": {
+   "en": "All formats",
+   "ru": "Все форматы"
+  },
+  "cat.villa": {
+   "en": "Villa",
+   "ru": "Вилла"
+  },
+  "cat.details": {
+   "en": "View villa",
+   "ru": "Смотреть виллу"
+  },
+  "cat.more": {
+   "en": "Show all villas",
+   "ru": "Показать все виллы"
+  },
+  "cat.found": {
+   "en": "Found",
+   "ru": "Найдено"
+  },
+  "cat.filters": {
+   "en": "Filters",
+   "ru": "Фильтры"
+  },
+  "cat.empty_t": {
+   "en": "No units like this on&nbsp;sale right now",
+   "ru": "Таких вилл сейчас нет в&nbsp;продаже"
+  },
+  "cat.empty_p": {
+   "en": "Send your format and&nbsp;budget. We’ll find options and&nbsp;reply during Bali working hours",
+   "ru": "Оставьте заявку с&nbsp;форматом и&nbsp;бюджетом. Подберём варианты и&nbsp;ответим в&nbsp;рабочие часы Бали"
+  },
+  "cat.empty_cta": {
+   "en": "Find my villa",
+   "ru": "Подобрать виллу"
+  },
+  "cat.reset": {
+   "en": "Reset filters",
+   "ru": "Сбросить фильтры"
+  },
+  "yield.title": {
+   "en": "Our own management company with&nbsp;10+&nbsp;years of&nbsp;experience in&nbsp;Bali",
+   "ru": "Своя управляющая компания с&nbsp;опытом 10+&nbsp;лет на&nbsp;Бали"
+  },
+  "yield.lead": {
+   "en": "Actual occupancy of&nbsp;our properties in the&nbsp;first half of&nbsp;2026&nbsp;was 92.6%",
+   "ru": "Реальная загрузка наших объектов за&nbsp;первое полугодие 2026&nbsp;года составила 92,6%"
+  },
+  "calc.price": {
+   "en": "Price from",
+   "ru": "Цена от"
+  },
+  "calc.rate": {
+   "en": "Nightly rate",
+   "ru": "Ставка за&nbsp;ночь"
+  },
+  "calc.occ": {
+   "en": "Occupancy",
+   "ru": "Загрузка"
+  },
+  "calc.mgmt": {
+   "en": "Management fee",
+   "ru": "Комиссия УК"
+  },
+  "calc.pick": {
+   "en": "Unit type",
+   "ru": "Тип виллы"
+  },
+  "calc.roi": {
+   "en": "annual yield on&nbsp;price",
+   "ru": "доходность к&nbsp;цене в&nbsp;год"
+  },
+  "calc.gross": {
+   "en": "Gross income a&nbsp;year",
+   "ru": "Валовый доход в&nbsp;год"
+  },
+  "calc.net": {
+   "en": "After management fee",
+   "ru": "За&nbsp;вычетом комиссии УК"
+  },
+  "calc.note": {
+   "en": "Before taxes and&nbsp;maintenance downtime. Full calculation for&nbsp;your unit on&nbsp;request",
+   "ru": "Без&nbsp;учёта налогов и&nbsp;простоя на&nbsp;обслуживание. Полный расчёт под&nbsp;вашу виллу пришлём по&nbsp;запросу"
+  },
+  "yield.cta": {
+   "en": "Calculate my&nbsp;unit’s yield",
+   "ru": "Расчёт под&nbsp;мою виллу"
+  },
+  "loc.title": {
+   "en": "Building in&nbsp;Bali’s best location",
+   "ru": "Строим в&nbsp;лучшей локации на&nbsp;Бали"
+  },
+  "loc.lead": {
+   "en": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> sits next to Nuanu Creative City, 3&nbsp;minutes from Nyanyi Beach",
+   "ru": "<i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> расположен рядом с&nbsp;Nuanu Creative City, в&nbsp;3&nbsp;минутах от&nbsp;пляжа Ньянью"
+  },
+  "loc.st1": {
+   "en": "To the&nbsp;ocean, min",
+   "ru": "До&nbsp;океана, минут"
+  },
+  "loc.st2": {
+   "en": "To&nbsp;Nuanu, min",
+   "ru": "До&nbsp;Nuanu, минут"
+  },
+  "loc.st3": {
+   "en": "To the&nbsp;supermarket, min",
+   "ru": "До&nbsp;супермаркета, минут"
+  },
+  "loc.st4": {
+   "en": "To&nbsp;Canggu, min",
+   "ru": "До&nbsp;Чангу, минут"
+  },
+  "loc.addr_l": {
+   "en": "Address",
+   "ru": "Адрес"
+  },
+  "loc.bali": {
+   "en": "Bali",
+   "ru": "Бали"
+  },
+  "loc.addr": {
+   "en": "Jl Pantai Nyanyi No.&nbsp;88, Beraban, Tabanan, Bali 80351",
+   "ru": "Jl Pantai Nyanyi No.&nbsp;88, Beraban, Tabanan, Бали"
+  },
+  "loc.beach_l": {
+   "en": "Beach",
+   "ru": "Пляж"
+  },
+  "loc.beach": {
+   "en": "Pantai Nyanyi, 3&nbsp;minutes",
+   "ru": "Pantai Nyanyi, 3&nbsp;минуты"
+  },
+  "loc.infra_l": {
+   "en": "Nuanu infrastructure",
+   "ru": "Инфраструктура Nuanu"
+  },
+  "loc.infra": {
+   "en": "35+&nbsp;venues, open year-round",
+   "ru": "35+&nbsp;объектов, открыты круглый год"
+  },
+  "loc.map_cap": {
+   "en": "One neighbourhood on&nbsp;Jalan Pantai Nyanyi, next to&nbsp;Nuanu Creative City",
+   "ru": "Один квартал на&nbsp;Jalan Pantai Nyanyi, рядом с&nbsp;Nuanu Creative City"
+  },
+  "loc.map_alt": {
+   "en": "Map: UNIT. SPACE&nbsp;CITY on&nbsp;Jalan Pantai Nyanyi, next to&nbsp;Nuanu Creative City and&nbsp;Tanah Lot",
+   "ru": "Карта: UNIT. SPACE&nbsp;CITY на&nbsp;Jalan Pantai Nyanyi, рядом Nuanu Creative City и&nbsp;Tanah Lot"
+  },
+  "loc.m_nuanu": {
+   "en": "Nuanu Creative City",
+   "ru": "Nuanu Creative City"
+  },
+  "loc.m_beach": {
+   "en": "Nyanyi beach",
+   "ru": "Пляж Nyanyi"
+  },
+  "loc.m_tanah": {
+   "en": "Tanah Lot",
+   "ru": "Танах Лот"
+  },
+  "loc.m_canggu": {
+   "en": "Canggu",
+   "ru": "Чангу"
+  },
+  "loc.nuanu_t": {
+   "en": "A&nbsp;city of the&nbsp;future with full infrastructure nearby",
+   "ru": "Город будущего с&nbsp;развитой инфраструктурой рядом"
+  },
+  "loc.nuanu_p": {
+   "en": "An&nbsp;innovative eco-city on the&nbsp;Bali coast for&nbsp;people who value a&nbsp;balance of&nbsp;nature, art and&nbsp;technology",
+   "ru": "Инновационный <span class='nw'>эко-город</span> на&nbsp;побережье Бали для&nbsp;тех, кто ценит баланс природы, искусства и&nbsp;технологий"
+  },
+  "nu.1t": {
+   "en": "Living with nature",
+   "ru": "Жизнь в&nbsp;природе"
+  },
+  "nu.1p": {
+   "en": "The&nbsp;city is&nbsp;built into the&nbsp;landscape. You walk among rice fields and&nbsp;jungle every day, with every city convenience close at&nbsp;hand",
+   "ru": "Город встроен в&nbsp;ландшафт. Каждый день гуляете среди рисовых полей и&nbsp;джунглей, а&nbsp;все удобства города остаются под&nbsp;рукой"
+  },
+  "nu.2t": {
+   "en": "Everything close by",
+   "ru": "Всё нужное рядом"
+  },
+  "nu.2p": {
+   "en": "36&nbsp;cafes and&nbsp;restaurants, international schools, the&nbsp;Obsidian spa and&nbsp;fitness cluster, food courts and&nbsp;creative spaces",
+   "ru": "36&nbsp;кафе и&nbsp;ресторанов, международные школы, спа и&nbsp;<span class='nw'>фитнес-кластер</span> Obsidian, <span class='nw'>фуд-корты</span> и&nbsp;творческие пространства"
+  },
+  "nu.3t": {
+   "en": "Culture and&nbsp;events",
+   "ru": "Культура и&nbsp;события"
+  },
+  "nu.3p": {
+   "en": "Immersive art installations, the&nbsp;Aurora media park and The&nbsp;Dome Experience with its panoramic screen. Shows, workshops and&nbsp;exhibitions run regularly",
+   "ru": "Иммерсивные <span class='nw'>арт-инсталляции</span>, медиапарк Aurora и&nbsp;купол The&nbsp;Dome Experience с&nbsp;панорамным экраном. Шоу, <span class='nw'>мастер-классы</span> и&nbsp;выставки проходят регулярно"
+  },
+  "nu.4t": {
+   "en": "A&nbsp;place to&nbsp;create",
+   "ru": "Место для&nbsp;вдохновения"
+  },
+  "nu.4p": {
+   "en": "Eco trails for&nbsp;morning runs, the&nbsp;Pacha Alpaca park and&nbsp;Luna Beach Club with sunsets over the&nbsp;ocean. People come here to&nbsp;live, create and&nbsp;unwind",
+   "ru": "Экотропы для&nbsp;утренних пробежек, <span class='nw'>альпака-парк</span> Pacha Alpaca и&nbsp;Luna Beach Club с&nbsp;закатами над&nbsp;океаном. Сюда приезжают жить, творить и&nbsp;отдыхать"
+  },
+  "nu.5t": {
+   "en": "Location",
+   "ru": "Локация"
+  },
+  "nu.5p": {
+   "en": "Three minutes to the&nbsp;ocean. Canggu with its restaurants and&nbsp;surf spots is&nbsp;nearby, Denpasar airport is&nbsp;60&nbsp;minutes away",
+   "ru": "Три минуты до&nbsp;океана. Рядом Чангу с&nbsp;ресторанами и&nbsp;<i class='nw'>серф-спотами</i>, до&nbsp;аэропорта Денпасара 60&nbsp;минут"
+  },
+  "co.title": {
+   "en": "<i class='d-only'><i class='u5'>UNIT.</i> We&nbsp;build an&nbsp;ecosystem that brings together <i class='nw'>hi-tech</i> architecture, nature and&nbsp;community</i><i class='m-only'><i class='u5'>UNIT.</i> <i class='nw'>Hi-tech</i> architecture, nature and&nbsp;community</i>",
+   "ru": "<i class='d-only'><i class='u5'>UNIT.</i> Мы&nbsp;создаём экосистему, объединяя <i class='nw'>hi-tech</i> архитектуру, природу и&nbsp;комьюнити</i><i class='m-only'><i class='u5'>UNIT.</i> <i class='nw'>Hi-tech</i> архитектура, природа и&nbsp;комьюнити</i>"
+  },
+  "co.lead": {
+   "en": "A&nbsp;full-cycle developer in&nbsp;Bali. We&nbsp;don’t just build villas. We&nbsp;create the&nbsp;product from idea to&nbsp;management: in-house, with no middlemen or&nbsp;contractors",
+   "ru": "<i class='d-only'>Девелопер полного цикла на&nbsp;Бали. Мы не&nbsp;просто строим виллы. Мы&nbsp;создаём продукт от&nbsp;идеи до&nbsp;управления: на&nbsp;собственных мощностях, без&nbsp;посредников и&nbsp;подрядчиков</i><i class='m-only'>Девелопер полного цикла на&nbsp;Бали. Мы не&nbsp;просто строим виллы, а&nbsp;создаём продукт от&nbsp;идеи до&nbsp;управления: своими силами, без&nbsp;посредников и&nbsp;подрядчиков</i>"
+  },
+  "co.k1": {
+   "en": "Construction company",
+   "ru": "Строительная компания"
+  },
+  "co.k2": {
+   "en": "Steel frame manufacturing",
+   "ru": "Завод стальных каркасов"
+  },
+  "co.k3": {
+   "en": "Furniture factory",
+   "ru": "Мебельная фабрика"
+  },
+  "co.k4": {
+   "en": "Property management",
+   "ru": "Управляющая компания"
+  },
+  "co.k5": {
+   "en": "Development company",
+   "ru": "Девелоперская компания"
+  },
+  "co.k5p": {
+   "en": "The&nbsp;group’s parent company: shapes the&nbsp;concept and&nbsp;runs the&nbsp;full cycle, from project and&nbsp;construction to&nbsp;handover and&nbsp;property management",
+   "ru": "Головная компания группы: разрабатывает концепцию и&nbsp;ведёт весь цикл, от&nbsp;проекта и&nbsp;стройки до&nbsp;сдачи ключей и&nbsp;управления недвижимостью"
+  },
+  "co.team": {
+   "en": "Founder",
+   "ru": "Основатели"
+  },
+  "co.p1n": {
+   "en": "Stepan Fedoseev",
+   "ru": "Степан Федосеев"
+  },
+  "co.k1p": {
+   "en": "A&nbsp;licensed contractor: building permits and&nbsp;regulatory documentation (PBG / SLF)",
+   "ru": "Лицензированный подрядчик: разрешения и&nbsp;регламентная документация PBG / SLF"
+  },
+  "co.k2p": {
+   "en": "Automated manufacturing of&nbsp;modular steel structures using Prefab technology for&nbsp;<i class='u5'>UNIT.</i> homes",
+   "ru": "Автоматизированное производство модульных стальных конструкций по&nbsp;технологии Prefab для&nbsp;домов <i class='u5'>UNIT.</i>"
+  },
+  "co.k3p": {
+   "en": "Cabinet and&nbsp;upholstered furniture, solid doors and&nbsp;panoramic windows for&nbsp;<i class='u5'>UNIT.</i> homes",
+   "ru": "Корпусная и&nbsp;мягкая мебель, двери и&nbsp;панорамные окна для&nbsp;домов <i class='u5'>UNIT.</i>"
+  },
+  "co.k4p": {
+   "en": "Property management and&nbsp;F&amp;B in&nbsp;Bali for&nbsp;over 10&nbsp;years: every process turnkey, without investor involvement",
+   "ru": "Управление недвижимостью и&nbsp;F&amp;B на&nbsp;Бали больше 10&nbsp;лет: все процессы под&nbsp;ключ без&nbsp;участия инвестора"
+  },
+  "alt.spacemgmt": {
+   "en": "Villas managed by&nbsp;UNIT.SPACE MANAGEMENT",
+   "ru": "Виллы под&nbsp;управлением UNIT.SPACE MANAGEMENT"
+  },
+  "alt.nuanu1": {
+   "en": "Nuanu Creative City masterplan with venues: restaurants, school, art gallery, beach club",
+   "ru": "Мастерплан Nuanu Creative City с&nbsp;объектами: рестораны, школа, арт-галерея, пляжный клуб"
+  },
+  "co.p1r": {
+   "en": "Head of&nbsp;<i class='u5'>UNIT.</i>, founder of&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE</i> and&nbsp;<i class='ul'><i class='u5'>UNIT.</i>BUILD</i>",
+   "ru": "Глава <i class='u5'>UNIT.</i>, основатель <i class='ul'><i class='u5'>UNIT.</i>SPACE</i> и&nbsp;<i class='ul'><i class='u5'>UNIT.</i>BUILD</i>"
+  },
+  "co.p1b": {
+   "en": "13+&nbsp;years in&nbsp;systems management. Founded the&nbsp;development company and the&nbsp;steel frame plant. Implemented management systems in&nbsp;20+ companies and mentored a&nbsp;business accelerator",
+   "ru": "13+&nbsp;лет в&nbsp;системном управлении. Основал девелоперскую компанию и&nbsp;завод стальных каркасов. Внедрил системы управления в&nbsp;20+ компаниях и&nbsp;курировал бизнес-акселератор"
+  },
+  "co.p2n": {
+   "en": "Anna Orlova",
+   "ru": "Анна Орлова"
+  },
+  "co.p2r": {
+   "en": "Co-owner of&nbsp;<i class='u5'>UNIT.</i>, architect and&nbsp;designer",
+   "ru": "Совладелец <i class='u5'>UNIT.</i>, архитектор и&nbsp;дизайнер"
+  },
+  "co.p2b": {
+   "en": "Over 10&nbsp;years of&nbsp;international practice: projects in&nbsp;Indonesia, Russia and&nbsp;France. Designed residential complexes, offices for&nbsp;major companies and private villas. Eurasian Prize laureate 2018",
+   "ru": "Больше 10&nbsp;лет международной практики: проекты в&nbsp;Индонезии, России и&nbsp;Франции. Проектировала жилые комплексы, офисы крупных компаний и&nbsp;частные виллы. Лауреат Евразийской премии 2018"
+  },
+  "co.pr": {
+   "en": "Our values",
+   "ru": "Наши ценности"
+  },
+  "co.manifesto": {
+   "en": "<b>Nothing spare</b> in the&nbsp;layout or the&nbsp;budget: every square metre works, the&nbsp;price holds. <b>Minimalism</b>: clean lines, natural materials, nothing decorative. <b>Ecology</b>: low-rise construction, preserved terrain and&nbsp;greenery on the&nbsp;plot. <b>Community</b>: neighbours with shared values, coworking, cafés and&nbsp;events inside the&nbsp;block",
+   "ru": "<b>Ничего лишнего</b> в&nbsp;планировке и&nbsp;бюджете: площадь работает, цена держится. <b>Минимализм</b>: чистые линии, натуральные материалы, ничего декоративного. <b>Экология</b>: малоэтажная застройка, сохранённый рельеф и&nbsp;зелень участка. <b>Сообщество</b>: соседи с&nbsp;общими ценностями, коворкинг, кафе и&nbsp;события внутри квартала"
+  },
+  "co.trust": {
+   "en": "Who trusts us",
+   "ru": "Кто нам доверяет"
+  },
+  "co.t1r": {
+   "en": "Anchor investor",
+   "ru": "Якорный инвестор"
+  },
+  "co.t2r": {
+   "en": "The&nbsp;Best Fitness Center in&nbsp;Bali",
+   "ru": "Лучший фитнес-центр на&nbsp;Бали"
+  },
+  "co.t3r": {
+   "en": "Investment fund",
+   "ru": "Инвестиционный фонд"
+  },
+  "co.t4r": {
+   "en": "Bank",
+   "ru": "Банк"
+  },
+  "co.t1n": {
+   "en": "Sergey Solonin",
+   "ru": "Сергей Солонин"
+  },
+  "co.t1": {
+   "en": "Forbes Top&nbsp;200, co-founder of&nbsp;Qiwi, creator of&nbsp;Nuanu City. Anchor investor of&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE</i>",
+   "ru": "Топ-200&nbsp;Forbes, сооснователь Qiwi, создатель Nuanu City. Якорный инвестор <i class='ul'><i class='u5'>UNIT.</i>SPACE</i>"
+  },
+  "co.t2n": {
+   "en": "Obsidian",
+   "ru": "Obsidian"
+  },
+  "co.t2": {
+   "en": "Building residential real estate together with <i class='ul'><i class='u5'>UNIT.</i>BUILD</i>",
+   "ru": "Строим жилую недвижимость вместе с&nbsp;<i class='ul'><i class='u5'>UNIT.</i>BUILD</i>"
+  },
+  "co.t3n": {
+   "en": "Dome Foundation",
+   "ru": "Dome Foundation"
+  },
+  "co.t3": {
+   "en": "Invested in&nbsp;<i class='u5'>UNIT.</i>",
+   "ru": "Инвестировал в&nbsp;<i class='u5'>UNIT.</i>"
+  },
+  "co.t4n": {
+   "en": "Permata Bank",
+   "ru": "Permata Bank"
+  },
+  "co.t4": {
+   "en": "Installing ATMs together with <i class='ul'><i class='u5'>UNIT.</i>BUILD</i>",
+   "ru": "Устанавливает банкоматы вместе с&nbsp;<i class='ul'><i class='u5'>UNIT.</i>BUILD</i>"
+  },
+  "buy.title": {
+   "en": "How to&nbsp;buy",
+   "ru": "Как купить"
+  },
+  "buy.lead": {
+   "en": "Directly from the&nbsp;developer, no brokers. Fully remote",
+   "ru": "Напрямую у&nbsp;девелопера, без&nbsp;брокеров. Всё дистанционно"
+  },
+  "buy.1": {
+   "en": "Choose & reserve",
+   "ru": "Выбор и&nbsp;бронирование"
+  },
+  "buy.1p": {
+   "en": "We&nbsp;match a&nbsp;unit to&nbsp;your budget. You pay a&nbsp;$1,500&nbsp;deposit, which secures the&nbsp;unit and&nbsp;locks the&nbsp;price for&nbsp;14&nbsp;days",
+   "ru": "Подбираем виллу под&nbsp;бюджет. Вы&nbsp;вносите депозит $1 500, он&nbsp;фиксирует виллу и&nbsp;цену на&nbsp;14&nbsp;дней"
+  },
+  "buy.2": {
+   "en": "Contract",
+   "ru": "Договор"
+  },
+  "buy.2p": {
+   "en": "Reservation Agreement, then the&nbsp;Purchase Agreement with <i class='ul'><i class='u5'>UNIT.</i>SPACE</i>. Both are signed electronically via DocuSign",
+   "ru": "Договор бронирования, затем основной контракт с&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE</i>. Оба подписываются онлайн в&nbsp;DocuSign"
+  },
+  "buy.3": {
+   "en": "Handover and&nbsp;VIP status",
+   "ru": "Передача и&nbsp;статус VIP"
+  },
+  "buy.3p": {
+   "en": "We&nbsp;connect the&nbsp;management company",
+   "ru": "Подключаем управляющую компанию"
+  },
+  "buy.cta": {
+   "en": "Find my villa",
+   "ru": "Подобрать виллу"
+  },
+  "buy.note": {
+   "en": "Payment in&nbsp;any currency settled in&nbsp;USD, instalments available. Leasehold / freehold, term and&nbsp;taxes are covered in the&nbsp;legal pack",
+   "ru": "Оплата в&nbsp;любой валюте с&nbsp;расчётом в&nbsp;USD, есть рассрочка. Leasehold / freehold, срок и&nbsp;налоги разберём в&nbsp;юридическом пакете"
+  },
+  "faq.title": {
+   "en": "FAQ",
+   "ru": "Частые вопросы"
+  },
+  "faq.lead": {
+   "en": "Quick answers to&nbsp;what buyers ask before a&nbsp;deal",
+   "ru": "Коротко о&nbsp;том, что спрашивают перед сделкой"
+  },
+  "faq.1q": {
+   "en": "Are the&nbsp;villas sold directly by the&nbsp;developer?",
+   "ru": "Виллы продаются напрямую от&nbsp;застройщика?"
+  },
+  "faq.1a": {
+   "en": "Yes, we&nbsp;work without brokers or&nbsp;intermediaries, which means the&nbsp;best price and a&nbsp;transparent deal",
+   "ru": "Да, мы&nbsp;работаем без&nbsp;брокеров и&nbsp;посредников, что гарантирует лучшую цену и&nbsp;прозрачность сделки"
+  },
+  "faq.2q": {
+   "en": "Is the&nbsp;“from 10%” yield before or&nbsp;after tax?",
+   "ru": "Доходность «от&nbsp;10%» указана до или&nbsp;после налогов?"
+  },
+  "faq.2a": {
+   "en": "It is a&nbsp;guide figure before tax and&nbsp;maintenance downtime, based on&nbsp;real data from the&nbsp;operating U1&nbsp;and&nbsp;U2&nbsp;complexes",
+   "ru": "Это ориентир до&nbsp;вычета налогов и&nbsp;простоя на&nbsp;обслуживание, основанный на&nbsp;реальных данных работающих комплексов U1&nbsp;и&nbsp;U2"
+  },
+  "faq.3q": {
+   "en": "Can I resell a&nbsp;villa before construction is&nbsp;finished?",
+   "ru": "Можно ли перепродать виллу до&nbsp;завершения строительства?"
+  },
+  "faq.3a": {
+   "en": "Yes, villas in&nbsp;U3, which is&nbsp;under construction, can be resold during the&nbsp;build",
+   "ru": "Да, для&nbsp;строящегося комплекса U3&nbsp;предусмотрена возможность перепродажи на&nbsp;этапе строительства"
+  },
+  "faq.4q": {
+   "en": "What does management by&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i> include?",
+   "ru": "Какие услуги включает управление от&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>?"
+  },
+  "faq.4a": {
+   "en": "The&nbsp;full cycle: check-in, cleaning, maintenance, booking channel management and&nbsp;financial reporting",
+   "ru": "Полный цикл: заселение, уборка, техобслуживание, управление каналами бронирования и&nbsp;финансовая отчётность"
+  },
+  "faq.5q": {
+   "en": "When exactly will U3&nbsp;Nyanyi Village be completed?",
+   "ru": "Какие точные сроки сдачи комплекса U3&nbsp;Nyanyi Village?"
+  },
+  "faq.5a": {
+   "en": "Completion is&nbsp;scheduled for&nbsp;winter 2026",
+   "ru": "Сдача комплекса запланирована на&nbsp;зиму 2026&nbsp;года"
+  },
+  "faq.6q": {
+   "en": "What currency do I pay in, and&nbsp;are instalments available?",
+   "ru": "В&nbsp;какой валюте происходит оплата и&nbsp;возможна ли рассрочка?"
+  },
+  "faq.6a": {
+   "en": "We&nbsp;accept USD and&nbsp;other currencies with conversion. Developer instalments are available",
+   "ru": "Мы&nbsp;принимаем оплату в&nbsp;USD и&nbsp;других валютах с&nbsp;пересчётом. Доступна рассрочка от&nbsp;застройщика"
+  },
+  "faq.7q": {
+   "en": "What type of&nbsp;ownership: leasehold or&nbsp;freehold?",
+   "ru": "Какой тип собственности: leasehold или&nbsp;freehold?"
+  },
+  "faq.7a": {
+   "en": "It depends on the&nbsp;villa and the&nbsp;deal structure. We&nbsp;provide full legal support to&nbsp;choose the&nbsp;best option",
+   "ru": "Зависит от&nbsp;конкретной виллы и&nbsp;структуры сделки. Мы&nbsp;предоставляем полную юридическую поддержку для&nbsp;выбора оптимального варианта"
+  },
+  "faq.8q": {
+   "en": "What does the&nbsp;purchase and&nbsp;booking process look like?",
+   "ru": "Как выглядит процесс покупки и&nbsp;бронирования виллы?"
+  },
+  "faq.8a": {
+   "en": "Every step, including signing documents via DocuSign, can be completed remotely, without visiting Bali",
+   "ru": "Все этапы, включая подписание документов через DocuSign, можно пройти дистанционно, без&nbsp;личного визита на&nbsp;Бали"
+  },
+  "lead.title": {
+   "en": "Get the&nbsp;presentation for&nbsp;<span class='accent'><i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i></span> villas in&nbsp;Bali",
+   "ru": "Получить презентацию вилл <span class='accent'><i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i></span> на&nbsp;Бали"
+  },
+  "lead.lead": {
+   "en": "Leave your contacts: we’ll pick villas for&nbsp;your budget and&nbsp;calculate the&nbsp;yield",
+   "ru": "Оставьте контакты: подберём виллы под&nbsp;ваш бюджет и&nbsp;посчитаем доходность"
+  },
+  "lead.ig": {
+   "en": "Instagram",
+   "ru": "Instagram"
+  },
+  "form.title": {
+   "en": "Request a&nbsp;call",
+   "ru": "Оставить заявку"
+  },
+  "form.name": {
+   "en": "Name",
+   "ru": "Имя"
+  },
+  "form.contact": {
+   "en": "Phone or&nbsp;email",
+   "ru": "Телефон или&nbsp;email"
+  },
+  "form.phone": {
+   "en": "Phone / WhatsApp",
+   "ru": "Телефон / WhatsApp"
+  },
+  "form.email": {
+   "en": "Email",
+   "ru": "Email"
+  },
+  "form.cc_aria": {
+   "en": "Country code",
+   "ru": "Код страны"
+  },
+  "form.cc_search": {
+   "en": "Search country or&nbsp;code",
+   "ru": "Поиск страны или&nbsp;кода"
+  },
+  "form.budget": {
+   "en": "Budget, $",
+   "ru": "Бюджет, $"
+  },
+  "form.budget_ph": {
+   "en": "Optional",
+   "ru": "Необязательно"
+  },
+  "form.goal": {
+   "en": "Goal",
+   "ru": "Цель"
+  },
+  "form.g1": {
+   "en": "Investment",
+   "ru": "Инвестиция"
+  },
+  "form.g2": {
+   "en": "Rental",
+   "ru": "Аренда"
+  },
+  "form.g3": {
+   "en": "Living",
+   "ru": "Жизнь"
+  },
+  "form.submit": {
+   "en": "Get the&nbsp;presentation",
+   "ru": "Получить презентацию"
+  },
+  "form.consent": {
+   "en": "By&nbsp;sending the&nbsp;form you agree to the&nbsp;processing of&nbsp;personal data and the&nbsp;use of&nbsp;cookies under our <a href=\"privacy.html\">privacy policy</a>",
+   "ru": "Отправляя форму, вы&nbsp;соглашаетесь на&nbsp;обработку персональных данных и&nbsp;использование cookie согласно <a href=\"privacy.html\">политике конфиденциальности</a>"
+  },
+  "form.note": {
+   "en": "We&nbsp;reply during Bali working hours (UTC+8)",
+   "ru": "Отвечаем в&nbsp;рабочие часы Бали (UTC+8)"
+  },
+  "form.err_name": {
+   "en": "Tell us how to&nbsp;address you",
+   "ru": "Напишите, как к&nbsp;вам обращаться"
+  },
+  "form.err_contact": {
+   "en": "Leave a&nbsp;phone or&nbsp;email so we&nbsp;can reply",
+   "ru": "Оставьте телефон или&nbsp;email, иначе нам некуда ответить"
+  },
+  "form.err_phone": {
+   "en": "The&nbsp;number is&nbsp;missing some digits",
+   "ru": "В&nbsp;номере не&nbsp;хватает цифр"
+  },
+  "form.err_email": {
+   "en": "Check the&nbsp;email, the&nbsp;address looks mistyped",
+   "ru": "Проверьте email, в&nbsp;адресе похоже опечатка"
+  },
+  "form.sending": {
+   "en": "Sending…",
+   "ru": "Отправляем…"
+  },
+  "form.done_t": {
+   "en": "Request sent",
+   "ru": "Заявка отправлена"
+  },
+  "form.done_p": {
+   "en": "We&nbsp;will send the&nbsp;presentation and&nbsp;reply during Bali business hours (UTC+8)",
+   "ru": "Пришлём презентацию и&nbsp;ответим в&nbsp;рабочие часы Бали (UTC+8)"
+  },
+  "form.fail": {
+   "en": "Could not send. Please try again in a&nbsp;minute",
+   "ru": "Не&nbsp;получилось отправить. Попробуйте ещё раз через минуту"
+  },
+  "foot.brand": {
+   "en": "Three residential complexes in&nbsp;one location next to&nbsp;Nuanu Creative City, Bali",
+   "ru": "Три жилых комплекса в&nbsp;одной локации рядом с&nbsp;Nuanu Creative City, Бали"
+  },
+  "foot.sections": {
+   "en": "Sections",
+   "ru": "Разделы"
+  },
+  "foot.contacts": {
+   "en": "Contacts",
+   "ru": "Контакты"
+  },
+  "foot.privacy": {
+   "en": "Privacy Policy",
+   "ru": "Политика конфиденциальности"
+  },
+  "foot.social": {
+   "en": "Social media",
+   "ru": "Соцсети"
+  },
+  "foot.disc": {
+   "en": "All information on&nbsp;this website is for&nbsp;information purposes only and&nbsp;under no circumstances constitutes a&nbsp;public offer",
+   "ru": "Любая информация, представленная на&nbsp;данном сайте, носит исключительно информационный характер и ни при&nbsp;каких условиях не&nbsp;является публичной офертой"
+  },
+  "cookie.text": {
+   "en": "We&nbsp;use cookies for&nbsp;analytics and to&nbsp;make the&nbsp;site work smoothly. Details in the&nbsp;<a href=\"privacy.html\">privacy policy</a>",
+   "ru": "Мы&nbsp;используем cookie для&nbsp;аналитики и&nbsp;удобной работы сайта. Подробности в&nbsp;<a href=\"privacy.html\">политике конфиденциальности</a>"
+  },
+  "cookie.ok": {
+   "en": "OK",
+   "ru": "Хорошо"
+  },
+  "unit.back": {
+   "en": "All villa types",
+   "ru": "Все форматы вилл"
+  },
+  "unit.request": {
+   "en": "Get the&nbsp;presentation",
+   "ru": "Получить презентацию"
+  },
+  "unit.floor": {
+   "en": "Floor",
+   "ru": "Этаж"
+  },
+  "unit.area": {
+   "en": "Area",
+   "ru": "Площадь"
+  },
+  "unit.complex": {
+   "en": "Complex",
+   "ru": "Комплекс"
+  },
+  "unit.status": {
+   "en": "Status",
+   "ru": "Статус"
+  },
+  "unit.price": {
+   "en": "Price",
+   "ru": "Цена"
+  },
+  "unit.gallery": {
+   "en": "Photos",
+   "ru": "Фото"
+  },
+  "unit.gallery_prev": {
+   "en": "Previous photo",
+   "ru": "Предыдущее фото"
+  },
+  "unit.gallery_next": {
+   "en": "Next photo",
+   "ru": "Следующее фото"
+  },
+  "avail.title": {
+   "en": "Availability",
+   "ru": "Наличие"
+  },
+  "avail.lead": {
+   "en": "Available villas of&nbsp;this type. Availability and&nbsp;prices update every hour",
+   "ru": "Свободные виллы этого формата. Наличие и&nbsp;цены обновляются каждый час"
+  },
+  "avail.tabs": {
+   "en": "Complexes",
+   "ru": "Комплексы"
+  },
+  "avail.free": {
+   "en": "{n} available",
+   "ru": "свободно {n}"
+  },
+  "avail.cta": {
+   "en": "Get the&nbsp;villa list with prices",
+   "ru": "Получить список вилл с&nbsp;ценами"
+  },
+  "avail.none": {
+   "en": "No units of&nbsp;this type are available in&nbsp;{q} right now. Leave a&nbsp;request and we’ll let you know when one opens up",
+   "ru": "В&nbsp;{q} сейчас нет свободных вилл этого формата. Оставьте заявку, и мы&nbsp;сообщим, когда появятся"
+  },
+  "avail.pick": {
+   "en": "Interested in",
+   "ru": "Интересует"
+  },
+  "toast.copied": {
+   "en": "Email copied: {e}",
+   "ru": "Адрес скопирован: {e}"
+  },
+  "plan.p1": {
+   "en": "Music<br>studio",
+   "ru": "Музыкальная<br>студия"
+  },
+  "plan.p2": {
+   "en": "Restaurant<br>Beer Garden",
+   "ru": "Ресторан<br>Beer Garden"
+  },
+  "plan.p3": {
+   "en": "Art gallery",
+   "ru": "Арт-галерея"
+  },
+  "plan.p4": {
+   "en": "Luna beach club",
+   "ru": "Luna пляжный клуб"
+  },
+  "plan.p5": {
+   "en": "Restaurants",
+   "ru": "Рестораны"
+  },
+  "plan.p6": {
+   "en": "Night club",
+   "ru": "Ночной клуб"
+  },
+  "plan.p7": {
+   "en": "Aurora media park",
+   "ru": "Медиапарк Aurora"
+  },
+  "plan.p8": {
+   "en": "Alpaca park",
+   "ru": "Альпака-парк"
+  },
+  "plan.p9": {
+   "en": "International school, kindergarten,<br>children’s creativity village",
+   "ru": "Международная школа, детский сад,<br>деревня детского творчества"
+  },
+  "plan.p10": {
+   "en": "Retreat center",
+   "ru": "Ретритный центр"
+  },
+  "plan.p11": {
+   "en": "Shopping center",
+   "ru": "Торговый центр"
+  },
+  "plan.p12": {
+   "en": "Art venue for&nbsp;events",
+   "ru": "Арт-площадка<br>для&nbsp;мероприятий"
+  },
+  "plan.p13": {
+   "en": "Wedding hall",
+   "ru": "Венчальный зал"
+  },
+  "plan.p14": {
+   "en": "Pool<br>in the&nbsp;Utopia cave",
+   "ru": "Бассейн<br>в&nbsp;пещере Utopia"
+  },
+  "plan.p15": {
+   "en": "THK Tower",
+   "ru": "THK Tower"
+  },
+  "plan.swipe": {
+   "en": "Swipe the&nbsp;plan",
+   "ru": "Листайте план"
+  },
+  "avail.f_q": {
+   "en": "Complex",
+   "ru": "Комплекс"
+  },
+  "avail.f_st": {
+   "en": "Status",
+   "ru": "Статус"
+  },
+  "avail.f_n": {
+   "en": "Available",
+   "ru": "Доступно"
+  },
+  "avail.f_bath": {
+   "en": "With plunge tub",
+   "ru": "С&nbsp;купелью"
+  },
+  "avail.chip": {
+   "en": "Available: {n}",
+   "ru": "Доступно: {n}"
+  },
+  "avail.f_fl": {
+   "en": "Floor",
+   "ru": "Этаж"
+  },
+  "avail.v1": {
+   "en": "villa",
+   "ru": "вилла"
+  },
+  "avail.v2": {
+   "en": "villas",
+   "ru": "виллы"
+  },
+  "avail.v5": {
+   "en": "villas",
+   "ru": "вилл"
+  },
+  "unit.gallery_render": {
+   "en": "Renders",
+   "ru": "Рендеры"
+  },
+  "unit.plan": {
+   "en": "Floor plan",
+   "ru": "Планировка"
+  },
+  "unit.about": {
+   "en": "About the&nbsp;format",
+   "ru": "О&nbsp;формате"
+  },
+  "unit.cta": {
+   "en": "Ask about this unit",
+   "ru": "Спросить про&nbsp;эту виллу"
+  },
+  "unit.more": {
+   "en": "Other formats",
+   "ru": "Другие форматы"
+  },
+  "unit.render_note": {
+   "en": "U3&nbsp;is&nbsp;under construction, these are renders, not photos",
+   "ru": "U3&nbsp;строится, это рендеры, не&nbsp;фото"
+  },
+  "unit.yield_title": {
+   "en": "Yield for&nbsp;this villa",
+   "ru": "Доходность этой виллы"
+  },
+  "unit.yield_lead": {
+   "en": "Sample calculation based on&nbsp;this villa’s price, nightly rate and&nbsp;projected occupancy",
+   "ru": "Пример расчёта по&nbsp;цене этой виллы, ставке за&nbsp;ночь и&nbsp;прогнозируемой загрузке"
+  }
+ },
+ "units": {
+  "u1-studio": {
+   "name": {
+    "en": "Studio",
+    "ru": "Studio"
+   },
+   "floor": {
+    "en": "floors 1–3",
+    "ru": "этаж 1–3"
+   }
+  },
+  "u1-2bd": {
+   "name": {
+    "en": "2+1 bedrooms",
+    "ru": "2+1 спальни"
+   },
+   "floor": {
+    "en": "floor 2",
+    "ru": "этаж 2"
+   }
+  },
+  "u2-studio": {
+   "name": {
+    "en": "Studio",
+    "ru": "Studio"
+   },
+   "floor": {
+    "en": "floors 1–2",
+    "ru": "этаж 1–2"
+   }
+  },
+  "u2-1bd": {
+   "name": {
+    "en": "1BD",
+    "ru": "1BD"
+   },
+   "floor": {
+    "en": "floors 1–4",
+    "ru": "этаж 1–4"
+   }
+  },
+  "u2-2bd": {
+   "name": {
+    "en": "2BD",
+    "ru": "2BD"
+   },
+   "floor": {
+    "en": "floors 2–3",
+    "ru": "этаж 2–3"
+   }
+  },
+  "u2-villa": {
+   "name": {
+    "en": "3BD Villa + Pool",
+    "ru": "3BD Villa + Pool"
+   },
+   "floor": {
+    "en": "2&nbsp;floors",
+    "ru": "2 этажа"
+   }
+  },
+  "u3-1bd": {
+   "name": {
+    "en": "1BD",
+    "ru": "1BD"
+   },
+   "floor": {
+    "en": "floors 1–3",
+    "ru": "этаж 1–3"
+   }
+  },
+  "u3-1bd-pool": {
+   "name": {
+    "en": "1+1 with pool",
+    "ru": "1+1 с бассейном"
+   },
+   "floor": {
+    "en": "floor 1",
+    "ru": "этаж 1"
+   }
+  },
+  "u3-2bd-pool": {
+   "name": {
+    "en": "2+1 with pool",
+    "ru": "2+1 с бассейном"
+   },
+   "floor": {
+    "en": "floor 1",
+    "ru": "этаж 1"
+   }
+  },
+  "u3-villa": {
+   "name": {
+    "en": "3+1 villa with pool",
+    "ru": "Вилла 3+1 с бассейном"
+   },
+   "floor": {
+    "en": "2&nbsp;floors",
+    "ru": "2 этажа"
+   }
+  }
+ },
+ "complex": {
+  "u1": {
+   "status": {
+    "ru": "сдан в 2024, заселён",
+    "en": "completed 2024, occupied"
+   },
+   "where": {
+    "ru": "рядом с Nuanu",
+    "en": "next to Nuanu"
+   }
+  },
+  "u2": {
+   "status": {
+    "ru": "сдан в 2026, заселён",
+    "en": "completed 2026, occupied"
+   },
+   "where": {
+    "ru": "рядом с Nuanu",
+    "en": "next to Nuanu"
+   }
+  },
+  "u3": {
+   "status": {
+    "ru": "строится, сдача зимой 2026",
+    "en": "under construction, handover winter 2026"
+   },
+   "where": {
+    "ru": "посёлок Nyanyi, ближе к океану",
+    "en": "Nyanyi village, closer to the ocean"
+   }
+  }
+ },
+ "fmt": {
+  "studio": {
+   "ru": "Единое пространство без&nbsp;перегородок: совмещённые спальня, кухня и&nbsp;гостиная. Чистые линии, натуральные материалы, полная меблировка от&nbsp;UNIT.FURNITURE. Собственная терраса: ваше личное пространство на&nbsp;свежем воздухе. Вид на&nbsp;рисовые поля или&nbsp;внутренний двор комплекса",
+   "en": "One open space with no partitions: bedroom, kitchen and&nbsp;living room together. Clean lines, natural materials, fully furnished by&nbsp;UNIT.FURNITURE. Your own terrace is&nbsp;your private space in the&nbsp;open air. Views of the&nbsp;rice fields or the&nbsp;inner courtyard"
+  },
+  "1bd": {
+   "ru": "Пространство, где есть место и для&nbsp;уединения, и для&nbsp;жизни. Отдельная спальня для&nbsp;спокойного отдыха. Кухня и&nbsp;гостиная для&nbsp;встреч, работы и&nbsp;неспешных завтраков на&nbsp;террасе. Вид на&nbsp;рисовые поля или&nbsp;тропический двор комплекса. Для&nbsp;тех, кто ценит компактность и&nbsp;продуманность",
+   "en": "A&nbsp;space with room both for&nbsp;privacy and for&nbsp;living. A&nbsp;separate bedroom for&nbsp;quiet rest. Kitchen and&nbsp;living room for&nbsp;meeting friends, working and&nbsp;slow breakfasts on the&nbsp;terrace. Views of the&nbsp;rice fields or the&nbsp;tropical courtyard. For&nbsp;those who value a&nbsp;compact, well thought-out home"
+  },
+  "2bd": {
+   "ru": "Просторный семейный формат с&nbsp;чётким зонированием: две изолированные спальни, отдельная кухня и&nbsp;гостиная. Полная меблировка от&nbsp;UNIT.FURNITURE. Собственная терраса с&nbsp;видом на&nbsp;рисовые поля или&nbsp;внутренний двор. Идеальный баланс приватности и&nbsp;общего пространства для&nbsp;семьи или&nbsp;аренды компанией",
+   "en": "A&nbsp;spacious family format with clear zoning: two separate bedrooms, a&nbsp;separate kitchen and&nbsp;living room. Fully furnished by&nbsp;UNIT.FURNITURE. Your own terrace overlooking the&nbsp;rice fields or the&nbsp;inner courtyard. The&nbsp;right balance of&nbsp;privacy and&nbsp;shared space for a&nbsp;family or a&nbsp;group rental"
+  },
+  "villa": {
+   "ru": "Двухэтажная вилла для&nbsp;тех, кому нужно больше пространства. Три спальни, просторная кухня-гостиная и&nbsp;полная меблировка от&nbsp;UNIT.FURNITURE. Собственный сад с&nbsp;приватным бассейном: тихое утро и&nbsp;вечер у&nbsp;воды. Подходит для&nbsp;большой семьи или&nbsp;аренды компанией",
+   "en": "A&nbsp;two-storey villa for those who need more space. Three bedrooms, a&nbsp;spacious kitchen-living room and full furnishing by&nbsp;UNIT.FURNITURE. Your own garden with a&nbsp;private pool for quiet mornings and evenings by&nbsp;the&nbsp;water. Suits a&nbsp;large family or a&nbsp;group rental"
+  }
+ },
+ "attrs": [
+  "Nuanu tower and buildings above the beach at sunset",
+  "U1 Space Village villas",
+  "2BD living room in U2",
+  "U2 Nuanu Village building",
+  "Nuanu Creative City coastline from above",
+  "Rice fields from a U2 villa balcony",
+  "3BD Villa terrace with a private pool",
+  "3BD Villa living and dining room with a window onto the garden",
+  "The complex from above among rice fields",
+  "Bedroom with a view of rice fields",
+  "Tanah Lot temple at sunset",
+  "Stepan Fedoseev",
+  "Anna Orlova",
+  "Sergey Solonin",
+  "Mikhail Dashkiev",
+  "UNIT.BUILD construction site",
+  "UNIT.FRAMES steel frame production",
+  "UNIT.FURNITURE workshop",
+  "U2 villa terrace",
+  "U1 villas in the rice fields",
+  "U2 shared courtyard",
+  "Sunset on a U1 terrace",
+  "Private plunge pool",
+  "U2 villa living room",
+  "Previous photo",
+  "Next photo",
+  "U1: villa in a rice field",
+  "U1: villa terrace overlooking the rice fields",
+  "U1: kitchen",
+  "U1: bathroom with a round mirror",
+  "U2: villa living room opening onto the pool",
+  "U2: shared courtyard with umbrellas and a lounge",
+  "U2: courtyard with a pool at sunset",
+  "U3: terrace with a pool, render",
+  "1BD: kitchen and living room",
+  "3BD Villa: private pool",
+  "Café, coworking and cinema inside the U1 complex",
+  "Private pool and sauna inside the U1 complex",
+  "Villas managed by UNIT SPACE MANAGEMENT",
+  "ULA.ZONE analytics: listing card and occupancy/price metrics",
+  "Map: Nuanu, Bali",
+  "U1 Space Village villas among the rice fields",
+  "U1 villa façades with timber terraces",
+  "UNIT.SPACE villa terrace at sunset",
+  "Sun loungers by a private U2 villa pool",
+  "UNIT.SPACE villas in the rice fields next to Nuanu",
+  "U2 shared courtyard with pool and lounge",
+  "U2 Nuanu Village façades",
+  "U2 villa terrace overlooking the rice fields",
+  "U1 villa terrace at sunset",
+  "U1: glass façade and villa garden",
+  "U1: bedroom with a view of the palms",
+  "U1: private pool and sauna",
+  "U2: villa pool in the inner courtyard",
+  "U2: studio, sleeping area",
+  "U2: 1BD kitchen and living room",
+  "U3: villas with a courtyard, render",
+  "U3: inner street of the complex, render",
+  "U3: villa with a terrace, render",
+  "U2 villa living room overlooking the rice fields",
+  "U2 studio: kitchen and workspace",
+  "Studio: sleeping area",
+  "1BD: bedroom",
+  "2BD: kitchen and living room",
+  "3BD Villa: façade",
+  "U1: private pool and sauna in the evening",
+  "U1: bedroom in a minimalist style",
+  "U1: bedroom with a garden view",
+  "U2: kitchen with a view of the rice fields",
+  "U2: terrace with a lounge area",
+  "U2: villa façade, front garden",
+  "U3: villa with a timber façade, render",
+  "U3: courtyard with palms, render",
+  "U3: private pool area, render",
+  "UNIT.SPACE complex from above: villas and green courtyards",
+  "Villa corridor with a panoramic view of the rice fields",
+  "Villa kitchen with a view of the fields",
+  "UNIT.SPACE villa terrace",
+  "Lounge area by the U3 pool",
+  "Close menu",
+  "Complexes",
+  "Menu",
+  "Sections",
+  "Language",
+  "Cookie notice",
+  "photo"
+ ]
+}
