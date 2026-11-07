@@ -98,7 +98,7 @@ window.I18N.uk = {
   "ab.c1p": "<i class='d-only'>Три житлові комплекси (U1, U2, U3), зведені в&nbsp;єдиному архітектурному стилі, мають спільну інфраструктуру. Продумана логістика та&nbsp;паркування для&nbsp;електромобілів зменшують вплив на&nbsp;довкілля й&nbsp;викиди вихлопних газів</i><i class='m-only'>Три комплекси, U1, U2 і&nbsp;U3, в&nbsp;єдиному стилі зі&nbsp;спільною інфраструктурою. Логістика й&nbsp;паркування для&nbsp;електромобілів зменшують викиди та&nbsp;бережуть природу</i>",
   "ab.c1t": "Архітектура і&nbsp;природа",
   "ab.text": "<i class='d-only'><i class='ab-l'>Єдина екосистема з&nbsp;трьох технологічних кварталів, де&nbsp;<i class='nw'>hi-tech</i> архітектура поєднується з&nbsp;незайманою природою.</i><i class='ab-l'>Продуманий мінімалізм дає комфорт для&nbsp;життя, роботи й&nbsp;відпочинку</i></i><i class='m-only'>Єдина екосистема з&nbsp;трьох технологічних кварталів, де&nbsp;<i class='nw'>hi-tech</i> архітектура поєднується з&nbsp;незайманою природою, а&nbsp;мінімалізм дає комфорт для&nbsp;життя, роботи й&nbsp;відпочинку</i>",
-  "ab.sub": "105&nbsp;юнітів: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
+  "ab.sub": "105&nbsp;юнітів: <a href='#plans' data-fmt='0'>Studio</a> <a href='#plans' data-fmt='1'>1BD</a> <a href='#plans' data-fmt='2'>2BD</a> <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "Про <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Написати нам у&nbsp;WhatsApp",
   "hero.more": "Дізнатися про проєкт",

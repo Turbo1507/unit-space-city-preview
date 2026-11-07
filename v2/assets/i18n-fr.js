@@ -98,7 +98,7 @@ window.I18N.fr = {
   "ab.c1p": "<i class='d-only'>Trois résidences (U1, U2, U3), conçues dans un&nbsp;même style architectural, partagent des équipements communs. Une logistique intelligente et&nbsp;un parking pour véhicules électriques limitent l’impact environnemental et&nbsp;les gaz d’échappement</i><i class='m-only'>Trois résidences, U1, U2 et&nbsp;U3, dans un&nbsp;même style, avec des équipements partagés. Logistique intelligente et&nbsp;bornes de&nbsp;recharge réduisent les émissions et&nbsp;préservent la&nbsp;nature</i>",
   "ab.c1t": "Architecture et&nbsp;nature",
   "ab.text": "<i class='d-only'><i class='ab-l'>Un écosystème de&nbsp;trois quartiers tournés vers la&nbsp;technologie, où l’architecture <i class='nw'>hi-tech</i> rencontre une nature préservée.</i><i class='ab-l'>Un minimalisme réfléchi au&nbsp;service du confort pour vivre, travailler et&nbsp;se reposer</i></i><i class='m-only'>Un écosystème de&nbsp;trois quartiers tournés vers la&nbsp;technologie, où l’architecture <i class='nw'>hi-tech</i> rencontre une nature préservée et un&nbsp;minimalisme réfléchi rend confortables la&nbsp;vie, le&nbsp;travail et le&nbsp;repos</i>",
-  "ab.sub": "105&nbsp;logements&nbsp;: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
+  "ab.sub": "105&nbsp;logements&nbsp;: <a href='#plans' data-fmt='0'>Studio</a> <a href='#plans' data-fmt='1'>1BD</a> <a href='#plans' data-fmt='2'>2BD</a> <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "À&nbsp;propos de <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Nous écrire sur&nbsp;WhatsApp",
   "hero.more": "Découvrir le&nbsp;projet",

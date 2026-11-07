@@ -98,7 +98,7 @@ window.I18N.nl = {
   "ab.c1p": "<i class='d-only'>Drie wooncomplexen (U1, U2, U3), gebouwd in&nbsp;één architectuurstijl, delen gemeenschappelijke voorzieningen. Slimme logistiek en&nbsp;parkeerplaatsen voor elektrische voertuigen houden de&nbsp;milieu-impact laag en&nbsp;beperken uitlaatgassen</i><i class='m-only'>Drie complexen, U1, U2 en&nbsp;U3, in&nbsp;één stijl met gedeelde voorzieningen. Slimme logistiek en&nbsp;parkeren voor EV’s beperken de&nbsp;uitstoot en&nbsp;sparen de&nbsp;natuur</i>",
   "ab.c1t": "Architectuur en&nbsp;natuur",
   "ab.text": "<i class='d-only'><i class='ab-l'>Eén ecosysteem van drie technologische buurten, waar <i class='nw'>hi-tech</i> architectuur de&nbsp;ongerepte natuur ontmoet.</i><i class='ab-l'>Doordacht minimalisme maakt wonen, werken en&nbsp;ontspannen comfortabel</i></i><i class='m-only'>Eén ecosysteem van drie technologische buurten, waar <i class='nw'>hi-tech</i> architectuur de&nbsp;ongerepte natuur ontmoet en&nbsp;doordacht minimalisme wonen, werken en&nbsp;ontspannen comfortabel maakt</i>",
-  "ab.sub": "105&nbsp;units: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
+  "ab.sub": "105&nbsp;units: <a href='#plans' data-fmt='0'>Studio</a> <a href='#plans' data-fmt='1'>1BD</a> <a href='#plans' data-fmt='2'>2BD</a> <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "Over <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Stuur ons een bericht via WhatsApp",
   "hero.more": "Ontdek het project",

@@ -1423,7 +1423,13 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
     var b = btns[+a.getAttribute('data-fmt')]; if (b) setTimeout(function () { b.click(); }, 60);
   });
   function cards() { return [].slice.call(g.children); }
-  function mark(i) { btns.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); }); }
+  function mark(i) { btns.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); }); show(i); }
+  // ряд вкладок шире экрана: активную держим в поле зрения, пока листается лента карточек
+  function show(i) {
+    var b = btns[i]; if (!b || nav.scrollWidth <= nav.clientWidth + 1) return;
+    var p = parseFloat(getComputedStyle(nav).paddingLeft) || 0, l = b.offsetLeft - p, r = b.offsetLeft + b.offsetWidth + p - nav.clientWidth;
+    if (nav.scrollLeft > l) nav.scrollTo({ left: l, behavior: 'smooth' }); else if (nav.scrollLeft < r) nav.scrollTo({ left: r, behavior: 'smooth' });
+  }
   function pad() { return parseFloat(getComputedStyle(g).paddingLeft) || 0; }
   btns.forEach(function (b, i) {
     b.addEventListener('click', function () {
