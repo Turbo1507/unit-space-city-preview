@@ -4,7 +4,7 @@ var lastW = innerWidth, finePtr = window.matchMedia('(pointer: fine)').matches;
 addEventListener('resize', function () { requestAnimationFrame(function () { lastW = innerWidth; }); });
 function onWidth(fn) { addEventListener('resize', function () { if (innerWidth !== lastW) fn(); }); }
 // высота экрана в px: панель Telegram при скролле не дёргает хиро и меню (на десктопе следим и за высотой окна)
-function setVh() { document.documentElement.style.setProperty('--vh', innerHeight / 100 + 'px'); }
+function setVh() { var r = document.documentElement; r.style.setProperty('--vh', innerHeight / 100 + 'px'); r.classList.toggle('vh-700', innerHeight <= 700); }
 setVh();
 addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) setVh(); });
 (function () {

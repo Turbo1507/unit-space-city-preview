@@ -1053,7 +1053,7 @@ i.u5,i.ul{font-style:normal}
 
 /* бенто блока 2 целиком в экран под шапкой */
 @media (min-width:1201px){
-  .ab-bento{height:clamp(600px, calc(100svh - var(--hdr) - 48px), 920px)}
+  .ab-bento{height:clamp(600px, calc(var(--vh)*100 - var(--hdr) - 48px), 920px)}
   .ab-col > .ab-card--photo{flex:1 1 0;min-height:min-content}
   .ab-col > .ab-card--blue{flex:1 1 auto}
   .ab-card--list .ab-tiles li:nth-child(n){min-height:40px;padding:8px var(--s2)}
@@ -1586,7 +1586,8 @@ main .stat-card.stat-card{min-height:0;flex-direction:column-reverse;justify-con
 @media (min-width:1201px) and (max-width:1599px){ .site-header .container{gap:var(--s3)} .site-nav{gap:var(--s2)} }
 
 /* низкий телефон: плашка cookie не должна закрывать кнопки первого экрана */
-@media (max-width:760px) and (max-height:700px){ body.consent-open .hero__content{padding-top:calc(var(--hdr) + var(--s2))} }
+/* не @media по высоте: в Telegram она меняется вместе с панелью; класс vh-700 ставит site.js вместе с --vh */
+@media (max-width:760px){ html.vh-700 body.consent-open .hero__content{padding-top:calc(var(--hdr) + var(--s2))} }
 
 /* чипы карты: подпись комплекса над точкой на узкой карте, Чангу на краю */
 .map-pin--top{flex-direction:column-reverse;gap:4px}
@@ -1656,7 +1657,7 @@ main .stat-card.stat-card{min-height:0;flex-direction:column-reverse;justify-con
   .ab-c__pic{aspect-ratio:auto;min-height:200px}
 }
 @media (min-width:1201px){
-  .ab-bento{height:auto;grid-template-rows:minmax(clamp(600px,calc(100svh - var(--hdr) - 48px),920px),auto) auto}
+  .ab-bento{height:auto;grid-template-rows:minmax(clamp(600px,calc(var(--vh)*100 - var(--hdr) - 48px),920px),auto) auto}
   .ab-bento > .ab-c{grid-area:auto;grid-column:1/-1}
 }
 @media (max-width:640px){ .ab-bento{grid-template-areas:"a" "d" "e" "b" "c"} }
