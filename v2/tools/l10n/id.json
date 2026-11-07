@@ -98,7 +98,7 @@
   "ab.c1p": "<i class='d-only'>Tiga kompleks hunian (U1, U2, U3) dibangun dalam satu gaya arsitektur dan berbagi fasilitas bersama. Logistik cerdas dan parkir kendaraan listrik menekan dampak lingkungan serta mengurangi emisi gas buang</i><i class='m-only'>Tiga kompleks, U1, U2, dan U3, dalam satu gaya arsitektur dengan fasilitas bersama. Logistik cerdas dan parkir kendaraan listrik mengurangi emisi dan menjaga alam sekitarnya</i>",
   "ab.c1t": "Arsitektur dan alam",
   "ab.text": "<i class='d-only'><i class='ab-l'>Satu ekosistem dari tiga kawasan berteknologi maju, tempat arsitektur <i class='nw'>hi-tech</i> berpadu dengan alam yang masih asri.</i><i class='ab-l'>Minimalisme yang matang menghadirkan kenyamanan untuk tinggal, bekerja, dan beristirahat</i></i><i class='m-only'>Satu ekosistem dari tiga kawasan berteknologi maju, tempat arsitektur <i class='nw'>hi-tech</i> berpadu dengan alam asri dan minimalisme menghadirkan kenyamanan untuk tinggal, bekerja, dan beristirahat</i>",
-  "ab.sub": "105&nbsp;unit: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
+  "ab.sub": "105&nbsp;unit: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "Tentang <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Hubungi kami di&nbsp;WhatsApp",
   "hero.more": "Jelajahi proyek",
@@ -175,8 +175,8 @@
   "u3.f2w": "musim dingin",
   "u3.f3": "Luas format,&nbsp;m²",
   "u3.formats": "<b>Format vila:</b> 1BD (60&nbsp;m²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;m²), 2BD (89&nbsp;m²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;m²).<span class=\"nl\">Kemajuan pembangunan: foto bertanggal atas permintaan</span>",
-  "plans.title": "Format vila",
-  "plans.lead": "Dari studio hingga vila dengan kolam renang. Denah lengkap tersedia dalam presentasi, atas permintaan",
+  "plans.title": "Format vila yang tersedia",
+  "plans.lead": "Denah lengkap tersedia dalam presentasi, atas <a href='#lead'>permintaan</a>",
   "cxb.uk": "Perusahaan pengelola sendiri: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
   "cxb.f": "Format vila",
   "cxb.v11p": "1BD&nbsp;+&nbsp;Pool",
@@ -441,7 +441,10 @@
   "unit.more": "Format lainnya",
   "unit.render_note": "U3&nbsp;sedang dibangun, ini render, bukan foto",
   "unit.yield_title": "Imbal hasil vila ini",
-  "unit.yield_lead": "Contoh perhitungan berdasarkan harga vila ini, tarif per malam, dan proyeksi okupansi"
+  "unit.yield_lead": "Contoh perhitungan berdasarkan harga vila ini, tarif per malam, dan proyeksi okupansi",
+  "cxb.f1": "Format vila di&nbsp;U1 Space Village",
+  "cxb.f2": "Format vila di&nbsp;U2 Nuanu Village",
+  "cxb.f3": "Format vila di&nbsp;U3 Nyanyi Village"
  },
  "units": {
   "u1-studio": {

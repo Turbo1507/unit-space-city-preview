@@ -701,6 +701,12 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   /* хиро: фоновое видео; при «меньше движения» стоит на постере */
   var heroVideo = document.querySelector('.hero__video');
   if (heroVideo && matchMedia('(prefers-reduced-motion: reduce)').matches) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
+  /* iPhone в режиме энергосбережения и встроенные браузеры не дают автозапуск: запускаем с первым касанием */
+  else if (heroVideo) {
+    var heroKick = function () { if (!heroVideo.paused) return; var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () { }); };
+    heroVideo.addEventListener('canplay', heroKick, { once: true });
+    ['touchend', 'click', 'keydown'].forEach(function (ev) { window.addEventListener(ev, heroKick, { passive: true, once: true }); });
+  }
 
   /* фото-полосы: кроссфейд с подписью на кадр, авто 5 с, стрелки, пауза при наведении */
   document.querySelectorAll('.photo-band[data-band]').forEach(function (band) {
@@ -954,6 +960,7 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   if (cxbSec) {
     var cxbNav = cxbSec.querySelector('.complex-nav'), cxbTabs = [].slice.call(cxbNav.querySelectorAll('button[data-cxb]'));
     var cxbPanels = cxbTabs.map(function (t) { return document.getElementById(t.getAttribute('data-cxb')); }), cxbCur = 0, cxbNear = false;
+    cxbTabs.forEach(function (t, k) { if (t.getAttribute('aria-selected') === 'true') cxbCur = k; });
     // в ленте на телефоне кадры должны быть готовы до свайпа, но грузим их только у открытого таба и рядом с блоком
     function cxbEager() {
       if (!cxbNear || window.innerWidth > 800) return;
@@ -1155,11 +1162,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; js.onerror = fail; document.head.appendChild(js);
       setTimeout(function () { if (!box.classList.contains('is-live')) fail(); }, 8000);
     }
-    /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж и Tanah Lot — по привязке locmap.svg,
-       Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
+    /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж Nyanyi — контур natural=beach у Luna Beach Club,
+       Tanah Lot — по привязке locmap.svg, Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
     var POI = [
       { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
-      { k: 'loc.m_beach', ll: [115.090328, -8.625027], side: 'l' },
+      { k: 'loc.m_beach', ll: [115.096, -8.6335], side: 'l' },
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
@@ -1410,6 +1417,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
   var nav = document.querySelector('.plb-nav'), g = document.querySelector('.plb-grid');
   if (!nav || !g) return;
   var btns = [].slice.call(nav.querySelectorAll('button')), raf = 0, lock = 0;
+  // ссылки на формат из текста (Studio, 1BD…) ведут к блоку и листают ленту к своей карточке
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-fmt]'); if (!a) return;
+    var b = btns[+a.getAttribute('data-fmt')]; if (b) setTimeout(function () { b.click(); }, 60);
+  });
   function cards() { return [].slice.call(g.children); }
   function mark(i) { btns.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); }); }
   function pad() { return parseFloat(getComputedStyle(g).paddingLeft) || 0; }

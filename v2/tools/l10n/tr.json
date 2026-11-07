@@ -98,7 +98,7 @@
   "ab.c1p": "<i class='d-only'>Aynı mimari tarzda inşa edilen üç konut kompleksi (U1, U2, U3) ortak olanakları paylaşır. Akıllı lojistik ve&nbsp;elektrikli araç otoparkı çevresel etkiyi düşük tutar, egzoz emisyonlarını azaltır</i><i class='m-only'>U1, U2 ve&nbsp;U3: tek mimari tarzda, ortak olanaklı üç kompleks. Akıllı lojistik ve&nbsp;elektrikli araç otoparkı emisyonu azaltır, çevredeki doğayı korur</i>",
   "ab.c1t": "Mimari ve&nbsp;doğa",
   "ab.text": "<i class='d-only'><i class='ab-l'>Teknoloji odaklı üç mahalleden oluşan tek bir ekosistem: burada <i class='nw'>hi-tech</i> mimari el değmemiş doğayla buluşuyor.</i><i class='ab-l'>Özenli minimalizm yaşamaya, çalışmaya ve&nbsp;dinlenmeye konfor katıyor</i></i><i class='m-only'>Teknoloji odaklı üç mahalleden oluşan tek ekosistem: <i class='nw'>hi-tech</i> mimari el değmemiş doğayla buluşuyor, özenli minimalizm yaşama, çalışma ve&nbsp;dinlenmeye konfor katıyor</i>",
-  "ab.sub": "105&nbsp;konut: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
+  "ab.sub": "105&nbsp;konut: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "<i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i> hakkında",
   "wa.aria": "WhatsApp'tan bize yazın",
   "hero.more": "Projeyi keşfedin",
@@ -175,8 +175,8 @@
   "u3.f2w": "kış",
   "u3.f3": "Format alanları,&nbsp;m²",
   "u3.formats": "<b>Villa formatları:</b> 1BD (60&nbsp;m²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;m²), 2BD (89&nbsp;m²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;m²).<span class=\"nl\">İnşaat ilerlemesi: talep üzerine tarihli fotoğraflar</span>",
-  "plans.title": "Villa formatları",
-  "plans.lead": "Stüdyodan havuzlu villaya. Tüm kat planları, talep üzerine gönderdiğimiz sunumda",
+  "plans.title": "Mevcut villa formatları",
+  "plans.lead": "Tüm kat planları, <a href='#lead'>talep</a> üzerine gönderdiğimiz sunumda",
   "cxb.uk": "Kendi yönetim şirketimiz: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
   "cxb.f": "Villa formatları",
   "cxb.v11p": "1BD&nbsp;+&nbsp;Pool",
@@ -441,7 +441,10 @@
   "unit.more": "Diğer formatlar",
   "unit.render_note": "U3&nbsp;inşaat halinde, bunlar fotoğraf değil, görselleştirme",
   "unit.yield_title": "Bu villanın getirisi",
-  "unit.yield_lead": "Bu villanın fiyatı, gecelik kirası ve&nbsp;öngörülen doluluk oranına göre örnek hesap"
+  "unit.yield_lead": "Bu villanın fiyatı, gecelik kirası ve&nbsp;öngörülen doluluk oranına göre örnek hesap",
+  "cxb.f1": "U1 Space Village villa formatları",
+  "cxb.f2": "U2 Nuanu Village villa formatları",
+  "cxb.f3": "U3 Nyanyi Village villa formatları"
  },
  "units": {
   "u1-studio": {

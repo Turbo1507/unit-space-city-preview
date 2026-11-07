@@ -98,7 +98,7 @@
   "ab.c1p": "<i class='d-only'>Tre complessi residenziali (U1, U2, U3), realizzati in&nbsp;un unico stile architettonico, condividono servizi comuni. Logistica intelligente e&nbsp;parcheggi per veicoli elettrici riducono l’impatto ambientale e&nbsp;le emissioni di&nbsp;scarico</i><i class='m-only'>Tre complessi, U1, U2 e&nbsp;U3, in&nbsp;un unico stile con servizi condivisi. Logistica intelligente e&nbsp;parcheggi EV riducono le&nbsp;emissioni e&nbsp;proteggono la&nbsp;natura intorno</i>",
   "ab.c1t": "Architettura e&nbsp;natura",
   "ab.text": "<i class='d-only'><i class='ab-l'>Un unico ecosistema di&nbsp;tre quartieri all’avanguardia, dove l’architettura <i class='nw'>hi-tech</i> incontra la&nbsp;natura incontaminata.</i><i class='ab-l'>Un minimalismo studiato rende confortevole vivere, lavorare e&nbsp;riposare</i></i><i class='m-only'>Un unico ecosistema di&nbsp;tre quartieri all’avanguardia, dove l’architettura <i class='nw'>hi-tech</i> incontra la&nbsp;natura incontaminata e&nbsp;un minimalismo studiato rende confortevole vivere, lavorare e&nbsp;riposare</i>",
-  "ab.sub": "105&nbsp;unità: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
+  "ab.sub": "105&nbsp;unità: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "Il&nbsp;progetto <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Scriverci su&nbsp;WhatsApp",
   "hero.more": "Scoprire il&nbsp;progetto",
@@ -175,8 +175,8 @@
   "u3.f2w": "inverno",
   "u3.f3": "Superfici dei formati,&nbsp;m²",
   "u3.formats": "<b>Formati delle ville:</b> 1BD (60&nbsp;m²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;m²), 2BD (89&nbsp;m²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;m²).<span class=\"nl\">Avanzamento lavori: foto datate su&nbsp;richiesta</span>",
-  "plans.title": "Formati delle ville",
-  "plans.lead": "Dallo studio alla villa con piscina. Il&nbsp;set completo di&nbsp;planimetrie è&nbsp;nella presentazione, su&nbsp;richiesta",
+  "plans.title": "Formati delle ville disponibili",
+  "plans.lead": "Il&nbsp;set completo di&nbsp;planimetrie è&nbsp;nella presentazione, su&nbsp;<a href='#lead'>richiesta</a>",
   "cxb.uk": "Società di&nbsp;gestione interna: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
   "cxb.f": "Formati delle ville",
   "cxb.v11p": "1BD&nbsp;+&nbsp;Pool",
@@ -441,7 +441,10 @@
   "unit.more": "Altri formati",
   "unit.render_note": "U3&nbsp;è&nbsp;in costruzione: sono render, non foto",
   "unit.yield_title": "Rendimento di&nbsp;questa villa",
-  "unit.yield_lead": "Calcolo di&nbsp;esempio basato su&nbsp;prezzo, tariffa per notte e&nbsp;occupazione prevista di&nbsp;questa villa"
+  "unit.yield_lead": "Calcolo di&nbsp;esempio basato su&nbsp;prezzo, tariffa per notte e&nbsp;occupazione prevista di&nbsp;questa villa",
+  "cxb.f1": "Formati delle ville a&nbsp;U1 Space Village",
+  "cxb.f2": "Formati delle ville a&nbsp;U2 Nuanu Village",
+  "cxb.f3": "Formati delle ville a&nbsp;U3 Nyanyi Village"
  },
  "units": {
   "u1-studio": {

@@ -279,3 +279,34 @@ main .sect.sect--alt + .sect.sect--alt[id]{scroll-margin-top:calc(var(--hdr) + 2
 
 /* пока следующий кадр не загрузился, под ним тёмный фон, а не белая вспышка */
 .photo-band[data-band]{background:var(--ink)}
+
+/* правки чата 08.11 */
+/* блок 2: зоны UNIT белыми карточками, фото вписано в карточку */
+.cp-infra__list li{padding:var(--s1);border-radius:var(--r);background:var(--white);color:var(--ink)}
+#concept .cp-infra__list picture{border-radius:var(--r-s)}
+.cp-z{padding:12px 0 4px}
+@media (max-width:760px){ .cp-z{padding:8px 0 0} }
+/* строка форматов: ссылки к карточкам */
+.ab-sub a,#plans .sect-head a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.ab-sub a:hover,#plans .sect-head a:hover{text-decoration-thickness:2px}
+#concept .ab-sub{margin-top:var(--s2)}
+@media (min-width:1101px){ #concept .ab-sub{margin-top:var(--s1)} }
+/* Nuanu одной белой карточкой, фото внутри */
+@media (max-width:1100px){
+  .cp-nuanu{gap:var(--s2);padding:var(--s1);border-radius:var(--r);background:var(--white)}
+  .cp-nuanu__body{padding:var(--s2);border-radius:0;background:none}
+  .cp-nuanu__pic{border-radius:var(--r-s)}
+}
+@media (max-width:760px){
+  .cp-nuanu{gap:0}
+  .cp-nuanu__body{padding:var(--s2) var(--s1) var(--s1)}
+}
+/* карточка формата: название и комплекс синим, цена чёрным */
+#plans .plb .fmt-card__name,#plans .plb__meta span:last-child{color:var(--blue)}
+#plans .plb .product-card__price{color:var(--ink)}
+/* вкладка «3BD Villa + Pool» переносится на вторую строку */
+.plb-nav button{white-space:normal}
+/* без системной кнопки «play» поверх видео первого экрана */
+.hero__video::-webkit-media-controls,.hero__video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+/* строка форматов под подзаголовком, пока подзаголовок в шапке блока */
+@media (max-width:1100px){ #concept .ab-head{grid-template-areas:"t" "x" "s"} }

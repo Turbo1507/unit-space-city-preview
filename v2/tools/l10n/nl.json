@@ -98,7 +98,7 @@
   "ab.c1p": "<i class='d-only'>Drie wooncomplexen (U1, U2, U3), gebouwd in&nbsp;één architectuurstijl, delen gemeenschappelijke voorzieningen. Slimme logistiek en&nbsp;parkeerplaatsen voor elektrische voertuigen houden de&nbsp;milieu-impact laag en&nbsp;beperken uitlaatgassen</i><i class='m-only'>Drie complexen, U1, U2 en&nbsp;U3, in&nbsp;één stijl met gedeelde voorzieningen. Slimme logistiek en&nbsp;parkeren voor EV’s beperken de&nbsp;uitstoot en&nbsp;sparen de&nbsp;natuur</i>",
   "ab.c1t": "Architectuur en&nbsp;natuur",
   "ab.text": "<i class='d-only'><i class='ab-l'>Eén ecosysteem van drie technologische buurten, waar <i class='nw'>hi-tech</i> architectuur de&nbsp;ongerepte natuur ontmoet.</i><i class='ab-l'>Doordacht minimalisme maakt wonen, werken en&nbsp;ontspannen comfortabel</i></i><i class='m-only'>Eén ecosysteem van drie technologische buurten, waar <i class='nw'>hi-tech</i> architectuur de&nbsp;ongerepte natuur ontmoet en&nbsp;doordacht minimalisme wonen, werken en&nbsp;ontspannen comfortabel maakt</i>",
-  "ab.sub": "105&nbsp;units: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
+  "ab.sub": "105&nbsp;units: <a href='#plans' data-fmt='0'>Studio</a>, <a href='#plans' data-fmt='1'>1BD</a>, <a href='#plans' data-fmt='2'>2BD</a>, <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
   "ab.title": "Over <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
   "wa.aria": "Stuur ons een bericht via WhatsApp",
   "hero.more": "Ontdek het project",
@@ -175,8 +175,8 @@
   "u3.f2w": "winter",
   "u3.f3": "Oppervlakte,&nbsp;m²",
   "u3.formats": "<b>Villatypes:</b> 1BD (60&nbsp;m²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;m²), 2BD (89&nbsp;m²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;m²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;m²).<span class=\"nl\">Voortgang van de&nbsp;bouw: gedateerde foto’s op&nbsp;aanvraag</span>",
-  "plans.title": "Villatypes",
-  "plans.lead": "Van een studio tot een villa met zwembad. Alle plattegronden ontvangt u op&nbsp;aanvraag in&nbsp;de&nbsp;presentatie",
+  "plans.title": "Beschikbare villatypes",
+  "plans.lead": "Alle plattegronden ontvangt u op&nbsp;<a href='#lead'>aanvraag</a> in&nbsp;de&nbsp;presentatie",
   "cxb.uk": "Eigen beheerbedrijf: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
   "cxb.f": "Villatypes",
   "cxb.v11p": "1BD&nbsp;+&nbsp;Pool",
@@ -441,7 +441,10 @@
   "unit.more": "Andere types",
   "unit.render_note": "U3&nbsp;is in&nbsp;aanbouw, dit zijn renders, geen foto’s",
   "unit.yield_title": "Rendement van deze villa",
-  "unit.yield_lead": "Voorbeeldberekening op&nbsp;basis van de&nbsp;prijs, het nachttarief en de&nbsp;verwachte bezetting van deze villa"
+  "unit.yield_lead": "Voorbeeldberekening op&nbsp;basis van de&nbsp;prijs, het nachttarief en de&nbsp;verwachte bezetting van deze villa",
+  "cxb.f1": "Villatypes in&nbsp;U1 Space Village",
+  "cxb.f2": "Villatypes in&nbsp;U2 Nuanu Village",
+  "cxb.f3": "Villatypes in&nbsp;U3 Nyanyi Village"
  },
  "units": {
   "u1-studio": {
