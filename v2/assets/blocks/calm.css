@@ -310,3 +310,5 @@ main .sect.sect--alt + .sect.sect--alt[id]{scroll-margin-top:calc(var(--hdr) + 2
 .hero__video::-webkit-media-controls,.hero__video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
 /* строка форматов под подзаголовком, пока подзаголовок в шапке блока */
 @media (max-width:1100px){ #concept .ab-head{grid-template-areas:"t" "x" "s"} }
+/* цена в карточке формата того же размера, что название */
+#plans .plb .product-card__price{font-size:var(--fs-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
