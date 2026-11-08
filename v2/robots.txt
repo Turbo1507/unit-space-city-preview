@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://turbo1507.github.io/unit-space-city-preview/v2/sitemap.xml
+Disallow: /tools/
+
+Sitemap: https://unitspace.city/sitemap.xml

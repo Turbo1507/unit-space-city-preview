@@ -1,0 +1,32 @@
+# UNIT. SPACE CITY
+
+> Three UNIT.SPACE residential complexes next to Nuanu, Bali: 105 villas and studios, three minutes to the ocean, rental yield from 10% a year. Direct from the developer, UNIT.SPACE.
+
+Three residential complexes on Jalan Pantai Nyanyi, Beraban, Tabanan, Bali, next to Nuanu Creative City and 3 minutes from Nyanyi beach: U1 Space Village (completed 2024), U2 Nuanu Village (completed 2026) and U3 Nyanyi Village (under construction). Developer: UNIT (https://unitdeveloper.com/). Prices are shown in IDR by default, the header has a currency switch. The site is available in 9 languages: en, ru, id, fr, es, uk, it, tr, nl; English is at the root, other languages under /<code>/.
+
+## Main pages
+- [Home](https://unitspace.city/): complexes, formats and prices, amenities, location, FAQ and the request form
+- [Home, ru](https://unitspace.city/ru/)
+- [Home, id](https://unitspace.city/id/)
+- [Home, fr](https://unitspace.city/fr/)
+- [Home, es](https://unitspace.city/es/)
+- [Home, uk](https://unitspace.city/uk/)
+- [Home, it](https://unitspace.city/it/)
+- [Home, tr](https://unitspace.city/tr/)
+- [Home, nl](https://unitspace.city/nl/)
+
+## Formats
+- [Studio 54.2 m², U1 Space Village](https://unitspace.city/units/u1-studio.html): Studio 54.2 m² in U1 Space Village (next to Nuanu), completed 2024, occupied. From $95,000. Direct from the developer, UNIT.SPACE.
+- [2+1 bedrooms 89 m², U1 Space Village](https://unitspace.city/units/u1-2bd.html): 2+1 bedrooms 89 m² in U1 Space Village (next to Nuanu), completed 2024, occupied. From $170,000. Direct from the developer, UNIT.SPACE.
+- [Studio 39 m², U2 Nuanu Village](https://unitspace.city/units/u2-studio.html): Studio 39 m² in U2 Nuanu Village (next to Nuanu), completed 2026, occupied. From $95,000. Direct from the developer, UNIT.SPACE.
+- [1BD 56.5–62 m², U2 Nuanu Village](https://unitspace.city/units/u2-1bd.html): 1BD 56.5–62 m² in U2 Nuanu Village (next to Nuanu), completed 2026, occupied. From $114,000. Direct from the developer, UNIT.SPACE.
+- [2BD 89–110 m², U2 Nuanu Village](https://unitspace.city/units/u2-2bd.html): 2BD 89–110 m² in U2 Nuanu Village (next to Nuanu), completed 2026, occupied. From $170,000. Direct from the developer, UNIT.SPACE.
+- [3BD Villa + Pool 185.8 m², U2 Nuanu Village](https://unitspace.city/units/u2-villa.html): 3BD Villa + Pool 185.8 m² in U2 Nuanu Village (next to Nuanu), completed 2026, occupied. From $287,000. Direct from the developer, UNIT.SPACE.
+- [1BD 60 m², U3 Nyanyi Village](https://unitspace.city/units/u3-1bd.html): 1BD 60 m² in U3 Nyanyi Village (Nyanyi village, closer to the ocean), under construction, handover winter 2026. From $132,000. Direct from the developer, UNIT.SPACE.
+- [1+1 with pool 100 m², U3 Nyanyi Village](https://unitspace.city/units/u3-1bd-pool.html): 1+1 with pool 100 m² in U3 Nyanyi Village (Nyanyi village, closer to the ocean), under construction, handover winter 2026. From $114,000. Direct from the developer, UNIT.SPACE.
+- [2+1 with pool 109 m², U3 Nyanyi Village](https://unitspace.city/units/u3-2bd-pool.html): 2+1 with pool 109 m² in U3 Nyanyi Village (Nyanyi village, closer to the ocean), under construction, handover winter 2026. From $170,000. Direct from the developer, UNIT.SPACE.
+- [3+1 villa with pool 200 m², U3 Nyanyi Village](https://unitspace.city/units/u3-villa.html): 3+1 villa with pool 200 m² in U3 Nyanyi Village (Nyanyi village, closer to the ocean), under construction, handover winter 2026. From $287,000. Direct from the developer, UNIT.SPACE.
+
+## Other
+- [Privacy policy](https://unitspace.city/privacy.html)
+- [Sitemap](https://unitspace.city/sitemap.xml)

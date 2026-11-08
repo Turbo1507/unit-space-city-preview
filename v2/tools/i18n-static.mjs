@@ -1,6 +1,6 @@
 // Общее для build-en.mjs и build-units.mjs: применить словарь к статической разметке
 // (паттерн build-ru.mjs с БСО) и собрать <head>-блок языка: canonical + hreflang + lang в localStorage.
-export const BASE = 'https://turbo1507.github.io/unit-space-city-preview/v2/';
+export const BASE = 'https://unitspace.city/';
 
 export function applyDict(html, dict) {
   html = html.replace(/(<([a-zA-Z0-9]+)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>)([\s\S]*?)(<\/\2>)/g,
@@ -174,10 +174,11 @@ import { fileURLToPath } from 'node:url';
 const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export function assetVersion() {
   const h = createHash('md5');
-  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'lots.js', 'countries.js', ...LANGS.map((l) => `i18n-${l}.js`)]) if (fs.existsSync(path.join(_root, 'assets', f))) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
+  const blocks = fs.existsSync(path.join(_root, 'assets', 'blocks')) ? fs.readdirSync(path.join(_root, 'assets', 'blocks')).filter((f) => f.endsWith('.css')).sort().map((f) => 'blocks/' + f) : [];
+  for (const f of ['site.css', 'site.js', 'i18n.js', 'units.js', 'lots.js', 'countries.js', ...LANGS.map((l) => `i18n-${l}.js`), ...blocks]) if (fs.existsSync(path.join(_root, 'assets', f))) h.update(fs.readFileSync(path.join(_root, 'assets', f)));
   return h.digest('hex').slice(0, 8);
 }
 export function stamp(html) {
   const v = assetVersion();
-  return html.replace(/(assets\/(?:site\.css|site\.js|i18n(?:-[a-z]{2})?\.js|units\.js|lots\.js|countries\.js))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
+  return html.replace(/(assets\/(?:site\.css|site\.js|i18n(?:-[a-z]{2})?\.js|units\.js|lots\.js|countries\.js|blocks\/[a-z0-9-]+\.css))(\?v=[0-9a-f]+)?/g, `$1?v=${v}`);
 }
