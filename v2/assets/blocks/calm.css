@@ -337,3 +337,25 @@ main .sect.sect--alt + .sect.sect--alt[id]{scroll-margin-top:calc(var(--hdr) + 2
   #concept .ab-sub{flex-wrap:wrap}
   #concept .ab-sub a{padding:0 12px;white-space:nowrap}
 }
+
+/* блок 2 на телефоне: одна лестница отступов. Текст везде в 16 от края карточки, группы разведены сильнее, чем элементы внутри */
+@media (max-width:760px){
+  #concept .ab-sub{margin-top:var(--s3)}
+  .cp-infra{margin-top:var(--s5)}
+  .cp-nuanu{margin-top:var(--s3)}
+  .cp-infra__list li{padding-bottom:var(--s2)}
+  .cp-z{padding:var(--s1) var(--s1) 0}
+}
+/* телефон: «105 юнитов» с форматами отдельной белой карточкой, чипы в ней серые */
+@media (max-width:760px){
+  #concept .ab-sub{padding:var(--s2);border-radius:var(--r);background:var(--white)}
+  #concept .ab-sub a{background:var(--paper)}
+}
+/* стат-плитки комплекса: цифры в ряду на одной линии, подпись прижата к своей цифре, без пустоты между ними */
+.cx-card .cxb__stats > div{justify-content:flex-end}
+/* блок 2, иерархия отступов на всех ширинах: заголовок→свой текст 16, между элементами одной группы 24, между смысловыми группами 40 */
+#concept .cp-text{margin-top:0}
+#concept .ab-sub{margin-top:var(--s3)}
+@media (min-width:1101px){ #concept .ab-sub{margin-top:0} }
+@media (max-width:760px){ .cp-nuanu{margin-top:var(--s5)} }
+@media (min-width:761px) and (max-width:1100px){ .cp-infra,.cp-nuanu{margin-top:var(--s5)} }

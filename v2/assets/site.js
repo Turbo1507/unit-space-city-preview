@@ -1162,11 +1162,11 @@ addEventListener('resize', function () { if (finePtr || innerWidth !== lastW) se
       var js = document.createElement('script'); js.src = LIB + 'js'; js.onload = build; js.onerror = fail; document.head.appendChild(js);
       setTimeout(function () { if (!box.classList.contains('is-live')) fail(); }, 8000);
     }
-    /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж Nyanyi — контур natural=beach у Luna Beach Club,
+    /* точки из чипов расстояний + Nuanu; координаты из OSM: пляж Nyanyi — на кромке океана из тайлов карты,
        Tanah Lot — по привязке locmap.svg, Nuanu — центр контура way 1349928560, Canggu — точка района в Nominatim. side — куда смотрит подпись */
     var POI = [
       { k: 'loc.m_nuanu', ll: [115.097499, -8.628463], side: 'l' },
-      { k: 'loc.m_beach', ll: [115.096, -8.6335], side: 'l' },
+      { k: 'loc.m_beach', ll: [115.097159, -8.632821], side: 'l' },
       { k: 'loc.m_tanah', ll: [115.086886, -8.621204], side: 'l' },
       { k: 'loc.m_canggu', ll: [115.143605, -8.639903], side: 'r', far: true, up: true }
     ];
