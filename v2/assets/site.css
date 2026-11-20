@@ -1223,8 +1223,11 @@ i,em{font-style:normal}
 
 /* футер: меню сайта первой колонкой */
 .foot-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (min-width:1201px){ .foot-grid:has(> :nth-child(6)){grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (min-width:1600px){ .foot-grid:has(> :nth-child(6)){grid-template-columns:repeat(6,minmax(0,1fr))} }
 @media (max-width:1200px){ .foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
 .site-footer .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s1)}
+.site-footer .foot-grid li.foot-wide{grid-column:1 / -1}
 .site-footer .foot-grid ul a{color:#fff;text-decoration:none}
 .site-footer .foot-grid ul a:hover{color:rgba(255,255,255,.7)}
 @media (max-width:1000px){ .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }

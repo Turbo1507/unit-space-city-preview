@@ -12,6 +12,10 @@
    "en": "Get in&nbsp;touch",
    "ru": "Связь"
   },
+  "foot.projects": {
+   "en": "UNIT. projects",
+   "ru": "Проекты UNIT."
+  },
   "foot.menu": {
    "en": "Menu",
    "ru": "Меню"
@@ -261,8 +265,8 @@
    "ru": "Купель"
   },
   "own.6": {
-   "en": "Workout area",
-   "ru": "Зона для&nbsp;тренировок"
+   "en": "Gym",
+   "ru": "Тренажёрный зал"
   },
   "own.7": {
    "en": "Shared courtyard with a&nbsp;pool",
@@ -285,8 +289,8 @@
    "ru": "Бамбуковый свод павильона Nuanu"
   },
   "cxb.n1": {
-   "en": "Fully furnished; on-site café, coworking, sauna and&nbsp;cold plunge pool",
-   "ru": "Полная меблировка; кафе, коворкинг, сауна и&nbsp;cold plunge внутри квартала"
+   "en": "Fully furnished, with a&nbsp;café, coworking, sauna and&nbsp;plunge tub on&nbsp;site",
+   "ru": "Виллы полностью меблированы, в&nbsp;квартале кафе, коворкинг, сауна и&nbsp;купель"
   },
   "cxb.n2": {
    "en": "All units except the&nbsp;Studio have a&nbsp;separate kitchen and&nbsp;living area",
@@ -393,8 +397,8 @@
    "ru": "<i class='d-only'><i class='ab-l'>Единая экосистема из&nbsp;трёх технологичных кварталов, в&nbsp;которой <i class='nw'>hi-tech</i> архитектура встречается с&nbsp;нетронутой природой.</i><i class='ab-l'>Продуманный минимализм обеспечивает комфорт жизни, работы и&nbsp;отдыха</i></i><i class='m-only'>Единая экосистема из&nbsp;трёх технологичных кварталов, где <i class='nw'>hi-tech</i> архитектура встречается с&nbsp;нетронутой природой, а&nbsp;продуманный минимализм даёт комфорт жизни, работы и&nbsp;отдыха</i>"
   },
   "ab.sub": {
-   "en": "105&nbsp;units: Studio, 1BD, 2BD, 3BD&nbsp;Villa",
-   "ru": "105&nbsp;юнитов: Studio, 1BD, 2BD, 3BD&nbsp;Villa"
+   "en": "105&nbsp;units: <a href='#plans' data-fmt='0'>Studio</a> <a href='#plans' data-fmt='1'>1BD</a> <a href='#plans' data-fmt='2'>2BD</a> <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>",
+   "ru": "105&nbsp;юнитов: <a href='#plans' data-fmt='0'>Studio</a> <a href='#plans' data-fmt='1'>1BD</a> <a href='#plans' data-fmt='2'>2BD</a> <a href='#plans' data-fmt='3'>3BD&nbsp;Villa</a>"
   },
   "ab.title": {
    "en": "About <i class=\"ul\"><i class=\"u5\">UNIT.</i>&nbsp;SPACE&nbsp;CITY</i>",
@@ -701,12 +705,12 @@
    "ru": "<b>Форматы вилл:</b> 1BD (60&nbsp;м²), 1BD&nbsp;+&nbsp;Pool (100&nbsp;м²), 2BD (89&nbsp;м²), 2BD&nbsp;+&nbsp;Pool (109&nbsp;м²), 3BD&nbsp;Villa&nbsp;+&nbsp;Pool (200&nbsp;м²).<span class=\"nl\">Прогресс стройки: фото по&nbsp;датам, по&nbsp;запросу</span>"
   },
   "plans.title": {
-   "en": "Villa formats",
-   "ru": "Форматы вилл"
+   "en": "Available villa formats",
+   "ru": "Доступные форматы вилл"
   },
   "plans.lead": {
-   "en": "From a&nbsp;studio to a&nbsp;villa with a&nbsp;pool. The&nbsp;full set of&nbsp;floor plans is in the&nbsp;presentation, on&nbsp;request",
-   "ru": "От&nbsp;студии до&nbsp;виллы с&nbsp;бассейном. Полный пакет планировок пришлём в&nbsp;презентации по&nbsp;запросу"
+   "en": "The&nbsp;full set of&nbsp;floor plans is in the&nbsp;presentation, on&nbsp;<a href='#lead'>request</a>",
+   "ru": "Полный пакет планировок пришлём в&nbsp;презентации по&nbsp;<a href='#lead'>запросу</a>"
   },
   "cxb.uk": {
    "en": "In-house management company: <i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i>",
@@ -715,6 +719,18 @@
   "cxb.f": {
    "en": "Villa formats",
    "ru": "Форматы вилл"
+  },
+  "cxb.f1": {
+   "en": "Villa formats in&nbsp;U1 Space Village",
+   "ru": "Форматы вилл в&nbsp;U1 Space Village"
+  },
+  "cxb.f2": {
+   "en": "Villa formats in&nbsp;U2 Nuanu Village",
+   "ru": "Форматы вилл в&nbsp;U2 Nuanu Village"
+  },
+  "cxb.f3": {
+   "en": "Villa formats in&nbsp;U3 Nyanyi Village",
+   "ru": "Форматы вилл в&nbsp;U3 Nyanyi Village"
   },
   "cxb.v11p": {
    "en": "1BD&nbsp;+&nbsp;Pool",
@@ -1365,8 +1381,8 @@
    "ru": "Виллы продаются напрямую от&nbsp;застройщика?"
   },
   "faq.1a": {
-   "en": "Yes, we&nbsp;work without brokers or&nbsp;intermediaries, which means the&nbsp;best price and a&nbsp;transparent deal",
-   "ru": "Да, мы&nbsp;работаем без&nbsp;брокеров и&nbsp;посредников, что гарантирует лучшую цену и&nbsp;прозрачность сделки"
+   "en": "Yes, with no&nbsp;brokers or&nbsp;intermediaries. You sign directly with the&nbsp;developer",
+   "ru": "Да, без&nbsp;брокеров и&nbsp;посредников. Договор заключаете напрямую с&nbsp;застройщиком"
   },
   "faq.2q": {
    "en": "Is the&nbsp;“from 10%” yield before or&nbsp;after tax?",
@@ -1382,7 +1398,7 @@
   },
   "faq.3a": {
    "en": "Yes, villas in&nbsp;U3, which is&nbsp;under construction, can be resold during the&nbsp;build",
-   "ru": "Да, для&nbsp;строящегося комплекса U3&nbsp;предусмотрена возможность перепродажи на&nbsp;этапе строительства"
+   "ru": "Да, виллу в&nbsp;строящемся U3&nbsp;можно перепродать до&nbsp;сдачи"
   },
   "faq.4q": {
    "en": "What does management by&nbsp;<i class='ul'><i class='u5'>UNIT.</i>SPACE MANAGEMENT</i> include?",
@@ -1393,12 +1409,12 @@
    "ru": "Полный цикл: заселение, уборка, техобслуживание, управление каналами бронирования и&nbsp;финансовая отчётность"
   },
   "faq.5q": {
-   "en": "When exactly will U3&nbsp;Nyanyi Village be completed?",
-   "ru": "Какие точные сроки сдачи комплекса U3&nbsp;Nyanyi Village?"
+   "en": "When will U3&nbsp;Nyanyi&nbsp;Village be completed?",
+   "ru": "Когда сдаётся U3&nbsp;Nyanyi&nbsp;Village?"
   },
   "faq.5a": {
-   "en": "Completion is&nbsp;scheduled for&nbsp;winter 2026",
-   "ru": "Сдача комплекса запланирована на&nbsp;зиму 2026&nbsp;года"
+   "en": "In&nbsp;winter 2026",
+   "ru": "Зимой 2026&nbsp;года"
   },
   "faq.6q": {
    "en": "What currency do I pay in, and&nbsp;are instalments available?",
@@ -1406,23 +1422,23 @@
   },
   "faq.6a": {
    "en": "We&nbsp;accept USD and&nbsp;other currencies with conversion. Developer instalments are available",
-   "ru": "Мы&nbsp;принимаем оплату в&nbsp;USD и&nbsp;других валютах с&nbsp;пересчётом. Доступна рассрочка от&nbsp;застройщика"
+   "ru": "Принимаем USD и&nbsp;другие валюты по&nbsp;курсу. Есть рассрочка от&nbsp;застройщика"
   },
   "faq.7q": {
    "en": "What type of&nbsp;ownership: leasehold or&nbsp;freehold?",
    "ru": "Какой тип собственности: leasehold или&nbsp;freehold?"
   },
   "faq.7a": {
-   "en": "It depends on the&nbsp;villa and the&nbsp;deal structure. We&nbsp;provide full legal support to&nbsp;choose the&nbsp;best option",
-   "ru": "Зависит от&nbsp;конкретной виллы и&nbsp;структуры сделки. Мы&nbsp;предоставляем полную юридическую поддержку для&nbsp;выбора оптимального варианта"
+   "en": "It depends on the&nbsp;villa and the&nbsp;deal structure. Our lawyers help you choose and&nbsp;handle the&nbsp;deal end to&nbsp;end",
+   "ru": "Зависит от&nbsp;виллы и&nbsp;структуры сделки. Наши юристы помогут выбрать вариант и&nbsp;сопроводят сделку"
   },
   "faq.8q": {
-   "en": "What does the&nbsp;purchase and&nbsp;booking process look like?",
-   "ru": "Как выглядит процесс покупки и&nbsp;бронирования виллы?"
+   "en": "Can I buy a&nbsp;villa without flying to&nbsp;Bali?",
+   "ru": "Можно купить виллу, не&nbsp;прилетая на&nbsp;Бали?"
   },
   "faq.8a": {
-   "en": "Every step, including signing documents via DocuSign, can be completed remotely, without visiting Bali",
-   "ru": "Все этапы, включая подписание документов через DocuSign, можно пройти дистанционно, без&nbsp;личного визита на&nbsp;Бали"
+   "en": "Yes. Every step, including signing documents via DocuSign, is&nbsp;done remotely",
+   "ru": "Да. Все этапы, включая подписание документов через DocuSign, проходят дистанционно"
   },
   "lead.title": {
    "en": "Get the&nbsp;presentation for&nbsp;<span class='accent'><i class='ul'><i class='u5'>UNIT.</i>&nbsp;SPACE&nbsp;CITY</i></span> villas in&nbsp;Bali",
