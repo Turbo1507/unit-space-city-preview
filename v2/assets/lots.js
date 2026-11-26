@@ -32,8 +32,10 @@ window.USC_LOTS = [
   {"id":"U2.V7","q":"u2","fmt":"villa","slug":"u2-villa","area":185.8,"price":330000,"lvl":1},
   {"id":"U3.27","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":132000,"lvl":2},
   {"id":"U3.29","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":135000,"lvl":2},
+  {"id":"U3.39","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":137000,"lvl":1},
   {"id":"U3.38","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":138000,"lvl":1},
   {"id":"U3.41","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":145000,"lvl":1},
   {"id":"U3.24","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":149000,"lvl":2},
-  {"id":"U3.33","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":149000,"lvl":1}
+  {"id":"U3.33","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":149000,"lvl":1},
+  {"id":"U3.44","q":"u3","fmt":"1bd","slug":"u3-1bd","area":60,"price":162000,"lvl":1}
 ];
